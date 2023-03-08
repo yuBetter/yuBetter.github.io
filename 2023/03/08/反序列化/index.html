@@ -1,0 +1,934 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keywords" content="Hexo Theme Redefine">
+    <meta name="description" content="Hexo Theme Redefine">
+    <meta name="author" content="yuBetter">
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-redefine.png">
+    <!--- Seo Part-->
+    
+    <link rel="canonical" href="https://example.com/2023/03/08/反序列化/"/>
+    <meta name="robots" content="index,follow">
+    <meta name="googlebot" content="index,follow">
+    <meta name="revisit-after" content="1 days">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="反序列化">
+    <meta property="og:description" content="Hexo Theme Redefine">
+    <meta property="og:url" content="https://example.com2023/03/08/反序列化/">
+    <meta property="og:image" content="/images/yubetter-logon.svg">
+    <meta property="og:site_name" content="Yu&#39;s Blog">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="反序列化">
+    <meta name="twitter:description" content="Hexo Theme Redefine">
+    <meta name="twitter:image" content="/images/yubetter-logon.svg">
+    <!--- Icon Part-->
+    <link rel="icon" type="image/png" href="/images/yubetter-logon.svg" sizes="192x192">
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/yubetter-logon.svg">
+    <meta name="theme-color" content="#005080">
+    <link rel="shortcut icon" href="/images/yubetter-logon.svg">
+    
+    <title>
+        
+            反序列化 -
+        
+        Yu&#39;s Blog
+    </title>
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    
+<link rel="stylesheet" href="/assets/fonts.css">
+
+    
+    
+    
+    
+    <script id="hexo-configurations">
+    let REDEFINE = window.REDEFINE || {};
+    REDEFINE.hexo_config = {"hostname":"example.com","root":"/","language":"en","path":"search.xml"};
+    REDEFINE.theme_config = {"toc":{"enable":true,"number":false,"expand_all":true,"init_open":true},"style":{"primary_color":"#005080","avatar":"/images/yubetter.svg","favicon":"/images/yubetter-logon.svg","article_img_align":"center","right_side_width":"210px","content_max_width":"1000px","nav_color":{"left":"#f78736","right":"#367df7","transparency":35},"hover":{"shadow":true,"scale":true},"first_screen":{"enable":true,"background_image":{"light":"https://evan.beee.top/img/wallhaven-wqery6-light.webp","dark":"https://evan.beee.top/img/wallhaven-wqery6-dark.webp"},"title_color":{"light":"#fff","dark":"#d1d1b6"},"description":"Theme Redefine","custom_font":{"enable":false,"font_family":null,"font_url":null}},"scroll":{"progress_bar":{"enable":true},"percent":{"enable":false}}},"local_search":{"enable":true,"preload":true},"code_block":{"copy":true,"style":"mac","custom_font":{"enable":false,"font_family":null,"font_url":null}},"pjax":{"enable":true},"lazyload":{"enable":true},"version":"1.1.6","friend_links":{"columns":2},"home_article":{"date_format":"auto","category":{"enable":true,"limit":3},"tag":{"enable":true,"limit":3}},"plugins":{"aplayer":{"enable":false,"audio":[{"name":null,"artist":null,"url":null,"cover":null},{"name":null,"artist":null,"url":null,"cover":null}]}}};
+    REDEFINE.language_ago = {"second":"%s seconds ago","minute":"%s minutes ago","hour":"%s hours ago","day":"%s days ago","week":"%s weeks ago","month":"%s months ago","year":"%s years ago"};
+  </script>
+    
+    
+<link rel="stylesheet" href="/fontawesome/fontawesome.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/brands.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/solid.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/regular.min.css">
+
+    
+    
+    
+    
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+        <span class="scroll-progress-bar"></span>
+    
+
+    
+        <span class="pjax-progress-bar"></span>
+        <span class="pjax-progress-icon">
+            <i class="fa-solid fa-circle-notch fa-spin"></i>
+        </span>
+    
+</div>
+
+
+<main class="page-container">
+
+    
+
+    <div class="page-main-content">
+
+        <div class="page-main-content-top">
+            <header class="menu-wrapper">
+    
+    <div class="menu-content">
+        <div class="left">
+            
+            <a class="logo-title" href="/">
+                
+                Yu&#39;s Blog
+                
+            </a>
+        </div>
+
+        <div class="right">
+            <!-- PC -->
+            <div class="pc">
+                <ul class="menu-list">
+                    
+                        
+                            <li class="menu-item">
+                                <!-- Menu -->
+                                <a class="" 
+                                    href="/"  >
+                                    
+                                        
+                                            <i class="fa-regular fa-house"></i>
+                                        
+                                        HOME
+                                    
+                                </a>
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            <li class="menu-item">
+                                <!-- Menu -->
+                                <a class="" 
+                                    href="/archives"  >
+                                    
+                                        
+                                            <i class="fa-regular fa-archive"></i>
+                                        
+                                        ARCHIVES
+                                    
+                                </a>
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                    
+                        <li class="menu-item search search-popup-trigger">
+                            <i class="fa-solid fa-magnifying-glass"></i>
+                        </li>
+                    
+                </ul>
+            </div>
+            <!-- Mobile -->
+            <div class="mobile">
+                
+                    <div class="icon-item search search-popup-trigger"><i class="fa-solid fa-magnifying-glass"></i></div>
+                
+                <div class="icon-item menu-bar">
+                    <div class="menu-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile drawer -->
+    <div class="menu-drawer">
+        <ul class="drawer-menu-list">
+            
+                
+                    <li class="drawer-menu-item flex-center">
+                        <a class="" 
+                        href="/"  >
+                             
+                                
+                                    <i class="fa-regular fa-house"></i>
+                                
+                                HOME
+                            
+                        </a>
+                    </li>
+                    <!-- Submenu -->
+                    
+            
+                
+                    <li class="drawer-menu-item flex-center">
+                        <a class="" 
+                        href="/archives"  >
+                             
+                                
+                                    <i class="fa-regular fa-archive"></i>
+                                
+                                ARCHIVES
+                            
+                        </a>
+                    </li>
+                    <!-- Submenu -->
+                    
+            
+
+        </ul>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="page-main-content-middle">
+
+            <div class="main-content">
+
+                
+                    <div class="fade-in-down-animation">
+    <div class="post-page-container">
+        <div class="article-content-container">
+
+            
+             
+                <div class="article-title">         
+                    <img src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/QQ%E5%9B%BE%E7%89%8720201011194402.png" alt="反序列化" />
+                    <h1 class="article-title-cover">反序列化</h1>
+                </div>
+            
+                
+            
+
+            
+                <div class="article-header">
+                    <div class="avatar">
+                        <img src="/images/yubetter.svg">
+                    </div>
+                    <div class="info">
+                        <div class="author">
+                            <span class="name">yuBetter</span>
+                            
+                                <span class="author-label">lol</span>
+                            
+                        </div>
+                        <div class="meta-info">
+                            <div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fa-regular fa-pen-fancy"></i>&nbsp;
+        <span class="pc">2023-03-08 19:02:42</span>
+        <span class="mobile">2023-03-08 19:02</span>
+        <span class="hover-info">Created</span>
+    </span>
+    
+        <span class="article-date article-meta-item">
+            <i class="fa-regular fa-wrench"></i>&nbsp;
+            <span class="pc">2023-03-08 19:03:45</span>
+            <span class="mobile">2023-03-08 19:03</span>
+            <span class="hover-info">Updated</span>
+        </span>
+    
+
+    
+    
+
+    
+    
+        <span class="article-wordcount article-meta-item">
+            <i class="fa-regular fa-file-word"></i>&nbsp;<span>1.5k Words</span>
+        </span>
+    
+    
+        <span class="article-min2read article-meta-item">
+            <i class="fa-regular fa-clock"></i>&nbsp;<span>5 Mins</span>
+        </span>
+    
+    
+        <span class="article-pv article-meta-item">
+            <i class="fa-regular fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+        </span>
+    
+</div>
+
+                        </div>
+                    </div>
+                </div>
+            
+
+            <div class="article-content markdown-body">
+                <h1 id=""><a href="#" class="headerlink" title=""></a></h1><h6 id="序列化就是将对象转换成字符串，数据格式的转换对象的序列化利于对象的保存和传输，也可以让多个文件共享对象"><a href="#序列化就是将对象转换成字符串，数据格式的转换对象的序列化利于对象的保存和传输，也可以让多个文件共享对象" class="headerlink" title="序列化就是将对象转换成字符串，数据格式的转换对象的序列化利于对象的保存和传输，也可以让多个文件共享对象"></a>序列化就是将对象转换成字符串，数据格式的转换对象的序列化利于对象的保存和传输，也可以让多个文件共享对象</h6><h6 id="而反序列化相反"><a href="#而反序列化相反" class="headerlink" title="而反序列化相反"></a>而反序列化相反</h6><p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20221006125723792.png"
+                      alt="image-20221006125723792"
+                ></p>
+<h2 id="PHP语言方面"><a href="#PHP语言方面" class="headerlink" title="PHP语言方面"></a>PHP语言方面</h2><p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20221006125237103.png"
+                      alt="image-20221006125237103"
+                ></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20221006130726968.png"
+                      alt="image-20221006130726968"
+                ></p>
+<p>#触发：unserialize 函数的变量可控，文件中存在可利用的类，类中有魔术方法（魔术方法触发条件：1.反序列化2.存在类2.类中存在魔术方法）：</p>
+<p>__construct()&#x2F;&#x2F;创建对象时触发</p>
+<p>__destruct() &#x2F;&#x2F;对象被销毁时触发</p>
+<p>__call() &#x2F;&#x2F;在对象上下文中调用不可访问的方法时触发</p>
+<p>__callStatic() &#x2F;&#x2F;在静态上下文中调用不可访问的方法时触发</p>
+<p>__get() &#x2F;&#x2F;用于从不可访问的属性读取数据</p>
+<p>__set() &#x2F;&#x2F;用于将数据写入不可访问的属性</p>
+<p>__isset() &#x2F;&#x2F;在不可访问的属性上调用 isset()或 empty()触发</p>
+<p>__unset() &#x2F;&#x2F;在不可访问的属性上使用 unset()时触发</p>
+<p>__invoke() &#x2F;&#x2F;当脚本尝试将对象调用为函数时触发</p>
+<p>先搞一把 PHP 反序列化热身题稳住-无类问题-本地</p>
+<ol>
+<li>序列化</li>
+</ol>
+<p>#代码</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/107b2839dfa4459085aa6d3ae3e6c56e10fb1ea1.png@378w_119h_progressive.webp"
+                      alt="img"
+                ></p>
+<p>#序列化后的格式</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/ae2689d3c4e1c628443ca17dbb1d5b77a6b0c4f6.png@821w_282h_progressive.webp"
+                      alt="img"
+                ></p>
+<p>#结果（这里没对象，因此从变量的数据类型s开始）</p>
+<p>—string（字符串）；变量长度为6；变量名“xiaodi”</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/86b84fd2c8d846be944cbe2efb27d66a3a783f38.png@258w_51h_progressive.webp"
+                      alt="img"
+                ></p>
+<ol start="2">
+<li>反序列化</li>
+</ol>
+<p>#代码&#x3D;》结果（注意里面有“”，外面只能为单引号‘‘）</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/883dcdd91c5507536123aaef5fc1e325d82ecd99.png@387w_104h_progressive.webp"
+                      alt="img"
+                ></p>
+<p>3.本地源代码分析</p>
+<p>—类之前</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/ae7b8390488e37ca37e356e7eedf79f818b9016d.png@789w_464h_progressive.webp"
+                      alt="img"
+                ></p>
+<p>—flag文件</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/8c30a28c570889ae1c2594e05976af82dd605aee.png@450w_122h_progressive.webp"
+                      alt="img"
+                ></p>
+<p>—类的内容（包含的魔术方法）</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/8c75addc10af0eaa204991b839c9cbcf17c69199.png@831w_449h_progressive.webp"
+                      alt="img"
+                ></p>
+<p>—类之后（主函数）</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/483139f9863f5099a0f42a7ca819688996ea1484.png@566w_236h_progressive.webp"
+                      alt="img"
+                ></p>
+<ol start="3">
+<li>访问脚本</li>
+</ol>
+<p>—这里参数不等，所以显示源代码</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/7debf97f1d0840558db1855597d169c065ee67d8.png@831w_416h_progressive.webp"
+                      alt="img"
+                ></p>
+<p>—输入参数s:6:”xiaodi”;（执行了包含文件）</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/560707902f91b56c845c5639ee806c6d55211f8a.png@831w_218h_progressive.webp"
+                      alt="img"
+                ></p>
+<ol start="4">
+<li>key&#x3D;123</li>
+</ol>
+<p>—str&#x3D;i(数字型没有长度)<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://i0.hdslb.com/bfs/article/0ab8eceff950f3ea98800acd4f0de7e01720fca6.png@300w_66h_progressive.webp"
+                      alt="img"
+                ></p>
+<p>—key&#x3D;’123’(变成字符串)<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://i0.hdslb.com/bfs/article/6961ec408c6e16a9c7712d0e21d9f6b66807dd05.png@173w_41h_progressive.webp"
+                      alt="img"
+                ></p>
+<p>在撸一把 CTF 反序列化小真题压压惊-无类执行-实例</p>
+<ol>
+<li>理论分析（题目找不到，只能理论分析）</li>
+</ol>
+<p>—表单是死的，点不动，根据提示发现是传参</p>
+<ol start="2">
+<li>源代码分析</li>
+</ol>
+<p>—包含flag.php文件</p>
+<p>—如果get传参不为空，就显示源码</p>
+<p>—如果get没传数据，cookie传参反序列化和包含文件的key相等（注意是&#x3D;&#x3D;&#x3D;，即要求数值型也要相等），就输出flag变量</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/b9deb8e451a6b1bcc43f9977761cf861c3c244d7.png@831w_642h_progressive.webp"
+                      alt="img"
+                ></p>
+<ol start="3">
+<li>解题分析（重点）</li>
+</ol>
+<p>—$key赋值在下方，所以前面判断的时候key为空（代码执行的先后顺序问题）</p>
+<p>—要执行cookie，get传递的参数应该为空</p>
+<p>—应该将空序列化（注意空不是空格）</p>
+<p>然后抗一把 CTF 反序列化练习题围观下-有类魔术方法触发-本地</p>
+<ol>
+<li>执行本地代码</li>
+</ol>
+<p>—创建对象触发construct方法，输出构造函数</p>
+<p>—反序列化触发wakeup方法，输出苏醒函数（序列化会检查方法内是否存在sleep函数，如果存在就优先调用；反序列化就调用wakeup函数）</p>
+<p>—最后一个程序结束后触发destruct函数，输出析构函数</p>
+<p>—如果有tostring函数，存在echo时或者拼接字符串时都会被调用</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/ec3cb316f70d64697aa1d6605dff99a39a867ec0.png@576w_453h_progressive.webp"
+                      alt="img"
+                ></p>
+<p>—结果</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/3ec041f3a99ef724b8b58f8a7c2487581b6f0475.png@680w_141h_progressive.webp"
+                      alt="img"
+                ></p>
+<p>最后顶一把网鼎杯 2020 青龙大真题舒服下-有类魔术方法触发-实例</p>
+<ol>
+<li>靶场源代码分析</li>
+</ol>
+<p>#主函数（传递参数有效就将参数反序列化）</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/eca2355345d2e80678fe102f37a0a1ea154cab42.png@831w_369h_progressive.webp"
+                      alt="img"
+                ></p>
+<p>#类之前（包含文件，高亮源代码）</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://i0.hdslb.com/bfs/article/94b7e769c91a429f3f7892a21b69ba0b4913bab5.png@318w_122h_progressive.webp"
+                      alt="img"
+                ></p>
+<p>#类的源代码</p>
+<p>第一：获取 flag 存储 flag.php</p>
+<p>第二：两个魔术方法__destruct __construct</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/3296161e64b53d5bd821f1e0d6183eb552794d73.png@806w_360h_progressive.webp"
+                      alt="img"
+                ></p>
+<p>第三：传输 str 参数数据后触发 destruct（反序列化之后，相当于添加了一个对象（但是不会触发construct方法，因为是反序列化得来的）。但是会在最后触发destruct方法），存在 is_valid 过滤（如果OP&#x3D;&#x3D;&#x3D;2，赋值为1；否则就将content赋值为空，调用process方法）</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/6bb11455f4872c691e0df24efcf001705db18ce9.png@621w_200h_progressive.webp"
+                      alt="img"
+                ></p>
+<p>第四：__destruct 中会调用 process,其中 op&#x3D;1 就写入， op&#x3D;2 就调用读取方法并且赋值给res，再打印res（output（）为打印）,否则就输出坏黑客。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/10ab0390ab548cec6332c9c6764d5776686ac228.png@776w_312h_progressive.webp"
+                      alt="img"
+                ></p>
+<p>#写入（OP&#x3D;1写入）</p>
+<p>—如果filename和content都存在，并且content的长度小于100，就将content写入filename，并且输出成功。否则输出失败。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/165c60a65d871366dfbab60073b6110be4bef70b.png@831w_299h_progressive.webp"
+                      alt="img"
+                ></p>
+<p>#读取（OP&#x3D;2读取）</p>
+<p>—如果filename存在，就读取文件。并且打印读取的内容</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/e02e16a2b26f910b0d350633166723c9e5e21caf.png@831w_218h_progressive.webp"
+                      alt="img"
+                ></p>
+<p>第五：涉及对象 FileHandler，变量 op 及 filename,content，进行构造输出</p>
+<p>#原理解析（涉及：反序列化魔术方法调用，弱类型绕过，ascii 绕过）</p>
+<p>—-使用该类对 flag 进行读取，这里面能利用的只有__destruct 函数（析构函数）。</p>
+<p>—-__destruct 函数对$this-&gt;op 进行了&#x3D;&#x3D;&#x3D;判断并内容在 2 字符串时会赋值为 1（但是process 函数中使用&#x3D;&#x3D;对$this-&gt;op 进行判断（为 2 的情况下才能读取内容））</p>
+<p>—-因此这里存在弱类型比较，可以使用数字 2 或字符串’ 2’绕过判断。</p>
+<p>—-is_valid 函数还对序列化字符串进行了校验，因为成员被 protected 修饰，因此序列化字符串中会出现 ascii 为 0 的字符。经过测试，在 PHP7.2+的环境中，使用 public 修饰成员并序列化，反序列化后成员也会被 public 覆盖修饰</p>
+<p>总结：</p>
+<p>—传参Str&#x3D;》destruct方法（强类型对比）</p>
+<p>—OP值对比&#x3D;&#x3D;&#x3D;类型 值</p>
+<p>—OP&#x3D;‘ 2’字符串；OP&#x3D;‘2’不成立</p>
+<p>—成立，强制op&#x3D;1，反之OP&#x3D;你设置的值</p>
+<p>—process（）弱类型对比，将’ 2’和‘2’对比是一致的</p>
+<ol start="2">
+<li>设置含类的反序列化</li>
+</ol>
+<p>—要修改原来代码的protect的三个变量（因为原类没有值），只能重新构造filehandler类</p>
+<p>—重新构造类之后，序列化类传参</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/666424fcb84169e30f425c07c3b90299b5f138db.png@825w_300h_progressive.webp"
+                      alt="img"
+                ></p>
+<p>#序列化结果</p>
+<p>—o表示object对象</p>
+<p>—11是对象名的长度</p>
+<p>—“FileHandler”为对象名称</p>
+<p>—对象中有3个变量</p>
+<p>—3个变量的变量类型都是string</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/2d036c56254c983fff180654b539a42e4423664a.png@566w_71h_progressive.webp"
+                      alt="img"
+                ></p>
+<p>#将反序列化的语句序列化验证</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/148734bc1e1de1d005bf6f91b21c852876bed9dc.png@831w_195h_progressive.webp"
+                      alt="img"
+                ></p>
+<ol start="3">
+<li>传递参数</li>
+</ol>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/cc5ad2c775c548ad2e666257f2dda0955ffdfb06.png@831w_122h_progressive.webp"
+                      alt="img"
+                ></p>
+<ol start="4">
+<li><p>查看源代码</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/5b160682c3c05c4d5a892c2606e3871c474303a2.png@810w_227h_progressive.webp"
+                      alt="img"
+                ></p>
+</li>
+</ol>
+<h2 id="JAVA语言方面"><a href="#JAVA语言方面" class="headerlink" title="JAVA语言方面"></a>JAVA语言方面</h2><p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20221009143751313.png"
+                      alt="image-20221009143751313"
+                ></p>
+
+            </div>
+
+            
+                <div class="post-copyright-info">
+                    <div class="article-copyright-info-container">
+    <ul>
+        <li>Post title：反序列化</li>
+        <li>Post author：yuBetter</li>
+        <li>Create time：2023-03-08 19:02:42</li>
+        <li>
+            Post link：https://yubetter.github.io/2023/03/08/反序列化/
+        </li>
+        <li>
+            Copyright Notice：All articles in this blog are licensed under <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">BY-NC-SA</a> unless stating additionally.
+        </li>
+    </ul>
+</div>
+
+                </div>
+            
+
+            
+
+            
+
+            
+                <div class="article-nav">
+                    
+                        <div class="article-prev">
+                            <a class="prev"
+                            rel="prev"
+                            href="/2023/03/08/%E9%80%BB%E8%BE%91%E8%B6%8A%E6%9D%83/"
+                            >
+                                <span class="left arrow-icon flex-center">
+                                    <i class="fa-solid fa-chevron-left"></i>
+                                </span>
+                                <span class="title flex-center">
+                                    <span class="post-nav-title-item">逻辑越权</span>
+                                    <span class="post-nav-item">Prev posts</span>
+                                </span>
+                            </a>
+                        </div>
+                    
+                    
+                        <div class="article-next">
+                            <a class="next"
+                            rel="next"
+                            href="/2023/03/08/XSS%E6%BC%8F%E6%B4%9E/"
+                            >
+                                <span class="title flex-center">
+                                    <span class="post-nav-title-item">XSS漏洞</span>
+                                    <span class="post-nav-item">Next posts</span>
+                                </span>
+                                <span class="right arrow-icon flex-center">
+                                    <i class="fa-solid fa-chevron-right"></i>
+                                </span>
+                            </a>
+                        </div>
+                    
+                </div>
+            
+
+
+            
+        </div>
+
+        
+            <div class="toc-content-container">
+                <div class="post-toc-wrap">
+    <div class="post-toc">
+        <div class="toc-title">On this page</div>
+        <div class="page-title">反序列化</div>
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-text"></span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#%E5%BA%8F%E5%88%97%E5%8C%96%E5%B0%B1%E6%98%AF%E5%B0%86%E5%AF%B9%E8%B1%A1%E8%BD%AC%E6%8D%A2%E6%88%90%E5%AD%97%E7%AC%A6%E4%B8%B2%EF%BC%8C%E6%95%B0%E6%8D%AE%E6%A0%BC%E5%BC%8F%E7%9A%84%E8%BD%AC%E6%8D%A2%E5%AF%B9%E8%B1%A1%E7%9A%84%E5%BA%8F%E5%88%97%E5%8C%96%E5%88%A9%E4%BA%8E%E5%AF%B9%E8%B1%A1%E7%9A%84%E4%BF%9D%E5%AD%98%E5%92%8C%E4%BC%A0%E8%BE%93%EF%BC%8C%E4%B9%9F%E5%8F%AF%E4%BB%A5%E8%AE%A9%E5%A4%9A%E4%B8%AA%E6%96%87%E4%BB%B6%E5%85%B1%E4%BA%AB%E5%AF%B9%E8%B1%A1"><span class="nav-text">序列化就是将对象转换成字符串，数据格式的转换对象的序列化利于对象的保存和传输，也可以让多个文件共享对象</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E8%80%8C%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E7%9B%B8%E5%8F%8D"><span class="nav-text">而反序列化相反</span></a></li></ol></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#PHP%E8%AF%AD%E8%A8%80%E6%96%B9%E9%9D%A2"><span class="nav-text">PHP语言方面</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#JAVA%E8%AF%AD%E8%A8%80%E6%96%B9%E9%9D%A2"><span class="nav-text">JAVA语言方面</span></a></li></ol></li></ol>
+
+    </div>
+</div>
+            </div>
+        
+    </div>
+</div>
+
+
+                
+
+            </div>
+
+
+
+        </div>
+
+        <div class="page-main-content-bottom">
+            <footer class="footer">
+    <div class="info-container">
+        <div class="copyright-info">
+            &copy;
+            
+              <span>2023</span>
+              -
+            
+            2023&nbsp;&nbsp;<i class="fa-regular fa-computer-classic"></i>&nbsp;&nbsp;<a href="/">yuBetter</a>
+        </div>
+        
+            <script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            <div class="website-count info-item">
+                
+                    <span id="busuanzi_container_site_uv" class="busuanzi_container_site_uv">
+                        VISITOR COUNT&nbsp;<span id="busuanzi_value_site_uv" class="busuanzi_value_site_uv"></span>
+                    </span>
+                
+                
+                    <span id="busuanzi_container_site_pv" class="busuanzi_container_site_pv">
+                        TOTAL PAGE VIEWS&nbsp;<span id="busuanzi_value_site_pv" class="busuanzi_value_site_pv"></span>
+                    </span>
+                
+            </div>
+        
+        <div class="theme-info info-item">
+            <span class="powered-by-container">POWERED BY <?xml version="1.0" encoding="utf-8"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg version="1.1" id="圖層_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="1rem" height="1rem" viewBox="0 0 512 512" enable-background="new 0 0 512 512" xml:space="preserve"><path fill="#0E83CD" d="M256.4,25.8l-200,115.5L56,371.5l199.6,114.7l200-115.5l0.4-230.2L256.4,25.8z M349,354.6l-18.4,10.7l-18.6-11V275H200v79.6l-18.4,10.7l-18.6-11v-197l18.5-10.6l18.5,10.8V237h112v-79.6l18.5-10.6l18.5,10.8V354.6z"/></svg><a target="_blank" href="https://hexo.io">Hexo</a></span>
+                <br> 
+            <span class="theme-version-container">THEME&nbsp;<a class="theme-version" target="_blank" href="https://github.com/EvanNotFound/hexo-theme-redefine">Redefine v1.1.6</a>
+        </div>
+        
+        
+        
+            <div id="start_time_div" style="display:none">
+                2023/3/8 00:00:00
+            </div>
+            <div>
+                Blog up for <span class="odometer" id="runtime_days" ></span> days <span class="odometer" id="runtime_hours"></span> hrs <span class="odometer" id="runtime_minutes"></span> Min <span class="odometer" id="runtime_seconds"></span> Sec
+            </div>
+        
+        
+        
+            <script async data-pjax>
+                try {
+                    function odometer_init() {
+                    const elements = document.querySelectorAll('.odometer');
+                    elements.forEach(el => {
+                        new Odometer({
+                            el,
+                            format: '( ddd).dd',
+                            duration: 200
+                        });
+                    });
+                    }
+                    odometer_init();
+                } catch (error) {}
+            </script>
+        
+        
+        
+    </div>  
+</footer>
+        </div>
+    </div>
+
+    
+        <div class="post-tools">
+            <div class="post-tools-container">
+    <ul class="tools-list">
+        <!-- TOC aside toggle -->
+        
+            <li class="right-bottom-tools page-aside-toggle">
+                <i class="fa-regular fa-outdent"></i>
+            </li>
+        
+
+        <!-- go comment -->
+        
+    </ul>
+</div>
+
+        </div>
+    
+
+    <div class="right-bottom-side-tools">
+        <div class="side-tools-container">
+    <ul class="unfolded-tools-list">
+        <li class="right-bottom-tools tool-font-adjust-plus flex-center">
+            <i class="fa-regular fa-magnifying-glass-plus"></i>
+        </li>
+
+        <li class="right-bottom-tools tool-font-adjust-minus flex-center">
+            <i class="fa-regular fa-magnifying-glass-minus"></i>
+        </li>
+
+        <li class="right-bottom-tools tool-expand-width flex-center">
+            <i class="fa-regular fa-expand"></i>
+        </li>
+
+        <li class="right-bottom-tools tool-dark-light-toggle flex-center">
+            <i class="fa-regular fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+
+        
+            <li class="right-bottom-tools tool-scroll-to-top flex-center">
+                <i class="fa-regular fa-arrow-up"></i>
+            </li>
+        
+
+        <li class="right-bottom-tools tool-scroll-to-bottom flex-center">
+            <i class="fa-regular fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="folded-tools-list">
+        <li class="right-bottom-tools tool-toggle-show flex-center">
+            <i class="fa-regular fa-cog fa-spin"></i>
+        </li>
+        
+    </ul>
+</div>
+
+    </div>
+
+    <div class="image-viewer-container">
+    <img src="">
+</div>
+
+
+    
+        <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+          <span class="search-input-field-pre">
+            <i class="fa-solid fa-keyboard"></i>
+          </span>
+            <div class="search-input-container">
+                <input autocomplete="off"
+                       autocorrect="off"
+                       autocapitalize="off"
+                       placeholder="Search..."
+                       spellcheck="false"
+                       type="search"
+                       class="search-input"
+                >
+            </div>
+            <span class="popup-btn-close">
+                <i class="fa-solid fa-times"></i>
+            </span>
+        </div>
+        <div id="search-result">
+            <div id="no-result">
+                <i class="fa-solid fa-spinner fa-spin-pulse fa-5x fa-fw"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+
+
+</main>
+
+
+
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/main.js"></script>
+
+<script src="/js/layouts/menu-shrink.js"></script>
+
+<script src="/js/tools/go-top-bottom.js"></script>
+
+<script src="/js/tools/dark-light-toggle.js"></script>
+
+
+
+    
+<script src="/js/tools/local-search.js"></script>
+
+
+
+
+    
+<script src="/js/tools/code-block.js"></script>
+
+
+
+
+    
+<script src="/js/layouts/lazyload.js"></script>
+
+
+
+
+    
+<script src="/js/tools/runtime.js"></script>
+
+    
+<script src="/js/layouts/odometer.min.js"></script>
+
+    
+<link rel="stylesheet" href="/assets/odometer-theme-minimal.css">
+
+
+
+
+
+<div class="post-scripts pjax">
+    
+        
+<script src="/js/tools/toc-toggle.js"></script>
+
+<script src="/js/libs/anime.min.js"></script>
+
+<script src="/js/layouts/toc.js"></script>
+
+<script src="/js/plugins/tabs.js"></script>
+
+    
+    
+</div>
+
+
+    
+<script src="/js/libs/pjax.min.js"></script>
+
+<script>
+    window.addEventListener('DOMContentLoaded', () => {
+        window.pjax = new Pjax({
+            selectors: [
+                'head title',
+                '.page-container',
+                '.pjax'
+            ],
+            history: true,
+            debug: false,
+            cacheBust: false,
+            timeout: 0,
+            analytics: false,
+            currentUrlFullReload: false,
+            scrollRestoration: false,
+            // scrollTo: true,
+        });
+
+        document.addEventListener('pjax:send', () => {
+            REDEFINE.utils.pjaxProgressBarStart();
+        });
+
+        document.addEventListener('pjax:complete', () => {
+            REDEFINE.utils.pjaxProgressBarEnd();
+            window.pjax.executeScripts(document.querySelectorAll('script[data-pjax], .pjax script'));
+            REDEFINE.refresh();
+        });
+    });
+</script>
+
+
+
+
+</body>
+</html>
