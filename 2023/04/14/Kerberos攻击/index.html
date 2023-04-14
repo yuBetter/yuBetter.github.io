@@ -4,9 +4,12 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="keywords" content="Hexo Theme Redefine">
-    <meta name="description" content="Hexo Theme Redefine">
+    
     <meta name="author" content="yuBetter">
-    <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-redefine.png">
+    <!-- preconnect -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://evan.beee.top" crossorigin>
     
     <!--- Seo Part-->
     
@@ -14,21 +17,81 @@
     <meta name="robots" content="index,follow">
     <meta name="googlebot" content="index,follow">
     <meta name="revisit-after" content="1 days">
-    <meta property="og:type" content="article">
-    <meta property="og:title" content="Kerberos攻击">
-    <meta property="og:description" content="Hexo Theme Redefine">
-    <meta property="og:url" content="https://example.com2023/04/14/Kerberos攻击/">
     
-    <meta property="og:site_name" content="Yu&#39;s Blog">
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Kerberos攻击">
-    <meta name="twitter:description" content="Hexo Theme Redefine">
-    <meta name="twitter:image" content="/images/yubetter-logon.svg">
+        <meta name="description" content="AS_REQ&amp;AS_REP阶段攻击域内用户枚举kerberos是一种认证协议，在第一阶段AS_REQ中当用户不存在时，返回包提示错误，用户存在时，密码正确，密码错误时返回包都不用一样 利用这一点就可以枚举出域内用户 三种状态的错误代码分别为： KRB5DC_ERR_PREAUTH_REQUIRED           需要额外的预认证（用户存在）KRB5DC_ERR_CLIENT_REV">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Kerberos攻击">
+<meta property="og:url" content="https://example.com/2023/04/14/Kerberos%E6%94%BB%E5%87%BB/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="AS_REQ&amp;AS_REP阶段攻击域内用户枚举kerberos是一种认证协议，在第一阶段AS_REQ中当用户不存在时，返回包提示错误，用户存在时，密码正确，密码错误时返回包都不用一样 利用这一点就可以枚举出域内用户 三种状态的错误代码分别为： KRB5DC_ERR_PREAUTH_REQUIRED           需要额外的预认证（用户存在）KRB5DC_ERR_CLIENT_REV">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230404104911790.png">
+<meta property="og:image" content="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230404112100259.png">
+<meta property="og:image" content="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230405165843784.png">
+<meta property="og:image" content="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230405165952637.png">
+<meta property="og:image" content="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230405170743855.png">
+<meta property="og:image" content="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230405113131030.png">
+<meta property="og:image" content="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230406141213924.png">
+<meta property="og:image" content="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230406141242727.png">
+<meta property="og:image" content="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230405145700825.png">
+<meta property="og:image" content="https://image-1317166382.cos.ap-nanjing.myqcloud.com/2670873-20220816105758937-1080046002.png">
+<meta property="og:image" content="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230405152303985.png">
+<meta property="og:image" content="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230405154632357.png">
+<meta property="og:image" content="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230405154752324.png">
+<meta property="og:image" content="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230405154949583.png">
+<meta property="og:image" content="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230405160752134.png">
+<meta property="og:image" content="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230405160808470.png">
+<meta property="og:image" content="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230405165048733.png">
+<meta property="og:image" content="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230405165127338.png">
+<meta property="og:image" content="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230406135943742.png">
+<meta property="og:image" content="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230406112617697.png">
+<meta property="og:image" content="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230406112814369.png">
+<meta property="og:image" content="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230406113052810.png">
+<meta property="og:image" content="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230406115059827.png">
+<meta property="og:image" content="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230406115348386.png">
+<meta property="og:image" content="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230406135014457.png">
+<meta property="og:image" content="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230406120142914.png">
+<meta property="og:image" content="https://image-1317166382.cos.ap-nanjing.myqcloud.com/v2-bcefc178a80cab8bb1a6792a7db72ff1_r.jpg">
+<meta property="og:image" content="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230406164452743.png">
+<meta property="og:image" content="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230406175636951.png">
+<meta property="og:image" content="https://image-1317166382.cos.ap-nanjing.myqcloud.com/2e69c11052ca3f45e6ed166b0a86ed8f.png">
+<meta property="og:image" content="https://image-1317166382.cos.ap-nanjing.myqcloud.com/ea7756068b739208f63908f1a2c2e4d0.png">
+<meta property="og:image" content="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230406210828223.png">
+<meta property="og:image" content="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230406205915345.png">
+<meta property="og:image" content="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230406210930711.png">
+<meta property="og:image" content="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230406211118085.png">
+<meta property="og:image" content="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230406213220426.png">
+<meta property="og:image" content="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230406213404970.png">
+<meta property="og:image" content="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230406214505772.png">
+<meta property="og:image" content="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230406214622142.png">
+<meta property="og:image" content="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230406215440285.png">
+<meta property="og:image" content="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230407170719758.png">
+<meta property="og:image" content="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230407171019208.png">
+<meta property="og:image" content="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230407220117870.png">
+<meta property="og:image" content="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230407220808294.png">
+<meta property="og:image" content="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230407221007040.png">
+<meta property="og:image" content="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230408124248309.png">
+<meta property="og:image" content="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230408124555238.png">
+<meta property="og:image" content="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230408151945659.png">
+<meta property="og:image" content="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230408152951481.png">
+<meta property="og:image" content="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230408153516233.png">
+<meta property="og:image" content="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230408154535638.png">
+<meta property="og:image" content="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230408155940211.png">
+<meta property="og:image" content="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230408161503905.png">
+<meta property="og:image" content="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230408161546381.png">
+<meta property="og:image" content="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230408161735293.png">
+<meta property="article:published_time" content="2023-04-14T13:35:20.000Z">
+<meta property="article:modified_time" content="2023-04-14T13:36:10.402Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230404104911790.png">
+    
     <!--- Icon Part-->
-    <link rel="icon" type="image/png" href="/images/yubetter-logon.svg" sizes="192x192">
-    <link rel="apple-touch-icon" sizes="180x180" href="/images/yubetter-logon.svg">
-    <meta name="theme-color" content="#005080">
-    <link rel="shortcut icon" href="/images/yubetter-logon.svg">
+    <link rel="icon" type="image/png" href="/images/yubetter.svg" sizes="192x192">
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/yubetter.svg">
+    <meta name="theme-color" content="#A31F34">
+    <link rel="shortcut icon" href="/images/yubetter.svg">
+    <!--- Page Info-->
     
     <title>
         
@@ -42,16 +105,22 @@
     
 <link rel="stylesheet" href="/assets/fonts.css">
 
+    <!--- Font Part-->
     
     
+    
+    
+
+    <!--- Inject Part-->
     
     <script id="hexo-configurations">
-    let REDEFINE = window.REDEFINE || {};
-    REDEFINE.hexo_config = {"hostname":"example.com","root":"/","language":"en","path":"search.xml"};
-    REDEFINE.theme_config = {"toc":{"enable":true,"number":false,"expand_all":true,"init_open":true},"style":{"primary_color":"#005080","avatar":"/images/yubetter.svg","favicon":"/images/yubetter-logon.svg","og_image":{"enable":false,"image_url":null},"article_img_align":"center","right_side_width":"210px","content_max_width":"1000px","nav_color":{"left":"#f78736","right":"#367df7","transparency":35},"hover":{"shadow":true,"scale":true},"first_screen":{"enable":true,"background_image":{"light":"https://evan.beee.top/img/wallhaven-wqery6-light.webp","dark":"https://evan.beee.top/img/wallhaven-wqery6-dark.webp"},"title_color":{"light":"#fff","dark":"#d1d1b6"},"font_sizes":{"title":"3.5rem","subtitle":"1.5rem"},"line_height":1.2,"title":"好好学习，天天向上","subtitle":{"enable":true,"list":["有远大志向而脚踏实地，有障碍失败而不言放弃","静以修生，俭以养德，非淡泊无以明志，非宁静无以致远","即使慢，驰而不息，纵会落后，纵会失败，但一定可以达到他所向的目标","穷且益坚，不坠青云之志","莫不有始，鲜克有终","靡不有初,鲜克有终"]},"custom_font":{"enable":false,"font_family":null,"font_url":null}},"scroll":{"progress_bar":{"enable":true},"percent":{"enable":false}}},"local_search":{"enable":true,"preload":true},"code_block":{"copy":true,"style":"mac","custom_font":{"enable":false,"font_family":null,"font_url":null}},"pjax":{"enable":true},"lazyload":{"enable":true},"version":"1.2.1","friend_links":{"columns":2},"home_article":{"date_format":"auto","category":{"enable":true,"limit":3},"tag":{"enable":true,"limit":3}},"plugins":{"aplayer":{"enable":false,"audio":[{"name":null,"artist":null,"url":null,"cover":null},{"name":null,"artist":null,"url":null,"cover":null}]},"mermaid":{"enable":false,"version":"9.3.0"}}};
-    REDEFINE.language_ago = {"second":"%s seconds ago","minute":"%s minutes ago","hour":"%s hours ago","day":"%s days ago","week":"%s weeks ago","month":"%s months ago","year":"%s years ago"};
+    let Global = window.Global || {};
+    Global.hexo_config = {"hostname":"example.com","root":"/","language":"en","path":"search.xml"};
+    Global.theme_config = {"articles":{"style":{"font_size":"16px","line_height":1.5,"image_border_radius":"14px","image_alignment":"center"},"word_count":{"enable":true,"count":true,"min2read":true},"author_label":{"enable":true,"auto":false,"list":[""]},"code_block":{"copy":true,"style":"mac","font":{"enable":false,"family":null,"url":null}},"toc":{"enable":true,"max_depth":3,"number":false,"expand":true,"init_open":true},"copyright":true,"lazyload":true,"recommendation":{"enable":false,"title":"推荐阅读","limit":3,"placeholder":"/images/wallhaven-wqery6-light.webp","skip_dirs":[]}},"colors":{"primary":"#A31F34","secondary":null},"global":{"fonts":{"chinese":{"enable":false,"family":null,"url":null},"english":{"enable":false,"family":null,"url":null}},"content_max_width":"1000px","sidebar_width":"210px","hover":{"shadow":true,"scale":true},"scroll_progress":{"bar":false,"percentage":true},"busuanzi_counter":{"enable":true,"site_pv":true,"site_uv":true,"post_pv":true},"pjax":true,"open_graph":true},"home_banner":{"enable":true,"image":{"light":"/images/wallhaven-wqery6-light.webp","dark":"/images/wallhaven-wqery6-dark.webp"},"title":"好好学习，天天向上","subtitle":{"text":["有远大志向而脚踏实地，有障碍失败而不言放弃","静以修生，俭以养德，非淡泊无以明志，非宁静无以致远","即使慢，驰而不息，纵会落后，纵会失败，但一定可以达到他所向的目标","穷且益坚，不坠青云之志","莫不有始，鲜克有终","靡不有初,鲜克有终"],"typing_speed":100,"backing_speed":80,"starting_delay":500,"backing_delay":1500,"loop":true,"smart_backspace":true},"text_color":{"light":"#fff","dark":"#d1d1b6"},"text_style":{"title_size":"2.8rem","subtitle_size":"1.5rem","line_height":1.2},"custom_font":{"enable":false,"family":null,"url":null},"social_links":{"enable":false,"links":{"github":null,"instagram":null,"zhihu":null,"twitter":null,"email":null}}},"plugins":{"feed":{"enable":false},"aplayer":{"enable":false,"type":"fixed","audios":[{"name":null,"artist":null,"url":null,"cover":null}]},"mermaid":{"enable":false,"version":"9.3.0"}},"version":"2.1.1","navbar":{"auto_hide":false,"color":{"left":"#f78736","right":"#367df7","transparency":35},"links":{"Home":{"path":"/","icon":"fa-regular fa-house"}},"search":{"enable":false,"preload":true}},"page_templates":{"friends_column":2,"tags_style":"blur"},"home":{"sidebar":{"enable":true,"position":"left","announcement":null,"links":null},"article_date_format":"auto","categories":{"enable":true,"limit":3},"tags":{"enable":true,"limit":3}}};
+    Global.language_ago = {"second":"%s seconds ago","minute":"%s minutes ago","hour":"%s hours ago","day":"%s days ago","week":"%s weeks ago","month":"%s months ago","year":"%s years ago"};
   </script>
     
+    <!--- Fontawesome Part-->
     
 <link rel="stylesheet" href="/fontawesome/fontawesome.min.css">
 
@@ -74,8 +143,6 @@
 <body>
 <div class="progress-bar-container">
     
-        <span class="scroll-progress-bar"></span>
-    
 
     
         <span class="pjax-progress-bar"></span>
@@ -90,12 +157,12 @@
 
     
 
-    <div class="page-main-content">
+    <div class="main-content-container">
 
-        <div class="page-main-content-top">
-            <header class="menu-wrapper">
+        <div class="main-content-header">
+            <header class="navbar-container">
     
-    <div class="menu-content">
+    <div class="navbar-content">
         <div class="left">
             
             <a class="logo-title" href="/">
@@ -107,11 +174,11 @@
 
         <div class="right">
             <!-- PC -->
-            <div class="pc">
-                <ul class="menu-list">
+            <div class="desktop">
+                <ul class="navbar-list">
                     
                         
-                            <li class="menu-item">
+                            <li class="navbar-item">
                                 <!-- Menu -->
                                 <a class="" 
                                     href="/"  >
@@ -126,47 +193,25 @@
                                 
                             </li>
                     
-                        
-                            <li class="menu-item">
-                                <!-- Menu -->
-                                <a class="" 
-                                    href="/archives"  >
-                                    
-                                        
-                                            <i class="fa-regular fa-archive"></i>
-                                        
-                                        ARCHIVES
-                                    
-                                </a>
-                                <!-- Submenu -->
-                                
-                            </li>
-                    
-                    
-                        <li class="menu-item search search-popup-trigger">
-                            <i class="fa-solid fa-magnifying-glass"></i>
-                        </li>
                     
                 </ul>
             </div>
             <!-- Mobile -->
             <div class="mobile">
                 
-                    <div class="icon-item search search-popup-trigger"><i class="fa-solid fa-magnifying-glass"></i></div>
-                
-                <div class="icon-item menu-bar">
-                    <div class="menu-bar-middle"></div>
+                <div class="icon-item navbar-bar">
+                    <div class="navbar-bar-middle"></div>
                 </div>
             </div>
         </div>
     </div>
 
     <!-- Mobile drawer -->
-    <div class="menu-drawer">
-        <ul class="drawer-menu-list">
+    <div class="navbar-drawer">
+        <ul class="drawer-navbar-list">
             
                 
-                    <li class="drawer-menu-item flex-center">
+                    <li class="drawer-navbar-item flex-center">
                         <a class="" 
                         href="/"  >
                              
@@ -174,21 +219,6 @@
                                     <i class="fa-regular fa-house"></i>
                                 
                                 HOME
-                            
-                        </a>
-                    </li>
-                    <!-- Submenu -->
-                    
-            
-                
-                    <li class="drawer-menu-item flex-center">
-                        <a class="" 
-                        href="/archives"  >
-                             
-                                
-                                    <i class="fa-regular fa-archive"></i>
-                                
-                                ARCHIVES
                             
                         </a>
                     </li>
@@ -206,7 +236,9 @@
 
         </div>
 
-        <div class="page-main-content-middle">
+        <div class="main-content-body">
+
+            
 
             <div class="main-content">
 
@@ -228,27 +260,27 @@
             
                 <div class="article-header">
                     <div class="avatar">
-                        <img src="/images/yubetter.svg">
+                        <img src="/images/yubetter-logon.svg">
                     </div>
                     <div class="info">
                         <div class="author">
                             <span class="name">yuBetter</span>
                             
-                                <span class="author-label">lol</span>
+                                <span class="author-label"></span>
                             
                         </div>
                         <div class="meta-info">
                             <div class="article-meta-info">
     <span class="article-date article-meta-item">
         <i class="fa-regular fa-pen-fancy"></i>&nbsp;
-        <span class="pc">2023-04-14 21:35:20</span>
+        <span class="desktop">2023-04-14 21:35:20</span>
         <span class="mobile">2023-04-14 21:35</span>
         <span class="hover-info">Created</span>
     </span>
     
         <span class="article-date article-meta-item">
             <i class="fa-regular fa-wrench"></i>&nbsp;
-            <span class="pc">2023-04-14 21:36:10</span>
+            <span class="desktop">2023-04-14 21:36:10</span>
             <span class="mobile">2023-04-14 21:36</span>
             <span class="hover-info">Updated</span>
         </span>
@@ -260,7 +292,7 @@
     
     
         <span class="article-wordcount article-meta-item">
-            <i class="fa-regular fa-file-word"></i>&nbsp;<span>6.2k Words</span>
+            <i class="fa-regular fa-typewriter"></i>&nbsp;<span>6.2k Words</span>
         </span>
     
     
@@ -268,10 +300,6 @@
             <i class="fa-regular fa-clock"></i>&nbsp;<span>25 Mins</span>
         </span>
     
-    
-        <span class="article-pv article-meta-item">
-            <i class="fa-regular fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
-        </span>
     
 </div>
 
@@ -994,14 +1022,19 @@
                 <div class="post-copyright-info">
                     <div class="article-copyright-info-container">
     <ul>
-        <li>Post title：Kerberos攻击</li>
-        <li>Post author：yuBetter</li>
-        <li>Create time：2023-04-14 21:35:20</li>
+        <li><strong>Title:</strong> Kerberos攻击</li>
+        <li><strong>Author:</strong> yuBetter</li>
+        <li><strong>Created at:</strong> 2023-04-14 21:35:20</li>
+        
+            <li>
+                <strong>Updated at:</strong> 2023-04-14 21:36:10
+            </li>
+        
         <li>
-            Post link：https://yubetter.github.io/2023/04/14/Kerberos攻击/
+            <strong>Link:</strong> https://yubetter.github.io/2023/04/14/Kerberos攻击/
         </li>
         <li>
-            Copyright Notice：All articles in this blog are licensed under <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">BY-NC-SA</a> unless stating additionally.
+            <strong>License:</strong> This work is licensed under <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">CC BY-NC-SA 4.0</a>.
         </li>
     </ul>
 </div>
@@ -1037,6 +1070,50 @@
 
 
             
+                <div class="comment-container">
+                    <div class="comments-container">
+    <div id="comment-anchor"></div>
+    <div class="comment-area-title">
+        <i class="fa-solid fa-comments"></i>&nbsp;Comments
+    </div>
+    
+
+        
+            
+ 
+    <div id="waline"></div>
+    <script type="module"  data-pjax>
+        import { init } from 'https://evan.beee.top/js/waline.mjs';
+
+        function loadWaline() {
+            init({
+                el: '#waline',
+                serverURL: 'https://example.example.com',
+                lang: 'zh-CN',
+                dark: 'body[class~="dark-mode"]',
+                requiredMeta: ['nick','mail'], // cannot customize by theme config, change it yourself
+            });
+        }
+
+        if ('true') {
+            const loadWalineTimeout = setTimeout(() => {
+                loadWaline();
+                clearTimeout(loadWalineTimeout);
+            }, 1000);
+        } else {
+            window.addEventListener('DOMContentLoaded', loadWaline);
+        }
+        
+    </script>
+
+
+
+        
+    
+</div>
+
+                </div>
+            
         </div>
 
         
@@ -1045,7 +1122,7 @@
     <div class="post-toc">
         <div class="toc-title">On this page</div>
         <div class="page-title">Kerberos攻击</div>
-        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-text"></span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#AS-REQ-amp-AS-REP%E9%98%B6%E6%AE%B5%E6%94%BB%E5%87%BB"><span class="nav-text">AS_REQ&amp;AS_REP阶段攻击</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9F%9F%E5%86%85%E7%94%A8%E6%88%B7%E6%9E%9A%E4%B8%BE"><span class="nav-text">域内用户枚举</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#%E6%9E%9A%E4%B8%BE%E5%B7%A5%E5%85%B7%E7%9A%84%E4%BD%BF%E7%94%A8"><span class="nav-text">枚举工具的使用</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AF%86%E7%A0%81%E5%96%B7%E6%B4%92"><span class="nav-text">密码喷洒</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#%E5%96%B7%E6%92%92%E5%8E%9F%E7%90%86"><span class="nav-text">喷撒原理</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#AS-REP-Roasting%E6%94%BB%E5%87%BB"><span class="nav-text">AS_REP Roasting攻击</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%BB%84%E9%87%91%E7%A5%A8%E6%8D%AE%E6%94%BB%E5%87%BB"><span class="nav-text">黄金票据攻击</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#TGS-REQ-amp-TGS-REP%E9%98%B6%E6%AE%B5%E6%94%BB%E5%87%BB"><span class="nav-text">TGS_REQ&amp;TGS_REP阶段攻击</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Kerberosast%E6%94%BB%E5%87%BB"><span class="nav-text">Kerberosast攻击</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#%E5%89%8D%E7%9E%BB%E7%9F%A5%E8%AF%86"><span class="nav-text">前瞻知识</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E6%B3%A8%E5%86%8C%E6%96%B9%E5%BC%8F%E6%9C%89%E4%B8%A4%E7%A7%8D%EF%BC%9A"><span class="nav-text">注册方式有两种：</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E5%88%A4%E6%96%AD%E6%8C%87%E4%BB%A4"><span class="nav-text">判断指令</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E6%94%BB%E5%87%BB%E8%BF%87%E7%A8%8B"><span class="nav-text">攻击过程</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E6%94%BB%E5%87%BB%E6%89%8B%E6%AE%B5"><span class="nav-text">攻击手段</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%99%BD%E9%93%B6%E7%A5%A8%E6%8D%AE%E6%94%BB%E5%87%BB"><span class="nav-text">白银票据攻击</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E4%BF%A1%E6%81%AF%E8%8E%B7%E5%8F%96%EF%BC%88SID%EF%BC%8C%E6%89%80%E5%A4%84%E5%9F%9F%EF%BC%8C%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%90%8D%EF%BC%8CNTLM-HASH%EF%BC%89-%E5%9F%9F%E6%8E%A7"><span class="nav-text">基本信息获取（SID，所处域，服务器名，NTLM HASH）(域控)</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E4%BC%AA%E9%80%A0%E5%85%B1%E4%BA%AB%E6%96%87%E4%BB%B6%E5%A4%B9%E6%9C%8D%E5%8A%A1%EF%BC%88cifs%EF%BC%89%E6%9D%83%E9%99%90%EF%BC%8Cmimkatz-%E5%9F%9F%E5%86%85%E5%85%B6%E4%BB%96%E4%B8%BB%E6%9C%BA"><span class="nav-text">伪造共享文件夹服务（cifs）权限，mimkatz(域内其他主机)</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E4%BC%AA%E9%80%A0LDAP%E6%9C%8D%E5%8A%A1%E6%9D%83%E9%99%90"><span class="nav-text">伪造LDAP服务权限</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E6%94%BB%E5%87%BB%E6%B5%81%E7%A8%8B"><span class="nav-text">攻击流程</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A7%94%E6%B4%BE%E6%94%BB%E5%87%BB"><span class="nav-text">委派攻击</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%9D%9E%E7%BA%A6%E6%9D%9F%E5%A7%94%E6%B4%BE"><span class="nav-text">非约束委派</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#%E6%8E%A5%E4%B8%8B%E6%9D%A5%E5%BC%80%E5%A7%8B%E6%94%BB%E5%87%BB-%E5%88%A9%E7%94%A81"><span class="nav-text">接下来开始攻击  利用1</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E5%88%A9%E7%94%A82"><span class="nav-text">利用2</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E6%94%BB%E5%87%BB%E6%B5%81%E7%A8%8B-1"><span class="nav-text">攻击流程</span></a></li></ol></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%BA%A6%E6%9D%9F%E5%A7%94%E6%B4%BE%E6%94%BB%E5%87%BB"><span class="nav-text">约束委派攻击</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#S4U2Self%EF%BC%9A%E7%94%A8%E4%BA%8E%E7%94%9F%E6%88%90%E6%9C%AC%E8%BA%AB%E6%9C%8D%E5%8A%A1TGS%E7%A5%A8%E6%8D%AE"><span class="nav-text">S4U2Self：用于生成本身服务TGS票据</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#S4U2proxy%EF%BC%9A%E4%BF%9D%E8%AF%81%E5%8F%AA%E8%83%BD%E8%AE%BF%E9%97%AE%E7%89%B9%E5%AE%9A%E6%9C%8D%E5%8A%A1%EF%BC%88%E6%9C%80%E5%A4%A7%E5%8C%BA%E5%88%AB%EF%BC%89"><span class="nav-text">S4U2proxy：保证只能访问特定服务（最大区别）</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E6%94%BB%E5%87%BB%E5%8E%9F%E7%90%86"><span class="nav-text">攻击原理</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E6%B5%81%E7%A8%8B"><span class="nav-text">流程</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E5%88%A9%E7%94%A81"><span class="nav-text">利用1</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E5%88%A9%E7%94%A82-1"><span class="nav-text">利用2</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E5%88%A9%E7%94%A83"><span class="nav-text">利用3</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E5%88%A9%E7%94%A84"><span class="nav-text">利用4</span></a></li></ol></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%9F%BA%E4%BA%8E%E8%B5%84%E6%BA%90%E7%9A%84%E7%BA%A6%E6%9D%9F%E6%80%A7%E5%A7%94%E6%B4%BE"><span class="nav-text">基于资源的约束性委派</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#%E4%BC%98%E5%8A%BF"><span class="nav-text">优势</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E5%B7%AE%E5%88%AB"><span class="nav-text">差别</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E6%9D%A1%E4%BB%B6"><span class="nav-text">条件</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E6%80%8E%E4%B9%88%E6%9F%A5%E7%9C%8B%E6%98%AF%E8%B0%81%E6%8A%8A%E4%BD%A0%E5%8A%A0%E5%85%A5%E5%9F%9F%E7%9A%84"><span class="nav-text">怎么查看是谁把你加入域的</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#Account-Operators%E7%BB%84%E5%86%85%E7%94%A8%E6%88%B7"><span class="nav-text">Account Operators组内用户</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E5%88%A9%E7%94%A81-1"><span class="nav-text">利用1</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E6%AD%A5%E9%AA%A4"><span class="nav-text">步骤</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E5%88%A9%E7%94%A82-2"><span class="nav-text">利用2</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E5%88%A9%E7%94%A83-1"><span class="nav-text">利用3</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E5%88%A9%E7%94%A84-1"><span class="nav-text">利用4</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#PAC%E6%94%BB%E5%87%BB"><span class="nav-text">PAC攻击</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#MS14-068"><span class="nav-text">MS14-068</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#%E5%88%A9%E7%94%A8"><span class="nav-text">利用</span></a></li></ol></li></ol></li></ol></li></ol></li></ol></li></ol>
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-text"></span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#AS-REQ-amp-AS-REP%E9%98%B6%E6%AE%B5%E6%94%BB%E5%87%BB"><span class="nav-text">AS_REQ&amp;AS_REP阶段攻击</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9F%9F%E5%86%85%E7%94%A8%E6%88%B7%E6%9E%9A%E4%B8%BE"><span class="nav-text">域内用户枚举</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AF%86%E7%A0%81%E5%96%B7%E6%B4%92"><span class="nav-text">密码喷洒</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#AS-REP-Roasting%E6%94%BB%E5%87%BB"><span class="nav-text">AS_REP Roasting攻击</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%BB%84%E9%87%91%E7%A5%A8%E6%8D%AE%E6%94%BB%E5%87%BB"><span class="nav-text">黄金票据攻击</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#TGS-REQ-amp-TGS-REP%E9%98%B6%E6%AE%B5%E6%94%BB%E5%87%BB"><span class="nav-text">TGS_REQ&amp;TGS_REP阶段攻击</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Kerberosast%E6%94%BB%E5%87%BB"><span class="nav-text">Kerberosast攻击</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%99%BD%E9%93%B6%E7%A5%A8%E6%8D%AE%E6%94%BB%E5%87%BB"><span class="nav-text">白银票据攻击</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A7%94%E6%B4%BE%E6%94%BB%E5%87%BB"><span class="nav-text">委派攻击</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#PAC%E6%94%BB%E5%87%BB"><span class="nav-text">PAC攻击</span></a></li></ol></li></ol></li></ol>
 
     </div>
 </div>
@@ -1058,18 +1135,18 @@
                 
 
             </div>
-
-
+            
+            
 
         </div>
 
-        <div class="page-main-content-bottom">
+        <div class="main-content-footer">
             <footer class="footer">
     <div class="info-container">
         <div class="copyright-info">
             &copy;
             
-              <span>2023</span>
+              <span>2022</span>
               -
             
             2023&nbsp;&nbsp;<i class="fa-solid fa-heart fa-beat" style="--fa-animation-duration: 0.5s; color: #f54545"></i>&nbsp;&nbsp;<a href="/">yuBetter</a>
@@ -1091,14 +1168,14 @@
         
         <div class="theme-info info-item">
             <span class="powered-by-container">POWERED BY <?xml version="1.0" encoding="utf-8"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg version="1.1" id="圖層_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="1rem" height="1rem" viewBox="0 0 512 512" enable-background="new 0 0 512 512" xml:space="preserve"><path fill="#0E83CD" d="M256.4,25.8l-200,115.5L56,371.5l199.6,114.7l200-115.5l0.4-230.2L256.4,25.8z M349,354.6l-18.4,10.7l-18.6-11V275H200v79.6l-18.4,10.7l-18.6-11v-197l18.5-10.6l18.5,10.8V237h112v-79.6l18.5-10.6l18.5,10.8V354.6z"/></svg><a target="_blank" href="https://hexo.io">Hexo</a></span>
-                <br> 
-            <span class="theme-version-container">THEME&nbsp;<a class="theme-version" target="_blank" href="https://github.com/EvanNotFound/hexo-theme-redefine">Redefine v1.2.1</a>
+                <br>
+            <span class="theme-version-container">THEME&nbsp;<a class="theme-version" target="_blank" href="https://github.com/EvanNotFound/hexo-theme-redefine">Redefine v2.1.1</a>
         </div>
         
         
         
-            <div id="start_time_div" style="display:none">
-                2023/3/8 00:00:00
+            <div id="start_div" style="display:none">
+                2022/8/17 11:45:14
             </div>
             <div>
                 Blog up for <span class="odometer" id="runtime_days" ></span> days <span class="odometer" id="runtime_hours"></span> hrs <span class="odometer" id="runtime_minutes"></span> Min <span class="odometer" id="runtime_seconds"></span> Sec
@@ -1132,7 +1209,7 @@
     
         <div class="post-tools">
             <div class="post-tools-container">
-    <ul class="tools-list">
+    <ul class="article-tools-list">
         <!-- TOC aside toggle -->
         
             <li class="right-bottom-tools page-aside-toggle">
@@ -1142,15 +1219,19 @@
 
         <!-- go comment -->
         
+            <li class="go-comment">
+                <i class="fa-regular fa-comments"></i>
+            </li>
+        
     </ul>
 </div>
 
         </div>
     
 
-    <div class="right-bottom-side-tools">
+    <div class="right-side-tools-container">
         <div class="side-tools-container">
-    <ul class="unfolded-tools-list">
+    <ul class="hidden-tools-list">
         <li class="right-bottom-tools tool-font-adjust-plus flex-center">
             <i class="fa-regular fa-magnifying-glass-plus"></i>
         </li>
@@ -1171,20 +1252,22 @@
         
 
         
-            <li class="right-bottom-tools tool-scroll-to-top flex-center">
-                <i class="fa-regular fa-arrow-up"></i>
-            </li>
-        
 
         <li class="right-bottom-tools tool-scroll-to-bottom flex-center">
             <i class="fa-regular fa-arrow-down"></i>
         </li>
     </ul>
 
-    <ul class="folded-tools-list">
-        <li class="right-bottom-tools tool-toggle-show flex-center">
+    <ul class="visible-tools-list">
+        <li class="right-bottom-tools toggle-tools-list flex-center">
             <i class="fa-regular fa-cog fa-spin"></i>
         </li>
+        
+            <li class="right-bottom-tools tool-scroll-to-top flex-center">
+                <i class="arrow-up fas fa-arrow-up"></i>
+                <span class="percent"></span>
+            </li>
+        
         
     </ul>
 </div>
@@ -1195,35 +1278,6 @@
     <img src="">
 </div>
 
-
-    
-        <div class="search-pop-overlay">
-    <div class="popup search-popup">
-        <div class="search-header">
-          <span class="search-input-field-pre">
-            <i class="fa-solid fa-keyboard"></i>
-          </span>
-            <div class="search-input-container">
-                <input autocomplete="off"
-                       autocorrect="off"
-                       autocapitalize="off"
-                       placeholder="Search..."
-                       spellcheck="false"
-                       type="search"
-                       class="search-input"
-                >
-            </div>
-            <span class="popup-btn-close">
-                <i class="fa-solid fa-times"></i>
-            </span>
-        </div>
-        <div id="search-result">
-            <div id="no-result">
-                <i class="fa-solid fa-spinner fa-spin-pulse fa-5x fa-fw"></i>
-            </div>
-        </div>
-    </div>
-</div>
 
     
 
@@ -1237,22 +1291,18 @@
 
 <script src="/js/main.js"></script>
 
-<script src="/js/layouts/menu-shrink.js"></script>
+<script src="/js/layouts/navbarShrink.js"></script>
 
-<script src="/js/tools/go-top-bottom.js"></script>
+<script src="/js/tools/scrollTopBottom.js"></script>
 
-<script src="/js/tools/dark-light-toggle.js"></script>
+<script src="/js/tools/lightDarkSwitch.js"></script>
 
-
-
-    
-<script src="/js/tools/local-search.js"></script>
 
 
 
 
     
-<script src="/js/tools/code-block.js"></script>
+<script src="/js/tools/codeBlock.js"></script>
 
 
 
@@ -1290,7 +1340,7 @@
 <div class="post-scripts pjax">
     
         
-<script src="/js/tools/toc-toggle.js"></script>
+<script src="/js/tools/tocToggle.js"></script>
 
 <script src="/js/libs/anime.min.js"></script>
 
@@ -1311,7 +1361,7 @@
             selectors: [
                 'head title',
                 '.page-container',
-                '.pjax'
+                '.pjax',
             ],
             history: true,
             debug: false,
@@ -1324,13 +1374,13 @@
         });
 
         document.addEventListener('pjax:send', () => {
-            REDEFINE.utils.pjaxProgressBarStart();
+            Global.utils.pjaxProgressBarStart();
         });
 
         document.addEventListener('pjax:complete', () => {
-            REDEFINE.utils.pjaxProgressBarEnd();
+            Global.utils.pjaxProgressBarEnd();
             window.pjax.executeScripts(document.querySelectorAll('script[data-pjax], .pjax script'));
-            REDEFINE.refresh();
+            Global.refresh();
         });
     });
 </script>
