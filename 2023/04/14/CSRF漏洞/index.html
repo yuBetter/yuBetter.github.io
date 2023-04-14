@@ -1,0 +1,785 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keywords" content="Hexo Theme Redefine">
+    <meta name="description" content="Hexo Theme Redefine">
+    <meta name="author" content="yuBetter">
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-redefine.png">
+    
+    <!--- Seo Part-->
+    
+    <link rel="canonical" href="https://example.com/2023/04/14/csrf漏洞/"/>
+    <meta name="robots" content="index,follow">
+    <meta name="googlebot" content="index,follow">
+    <meta name="revisit-after" content="1 days">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="CSRF漏洞">
+    <meta property="og:description" content="Hexo Theme Redefine">
+    <meta property="og:url" content="https://example.com2023/04/14/CSRF漏洞/">
+    
+    <meta property="og:site_name" content="Yu&#39;s Blog">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="CSRF漏洞">
+    <meta name="twitter:description" content="Hexo Theme Redefine">
+    <meta name="twitter:image" content="/images/yubetter-logon.svg">
+    <!--- Icon Part-->
+    <link rel="icon" type="image/png" href="/images/yubetter-logon.svg" sizes="192x192">
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/yubetter-logon.svg">
+    <meta name="theme-color" content="#005080">
+    <link rel="shortcut icon" href="/images/yubetter-logon.svg">
+    
+    <title>
+        
+            CSRF漏洞 -
+        
+        Yu&#39;s Blog
+    </title>
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    
+<link rel="stylesheet" href="/assets/fonts.css">
+
+    
+    
+    
+    <script id="hexo-configurations">
+    let REDEFINE = window.REDEFINE || {};
+    REDEFINE.hexo_config = {"hostname":"example.com","root":"/","language":"en","path":"search.xml"};
+    REDEFINE.theme_config = {"toc":{"enable":true,"number":false,"expand_all":true,"init_open":true},"style":{"primary_color":"#005080","avatar":"/images/yubetter.svg","favicon":"/images/yubetter-logon.svg","og_image":{"enable":false,"image_url":null},"article_img_align":"center","right_side_width":"210px","content_max_width":"1000px","nav_color":{"left":"#f78736","right":"#367df7","transparency":35},"hover":{"shadow":true,"scale":true},"first_screen":{"enable":true,"background_image":{"light":"https://evan.beee.top/img/wallhaven-wqery6-light.webp","dark":"https://evan.beee.top/img/wallhaven-wqery6-dark.webp"},"title_color":{"light":"#fff","dark":"#d1d1b6"},"font_sizes":{"title":"3.5rem","subtitle":"1.5rem"},"line_height":1.2,"title":"好好学习，天天向上","subtitle":{"enable":true,"list":["有远大志向而脚踏实地，有障碍失败而不言放弃","静以修生，俭以养德，非淡泊无以明志，非宁静无以致远","即使慢，驰而不息，纵会落后，纵会失败，但一定可以达到他所向的目标","穷且益坚，不坠青云之志","莫不有始，鲜克有终","靡不有初,鲜克有终"]},"custom_font":{"enable":false,"font_family":null,"font_url":null}},"scroll":{"progress_bar":{"enable":true},"percent":{"enable":false}}},"local_search":{"enable":true,"preload":true},"code_block":{"copy":true,"style":"mac","custom_font":{"enable":false,"font_family":null,"font_url":null}},"pjax":{"enable":true},"lazyload":{"enable":true},"version":"1.2.1","friend_links":{"columns":2},"home_article":{"date_format":"auto","category":{"enable":true,"limit":3},"tag":{"enable":true,"limit":3}},"plugins":{"aplayer":{"enable":false,"audio":[{"name":null,"artist":null,"url":null,"cover":null},{"name":null,"artist":null,"url":null,"cover":null}]},"mermaid":{"enable":false,"version":"9.3.0"}}};
+    REDEFINE.language_ago = {"second":"%s seconds ago","minute":"%s minutes ago","hour":"%s hours ago","day":"%s days ago","week":"%s weeks ago","month":"%s months ago","year":"%s years ago"};
+  </script>
+    
+    
+<link rel="stylesheet" href="/fontawesome/fontawesome.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/brands.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/solid.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/regular.min.css">
+
+    
+    
+    
+    
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+        <span class="scroll-progress-bar"></span>
+    
+
+    
+        <span class="pjax-progress-bar"></span>
+        <span class="pjax-progress-icon">
+            <i class="fa-solid fa-circle-notch fa-spin"></i>
+        </span>
+    
+</div>
+
+
+<main class="page-container">
+
+    
+
+    <div class="page-main-content">
+
+        <div class="page-main-content-top">
+            <header class="menu-wrapper">
+    
+    <div class="menu-content">
+        <div class="left">
+            
+            <a class="logo-title" href="/">
+                
+                Yu&#39;s Blog
+                
+            </a>
+        </div>
+
+        <div class="right">
+            <!-- PC -->
+            <div class="pc">
+                <ul class="menu-list">
+                    
+                        
+                            <li class="menu-item">
+                                <!-- Menu -->
+                                <a class="" 
+                                    href="/"  >
+                                    
+                                        
+                                            <i class="fa-regular fa-house"></i>
+                                        
+                                        HOME
+                                    
+                                </a>
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            <li class="menu-item">
+                                <!-- Menu -->
+                                <a class="" 
+                                    href="/archives"  >
+                                    
+                                        
+                                            <i class="fa-regular fa-archive"></i>
+                                        
+                                        ARCHIVES
+                                    
+                                </a>
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                    
+                        <li class="menu-item search search-popup-trigger">
+                            <i class="fa-solid fa-magnifying-glass"></i>
+                        </li>
+                    
+                </ul>
+            </div>
+            <!-- Mobile -->
+            <div class="mobile">
+                
+                    <div class="icon-item search search-popup-trigger"><i class="fa-solid fa-magnifying-glass"></i></div>
+                
+                <div class="icon-item menu-bar">
+                    <div class="menu-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile drawer -->
+    <div class="menu-drawer">
+        <ul class="drawer-menu-list">
+            
+                
+                    <li class="drawer-menu-item flex-center">
+                        <a class="" 
+                        href="/"  >
+                             
+                                
+                                    <i class="fa-regular fa-house"></i>
+                                
+                                HOME
+                            
+                        </a>
+                    </li>
+                    <!-- Submenu -->
+                    
+            
+                
+                    <li class="drawer-menu-item flex-center">
+                        <a class="" 
+                        href="/archives"  >
+                             
+                                
+                                    <i class="fa-regular fa-archive"></i>
+                                
+                                ARCHIVES
+                            
+                        </a>
+                    </li>
+                    <!-- Submenu -->
+                    
+            
+
+        </ul>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="page-main-content-middle">
+
+            <div class="main-content">
+
+                
+                    <div class="fade-in-down-animation">
+    <div class="post-page-container">
+        <div class="article-content-container">
+
+            
+             
+                <div class="article-title">         
+                    <img src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/todaybing-hd-a6T7B7t1-2016-11-18.jpg" alt="CSRF漏洞" />
+                    <h1 class="article-title-cover">CSRF漏洞</h1>
+                </div>
+            
+                
+            
+
+            
+                <div class="article-header">
+                    <div class="avatar">
+                        <img src="/images/yubetter.svg">
+                    </div>
+                    <div class="info">
+                        <div class="author">
+                            <span class="name">yuBetter</span>
+                            
+                                <span class="author-label">lol</span>
+                            
+                        </div>
+                        <div class="meta-info">
+                            <div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fa-regular fa-pen-fancy"></i>&nbsp;
+        <span class="pc">2023-04-14 21:29:11</span>
+        <span class="mobile">2023-04-14 21:29</span>
+        <span class="hover-info">Created</span>
+    </span>
+    
+        <span class="article-date article-meta-item">
+            <i class="fa-regular fa-wrench"></i>&nbsp;
+            <span class="pc">2023-04-14 21:39:58</span>
+            <span class="mobile">2023-04-14 21:39</span>
+            <span class="hover-info">Updated</span>
+        </span>
+    
+
+    
+    
+
+    
+    
+        <span class="article-wordcount article-meta-item">
+            <i class="fa-regular fa-file-word"></i>&nbsp;<span>1.1k Words</span>
+        </span>
+    
+    
+        <span class="article-min2read article-meta-item">
+            <i class="fa-regular fa-clock"></i>&nbsp;<span>4 Mins</span>
+        </span>
+    
+    
+        <span class="article-pv article-meta-item">
+            <i class="fa-regular fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+        </span>
+    
+</div>
+
+                        </div>
+                    </div>
+                </div>
+            
+
+            <div class="article-content markdown-body">
+                <p>在CSRF场景中攻击者会伪造一个请求（这个请求一般是一个链接），然后去欺骗用户点击，一旦点击了之后，攻击完成</p>
+<p>他虽然与XSS类似但是不是一个概念</p>
+<p>XSS时盗取用户权限来进行攻击的</p>
+<p>而CSRF是利用用户已经进入的权限进行攻击的</p>
+<h2 id="CSRF类型"><a href="#CSRF类型" class="headerlink" title="CSRF类型"></a>CSRF类型</h2><h6 id="get请求型"><a href="#get请求型" class="headerlink" title="get请求型"></a>get请求型</h6><p>只需要构造一个URL，然后诱骗用户访问</p>
+<h6 id="POST请求型"><a href="#POST请求型" class="headerlink" title="POST请求型"></a>POST请求型</h6><p>构造自动提交的表单，诱导用户访问或者点击</p>
+<h2 id="危害"><a href="#危害" class="headerlink" title="危害"></a>危害</h2><p>一句话就能概括：就是盗用受害者的身份，利用他的权限，他能干啥攻击者就能干啥</p>
+<h2 id="漏洞利用思路"><a href="#漏洞利用思路" class="headerlink" title="漏洞利用思路"></a>漏洞利用思路</h2><p>寻找有权限进行增删改查的功能点：修改密码啥的，然后利用不让burpsuite构造HTML修改这些表单中的某些参数</p>
+<h2 id="CSRF漏洞挖掘"><a href="#CSRF漏洞挖掘" class="headerlink" title="CSRF漏洞挖掘"></a>CSRF漏洞挖掘</h2><p>一般来说抓取一个正常的请求包，如果没有referer字段和token的话那么极有可能会存在CSRF漏洞</p>
+<p>由referer字段，去掉这个字段后再次提交，如果还有效，那么基本上确定由CSRF漏洞了</p>
+<p>可以利用工具进行CSRF检测。如：CSRFTESTER，CSRF REQUEST BUILDER等<br>使用burpsuite快速生成CSRF poc</p>
+<h2 id="利用方法"><a href="#利用方法" class="headerlink" title="利用方法"></a>利用方法</h2><p>可以使用burpsuite里面的engagement tools中的generate CSRF POC模块</p>
+<p>前提用户已经登入系统</p>
+<p>修改信息</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230414170737994.png"
+                      alt="image-20230414170737994"
+                ></p>
+<p>点击submit抓包</p>
+<p>抓到数据包之后</p>
+<p>在proxy模块右键找到engagement tools中的generate CSRF POC即可</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230414170158361.png"
+                      alt="image-20230414170158361"
+                ></p>
+<p>然后点击test in browser（这个一般是用于本地的测试），复制url</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230414170544874.png"
+                      alt="image-20230414170544874"
+                ></p>
+<p>在代理浏览器上访问</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230414170907401.png"
+                      alt="image-20230414170907401"
+                ></p>
+<p>点击submit request即可修改用户信息</p>
+<p>远程的是点击copy html</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230414170926390.png"
+                      alt="image-20230414170926390"
+                ></p>
+<p>然后将复制的代码写成一个网页，加入一些具有诱惑性的css界面，即可诱惑他人点击就可以，掌握对方的权限</p>
+<p>如</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230414171055022.png"
+                      alt="image-20230414171055022"
+                ></p>
+<h2 id="pikachu靶场演示"><a href="#pikachu靶场演示" class="headerlink" title="pikachu靶场演示"></a>pikachu靶场演示</h2><h6 id="CSRF（get）"><a href="#CSRF（get）" class="headerlink" title="CSRF（get）"></a>CSRF（get）</h6><p>抓包</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230414171242474.png"
+                      alt="image-20230414171242474"
+                ></p>
+<p>然后发现各个数值的值</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230414171341191.png"
+                      alt="image-20230414171341191"
+                ></p>
+<p>复制拼接到url中同时修改数值，将add地址修改为nihao，提交</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230414171519215.png"
+                      alt="image-20230414171519215"
+                ></p>
+<p>成功修改</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230414171611509.png"
+                      alt="image-20230414171611509"
+                ></p>
+<h6 id="CSRF-post"><a href="#CSRF-post" class="headerlink" title="CSRF(post)"></a>CSRF(post)</h6><p>按正常步骤抓包</p>
+<p>会发现它没有以字符串的形式传输值</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230414181029205.png"
+                      alt="image-20230414181029205"
+                ></p>
+<p>以post形式请求的需要，将利用该漏洞的html文件，放在自己的服务器上，并且用户要访问这个文件</p>
+<p>首先要编写html攻击文件</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">&lt;html&gt;</span><br><span class="line">    &lt;script&gt;                                                                                                       &lt;!-- 这个script是用来自动提交表单的 --&gt;</span><br><span class="line">        window.onload = function() &#123;</span><br><span class="line">        document.getElementById(&quot;submit&quot;).click();</span><br><span class="line">        &#125;</span><br><span class="line">    &lt;/script&gt;              </span><br><span class="line">    &lt;body&gt;</span><br><span class="line">            &lt;form action=&quot;http://127.0.0.1/pikachu-master/vul/csrf/csrfpost/csrf_post_edit.php&quot; method=&quot;POST&quot;&gt;    </span><br><span class="line">                &lt;input type=&quot;hidden&quot; name=&quot;sex&quot; value=&quot;girl&quot; /&gt;</span><br><span class="line">                &lt;input type=&quot;hidden&quot; name=&quot;phonenum&quot; value=&quot;12345678922&quot; /&gt;</span><br><span class="line">                &lt;input type=&quot;hidden&quot; name=&quot;add&quot; value=&quot;usa&quot; /&gt;</span><br><span class="line">                &lt;input type=&quot;hidden&quot; name=&quot;email&quot; value=&quot;xiannv@pikachu.com&quot; /&gt;</span><br><span class="line">                &lt;input type=&quot;hidden&quot; name=&quot;submit&quot; value=&quot;submit&quot; /&gt;</span><br><span class="line">	            &lt;input id=&quot;submit&quot; type=&quot;submit&quot; value=&quot;Submit request&quot; style=&quot;display:none&quot;/&gt;                    &lt;!-- style设置为display:none起到隐藏submit按钮的作用 --&gt;</span><br><span class="line">            &lt;/form&gt;</span><br><span class="line">    &lt;/body&gt;</span><br><span class="line">&lt;/html&gt; </span><br><span class="line"></span><br><span class="line">保存为post.html文件</span><br></pre></td></tr></table></figure></div>
+
+<p>在攻击机上开一个http服务</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python3 -m http.server 80</span><br></pre></td></tr></table></figure></div>
+
+<p>再将链接发送给对方</p>
+<p>访问即可</p>
+<h6 id="CSRF-Token"><a href="#CSRF-Token" class="headerlink" title="CSRF(Token)"></a>CSRF(Token)</h6><p>这是一个CSRF防范的一种方法利用Token值进行验证</p>
+<p>抓包发现具有Token</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230414172344136.png"
+                      alt="image-20230414172344136"
+                ></p>
+<p>我们尝试删除token值看看能不能绕过</p>
+<p>把手机号改了，提交</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230414172527433.png"
+                      alt="image-20230414172527433"
+                ></p>
+<p>发现没啥用</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230414172714453.png"
+                      alt="image-20230414172714453"
+                ></p>
+<p>参考别人的文章</p>
+<p>获取token，再到另一个浏览器上面登入，构造payload包含此token也没啥用</p>
+<p>服务器中会比较token字段和session的token字段，相同才会修改用户信息</p>
+<p>修改之后会生成一个新的token，返回到html表单中并隐藏起来，用于下次的用户信息修改</p>
+<p>并且在生成新token之前会销毁老token避免重复使用</p>
+<h2 id="防范"><a href="#防范" class="headerlink" title="防范"></a>防范</h2><h6 id="token随机"><a href="#token随机" class="headerlink" title="token随机"></a>token随机</h6><p>原理是利用这个的随机性来让服务器进行验证，如果没有token或者token不正确则认为可能是CSRF攻击</p>
+<h6 id="referer校验"><a href="#referer校验" class="headerlink" title="referer校验"></a>referer校验</h6><p>referer记录了该http请求的来源地址，如果记录的不是同一个浏览器的请求，那可能是攻击者伪造的链接</p>
+
+            </div>
+
+            
+                <div class="post-copyright-info">
+                    <div class="article-copyright-info-container">
+    <ul>
+        <li>Post title：CSRF漏洞</li>
+        <li>Post author：yuBetter</li>
+        <li>Create time：2023-04-14 21:29:11</li>
+        <li>
+            Post link：https://yubetter.github.io/2023/04/14/CSRF漏洞/
+        </li>
+        <li>
+            Copyright Notice：All articles in this blog are licensed under <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">BY-NC-SA</a> unless stating additionally.
+        </li>
+    </ul>
+</div>
+
+                </div>
+            
+
+            
+
+            
+
+            
+                <div class="article-nav">
+                    
+                        <div class="article-prev">
+                            <a class="prev"
+                            rel="prev"
+                            href="/2023/04/14/%E5%86%85%E7%BD%91%E5%AE%89%E5%85%A8/"
+                            >
+                                <span class="left arrow-icon flex-center">
+                                    <i class="fa-solid fa-chevron-left"></i>
+                                </span>
+                                <span class="title flex-center">
+                                    <span class="post-nav-title-item">内网安全</span>
+                                    <span class="post-nav-item">Prev posts</span>
+                                </span>
+                            </a>
+                        </div>
+                    
+                    
+                        <div class="article-next">
+                            <a class="next"
+                            rel="next"
+                            href="/2023/04/14/SSRF%E6%BC%8F%E6%B4%9E/"
+                            >
+                                <span class="title flex-center">
+                                    <span class="post-nav-title-item">SSRF漏洞</span>
+                                    <span class="post-nav-item">Next posts</span>
+                                </span>
+                                <span class="right arrow-icon flex-center">
+                                    <i class="fa-solid fa-chevron-right"></i>
+                                </span>
+                            </a>
+                        </div>
+                    
+                </div>
+            
+
+
+            
+        </div>
+
+        
+            <div class="toc-content-container">
+                <div class="post-toc-wrap">
+    <div class="post-toc">
+        <div class="toc-title">On this page</div>
+        <div class="page-title">CSRF漏洞</div>
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#CSRF%E7%B1%BB%E5%9E%8B"><span class="nav-text">CSRF类型</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#get%E8%AF%B7%E6%B1%82%E5%9E%8B"><span class="nav-text">get请求型</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#POST%E8%AF%B7%E6%B1%82%E5%9E%8B"><span class="nav-text">POST请求型</span></a></li></ol></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8D%B1%E5%AE%B3"><span class="nav-text">危害</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%BC%8F%E6%B4%9E%E5%88%A9%E7%94%A8%E6%80%9D%E8%B7%AF"><span class="nav-text">漏洞利用思路</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#CSRF%E6%BC%8F%E6%B4%9E%E6%8C%96%E6%8E%98"><span class="nav-text">CSRF漏洞挖掘</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%A9%E7%94%A8%E6%96%B9%E6%B3%95"><span class="nav-text">利用方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#pikachu%E9%9D%B6%E5%9C%BA%E6%BC%94%E7%A4%BA"><span class="nav-text">pikachu靶场演示</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#CSRF%EF%BC%88get%EF%BC%89"><span class="nav-text">CSRF（get）</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#CSRF-post"><span class="nav-text">CSRF(post)</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#CSRF-Token"><span class="nav-text">CSRF(Token)</span></a></li></ol></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%98%B2%E8%8C%83"><span class="nav-text">防范</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#token%E9%9A%8F%E6%9C%BA"><span class="nav-text">token随机</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#referer%E6%A0%A1%E9%AA%8C"><span class="nav-text">referer校验</span></a></li></ol></li></ol></li></ol></li></ol></li></ol>
+
+    </div>
+</div>
+            </div>
+        
+    </div>
+</div>
+
+
+                
+
+            </div>
+
+
+
+        </div>
+
+        <div class="page-main-content-bottom">
+            <footer class="footer">
+    <div class="info-container">
+        <div class="copyright-info">
+            &copy;
+            
+              <span>2023</span>
+              -
+            
+            2023&nbsp;&nbsp;<i class="fa-solid fa-heart fa-beat" style="--fa-animation-duration: 0.5s; color: #f54545"></i>&nbsp;&nbsp;<a href="/">yuBetter</a>
+        </div>
+        
+            <script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            <div class="website-count info-item">
+                
+                    <span id="busuanzi_container_site_uv" class="busuanzi_container_site_uv">
+                        VISITOR COUNT&nbsp;<span id="busuanzi_value_site_uv" class="busuanzi_value_site_uv"></span>
+                    </span>
+                
+                
+                    <span id="busuanzi_container_site_pv" class="busuanzi_container_site_pv">
+                        TOTAL PAGE VIEWS&nbsp;<span id="busuanzi_value_site_pv" class="busuanzi_value_site_pv"></span>
+                    </span>
+                
+            </div>
+        
+        <div class="theme-info info-item">
+            <span class="powered-by-container">POWERED BY <?xml version="1.0" encoding="utf-8"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg version="1.1" id="圖層_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="1rem" height="1rem" viewBox="0 0 512 512" enable-background="new 0 0 512 512" xml:space="preserve"><path fill="#0E83CD" d="M256.4,25.8l-200,115.5L56,371.5l199.6,114.7l200-115.5l0.4-230.2L256.4,25.8z M349,354.6l-18.4,10.7l-18.6-11V275H200v79.6l-18.4,10.7l-18.6-11v-197l18.5-10.6l18.5,10.8V237h112v-79.6l18.5-10.6l18.5,10.8V354.6z"/></svg><a target="_blank" href="https://hexo.io">Hexo</a></span>
+                <br> 
+            <span class="theme-version-container">THEME&nbsp;<a class="theme-version" target="_blank" href="https://github.com/EvanNotFound/hexo-theme-redefine">Redefine v1.2.1</a>
+        </div>
+        
+        
+        
+            <div id="start_time_div" style="display:none">
+                2023/3/8 00:00:00
+            </div>
+            <div>
+                Blog up for <span class="odometer" id="runtime_days" ></span> days <span class="odometer" id="runtime_hours"></span> hrs <span class="odometer" id="runtime_minutes"></span> Min <span class="odometer" id="runtime_seconds"></span> Sec
+            </div>
+        
+        
+        
+            <script async data-pjax>
+                try {
+                    function odometer_init() {
+                    const elements = document.querySelectorAll('.odometer');
+                    elements.forEach(el => {
+                        new Odometer({
+                            el,
+                            format: '( ddd).dd',
+                            duration: 200
+                        });
+                    });
+                    }
+                    odometer_init();
+                } catch (error) {}
+            </script>
+        
+        
+        
+    </div>  
+</footer>
+        </div>
+    </div>
+
+    
+        <div class="post-tools">
+            <div class="post-tools-container">
+    <ul class="tools-list">
+        <!-- TOC aside toggle -->
+        
+            <li class="right-bottom-tools page-aside-toggle">
+                <i class="fa-regular fa-outdent"></i>
+            </li>
+        
+
+        <!-- go comment -->
+        
+    </ul>
+</div>
+
+        </div>
+    
+
+    <div class="right-bottom-side-tools">
+        <div class="side-tools-container">
+    <ul class="unfolded-tools-list">
+        <li class="right-bottom-tools tool-font-adjust-plus flex-center">
+            <i class="fa-regular fa-magnifying-glass-plus"></i>
+        </li>
+
+        <li class="right-bottom-tools tool-font-adjust-minus flex-center">
+            <i class="fa-regular fa-magnifying-glass-minus"></i>
+        </li>
+
+        <li class="right-bottom-tools tool-expand-width flex-center">
+            <i class="fa-regular fa-expand"></i>
+        </li>
+
+        <li class="right-bottom-tools tool-dark-light-toggle flex-center">
+            <i class="fa-regular fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+
+        
+            <li class="right-bottom-tools tool-scroll-to-top flex-center">
+                <i class="fa-regular fa-arrow-up"></i>
+            </li>
+        
+
+        <li class="right-bottom-tools tool-scroll-to-bottom flex-center">
+            <i class="fa-regular fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="folded-tools-list">
+        <li class="right-bottom-tools tool-toggle-show flex-center">
+            <i class="fa-regular fa-cog fa-spin"></i>
+        </li>
+        
+    </ul>
+</div>
+
+    </div>
+
+    <div class="image-viewer-container">
+    <img src="">
+</div>
+
+
+    
+        <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+          <span class="search-input-field-pre">
+            <i class="fa-solid fa-keyboard"></i>
+          </span>
+            <div class="search-input-container">
+                <input autocomplete="off"
+                       autocorrect="off"
+                       autocapitalize="off"
+                       placeholder="Search..."
+                       spellcheck="false"
+                       type="search"
+                       class="search-input"
+                >
+            </div>
+            <span class="popup-btn-close">
+                <i class="fa-solid fa-times"></i>
+            </span>
+        </div>
+        <div id="search-result">
+            <div id="no-result">
+                <i class="fa-solid fa-spinner fa-spin-pulse fa-5x fa-fw"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+
+
+</main>
+
+
+
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/main.js"></script>
+
+<script src="/js/layouts/menu-shrink.js"></script>
+
+<script src="/js/tools/go-top-bottom.js"></script>
+
+<script src="/js/tools/dark-light-toggle.js"></script>
+
+
+
+    
+<script src="/js/tools/local-search.js"></script>
+
+
+
+
+    
+<script src="/js/tools/code-block.js"></script>
+
+
+
+
+    
+<script src="/js/layouts/lazyload.js"></script>
+
+
+
+
+    
+<script src="/js/tools/runtime.js"></script>
+
+    
+<script src="/js/layouts/odometer.min.js"></script>
+
+    
+<link rel="stylesheet" href="/assets/odometer-theme-minimal.css">
+
+
+
+
+  
+<script src="/js/libs/Typed.min.js"></script>
+
+  
+<script src="/js/plugins/typed.js"></script>
+
+
+
+
+
+
+
+<div class="post-scripts pjax">
+    
+        
+<script src="/js/tools/toc-toggle.js"></script>
+
+<script src="/js/libs/anime.min.js"></script>
+
+<script src="/js/layouts/toc.js"></script>
+
+<script src="/js/plugins/tabs.js"></script>
+
+    
+</div>
+
+
+    
+<script src="/js/libs/pjax.min.js"></script>
+
+<script>
+    window.addEventListener('DOMContentLoaded', () => {
+        window.pjax = new Pjax({
+            selectors: [
+                'head title',
+                '.page-container',
+                '.pjax'
+            ],
+            history: true,
+            debug: false,
+            cacheBust: false,
+            timeout: 0,
+            analytics: false,
+            currentUrlFullReload: false,
+            scrollRestoration: false,
+            // scrollTo: true,
+        });
+
+        document.addEventListener('pjax:send', () => {
+            REDEFINE.utils.pjaxProgressBarStart();
+        });
+
+        document.addEventListener('pjax:complete', () => {
+            REDEFINE.utils.pjaxProgressBarEnd();
+            window.pjax.executeScripts(document.querySelectorAll('script[data-pjax], .pjax script'));
+            REDEFINE.refresh();
+        });
+    });
+</script>
+
+
+
+
+</body>
+</html>
