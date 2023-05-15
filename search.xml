@@ -5278,65 +5278,65 @@
   <entry>
     <title>文件上传绕过之靶场实战</title>
     <url>/2023/05/15/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E7%BB%95%E8%BF%87%E4%B9%8B%E9%9D%B6%E5%9C%BA%E5%AE%9E%E6%88%98/</url>
-    <content><![CDATA[<p>文件上传返回代码：</p>
-<p>0：没有发生错误，文件上传成功</p>
+    <content><![CDATA[<h2 id="文件上传返回代码："><a href="#文件上传返回代码：" class="headerlink" title="文件上传返回代码："></a>文件上传返回代码：</h2><p>0：没有发生错误，文件上传成功</p>
 <p>1：上传的文件超过了php.ini中upload_max_filesize选项限制的值</p>
 <p>2：上传的文件超过了HTML表单中MAX_FILE_SIZE选项指定的值</p>
 <p>3：文件只有部分被上传</p>
 <p>4：没有文件被上传</p>
-<p><em><strong>*js前端绕过方法：第一关*</strong></em></p>
-<p>\1. 可以在网页源代码中将js验证代码删除绕过onsubmit&#x3D;”return checkFile()”</p>
-<p>\2. 通过brupsuit抓包：先将要上传的php文件后缀改为允许上传的格式，然后上传通过抓包，将数据包中的文件格式改回.php发送，就绕过了前端检测</p>
-<p><em><strong>*Content_type检测上传绕过：第二关*</strong></em></p>
-<p>\1. 上传php文件，通过抓包将content_type类型改为image&#x2F;jpeg，放包即可</p>
-<p><em><strong>*黑名单上传绕过：第三关*</strong></em></p>
-<p>有些文件上传会过滤掉一些文件格式</p>
+<h2 id="文件上传靶场绕过"><a href="#文件上传靶场绕过" class="headerlink" title="文件上传靶场绕过"></a>文件上传靶场绕过</h2><h4 id="js前端绕过方法：第一关"><a href="#js前端绕过方法：第一关" class="headerlink" title="js前端绕过方法：第一关"></a>js前端绕过方法：第一关</h4><ol>
+<li><p>可以在网页源代码中将js验证代码删除绕过onsubmit&#x3D;”return checkFile()”</p>
+</li>
+<li><p>通过brupsuit抓包：先将要上传的php文件后缀改为允许上传的格式，然后上传通过抓包，将数据包中的文件格式改回.php发送，就绕过了前端检测</p>
+</li>
+</ol>
+<h4 id="Content-type检测上传绕过：第二关"><a href="#Content-type检测上传绕过：第二关" class="headerlink" title="Content_type检测上传绕过：第二关"></a>Content_type检测上传绕过：第二关</h4><ol>
+<li>上传php文件，通过抓包将content_type类型改为image&#x2F;jpeg，放包即可</li>
+</ol>
+<h4 id="黑名单上传绕过：第三关"><a href="#黑名单上传绕过：第三关" class="headerlink" title="黑名单上传绕过：第三关"></a>黑名单上传绕过：第三关</h4><p>有些文件上传会过滤掉一些文件格式</p>
 <p><img  
                      lazyload
                      src="/images/loading.svg"
                      data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/wps1.jpg"
                       alt="img"
                 > </p>
-<p>\1. asa </p>
-<p>\2. Cer</p>
-<p>\3. ashx代替aspx  </p>
-<p>\4. Phtml</p>
-<p>\5. Cdx</p>
-<p>\6. php3</p>
+<ol>
+<li><p>asa </p>
+</li>
+<li><p>Cer</p>
+</li>
+<li><p>ashx代替aspx 4. </p>
+</li>
+<li><p>Phtml</p>
+</li>
+<li><p>Cdx</p>
+</li>
+<li><p>php3</p>
+</li>
+</ol>
 <p>只要换个后缀名即可，当然需要一个一个试直到上传成功</p>
-<p><em><strong>*htaccess绕过：第四关*</strong></em></p>
-<p>.htaccess主要的作用有：URL重写、自定义错误页面、MIME类型配置以及访问权限控制等。主要体现在伪静态的应用、图片防盗链、自定义404错误页面、阻止&#x2F;允许特定IP&#x2F;IP段、目录浏览与主页、禁止访问指定文件类型、文件密码保护等。</p>
+<h4 id="htaccess绕过：第四关"><a href="#htaccess绕过：第四关" class="headerlink" title="htaccess绕过：第四关"></a>htaccess绕过：第四关</h4><p>.htaccess主要的作用有：URL重写、自定义错误页面、MIME类型配置以及访问权限控制等。主要体现在伪静态的应用、图片防盗链、自定义404错误页面、阻止&#x2F;允许特定IP&#x2F;IP段、目录浏览与主页、禁止访问指定文件类型、文件密码保护等。</p>
 <p>因为黑名单过滤了大多数的可执行文件，但是如果可以上传.htaccess文件后缀，则这个文件可以改变你的文件后缀名，在htaccess文件里面写入sethandler application&#x2F;x-httpd-php就可以将文件重写为php文件</p>
-<p><em><strong>*大小写绕过：第五关*</strong></em></p>
-<p>上传模块没有对上传文件的后缀名的大小写进行过滤，可以改后缀名的大小写</p>
+<h4 id="大小写绕过：第五关"><a href="#大小写绕过：第五关" class="headerlink" title="大小写绕过：第五关"></a>大小写绕过：第五关</h4><p>上传模块没有对上传文件的后缀名的大小写进行过滤，可以改后缀名的大小写</p>
 <p>pHp  PHP  PhP  PHp等等</p>
-<p><em><strong>*空格绕过：第六关*</strong></em></p>
-<p>上传模块没有过滤空格，在文件的后缀里加一个空格即可绕过，不行的话可以通过brupsuite抓包然后在那里面更改，之后重新发送即可获得上传地址。</p>
-<p><em><strong>*利用Windows系统特征绕过：第七关*</strong></em></p>
-<p>由于系统特性，shell.php与shell.php.在Windows系统中是一样的存在，所以可以利用这一特性绕过。</p>
-<p><em><strong>*NTFS交换数据流::$DATA绕过：第八关*</strong></em></p>
-<p>如果系统后缀没有对::$DATA进行过滤，我们就可以利用这一特性进行绕过上传，有些没有对后缀的前后字符置空，所以就可以绕过</p>
+<h4 id="空格绕过：第六关"><a href="#空格绕过：第六关" class="headerlink" title="空格绕过：第六关"></a>空格绕过：第六关</h4><p>上传模块没有过滤空格，在文件的后缀里加一个空格即可绕过，不行的话可以通过brupsuite抓包然后在那里面更改，之后重新发送即可获得上传地址。</p>
+<h4 id="利用Windows系统特征绕过：第七关"><a href="#利用Windows系统特征绕过：第七关" class="headerlink" title="利用Windows系统特征绕过：第七关"></a>利用Windows系统特征绕过：第七关</h4><p>由于系统特性，shell.php与shell.php.在Windows系统中是一样的存在，所以可以利用这一特性绕过。</p>
+<h4 id="NTFS交换数据流-DATA绕过：第八关"><a href="#NTFS交换数据流-DATA绕过：第八关" class="headerlink" title="NTFS交换数据流::$DATA绕过：第八关"></a>NTFS交换数据流::$DATA绕过：第八关</h4><p>如果系统后缀没有对::$DATA进行过滤，我们就可以利用这一特性进行绕过上传，有些没有对后缀的前后字符置空，所以就可以绕过</p>
 <p>通过brupsuit抓包然后对其数据包中的文件名如shell.php改为shell.php::$DATA进行上传，即可成功</p>
-<p><em><strong>*利用windows环境的叠加特征进行绕过：第九关*</strong></em></p>
-<p>利用windows的叠加属性：</p>
+<h4 id="利用windows环境的叠加特征进行绕过：第九关"><a href="#利用windows环境的叠加特征进行绕过：第九关" class="headerlink" title="利用windows环境的叠加特征进行绕过：第九关"></a>利用windows环境的叠加特征进行绕过：第九关</h4><p>利用windows的叠加属性：</p>
 <p>双引号 ” 等于  点号 .</p>
 <p>大于号 &gt;  等于  问号 ?</p>
 <p>小于号 &lt;  等于  星号 *</p>
 <p>通过抓包上传shell.php:.jpg文件会被识别为shell.php的空文件,紧接着就可以再次提交吧shell.php改为shell.&gt;&gt;&gt;就会自动匹配写入代码</p>
-<p><em><strong>*文件双写绕过：第十关*</strong></em></p>
-<p>有些会把如shell.php的后缀置为空成shell. 但是我们可以通过双写进行绕过</p>
+<h4 id="文件双写绕过：第十关"><a href="#文件双写绕过：第十关" class="headerlink" title="文件双写绕过：第十关"></a>文件双写绕过：第十关</h4><p>有些会把如shell.php的后缀置为空成shell. 但是我们可以通过双写进行绕过</p>
 <p>抓包&#x2F;直接改文件名为shell.pphphp即可，它会将识别到的第一个php进行过滤剩下的就只有shell.php即可绕过</p>
-<p><em><strong>*目录可控%00截断绕过（get）：第十一关*</strong></em></p>
-<p>接下来采用的是白名单过滤，我们可以上传一个符合的文件，然后抓包对其url中添加一个如shell.php%00文件进行截断，提交即可</p>
-<p>必须在gpc关闭的情况下使用</p>
+<h4 id="接下来采用的是白名单过滤，我们可以上传一个符合的文件，然后抓包对其url中添加一个如shell-php-00文件进行截断，提交即可"><a href="#接下来采用的是白名单过滤，我们可以上传一个符合的文件，然后抓包对其url中添加一个如shell-php-00文件进行截断，提交即可" class="headerlink" title="****接下来采用的是白名单过滤，我们可以上传一个符合的文件，然后抓包对其url中添加一个如shell.php%00文件进行截断，提交即可"></a>****接下来采用的是白名单过滤，我们可以上传一个符合的文件，然后抓包对其url中添加一个如shell.php%00文件进行截断，提交即可</h4><p>必须在gpc关闭的情况下使用</p>
 <p><img  
                      lazyload
                      src="/images/loading.svg"
                      data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/wps2.jpg"
                       alt="img"
                 > </p>
-<p><em><strong>*目录可控绕过（post）：第十二关*</strong></em></p>
-<p>上面是利用get形式进行提交，而使用post方式提交的必须对%00进行解码</p>
+<h4 id="目录可控绕过（post）：第十二关"><a href="#目录可控绕过（post）：第十二关" class="headerlink" title="目录可控绕过（post）：第十二关"></a>目录可控绕过（post）：第十二关</h4><p>上面是利用get形式进行提交，而使用post方式提交的必须对%00进行解码</p>
 <p>必须在gpc关闭的情况下使用</p>
 <p>解码步骤</p>
 <p><img  
@@ -5345,8 +5345,7 @@
                      data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/wps3.jpg"
                       alt="img"
                 > </p>
-<p><em><strong>*文件头检测绕过：第十三关*</strong></em></p>
-<p>有些文件上传会检查头文件，不同的文件，头文件也是不尽相同。常见的文件上传图片头检测，检车图片是两个字节长度，如果不是图片格式，会禁止上传。</p>
+<h4 id="文件头检测绕过：第十三关"><a href="#文件头检测绕过：第十三关" class="headerlink" title="文件头检测绕过：第十三关"></a>文件头检测绕过：第十三关</h4><p>有些文件上传会检查头文件，不同的文件，头文件也是不尽相同。常见的文件上传图片头检测，检车图片是两个字节长度，如果不是图片格式，会禁止上传。</p>
 <p>常见的文件头：</p>
 <p>JPEG（jpg）文件头  FFD8FF</p>
 <p>PNG（png）文件头  89504E47</p>
@@ -5354,17 +5353,18 @@
 <p>TIFF（tif）文件头   49492A00</p>
 <p>Windows Bitmap（bmp）文件头  424D</p>
 <p>getReailFileType就是检测 jpg png gif的文件头的代码</p>
-<p>\1. 可以通过抓包上传shell.php然后在其代码中加个GIF89a即可</p>
-<p>\2. 制作图片马，使用copy 1.gif&#x2F;b+hhh.php shell.php  意思是将1.gif的文件内容和hhh.php的内容写入shell.php中，然后将shell.php改为shell.jpg上传即可</p>
-<p><em><strong>*图片检测函数绕过：第十四关*</strong></em></p>
-<p>getimagesize是检测图片的大小等信息</p>
+<ol>
+<li><p>可以通过抓包上传shell.php然后在其代码中加个GIF89a即可</p>
+</li>
+<li><p>制作图片马，使用copy 1.gif&#x2F;b+hhh.php shell.php  意思是将1.gif的文件内容和hhh.php的内容写入shell.php中，然后将shell.php改为shell.jpg上传即可</p>
+</li>
+</ol>
+<h4 id="图片检测函数绕过：第十四关"><a href="#图片检测函数绕过：第十四关" class="headerlink" title="图片检测函数绕过：第十四关"></a>图片检测函数绕过：第十四关</h4><p>getimagesize是检测图片的大小等信息</p>
 <p>同样使用图片马即可绕过：</p>
 <p>制作图片马，使用copy 1.gif&#x2F;b+hhh.php shell.php  意思是将1.gif的文件内容和hhh.php的内容写入shell.php中，然后将shell.php改为shell.gif上传即可</p>
-<p><em><strong>*图片二次渲染绕过：第十六关*</strong></em></p>
-<p>有些图片需要二次渲染，如压缩图片达到网站要求大小等，所以我们上传的图片马可能其中的代码会被清除，导致绕过失败</p>
+<h4 id="图片二次渲染绕过：第十六关"><a href="#图片二次渲染绕过：第十六关" class="headerlink" title="图片二次渲染绕过：第十六关"></a>图片二次渲染绕过：第十六关</h4><p>有些图片需要二次渲染，如压缩图片达到网站要求大小等，所以我们上传的图片马可能其中的代码会被清除，导致绕过失败</p>
 <p>最好用gif文件这样二次渲染前后相同点较多，可以将原gif文件上传得到渲染过后的文件，然后利用工具对比两份文件相同内容的地方，然后在对其不变的地方进行php代码的写入</p>
-<p><em><strong>*文件名可控绕过：第十九关*</strong></em></p>
-<p>1.上传hhh.php文件然后抓包将其保存的文件名改为hhh.php%00.jpg （注意：%00需要编码）即可（有版本限制php版本必须小于5.3.4，且gpc必须关闭，应用场景较小）</p>
+<h4 id="文件名可控绕过：第十九关"><a href="#文件名可控绕过：第十九关" class="headerlink" title="文件名可控绕过：第十九关"></a>文件名可控绕过：第十九关</h4><p>1.上传hhh.php文件然后抓包将其保存的文件名改为hhh.php%00.jpg （注意：%00需要编码）即可（有版本限制php版本必须小于5.3.4，且gpc必须关闭，应用场景较小）</p>
 <p><img  
                      lazyload
                      src="/images/loading.svg"
@@ -5376,22 +5376,21 @@
                      data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/wps5.jpg"
                       alt="img"
                 > </p>
-<p>2.与中间漏洞配合使用，如在iis 6.0上传1.php;1.jpg  或则  apache上传1.php.a都可以解析</p>
+<p>   2.与中间漏洞配合使用，如在iis 6.0上传1.php;1.jpg  或则  apache上传1.php.a都可以解析</p>
 <p>与上面的方法步骤差不多</p>
-<p>\3. 也可以利用hhh.php&#x2F;.  （限定Windows系统）步骤与前两种方法差不多</p>
-<p><em><strong>*数组绕过：第二十关*</strong></em></p>
-<p>有的文件上传支持数组上传的话，如果逻辑写的有问题就会产生安全隐患，在白盒审计中发现居多，黑盒很难推测出来</p>
-<p><em><strong>*文件上传其他漏洞：*</strong></em></p>
-<p>nginx0.83&#x2F;1.jpg%00php</p>
+<ol start="3">
+<li>也可以利用hhh.php&#x2F;.  （限定Windows系统）步骤与前两种方法差不多</li>
+</ol>
+<h4 id="数组绕过：第二十关"><a href="#数组绕过：第二十关" class="headerlink" title="数组绕过：第二十关"></a>数组绕过：第二十关</h4><p>有的文件上传支持数组上传的话，如果逻辑写的有问题就会产生安全隐患，在白盒审计中发现居多，黑盒很难推测出来</p>
+<h2 id="文件上传其他漏洞"><a href="#文件上传其他漏洞" class="headerlink" title="文件上传其他漏洞"></a>文件上传其他漏洞</h2><p>nginx0.83&#x2F;1.jpg%00php</p>
 <p>apahce1x或者2x</p>
 <p>当apache遇见不认识的后缀名，会从后向前解析例如1.php.rar不认识rar就向前解析，直到知道它认识的后缀名。</p>
 <p>phpcgi漏洞(nginxiis7或者以上)上传图片后1.jpg。访问1.jpg&#x2F;1.php也会解析成php。</p>
 <p>ApacheHTTPD换行解析漏洞（CVE-2017-15715）</p>
 <p>apache通过mod_php来运行脚本，其2.4.0-2.4.29中存在apache换行解析漏洞，在解析php时xxx.php\x0A将被按照PHP后缀进行解析，导致绕过一些服务器的安全策略。</p>
-<p><em><strong>*文件上传漏洞通用检测方法*</strong></em> </p>
-<p>判断是否为黑白名单，如果是白名单 寻找可控参数。如果是黑名单禁止上传， </p>
+<h2 id="文件上传漏洞通用检测方法"><a href="#文件上传漏洞通用检测方法" class="headerlink" title="文件上传漏洞通用检测方法"></a>文件上传漏洞通用检测方法</h2><p>判断是否为黑白名单，如果是白名单 寻找可控参数。如果是黑名单禁止上传， </p>
 <p>可以用有危害的后缀名批量提交测试，寻找遗留的执行脚本。 </p>
-<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">.php </span><br><span class="line"></span><br><span class="line">.php5 </span><br><span class="line"></span><br><span class="line">.php4 </span><br><span class="line"></span><br><span class="line">.php3 </span><br><span class="line"></span><br><span class="line">.php2 </span><br><span class="line"></span><br><span class="line">.html </span><br><span class="line"></span><br><span class="line">.htm.phtml </span><br><span class="line"></span><br><span class="line">.pht </span><br><span class="line"></span><br><span class="line">.pHp </span><br><span class="line"></span><br><span class="line">.phP </span><br><span class="line"></span><br><span class="line">.pHp5 </span><br><span class="line"></span><br><span class="line">.pHp4 </span><br><span class="line"></span><br><span class="line">.pHp3 </span><br><span class="line"></span><br><span class="line">.pHp2 </span><br><span class="line"></span><br><span class="line">.Html </span><br><span class="line"></span><br><span class="line">.Htm </span><br><span class="line"></span><br><span class="line">.pHtml </span><br><span class="line"></span><br><span class="line">.jsp </span><br><span class="line"></span><br><span class="line">.jspa </span><br><span class="line"></span><br><span class="line">.jspx </span><br><span class="line"></span><br><span class="line">.jsw </span><br><span class="line"></span><br><span class="line">.jsv </span><br><span class="line"></span><br><span class="line">.jspf </span><br><span class="line"></span><br><span class="line">.jtml </span><br><span class="line"></span><br><span class="line">.jSp </span><br><span class="line"></span><br><span class="line">.jSpx </span><br><span class="line"></span><br><span class="line">.jSpa </span><br><span class="line"></span><br><span class="line">.jSw </span><br><span class="line"></span><br><span class="line">.jSv </span><br><span class="line"></span><br><span class="line">.jSpf </span><br><span class="line"></span><br><span class="line">.jHtml </span><br><span class="line"></span><br><span class="line">.asp </span><br><span class="line"></span><br><span class="line">.aspx </span><br><span class="line"></span><br><span class="line">.asa </span><br><span class="line"></span><br><span class="line">.asax </span><br><span class="line"></span><br><span class="line">.ascx </span><br><span class="line"></span><br><span class="line">.ashx </span><br><span class="line"></span><br><span class="line">.asmx </span><br><span class="line"></span><br><span class="line">.cer </span><br><span class="line"></span><br><span class="line">.aSp </span><br><span class="line"></span><br><span class="line">.aSpx </span><br><span class="line"></span><br><span class="line">.aSa </span><br><span class="line"></span><br><span class="line">.aSax </span><br><span class="line"></span><br><span class="line">.aScx </span><br><span class="line"></span><br><span class="line">.aShx </span><br><span class="line"></span><br><span class="line">.aSmx </span><br><span class="line"></span><br><span class="line">.cEr </span><br><span class="line"></span><br><span class="line">.sWf </span><br><span class="line"></span><br><span class="line">.swf </span><br><span class="line"></span><br><span class="line">.htaccess</span><br></pre></td></tr></table></figure></div>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">.php    .php5    .php4    .php3    .php2 </span><br><span class="line">.html   .htm     .phtml </span><br><span class="line">.pht    .pHp     .phP     .pHp5    .pHp4   .pHp3   .pHp2 </span><br><span class="line">.Html   .Htm     .pHtml </span><br><span class="line">.jsp    .jspa    .jspx    .jsw     .jsv    .jspf   .jtml   .jSp    .jSpx   .jSpa  .jSw  .jSv  .jSpf  .jHtml </span><br><span class="line">.asp    .aspx    .asa     .asax    .ascx   .ashx   .asmx </span><br><span class="line">.cer    .cEr </span><br><span class="line">.aSp    .aSpx    .aSa     .aSax    .aScx   .aShx   .aSmx </span><br><span class="line">.sWf    .swf </span><br><span class="line">.htaccess</span><br></pre></td></tr></table></figure></div>
 
 <p>使用 burpsuite 抓包上传将后缀名设置成变量，把这些文件设置成一个字典批量提交，查看数据包大小 查看确定时候可上传即可。</p>
 ]]></content>
