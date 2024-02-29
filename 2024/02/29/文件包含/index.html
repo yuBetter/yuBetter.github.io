@@ -1,0 +1,780 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keywords" content="Hexo Theme Redefine">
+    
+    <meta name="author" content="yuBetter">
+    <!-- preconnect -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://evan.beee.top" crossorigin>
+    
+        
+    
+    <!--- Seo Part-->
+    
+    <link rel="canonical" href="https://example.com/2024/02/29/文件包含/"/>
+    <meta name="robots" content="index,follow">
+    <meta name="googlebot" content="index,follow">
+    <meta name="revisit-after" content="1 days">
+    
+        <meta name="description" content="文件包含 将文件以脚本去执行,将文件包含另一个文件   include()$filename);  代表包含filename这个变量，然后让filename&#x3D;1.txt（一个txt文件，里面写有攻击代码）就可以包含了一个代码本地包含上面的例子就是一个本地包含 本地包含分为无限制 （参考上面例子）有限制 在上面的代码中加了限制条件  .html  这样会使包含的文件如1.txt会被拼接成1">
+<meta property="og:type" content="article">
+<meta property="og:title" content="文件包含">
+<meta property="og:url" content="https://example.com/2024/02/29/%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="文件包含 将文件以脚本去执行,将文件包含另一个文件   include()$filename);  代表包含filename这个变量，然后让filename&#x3D;1.txt（一个txt文件，里面写有攻击代码）就可以包含了一个代码本地包含上面的例子就是一个本地包含 本地包含分为无限制 （参考上面例子）有限制 在上面的代码中加了限制条件  .html  这样会使包含的文件如1.txt会被拼接成1">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20221004141528519.png">
+<meta property="og:image" content="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20221004142251830.png">
+<meta property="og:image" content="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20221004143539858.png">
+<meta property="og:image" content="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20221004143827101.png">
+<meta property="og:image" content="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20221004145258359.png">
+<meta property="og:image" content="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20221004150256994.png">
+<meta property="og:image" content="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20221004150426547.png">
+<meta property="og:image" content="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20221004150450522.png">
+<meta property="og:image" content="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20221004150934989.png">
+<meta property="og:image" content="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20221004150827329.png">
+<meta property="og:image" content="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20221004151008736.png">
+<meta property="og:image" content="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20221004151030554.png">
+<meta property="article:published_time" content="2024-02-29T12:53:16.000Z">
+<meta property="article:modified_time" content="2024-02-29T12:54:19.112Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20221004141528519.png">
+    
+    <!--- Icon Part-->
+    <link rel="icon" type="image/png" href="/images/yubetter.svg" sizes="192x192">
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/yubetter.svg">
+    <meta name="theme-color" content="#A31F34">
+    <link rel="shortcut icon" href="/images/yubetter.svg">
+    <!--- Page Info-->
+    
+    <title>
+        
+            文件包含 -
+        
+        Yu&#39;s Blog
+    </title>
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <link rel="stylesheet" href="//evan.beee.top/projects/hexo-theme-redefine/v2.1.1/source/assets/fonts.css">
+    <!--- Font Part-->
+    
+    
+    
+    
+
+    <!--- Inject Part-->
+    
+    <script id="hexo-configurations">
+    let Global = window.Global || {};
+    Global.hexo_config = {"hostname":"example.com","root":"/","language":"en","path":"search.xml"};
+    Global.theme_config = {"articles":{"style":{"font_size":"16px","line_height":1.5,"image_border_radius":"14px","image_alignment":"center"},"word_count":{"enable":true,"count":true,"min2read":true},"author_label":{"enable":true,"auto":false,"list":[""]},"code_block":{"copy":true,"style":"mac","font":{"enable":false,"family":null,"url":null}},"toc":{"enable":true,"max_depth":3,"number":false,"expand":true,"init_open":true},"copyright":true,"lazyload":true,"recommendation":{"enable":false,"title":"推荐阅读","limit":3,"placeholder":"/images/wallhaven-wqery6-light.webp","skip_dirs":[]}},"colors":{"primary":"#A31F34","secondary":null},"global":{"fonts":{"chinese":{"enable":false,"family":null,"url":null},"english":{"enable":false,"family":null,"url":null}},"content_max_width":"1000px","sidebar_width":"210px","hover":{"shadow":true,"scale":true},"scroll_progress":{"bar":false,"percentage":true},"busuanzi_counter":{"enable":true,"site_pv":true,"site_uv":true,"post_pv":true},"pjax":true,"open_graph":true},"home_banner":{"enable":true,"image":{"light":"/images/wallhaven-wqery6-light.webp","dark":"/images/wallhaven-wqery6-dark.webp"},"title":"好好学习，天天向上","subtitle":{"text":["有远大志向而脚踏实地，有障碍失败而不言放弃","静以修生，俭以养德，非淡泊无以明志，非宁静无以致远","即使慢，驰而不息，纵会落后，纵会失败，但一定可以达到他所向的目标","穷且益坚，不坠青云之志","莫不有始，鲜克有终","靡不有初,鲜克有终"],"typing_speed":100,"backing_speed":80,"starting_delay":500,"backing_delay":1500,"loop":true,"smart_backspace":true},"text_color":{"light":"#fff","dark":"#d1d1b6"},"text_style":{"title_size":"2.8rem","subtitle_size":"1.5rem","line_height":1.2},"custom_font":{"enable":false,"family":null,"url":null},"social_links":{"enable":true,"links":{"github":"https://github.com/yuBetter","instagram":null,"zhihu":null,"twitter":null,"email":null}}},"plugins":{"feed":{"enable":false},"aplayer":{"enable":false,"type":"fixed","audios":[{"name":null,"artist":null,"url":null,"cover":null}]},"mermaid":{"enable":false,"version":"9.3.0"}},"version":"2.1.1","navbar":{"auto_hide":false,"color":{"left":"#f78736","right":"#367df7","transparency":35},"links":{"Home":{"path":"/","icon":"fa-regular fa-house"},"Archives":{"path":"/archives","icon":"fa-regular fa-archive"}},"search":{"enable":true,"preload":true}},"page_templates":{"friends_column":2,"tags_style":"blur"},"home":{"sidebar":{"enable":false,"position":"left","announcement":null,"links":null},"article_date_format":"auto","categories":{"enable":true,"limit":3},"tags":{"enable":true,"limit":3}}};
+    Global.language_ago = {"second":"%s seconds ago","minute":"%s minutes ago","hour":"%s hours ago","day":"%s days ago","week":"%s weeks ago","month":"%s months ago","year":"%s years ago"};
+  </script>
+    
+    <!--- Fontawesome Part-->
+    <link rel="stylesheet" href="//evan.beee.top/projects/hexo-theme-redefine/v2.1.1/source/fontawesome/fontawesome.min.css">
+    <link rel="stylesheet" href="//evan.beee.top/projects/hexo-theme-redefine/v2.1.1/source/fontawesome/brands.min.css">
+    <link rel="stylesheet" href="//evan.beee.top/projects/hexo-theme-redefine/v2.1.1/source/fontawesome/solid.min.css">
+    <link rel="stylesheet" href="//evan.beee.top/projects/hexo-theme-redefine/v2.1.1/source/fontawesome/regular.min.css">
+    
+    
+    
+    
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+
+    
+        <span class="pjax-progress-bar"></span>
+        <span class="pjax-progress-icon">
+            <i class="fa-solid fa-circle-notch fa-spin"></i>
+        </span>
+    
+</div>
+
+
+<main class="page-container">
+
+    
+
+    <div class="main-content-container">
+
+        <div class="main-content-header">
+            <header class="navbar-container">
+    
+    <div class="navbar-content">
+        <div class="left">
+            
+            <a class="logo-title" href="/">
+                
+                Yu&#39;s Blog
+                
+            </a>
+        </div>
+
+        <div class="right">
+            <!-- PC -->
+            <div class="desktop">
+                <ul class="navbar-list">
+                    
+                        
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class="" 
+                                    href="/"  >
+                                    
+                                        
+                                            <i class="fa-regular fa-house"></i>
+                                        
+                                        HOME
+                                    
+                                </a>
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class="" 
+                                    href="/archives"  >
+                                    
+                                        
+                                            <i class="fa-regular fa-archive"></i>
+                                        
+                                        ARCHIVES
+                                    
+                                </a>
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                    
+                        <li class="navbar-item search search-popup-trigger">
+                            <i class="fa-solid fa-magnifying-glass"></i>
+                        </li>
+                    
+                </ul>
+            </div>
+            <!-- Mobile -->
+            <div class="mobile">
+                
+                    <div class="icon-item search search-popup-trigger"><i class="fa-solid fa-magnifying-glass"></i></div>
+                
+                <div class="icon-item navbar-bar">
+                    <div class="navbar-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile drawer -->
+    <div class="navbar-drawer">
+        <ul class="drawer-navbar-list">
+            
+                
+                    <li class="drawer-navbar-item flex-center">
+                        <a class="" 
+                        href="/"  >
+                             
+                                
+                                    <i class="fa-regular fa-house"></i>
+                                
+                                HOME
+                            
+                        </a>
+                    </li>
+                    <!-- Submenu -->
+                    
+            
+                
+                    <li class="drawer-navbar-item flex-center">
+                        <a class="" 
+                        href="/archives"  >
+                             
+                                
+                                    <i class="fa-regular fa-archive"></i>
+                                
+                                ARCHIVES
+                            
+                        </a>
+                    </li>
+                    <!-- Submenu -->
+                    
+            
+
+        </ul>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="main-content-body">
+
+            
+
+            <div class="main-content">
+
+                
+                    <div class="fade-in-down-animation">
+    <div class="post-page-container">
+        <div class="article-content-container">
+
+            
+             
+                <div class="article-title">         
+                    <img src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/73B2D61002794934A138D5BA21B8EECD.jpg" alt="文件包含" />
+                    <h1 class="article-title-cover">文件包含</h1>
+                </div>
+            
+                
+            
+
+            
+                <div class="article-header">
+                    <div class="avatar">
+                        <img src="/images/yubetter-logon.svg">
+                    </div>
+                    <div class="info">
+                        <div class="author">
+                            <span class="name">yuBetter</span>
+                            
+                                <span class="author-label"></span>
+                            
+                        </div>
+                        <div class="meta-info">
+                            <div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fa-regular fa-pen-fancy"></i>&nbsp;
+        <span class="desktop">2024-02-29 20:53:16</span>
+        <span class="mobile">2024-02-29 20:53</span>
+        <span class="hover-info">Created</span>
+    </span>
+    
+        <span class="article-date article-meta-item">
+            <i class="fa-regular fa-wrench"></i>&nbsp;
+            <span class="desktop">2024-02-29 20:54:19</span>
+            <span class="mobile">2024-02-29 20:54</span>
+            <span class="hover-info">Updated</span>
+        </span>
+    
+
+    
+    
+
+    
+    
+        <span class="article-wordcount article-meta-item">
+            <i class="fa-regular fa-typewriter"></i>&nbsp;<span>657 Words</span>
+        </span>
+    
+    
+        <span class="article-min2read article-meta-item">
+            <i class="fa-regular fa-clock"></i>&nbsp;<span>2 Mins</span>
+        </span>
+    
+    
+</div>
+
+                        </div>
+                    </div>
+                </div>
+            
+
+            <div class="article-content markdown-body">
+                <h1 id="文件包含"><a href="#文件包含" class="headerlink" title="文件包含"></a>文件包含</h1><p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20221004141528519.png"
+                      alt="image-20221004141528519"
+                ></p>
+<p>将文件以脚本去执行,将文件包含另一个文件 </p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20221004142251830.png"
+                      alt="image-20221004142251830"
+                ></p>
+<h5 id="include-filename-代表包含filename这个变量，然后让filename-x3D-1-txt（一个txt文件，里面写有攻击代码）"><a href="#include-filename-代表包含filename这个变量，然后让filename-x3D-1-txt（一个txt文件，里面写有攻击代码）" class="headerlink" title="include()$filename);  代表包含filename这个变量，然后让filename&#x3D;1.txt（一个txt文件，里面写有攻击代码）"></a>include()$filename);  代表包含filename这个变量，然后让filename&#x3D;1.txt（一个txt文件，里面写有攻击代码）</h5><h5 id="就可以包含了一个代码"><a href="#就可以包含了一个代码" class="headerlink" title="就可以包含了一个代码"></a>就可以包含了一个代码</h5><h3 id="本地包含"><a href="#本地包含" class="headerlink" title="本地包含"></a>本地包含</h3><p>上面的例子就是一个本地包含</p>
+<h4 id="本地包含分为无限制-（参考上面例子）"><a href="#本地包含分为无限制-（参考上面例子）" class="headerlink" title="本地包含分为无限制 （参考上面例子）"></a>本地包含分为无限制 （参考上面例子）</h4><h4 id="有限制"><a href="#有限制" class="headerlink" title="有限制"></a>有限制</h4><p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20221004143539858.png"
+                      alt="image-20221004143539858"
+                ></p>
+<p>在上面的代码中加了限制条件  .html  这样会使包含的文件如1.txt会被拼接成1.txt.html致使文件不能正确的被识别，导致攻击语句不能执行</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20221004143827101.png"
+                      alt="image-20221004143827101"
+                ></p>
+<h4 id="绕过方法"><a href="#绕过方法" class="headerlink" title="绕过方法"></a>绕过方法</h4><ol>
+<li>%00截断：应用条件：magic_quotes_gpc&#x3D;off    php版本&lt;5.3.4</li>
+</ol>
+<p>​         使用方法：filename&#x3D;1.txt%00   即可</p>
+<ol start="2">
+<li><p>长度截断：应用条件：windows点号长度要大于256；linux长于4096</p>
+<p>原理：由于每种系统都对文件名的长度做出了限制，可以使用较长的名字致使.html在规定长度之     外，使得.html添加不上去</p>
+</li>
+</ol>
+<p>​       使用方法：      filename&#x3D;1.txt&#x2F;.&#x2F;.&#x2F;.&#x2F;.&#x2F;.&#x2F;.&#x2F;.&#x2F;.&#x2F;.&#x2F;.&#x2F;.&#x2F;.&#x2F;.&#x2F;.&#x2F;.&#x2F;.&#x2F;.&#x2F;.&#x2F;.&#x2F;.&#x2F;.&#x2F;.&#x2F;.&#x2F;.&#x2F;.&#x2F;.&#x2F;.&#x2F;.&#x2F;.&#x2F;.&#x2F;.&#x2F;.&#x2F;.&#x2F;.&#x2F;.&#x2F;.&#x2F;.&#x2F;.&#x2F;.&#x2F;.&#x2F;.&#x2F;.&#x2F;.&#x2F;.&#x2F;.&#x2F;.&#x2F;.&#x2F;.&#x2F;.&#x2F;.&#x2F;.&#x2F;.&#x2F;.&#x2F;.&#x2F;.&#x2F;.&#x2F;.&#x2F;.&#x2F;.&#x2F;.&#x2F;.&#x2F;.&#x2F;.&#x2F;.&#x2F;.&#x2F;.&#x2F;.&#x2F;.&#x2F;.&#x2F;.&#x2F;.&#x2F;.&#x2F;.&#x2F;.&#x2F;.&#x2F;.&#x2F;.&#x2F;.&#x2F;.&#x2F;.&#x2F;.&#x2F;.&#x2F;.&#x2F;.&#x2F;.&#x2F;.&#x2F;.&#x2F;.&#x2F;.&#x2F;.&#x2F;.&#x2F;.&#x2F;.&#x2F;.&#x2F;.&#x2F;.&#x2F;.&#x2F;.&#x2F;.&#x2F;.&#x2F;.&#x2F;.&#x2F;.&#x2F;.&#x2F;.&#x2F;.&#x2F;.&#x2F;.&#x2F;.&#x2F;.&#x2F;.&#x2F;.&#x2F;.&#x2F;.&#x2F;.&#x2F;.&#x2F;.&#x2F;.&#x2F;.&#x2F;.&#x2F;.&#x2F;.&#x2F;.&#x2F;.&#x2F;.&#x2F;.&#x2F;.&#x2F;.&#x2F;.&#x2F;.&#x2F;.&#x2F;.&#x2F;.&#x2F;.&#x2F;.&#x2F;.&#x2F;.&#x2F;.&#x2F;.&#x2F;.&#x2F;.&#x2F;.&#x2F;.&#x2F;.&#x2F;.&#x2F;.&#x2F;.&#x2F;.&#x2F;.&#x2F;.&#x2F;.&#x2F;.&#x2F;.&#x2F;.&#x2F;.&#x2F;.</p>
+<p>或者直接filename&#x3D;1.txt……………………………………………………………………………………………………………………………………………………………………………………也行</p>
+<p>即可，linux再长一点就行了（注意系统是指，网站服务器所使用的系统，并不是你当前电脑所使用的系统）</p>
+<h3 id="远程包含"><a href="#远程包含" class="headerlink" title="远程包含"></a>远程包含</h3><p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20221004145258359.png"
+                      alt="image-20221004145258359"
+                ></p>
+<p>即filename&#x3D;<a class="link"   target="_blank" rel="noopener" href="http://www.xxx.com/1.txt%E5%B0%B1%E6%98%AF%E5%8C%85%E5%90%AB%E7%9D%80%E8%BF%9C%E7%A8%8B%E7%BD%91%E7%AB%99%E4%B8%AD%E7%9A%84%E6%96%87%E4%BB%B6" >http://www.xxx.com/1.txt就是包含着远程网站中的文件 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a> </p>
+<h4 id="无限制"><a href="#无限制" class="headerlink" title="无限制"></a>无限制</h4><p>即可直接包含</p>
+<h4 id="有限制-1"><a href="#有限制-1" class="headerlink" title="有限制"></a>有限制</h4><p>即就是在后面加个.html或者别的后缀导致你的文件失效与本地包含有限制从差不多</p>
+<p>上面图片22   23   24就是有限制的绕过方法</p>
+<h3 id="各种协议流（进阶玩法）"><a href="#各种协议流（进阶玩法）" class="headerlink" title="各种协议流（进阶玩法）"></a>各种协议流（进阶玩法）</h3><p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20221004150256994.png"
+                      alt="image-20221004150256994"
+                ></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20221004150426547.png"
+                      alt="image-20221004150426547"
+                ></p>
+<p>每种脚本语言所适用的协议</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20221004150450522.png"
+                      alt="image-20221004150450522"
+                ></p>
+<h5 id="读取文件源码用法"><a href="#读取文件源码用法" class="headerlink" title="读取文件源码用法"></a>读取文件源码用法</h5><p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20221004150934989.png"
+                      alt="image-20221004150934989"
+                ></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20221004150827329.png"
+                      alt="image-20221004150827329"
+                ></p>
+<p>即可实现文件的读取</p>
+<h5 id="执行php代码用法"><a href="#执行php代码用法" class="headerlink" title="执行php代码用法"></a>执行php代码用法</h5><p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20221004151008736.png"
+                      alt="image-20221004151008736"
+                ></p>
+<h5 id="写入一句话木马用法"><a href="#写入一句话木马用法" class="headerlink" title="写入一句话木马用法"></a>写入一句话木马用法</h5><p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20221004151030554.png"
+                      alt="image-20221004151030554"
+                ></p>
+<h3 id="防护方法"><a href="#防护方法" class="headerlink" title="防护方法"></a>防护方法</h3><p>固定文件，不要使用文件包含</p>
+<p>固定后缀（但是会有被绕过的风险）但是在黑盒环境下，很难发现</p>
+<p>waf防护</p>
+
+            </div>
+
+            
+                <div class="post-copyright-info">
+                    <div class="article-copyright-info-container">
+    <ul>
+        <li><strong>Title:</strong> 文件包含</li>
+        <li><strong>Author:</strong> yuBetter</li>
+        <li><strong>Created at:</strong> 2024-02-29 20:53:16</li>
+        
+            <li>
+                <strong>Updated at:</strong> 2024-02-29 20:54:19
+            </li>
+        
+        <li>
+            <strong>Link:</strong> https://yubetter.github.io/2024/02/29/文件包含/
+        </li>
+        <li>
+            <strong>License:</strong> This work is licensed under <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">CC BY-NC-SA 4.0</a>.
+        </li>
+    </ul>
+</div>
+
+                </div>
+            
+
+            
+
+            
+
+            
+                <div class="article-nav">
+                    
+                        <div class="article-prev">
+                            <a class="prev"
+                            rel="prev"
+                            href="/2024/02/29/NTLM%E4%B8%AD%E7%BB%A7/"
+                            >
+                                <span class="left arrow-icon flex-center">
+                                    <i class="fa-solid fa-chevron-left"></i>
+                                </span>
+                                <span class="title flex-center">
+                                    <span class="post-nav-title-item">NTLM中继</span>
+                                    <span class="post-nav-item">Prev posts</span>
+                                </span>
+                            </a>
+                        </div>
+                    
+                    
+                        <div class="article-next">
+                            <a class="next"
+                            rel="next"
+                            href="/2024/02/29/Docker%E9%80%83%E9%80%B8/"
+                            >
+                                <span class="title flex-center">
+                                    <span class="post-nav-title-item">Docker逃逸</span>
+                                    <span class="post-nav-item">Next posts</span>
+                                </span>
+                                <span class="right arrow-icon flex-center">
+                                    <i class="fa-solid fa-chevron-right"></i>
+                                </span>
+                            </a>
+                        </div>
+                    
+                </div>
+            
+
+
+            
+                <div class="comment-container">
+                    <div class="comments-container">
+    <div id="comment-anchor"></div>
+    <div class="comment-area-title">
+        <i class="fa-solid fa-comments"></i>&nbsp;Comments
+    </div>
+    
+
+        
+            
+ 
+    <div id="waline"></div>
+    <script type="module"  data-pjax>
+        import { init } from 'https://evan.beee.top/js/waline.mjs';
+
+        function loadWaline() {
+            init({
+                el: '#waline',
+                serverURL: 'https://example.example.com',
+                lang: 'zh-CN',
+                dark: 'body[class~="dark-mode"]',
+                requiredMeta: ['nick','mail'], // cannot customize by theme config, change it yourself
+            });
+        }
+
+        if ('true') {
+            const loadWalineTimeout = setTimeout(() => {
+                loadWaline();
+                clearTimeout(loadWalineTimeout);
+            }, 1000);
+        } else {
+            window.addEventListener('DOMContentLoaded', loadWaline);
+        }
+        
+    </script>
+
+
+
+        
+    
+</div>
+
+                </div>
+            
+        </div>
+
+        
+            <div class="toc-content-container">
+                <div class="post-toc-wrap">
+    <div class="post-toc">
+        <div class="toc-title">On this page</div>
+        <div class="page-title">文件包含</div>
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB"><span class="nav-text">文件包含</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9C%AC%E5%9C%B0%E5%8C%85%E5%90%AB"><span class="nav-text">本地包含</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BF%9C%E7%A8%8B%E5%8C%85%E5%90%AB"><span class="nav-text">远程包含</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%90%84%E7%A7%8D%E5%8D%8F%E8%AE%AE%E6%B5%81%EF%BC%88%E8%BF%9B%E9%98%B6%E7%8E%A9%E6%B3%95%EF%BC%89"><span class="nav-text">各种协议流（进阶玩法）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%98%B2%E6%8A%A4%E6%96%B9%E6%B3%95"><span class="nav-text">防护方法</span></a></li></ol></li></ol></li></ol>
+
+    </div>
+</div>
+            </div>
+        
+    </div>
+</div>
+
+
+                
+
+            </div>
+            
+            
+
+        </div>
+
+        <div class="main-content-footer">
+            <footer class="footer">
+    <div class="info-container">
+        <div class="copyright-info">
+            &copy;
+            
+              <span>2022</span>
+              -
+            
+            2024&nbsp;&nbsp;<i class="fa-solid fa-heart fa-beat" style="--fa-animation-duration: 0.5s; color: #f54545"></i>&nbsp;&nbsp;<a href="/">yuBetter</a>
+        </div>
+        
+            <script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            <div class="website-count info-item">
+                
+                    <span id="busuanzi_container_site_uv" class="busuanzi_container_site_uv">
+                        VISITOR COUNT&nbsp;<span id="busuanzi_value_site_uv" class="busuanzi_value_site_uv"></span>
+                    </span>
+                
+                
+                    <span id="busuanzi_container_site_pv" class="busuanzi_container_site_pv">
+                        TOTAL PAGE VIEWS&nbsp;<span id="busuanzi_value_site_pv" class="busuanzi_value_site_pv"></span>
+                    </span>
+                
+            </div>
+        
+        <div class="theme-info info-item">
+            <span class="powered-by-container">POWERED BY <?xml version="1.0" encoding="utf-8"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg version="1.1" id="圖層_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="1rem" height="1rem" viewBox="0 0 512 512" enable-background="new 0 0 512 512" xml:space="preserve"><path fill="#0E83CD" d="M256.4,25.8l-200,115.5L56,371.5l199.6,114.7l200-115.5l0.4-230.2L256.4,25.8z M349,354.6l-18.4,10.7l-18.6-11V275H200v79.6l-18.4,10.7l-18.6-11v-197l18.5-10.6l18.5,10.8V237h112v-79.6l18.5-10.6l18.5,10.8V354.6z"/></svg><a target="_blank" href="https://hexo.io">Hexo</a></span>
+                <br>
+            <span class="theme-version-container">THEME&nbsp;<a class="theme-version" target="_blank" href="https://github.com/EvanNotFound/hexo-theme-redefine">Redefine v2.1.1</a>
+        </div>
+        
+        
+        
+            <div id="start_div" style="display:none">
+                2022/8/17 11:45:14
+            </div>
+            <div>
+                Blog up for <span class="odometer" id="runtime_days" ></span> days <span class="odometer" id="runtime_hours"></span> hrs <span class="odometer" id="runtime_minutes"></span> Min <span class="odometer" id="runtime_seconds"></span> Sec
+            </div>
+        
+        
+        
+            <script async data-pjax>
+                try {
+                    function odometer_init() {
+                    const elements = document.querySelectorAll('.odometer');
+                    elements.forEach(el => {
+                        new Odometer({
+                            el,
+                            format: '( ddd).dd',
+                            duration: 200
+                        });
+                    });
+                    }
+                    odometer_init();
+                } catch (error) {}
+            </script>
+        
+        
+        
+    </div>  
+</footer>
+        </div>
+    </div>
+
+    
+        <div class="post-tools">
+            <div class="post-tools-container">
+    <ul class="article-tools-list">
+        <!-- TOC aside toggle -->
+        
+            <li class="right-bottom-tools page-aside-toggle">
+                <i class="fa-regular fa-outdent"></i>
+            </li>
+        
+
+        <!-- go comment -->
+        
+            <li class="go-comment">
+                <i class="fa-regular fa-comments"></i>
+            </li>
+        
+    </ul>
+</div>
+
+        </div>
+    
+
+    <div class="right-side-tools-container">
+        <div class="side-tools-container">
+    <ul class="hidden-tools-list">
+        <li class="right-bottom-tools tool-font-adjust-plus flex-center">
+            <i class="fa-regular fa-magnifying-glass-plus"></i>
+        </li>
+
+        <li class="right-bottom-tools tool-font-adjust-minus flex-center">
+            <i class="fa-regular fa-magnifying-glass-minus"></i>
+        </li>
+
+        <li class="right-bottom-tools tool-expand-width flex-center">
+            <i class="fa-regular fa-expand"></i>
+        </li>
+
+        <li class="right-bottom-tools tool-dark-light-toggle flex-center">
+            <i class="fa-regular fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+
+        
+
+        <li class="right-bottom-tools tool-scroll-to-bottom flex-center">
+            <i class="fa-regular fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="visible-tools-list">
+        <li class="right-bottom-tools toggle-tools-list flex-center">
+            <i class="fa-regular fa-cog fa-spin"></i>
+        </li>
+        
+            <li class="right-bottom-tools tool-scroll-to-top flex-center">
+                <i class="arrow-up fas fa-arrow-up"></i>
+                <span class="percent"></span>
+            </li>
+        
+        
+    </ul>
+</div>
+
+    </div>
+
+    <div class="image-viewer-container">
+    <img src="">
+</div>
+
+
+    
+        <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+          <span class="search-input-field-pre">
+            <i class="fa-solid fa-keyboard"></i>
+          </span>
+            <div class="search-input-container">
+                <input autocomplete="off"
+                       autocorrect="off"
+                       autocapitalize="off"
+                       placeholder="Search..."
+                       spellcheck="false"
+                       type="search"
+                       class="search-input"
+                >
+            </div>
+            <span class="popup-btn-close">
+                <i class="fa-solid fa-times"></i>
+            </span>
+        </div>
+        <div id="search-result">
+            <div id="no-result">
+                <i class="fa-solid fa-spinner fa-spin-pulse fa-5x fa-fw"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+
+
+</main>
+
+
+
+<script src="//evan.beee.top/projects/hexo-theme-redefine/v2.1.1/source/js/utils.js"></script><script src="//evan.beee.top/projects/hexo-theme-redefine/v2.1.1/source/js/main.js"></script><script src="//evan.beee.top/projects/hexo-theme-redefine/v2.1.1/source/js/layouts/navbarShrink.js"></script><script src="//evan.beee.top/projects/hexo-theme-redefine/v2.1.1/source/js/tools/scrollTopBottom.js"></script><script src="//evan.beee.top/projects/hexo-theme-redefine/v2.1.1/source/js/tools/lightDarkSwitch.js"></script>
+
+
+    <script src="//evan.beee.top/projects/hexo-theme-redefine/v2.1.1/source/js/tools/localSearch.js"></script>
+
+
+
+    <script src="//evan.beee.top/projects/hexo-theme-redefine/v2.1.1/source/js/tools/codeBlock.js"></script>
+
+
+
+    <script src="//evan.beee.top/projects/hexo-theme-redefine/v2.1.1/source/js/layouts/lazyload.js"></script>
+
+
+
+    <script src="//evan.beee.top/projects/hexo-theme-redefine/v2.1.1/source/js/tools/runtime.js"></script>
+    <script src="//evan.beee.top/projects/hexo-theme-redefine/v2.1.1/source/js/layouts/odometer.min.js"></script>
+    <link rel="stylesheet" href="//evan.beee.top/projects/hexo-theme-redefine/v2.1.1/source/assets/odometer-theme-minimal.css">
+
+
+
+  <script src="//evan.beee.top/projects/hexo-theme-redefine/v2.1.1/source/js/libs/Typed.min.js"></script>
+  <script src="//evan.beee.top/projects/hexo-theme-redefine/v2.1.1/source/js/plugins/typed.js"></script>
+
+
+
+
+
+
+<div class="post-scripts pjax">
+    
+        <script src="//evan.beee.top/projects/hexo-theme-redefine/v2.1.1/source/js/tools/tocToggle.js"></script><script src="//evan.beee.top/projects/hexo-theme-redefine/v2.1.1/source/js/libs/anime.min.js"></script><script src="//evan.beee.top/projects/hexo-theme-redefine/v2.1.1/source/js/layouts/toc.js"></script><script src="//evan.beee.top/projects/hexo-theme-redefine/v2.1.1/source/js/plugins/tabs.js"></script>
+    
+</div>
+
+
+    <script src="//evan.beee.top/projects/hexo-theme-redefine/v2.1.1/source/js/libs/pjax.min.js"></script>
+<script>
+    window.addEventListener('DOMContentLoaded', () => {
+        window.pjax = new Pjax({
+            selectors: [
+                'head title',
+                '.page-container',
+                '.pjax',
+            ],
+            history: true,
+            debug: false,
+            cacheBust: false,
+            timeout: 0,
+            analytics: false,
+            currentUrlFullReload: false,
+            scrollRestoration: false,
+            // scrollTo: true,
+        });
+
+        document.addEventListener('pjax:send', () => {
+            Global.utils.pjaxProgressBarStart();
+        });
+
+        document.addEventListener('pjax:complete', () => {
+            Global.utils.pjaxProgressBarEnd();
+            window.pjax.executeScripts(document.querySelectorAll('script[data-pjax], .pjax script'));
+            Global.refresh();
+        });
+    });
+</script>
+
+
+
+
+</body>
+</html>

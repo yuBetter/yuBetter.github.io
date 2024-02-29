@@ -1,0 +1,1088 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keywords" content="Hexo Theme Redefine">
+    
+    <meta name="author" content="yuBetter">
+    <!-- preconnect -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://evan.beee.top" crossorigin>
+    
+        
+    
+    <!--- Seo Part-->
+    
+    <link rel="canonical" href="https://example.com/2024/02/29/内网信息收集/"/>
+    <meta name="robots" content="index,follow">
+    <meta name="googlebot" content="index,follow">
+    <meta name="revisit-after" content="1 days">
+    
+        <meta name="description" content="内网信息收集针对本机：收集网络情况和敏感信息 针对所处的网络：收集网段连通信息并进行内网资产探测，并且是否存在域环境 为了规避杀软与安全设备，尽量避免触发杀软警告的敏感操作于大量扫描，避免应急事件的发生 本机信息收集IP&#x2F;权限&#x2F;系统版本&#x2F;用户进入到该主机之后，可以先探测该网络内的网段信息 IPipconfig &#x2F;all  权限 系统版本可以判断已拿到主机的系">
+<meta property="og:type" content="article">
+<meta property="og:title" content="内网信息收集">
+<meta property="og:url" content="https://example.com/2024/02/29/%E5%86%85%E7%BD%91%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="内网信息收集针对本机：收集网络情况和敏感信息 针对所处的网络：收集网段连通信息并进行内网资产探测，并且是否存在域环境 为了规避杀软与安全设备，尽量避免触发杀软警告的敏感操作于大量扫描，避免应急事件的发生 本机信息收集IP&#x2F;权限&#x2F;系统版本&#x2F;用户进入到该主机之后，可以先探测该网络内的网段信息 IPipconfig &#x2F;all  权限 系统版本可以判断已拿到主机的系">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230804144020959.png">
+<meta property="og:image" content="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230804144329419.png">
+<meta property="og:image" content="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230804140330577.png">
+<meta property="og:image" content="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230804135646107.png">
+<meta property="og:image" content="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230804143219040.png">
+<meta property="og:image" content="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230804143333669.png">
+<meta property="og:image" content="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230804143452768.png">
+<meta property="og:image" content="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230804140109437.png">
+<meta property="og:image" content="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230804140643902.png">
+<meta property="og:image" content="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230804141124904.png">
+<meta property="og:image" content="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230804141448495.png">
+<meta property="og:image" content="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230804145323527.png">
+<meta property="og:image" content="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230804145347970.png">
+<meta property="og:image" content="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230804161227177.png">
+<meta property="og:image" content="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230804144819963.png">
+<meta property="og:image" content="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230804212837031.png">
+<meta property="og:image" content="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230804163223138.png">
+<meta property="og:image" content="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230804163310982.png">
+<meta property="og:image" content="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230804212952758.png">
+<meta property="og:image" content="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230804214045889.png">
+<meta property="og:image" content="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230804214203123.png">
+<meta property="og:image" content="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230804214314354.png">
+<meta property="og:image" content="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230804160518572.png">
+<meta property="og:image" content="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230804150817153.png">
+<meta property="og:image" content="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230804151151188.png">
+<meta property="og:image" content="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230804151932718.png">
+<meta property="og:image" content="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230804152218157.png">
+<meta property="og:image" content="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230804152855947.png">
+<meta property="og:image" content="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230804153046704.png">
+<meta property="og:image" content="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230804154905471.png">
+<meta property="og:image" content="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230804153349494.png">
+<meta property="og:image" content="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230804155104897.png">
+<meta property="og:image" content="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230804170239705.png">
+<meta property="og:image" content="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230804170825986.png">
+<meta property="og:image" content="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230804171800851.png">
+<meta property="og:image" content="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230804171438546.png">
+<meta property="og:image" content="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230804164838836.png">
+<meta property="og:image" content="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230804164513295.png">
+<meta property="og:image" content="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230804165130543.png">
+<meta property="article:published_time" content="2024-02-29T13:35:42.000Z">
+<meta property="article:modified_time" content="2024-02-29T13:36:40.228Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230804144020959.png">
+    
+    <!--- Icon Part-->
+    <link rel="icon" type="image/png" href="/images/yubetter.svg" sizes="192x192">
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/yubetter.svg">
+    <meta name="theme-color" content="#A31F34">
+    <link rel="shortcut icon" href="/images/yubetter.svg">
+    <!--- Page Info-->
+    
+    <title>
+        
+            内网信息收集 -
+        
+        Yu&#39;s Blog
+    </title>
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <link rel="stylesheet" href="//evan.beee.top/projects/hexo-theme-redefine/v2.1.1/source/assets/fonts.css">
+    <!--- Font Part-->
+    
+    
+    
+    
+
+    <!--- Inject Part-->
+    
+    <script id="hexo-configurations">
+    let Global = window.Global || {};
+    Global.hexo_config = {"hostname":"example.com","root":"/","language":"en","path":"search.xml"};
+    Global.theme_config = {"articles":{"style":{"font_size":"16px","line_height":1.5,"image_border_radius":"14px","image_alignment":"center"},"word_count":{"enable":true,"count":true,"min2read":true},"author_label":{"enable":true,"auto":false,"list":[""]},"code_block":{"copy":true,"style":"mac","font":{"enable":false,"family":null,"url":null}},"toc":{"enable":true,"max_depth":3,"number":false,"expand":true,"init_open":true},"copyright":true,"lazyload":true,"recommendation":{"enable":false,"title":"推荐阅读","limit":3,"placeholder":"/images/wallhaven-wqery6-light.webp","skip_dirs":[]}},"colors":{"primary":"#A31F34","secondary":null},"global":{"fonts":{"chinese":{"enable":false,"family":null,"url":null},"english":{"enable":false,"family":null,"url":null}},"content_max_width":"1000px","sidebar_width":"210px","hover":{"shadow":true,"scale":true},"scroll_progress":{"bar":false,"percentage":true},"busuanzi_counter":{"enable":true,"site_pv":true,"site_uv":true,"post_pv":true},"pjax":true,"open_graph":true},"home_banner":{"enable":true,"image":{"light":"/images/wallhaven-wqery6-light.webp","dark":"/images/wallhaven-wqery6-dark.webp"},"title":"好好学习，天天向上","subtitle":{"text":["有远大志向而脚踏实地，有障碍失败而不言放弃","静以修生，俭以养德，非淡泊无以明志，非宁静无以致远","即使慢，驰而不息，纵会落后，纵会失败，但一定可以达到他所向的目标","穷且益坚，不坠青云之志","莫不有始，鲜克有终","靡不有初,鲜克有终"],"typing_speed":100,"backing_speed":80,"starting_delay":500,"backing_delay":1500,"loop":true,"smart_backspace":true},"text_color":{"light":"#fff","dark":"#d1d1b6"},"text_style":{"title_size":"2.8rem","subtitle_size":"1.5rem","line_height":1.2},"custom_font":{"enable":false,"family":null,"url":null},"social_links":{"enable":true,"links":{"github":"https://github.com/yuBetter","instagram":null,"zhihu":null,"twitter":null,"email":null}}},"plugins":{"feed":{"enable":false},"aplayer":{"enable":false,"type":"fixed","audios":[{"name":null,"artist":null,"url":null,"cover":null}]},"mermaid":{"enable":false,"version":"9.3.0"}},"version":"2.1.1","navbar":{"auto_hide":false,"color":{"left":"#f78736","right":"#367df7","transparency":35},"links":{"Home":{"path":"/","icon":"fa-regular fa-house"},"Archives":{"path":"/archives","icon":"fa-regular fa-archive"}},"search":{"enable":true,"preload":true}},"page_templates":{"friends_column":2,"tags_style":"blur"},"home":{"sidebar":{"enable":false,"position":"left","announcement":null,"links":null},"article_date_format":"auto","categories":{"enable":true,"limit":3},"tags":{"enable":true,"limit":3}}};
+    Global.language_ago = {"second":"%s seconds ago","minute":"%s minutes ago","hour":"%s hours ago","day":"%s days ago","week":"%s weeks ago","month":"%s months ago","year":"%s years ago"};
+  </script>
+    
+    <!--- Fontawesome Part-->
+    <link rel="stylesheet" href="//evan.beee.top/projects/hexo-theme-redefine/v2.1.1/source/fontawesome/fontawesome.min.css">
+    <link rel="stylesheet" href="//evan.beee.top/projects/hexo-theme-redefine/v2.1.1/source/fontawesome/brands.min.css">
+    <link rel="stylesheet" href="//evan.beee.top/projects/hexo-theme-redefine/v2.1.1/source/fontawesome/solid.min.css">
+    <link rel="stylesheet" href="//evan.beee.top/projects/hexo-theme-redefine/v2.1.1/source/fontawesome/regular.min.css">
+    
+    
+    
+    
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+
+    
+        <span class="pjax-progress-bar"></span>
+        <span class="pjax-progress-icon">
+            <i class="fa-solid fa-circle-notch fa-spin"></i>
+        </span>
+    
+</div>
+
+
+<main class="page-container">
+
+    
+
+    <div class="main-content-container">
+
+        <div class="main-content-header">
+            <header class="navbar-container">
+    
+    <div class="navbar-content">
+        <div class="left">
+            
+            <a class="logo-title" href="/">
+                
+                Yu&#39;s Blog
+                
+            </a>
+        </div>
+
+        <div class="right">
+            <!-- PC -->
+            <div class="desktop">
+                <ul class="navbar-list">
+                    
+                        
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class="" 
+                                    href="/"  >
+                                    
+                                        
+                                            <i class="fa-regular fa-house"></i>
+                                        
+                                        HOME
+                                    
+                                </a>
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class="" 
+                                    href="/archives"  >
+                                    
+                                        
+                                            <i class="fa-regular fa-archive"></i>
+                                        
+                                        ARCHIVES
+                                    
+                                </a>
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                    
+                        <li class="navbar-item search search-popup-trigger">
+                            <i class="fa-solid fa-magnifying-glass"></i>
+                        </li>
+                    
+                </ul>
+            </div>
+            <!-- Mobile -->
+            <div class="mobile">
+                
+                    <div class="icon-item search search-popup-trigger"><i class="fa-solid fa-magnifying-glass"></i></div>
+                
+                <div class="icon-item navbar-bar">
+                    <div class="navbar-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile drawer -->
+    <div class="navbar-drawer">
+        <ul class="drawer-navbar-list">
+            
+                
+                    <li class="drawer-navbar-item flex-center">
+                        <a class="" 
+                        href="/"  >
+                             
+                                
+                                    <i class="fa-regular fa-house"></i>
+                                
+                                HOME
+                            
+                        </a>
+                    </li>
+                    <!-- Submenu -->
+                    
+            
+                
+                    <li class="drawer-navbar-item flex-center">
+                        <a class="" 
+                        href="/archives"  >
+                             
+                                
+                                    <i class="fa-regular fa-archive"></i>
+                                
+                                ARCHIVES
+                            
+                        </a>
+                    </li>
+                    <!-- Submenu -->
+                    
+            
+
+        </ul>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="main-content-body">
+
+            
+
+            <div class="main-content">
+
+                
+                    <div class="fade-in-down-animation">
+    <div class="post-page-container">
+        <div class="article-content-container">
+
+            
+             
+                <div class="article-title">         
+                    <img src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/E9034CEEC30CBED0C5D247D2AD83177D.jpg" alt="内网信息收集" />
+                    <h1 class="article-title-cover">内网信息收集</h1>
+                </div>
+            
+                
+            
+
+            
+                <div class="article-header">
+                    <div class="avatar">
+                        <img src="/images/yubetter-logon.svg">
+                    </div>
+                    <div class="info">
+                        <div class="author">
+                            <span class="name">yuBetter</span>
+                            
+                                <span class="author-label"></span>
+                            
+                        </div>
+                        <div class="meta-info">
+                            <div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fa-regular fa-pen-fancy"></i>&nbsp;
+        <span class="desktop">2024-02-29 21:35:42</span>
+        <span class="mobile">2024-02-29 21:35</span>
+        <span class="hover-info">Created</span>
+    </span>
+    
+        <span class="article-date article-meta-item">
+            <i class="fa-regular fa-wrench"></i>&nbsp;
+            <span class="desktop">2024-02-29 21:36:40</span>
+            <span class="mobile">2024-02-29 21:36</span>
+            <span class="hover-info">Updated</span>
+        </span>
+    
+
+    
+    
+
+    
+    
+        <span class="article-wordcount article-meta-item">
+            <i class="fa-regular fa-typewriter"></i>&nbsp;<span>2.9k Words</span>
+        </span>
+    
+    
+        <span class="article-min2read article-meta-item">
+            <i class="fa-regular fa-clock"></i>&nbsp;<span>10 Mins</span>
+        </span>
+    
+    
+</div>
+
+                        </div>
+                    </div>
+                </div>
+            
+
+            <div class="article-content markdown-body">
+                <h1 id="内网信息收集"><a href="#内网信息收集" class="headerlink" title="内网信息收集"></a>内网信息收集</h1><p>针对本机：收集网络情况和敏感信息</p>
+<p>针对所处的网络：收集网段连通信息并进行内网资产探测，并且是否存在域环境</p>
+<p>为了规避杀软与安全设备，尽量避免触发杀软警告的敏感操作于大量扫描，避免应急事件的发生</p>
+<h2 id="本机信息收集"><a href="#本机信息收集" class="headerlink" title="本机信息收集"></a>本机信息收集</h2><h3 id="IP-x2F-权限-x2F-系统版本-x2F-用户"><a href="#IP-x2F-权限-x2F-系统版本-x2F-用户" class="headerlink" title="IP&#x2F;权限&#x2F;系统版本&#x2F;用户"></a>IP&#x2F;权限&#x2F;系统版本&#x2F;用户</h3><p>进入到该主机之后，可以先探测该网络内的网段信息</p>
+<h4 id="IP"><a href="#IP" class="headerlink" title="IP"></a>IP</h4><p>ipconfig &#x2F;all</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230804144020959.png"
+                      alt="image-20230804144020959"
+                ></p>
+<h4 id="权限"><a href="#权限" class="headerlink" title="权限"></a>权限</h4><p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230804144329419.png"
+                      alt="image-20230804144329419"
+                ></p>
+<h4 id="系统版本"><a href="#系统版本" class="headerlink" title="系统版本"></a>系统版本</h4><p>可以判断已拿到主机的系统详细信息</p>
+<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230804140330577.png"
+                      alt="image-20230804140330577" style="zoom: 67%;" 
+                >
+
+<p>通过主机的名称来定位该主机的具体作用</p>
+<p>以及可以查看该主机的补丁数来找到获取该主机的漏洞详情，进行进一步的利用</p>
+<h4 id="用户"><a href="#用户" class="headerlink" title="用户"></a>用户</h4><p>进入该系统之后可以先查看该主机的用户信息</p>
+<p>Windows</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230804135646107.png"
+                      alt="image-20230804135646107"
+                ></p>
+<p>域环境中有许多常见的用户身份</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">Domain Admins：域管理员（默认对域控具有完全控制权）</span><br><span class="line">Domain Computers：域内机器</span><br><span class="line">Domain Controlers：域控制器</span><br><span class="line">Domain Guest：域访客，权限较低</span><br><span class="line">Domain Users：域用户</span><br><span class="line">Enterprise Admin：企业系统管理员用户（默认也是对域控有完全控制权）</span><br><span class="line"></span><br><span class="line">net group &quot;Domain Admin&quot; /domain   #查询域管理员账户</span><br></pre></td></tr></table></figure></div>
+
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230804143219040.png"
+                      alt="image-20230804143219040"
+                ></p>
+<p>可以利用net user &#x2F;domain、net group &#x2F;domain来获取域用户&#x2F;域用户组的信息</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230804143333669.png"
+                      alt="image-20230804143333669"
+                ></p>
+<p>域sid、用户sid，获取到这个可为之后票据的伪造提供了条件</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230804143452768.png"
+                      alt="image-20230804143452768"
+                ></p>
+<p>Linux</p>
+<p>cat &#x2F;etc&#x2F;passwd</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230804140109437.png"
+                      alt="image-20230804140109437"
+                ></p>
+<h4 id="低权限"><a href="#低权限" class="headerlink" title="低权限"></a>低权限</h4><p>对于拿到的内网主机是低权限的话</p>
+<p>可以查看系统的版本信息以及补丁的更新信息，探测有没有一些nday，可以利用这些漏洞对主机进行提权的操作</p>
+<h4 id="高权限"><a href="#高权限" class="headerlink" title="高权限"></a>高权限</h4><p>如果拿到的机子是高权限或者进行提权之后，就可以考虑收集一些主机hash值等</p>
+<h6 id="Dump-lsass内存"><a href="#Dump-lsass内存" class="headerlink" title="Dump lsass内存"></a>Dump lsass内存</h6><p>可以利用mimikatz这类工具进行内网主机NTLM hash的收集为之后的提权、持久化、委派提供良好的信息基础</p>
+<h6 id="计划任务"><a href="#计划任务" class="headerlink" title="计划任务"></a>计划任务</h6><p>利用计划任务如at、schtasks可以进行计划任务的创建，这对权限的持久化有着巨大的帮助</p>
+<h6 id="创建后门"><a href="#创建后门" class="headerlink" title="创建后门"></a>创建后门</h6><p>之后也可以创建后门，这也是为了进行权限维持，后门账户、后门木马等</p>
+<h3 id="域环境"><a href="#域环境" class="headerlink" title="域环境"></a>域环境</h3><h4 id="是否有域环境"><a href="#是否有域环境" class="headerlink" title="是否有域环境"></a>是否有域环境</h4><p>可以<code>ipconfig /all</code>这个命令来查询主机名以此判断该主机在内网环境的功能，以及判断是否存在域环境</p>
+<p>下图显示就是该主机是处于一个域环境之中的，没有域环境就只会显示WORKGROUP工作组</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230804140643902.png"
+                      alt="image-20230804140643902"
+                ></p>
+<h4 id="定位域控"><a href="#定位域控" class="headerlink" title="定位域控"></a>定位域控</h4><p>一般整个域内的时间都是由域控进行同步的，所以可以通过时间来判断域控主机的主机名</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230804141124904.png"
+                      alt="image-20230804141124904"
+                ></p>
+<p>还可以直接net group “Domian controllers” &#x2F;Domain来查询域控名</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230804141448495.png"
+                      alt="image-20230804141448495"
+                ></p>
+<p>除此之外域控一般还用于充当DNS服务器，可以利用这个来定位域控</p>
+<p>注意：Linux系统可以是域控制器的，但是功能会比较少，且难以管理，所以一般来说域控制器使用Windows系统来实现的，Linux用作服务器</p>
+<h3 id="进程"><a href="#进程" class="headerlink" title="进程"></a>进程</h3><h4 id="进程查看"><a href="#进程查看" class="headerlink" title="进程查看"></a>进程查看</h4><p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230804145323527.png"
+                      alt="image-20230804145323527"
+                ></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230804145347970.png"
+                      alt="image-20230804145347970"
+                ></p>
+<h4 id="杀软信息"><a href="#杀软信息" class="headerlink" title="杀软信息"></a>杀软信息</h4><h5 id="规避敏感操作"><a href="#规避敏感操作" class="headerlink" title="规避敏感操作"></a>规避敏感操作</h5><p>如果该系统部署了杀软的话就需要注意避免敏感的操作</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">提权       Dump Lsass内存    远程下载      浏览器抓取密码</span><br><span class="line">克隆账号    创建账户          注册表操作    计划任务</span><br></pre></td></tr></table></figure></div>
+
+<p>这些一系列行为几乎都会留下痕迹，日志等，再加上杀软的实时监测，很容易暴露自己的身份被溯源</p>
+<h5 id="免杀对抗"><a href="#免杀对抗" class="headerlink" title="免杀对抗"></a>免杀对抗</h5><p>当获取杀软信息之后就可以做免杀对抗</p>
+<p>针对不同的杀软进行针对性的免杀操作：360、火绒、Windows Defender等</p>
+<h5 id="载荷投递"><a href="#载荷投递" class="headerlink" title="载荷投递"></a>载荷投递</h5><p>用于对目标主机进行木马的下载</p>
+<p>可以通过IPC$共享或者搭建SMB服务器，然后配合计划任务通过UNC路径来传入攻击载荷</p>
+<p>系统程序下载：wget、curl、certutil、浏览器</p>
+<p>webshell上传：蚁剑、冰蝎、哥斯拉</p>
+<p>Windows白名单程序：mshta、msiexec</p>
+<p>MSI是Windows中一个重要的服务，有个特性是以高权限来运行，生成.msi的攻击载荷可以达到提权的目的</p>
+<p>脚本语言下载：asp、php、jsp这些类型的木马</p>
+<p>shellcode：哥斯拉、shellcode加载器</p>
+<h4 id="进程路径信息"><a href="#进程路径信息" class="headerlink" title="进程路径信息"></a>进程路径信息</h4><p>查找定位一些程序的位置，比如远控软件、微信、邮箱的安装路径等</p>
+<h3 id="DNS是否正常-x2F-TCP出否出网"><a href="#DNS是否正常-x2F-TCP出否出网" class="headerlink" title="DNS是否正常&#x2F;TCP出否出网"></a>DNS是否正常&#x2F;TCP出否出网</h3><h4 id="判断C2上线的方式"><a href="#判断C2上线的方式" class="headerlink" title="判断C2上线的方式"></a>判断C2上线的方式</h4><h5 id="TCP出网，DNS正常"><a href="#TCP出网，DNS正常" class="headerlink" title="TCP出网，DNS正常"></a>TCP出网，DNS正常</h5><p>就可以利用云函数进行上线</p>
+<h5 id="TCP不出网"><a href="#TCP不出网" class="headerlink" title="TCP不出网"></a>TCP不出网</h5><p>可以考虑DNS ICMP</p>
+<h4 id="判断隧道的使用方式"><a href="#判断隧道的使用方式" class="headerlink" title="判断隧道的使用方式"></a>判断隧道的使用方式</h4><h5 id="TCP出网"><a href="#TCP出网" class="headerlink" title="TCP出网"></a>TCP出网</h5><p>可以利用反向TCP，如frp、nps的反向代理将数据外带</p>
+<h5 id="TCP不出网-1"><a href="#TCP不出网-1" class="headerlink" title="TCP不出网"></a>TCP不出网</h5><h6 id="正向HTTP"><a href="#正向HTTP" class="headerlink" title="正向HTTP"></a>正向HTTP</h6><p>Neo-reGeorg</p>
+<h6 id="反向ICMP"><a href="#反向ICMP" class="headerlink" title="反向ICMP"></a>反向ICMP</h6><p>frp+icmptunnel</p>
+<p>进行反向的icmp隧道</p>
+<h4 id="代理服务器"><a href="#代理服务器" class="headerlink" title="代理服务器"></a>代理服务器</h4><p>如果该主机中TCP和ICMP均不出网，但是却配置了 代理服务器，就可以C2&#x2F;隧道配置代理可出网</p>
+<h4 id="特定端口出网"><a href="#特定端口出网" class="headerlink" title="特定端口出网"></a>特定端口出网</h4><p>就可以修改C2的监听器和隧道的服务器端口</p>
+<h3 id="本地端口开放情况"><a href="#本地端口开放情况" class="headerlink" title="本地端口开放情况"></a>本地端口开放情况</h3><h4 id="端口开放查询"><a href="#端口开放查询" class="headerlink" title="端口开放查询"></a>端口开放查询</h4><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230804161227177.png"
+                      alt="image-20230804161227177" style="zoom:67%;" 
+                >
+
+<p>通过端口开放情况就可以制定下一步的利用方法，比如开启了139、445端口就可以考虑是否可以利用IPC$共享来获取连接，实现攻击载荷的上传，进行进一步的横向</p>
+<h4 id="攻击脆弱服务"><a href="#攻击脆弱服务" class="headerlink" title="攻击脆弱服务"></a>攻击脆弱服务</h4><h5 id="MSSQL执行命令"><a href="#MSSQL执行命令" class="headerlink" title="MSSQL执行命令"></a>MSSQL执行命令</h5><p>可以试试能不能绕过杀软进行添加用户以及文件上传的操作</p>
+<h5 id="web高权限服务"><a href="#web高权限服务" class="headerlink" title="web高权限服务"></a>web高权限服务</h5><h5 id="远程桌面服务"><a href="#远程桌面服务" class="headerlink" title="远程桌面服务"></a>远程桌面服务</h5><h6 id="查询在线用户"><a href="#查询在线用户" class="headerlink" title="查询在线用户"></a>查询在线用户</h6><p>有在线用户千万不要去挤人家，容易被发现，rdp的流量是十分敏感的，登进去别人就得退出来</p>
+<h6 id="查询端口"><a href="#查询端口" class="headerlink" title="查询端口"></a>查询端口</h6><h6 id="开启服务"><a href="#开启服务" class="headerlink" title="开启服务"></a>开启服务</h6><p>net start可以查看已经开启的服务</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230804144819963.png"
+                      alt="image-20230804144819963"
+                ></p>
+<h6 id="关闭防火墙"><a href="#关闭防火墙" class="headerlink" title="关闭防火墙"></a>关闭防火墙</h6><p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230804212837031.png"
+                      alt="image-20230804212837031"
+                ></p>
+<h6 id="hash免密登录"><a href="#hash免密登录" class="headerlink" title="hash免密登录"></a>hash免密登录</h6><h4 id="常用服务端口变化"><a href="#常用服务端口变化" class="headerlink" title="常用服务端口变化"></a>常用服务端口变化</h4><p>SSH（22）：22022、2222</p>
+<p>RDP（3389）：33888、33899</p>
+<p>有些系统出于对安全性的考虑，会将一些常用的服务端口进行端口的改变使得不容易被攻击者发现</p>
+<h3 id="密码连接信息"><a href="#密码连接信息" class="headerlink" title="密码连接信息"></a>密码连接信息</h3><p>SSH远程连接的工具：xshell、secureCRT、FinalShell等</p>
+<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230804163223138.png"
+                      alt="image-20230804163223138" style="zoom: 67%;" 
+                >
+
+<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230804163310982.png"
+                      alt="image-20230804163310982" style="zoom:67%;" 
+                >
+
+<p>数据库工具：Navicat</p>
+<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230804212952758.png"
+                      alt="image-20230804212952758" style="zoom: 80%;" 
+                >
+
+<p>文件传输工具：winSCP</p>
+<p>浏览器：IE、firefox、chrome、360</p>
+<p>浏览器中一般会存有系统的密码，可以利用HackBRowserData导出浏览器中的密码、历史记录cookies以及书签等</p>
+<p><a class="link"   target="_blank" rel="noopener" href="https://github.com/moonD4rk/HackBrowserData" >https://github.com/moonD4rk/HackBrowserData <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+<p>运行可得到results</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230804214045889.png"
+                      alt="image-20230804214045889"
+                ></p>
+<p>然后打开就可以查看各个浏览器所保存的信息了</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230804214203123.png"
+                      alt="image-20230804214203123"
+                ></p>
+<p>可以看到在浏览器下载的记录也可以获取到</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230804214314354.png"
+                      alt="image-20230804214314354"
+                ></p>
+<p>RDP连接记录</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230804160518572.png"
+                      alt="image-20230804160518572"
+                ></p>
+<p>注册表：有些注册表会明文存储密码</p>
+<p>配置文件：配置文件中也会可能存在一些明文密码，配置不当造成或者忘记删除了</p>
+<p>wifi：WiFi密码获取</p>
+<p>SVN：可以获取一些项目的共享资源，如源代码、文档等</p>
+<h4 id="系统的账号密码"><a href="#系统的账号密码" class="headerlink" title="系统的账号密码"></a>系统的账号密码</h4><h5 id="Windows"><a href="#Windows" class="headerlink" title="Windows"></a>Windows</h5><h6 id="dump-lsass内存"><a href="#dump-lsass内存" class="headerlink" title="dump lsass内存"></a>dump lsass内存</h6><p>可以利用procdump+mimikatz配合使用，绕过杀软获取主机的密码</p>
+<p>先利用procdump获取到lsass.dmp</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230804150817153.png"
+                      alt="image-20230804150817153"
+                ></p>
+<p>然后利用mimikatz再进行密码的读取，即可获得该主机的密码</p>
+<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230804151151188.png"
+                      alt="image-20230804151151188" style="zoom:67%;" 
+                >
+
+<p>为什么能绕过杀软？</p>
+<p>因为pecdump这个软件是由微软开发的一个工具，并不会被杀软识别为恶意的软件进行查杀</p>
+<p>主要是将lsass.dmp外带到自己的攻击机上进行mimikatz读取的，所以达到了免杀的目的</p>
+<h6 id="SAM"><a href="#SAM" class="headerlink" title="SAM"></a>SAM</h6><p>位于C:\Windows&#x2F;system32&#x2F;config&#x2F;</p>
+<p>安全账号管理器，作用是对Windows账户安全进行管理，是通过“安全标识”实行的，是每个账户的唯一标识</p>
+<h6 id="修改注册表记录明文密码"><a href="#修改注册表记录明文密码" class="headerlink" title="修改注册表记录明文密码"></a>修改注册表记录明文密码</h6><p>在win2012R2及以上系统中，默认是在内存缓存中禁止保存着明文密码的。</p>
+<p>但是攻击者可以通过修改注册表的方式抓取明文密码，但是这个更改之后是需要用户重新登录才可以成功抓取的</p>
+<p>修改注册表信息</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">reg add HKLM\SYSTEM\CurrentControlset\Control\securityProviders\wDigest /v UseLogonCredential /t REG_DWORD /d 1 /f</span><br></pre></td></tr></table></figure></div>
+
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230804151932718.png"
+                      alt="image-20230804151932718"
+                ></p>
+<p>然后重启之后通过mimikatz进行明文密码的读取</p>
+<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230804152218157.png"
+                      alt="image-20230804152218157" style="zoom:67%;" 
+                >
+
+<h5 id="Linux"><a href="#Linux" class="headerlink" title="Linux"></a>Linux</h5><h6 id="strace-SSHD进程-x2F-SSH程序"><a href="#strace-SSHD进程-x2F-SSH程序" class="headerlink" title="strace SSHD进程&#x2F;SSH程序"></a>strace SSHD进程&#x2F;SSH程序</h6><p>可以利用Strace监听SSH来源流量来记录密码后门</p>
+<p>先需要查找sshd进程的PID</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ps -ef | grep sshd #父进程PID</span><br></pre></td></tr></table></figure></div>
+
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230804152855947.png"
+                      alt="image-20230804152855947"
+                ></p>
+<p>然后开始抓取流量</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">strace -f -p 1244 -o /tmp/.ssh.log -e trace=read,write,connect -s 2048</span><br></pre></td></tr></table></figure></div>
+
+<p>这个状态就是在监听流量了</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230804153046704.png"
+                      alt="image-20230804153046704"
+                ></p>
+<p>然后任意一个用户登录或者ssh连接就可以记录到密码信息</p>
+<p>我们另起一个终端用来模拟用户ssh连接</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230804154905471.png"
+                      alt="image-20230804154905471"
+                ></p>
+<p>这边监听的终端就会有数据流入</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230804153349494.png"
+                      alt="image-20230804153349494"
+                ></p>
+<p>然后流量信息就会保存在&#x2F;tmp&#x2F;.ssh.log中了，这样就可以在这里面寻找记录的明文密码信息了，由于&#x2F;.tmp&#x2F;.ssh.log中的内容比较多而杂，我这边的密码是123456所以就直接关键字查找了，正常得去翻看文件内容</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230804155104897.png"
+                      alt="image-20230804155104897"
+                ></p>
+<h6 id="CVE-2018-20781"><a href="#CVE-2018-20781" class="headerlink" title="CVE-2018-20781"></a>CVE-2018-20781</h6><h3 id="敏感信息"><a href="#敏感信息" class="headerlink" title="敏感信息"></a>敏感信息</h3><p><strong>桌面&#x2F;个人文档&#x2F;配置文件&#x2F;垃圾桶&#x2F;最近打开的文档</strong></p>
+<p>这些信息都可以进行查看收集，可能会存有相关的敏感信息，如通讯录&#x2F;组织架构，运维信息，密码信息，网络架构</p>
+<p><strong>. bash_history、.ssh&#x2F;known_host文件</strong></p>
+<p>.bash_history文件记录了操作历史，可以读取这个文件查看管理员的操作历史以获取有价值的信息</p>
+<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230804170239705.png"
+                      alt="image-20230804170239705" style="zoom:67%;" 
+                >
+
+<p>.ssh&#x2F;known_host文件是ssh的连接记录</p>
+<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230804170825986.png"
+                      alt="image-20230804170825986"  
+                >
+
+<p><strong>键盘记录&#x2F;截图</strong></p>
+<p>键盘记录脚本植入，当运维人员或者管理员再次输入重要系统的密码的时候就会被记录</p>
+<p><strong>网卡流量嗅探</strong></p>
+<p>如果是明文传输的话，就会获取到一些敏感信息</p>
+<h3 id="本地软件"><a href="#本地软件" class="headerlink" title="本地软件"></a>本地软件</h3><p>微信&#x2F;钉钉&#x2F;企业微信&#x2F;内网通讯工具：可以翻看这些软件是否有有用的信息</p>
+<p>邮箱：获取邮箱账号的话除了可以进行翻看邮箱记录还可以结合通讯录收集发送钓鱼文件，实现内部精准钓鱼</p>
+<p>云盘：</p>
+<p>笔记：一些记事本或者文本文件中，可能由于运维人员图方便会在里面记录系统账号密码等信息</p>
+<p>远程运维软件：用于提权&#x2F;后门</p>
+<p>VPN：VPN管理地址</p>
+<p>EDR：终端安全管理工具服务地址</p>
+<p>VPN和EDR可以利用漏洞进行攻击，或者收集相关的网段信息</p>
+<h2 id="网络信息收集"><a href="#网络信息收集" class="headerlink" title="网络信息收集"></a>网络信息收集</h2><h3 id="网段收集"><a href="#网段收集" class="headerlink" title="网段收集"></a>网段收集</h3><p><strong>路由信息&#x2F;ARP</strong></p>
+<p>arp信息，由于我配置了双网卡所以具有两个接口</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230804171800851.png"
+                      alt="image-20230804171800851"
+                ></p>
+<p><strong>防火墙信息</strong></p>
+<p>查看防火墙的出入站规则</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230804171438546.png"
+                      alt="image-20230804171438546"
+                ></p>
+<p><strong>traceroute&#x2F;tracert</strong></p>
+<p><strong>登录记录（last&#x2F;rdp日志）</strong></p>
+<p>Windows的rdp登录日志</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230804164838836.png"
+                      alt="image-20230804164838836"
+                ></p>
+<p>Linux</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230804164513295.png"
+                      alt="image-20230804164513295"
+                ></p>
+<p><strong>域名解析（host）</strong></p>
+<p>这个存在于C:\Windows\System32\drivers\etc\hosts</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://image-1317166382.cos.ap-nanjing.myqcloud.com/image-20230804165130543.png"
+                      alt="image-20230804165130543"
+                ></p>
+<p>网络连接（netstat&#x2F;代理服务器）</p>
+<p>.bash_history,.ssh&#x2F;known_host文件，&#x2F;home目录</p>
+<h3 id="资产探测"><a href="#资产探测" class="headerlink" title="资产探测"></a>资产探测</h3><p>有点类似于密码爆破和密码喷洒的关系</p>
+<h4 id="单个高位端口多IP段探测"><a href="#单个高位端口多IP段探测" class="headerlink" title="单个高位端口多IP段探测"></a>单个高位端口多IP段探测</h4><p>弱口令&#x2F;系统漏洞：22，135，445，1433，3306，3389</p>
+<h4 id="多web服务端口单IP段探测"><a href="#多web服务端口单IP段探测" class="headerlink" title="多web服务端口单IP段探测"></a>多web服务端口单IP段探测</h4><p>web漏洞：80，443，7001，8080</p>
+<p>k8s组件：2375，6443，10250</p>
+<h2 id="云环境信息收集"><a href="#云环境信息收集" class="headerlink" title="云环境信息收集"></a>云环境信息收集</h2><h3 id="判断是否在容器中"><a href="#判断是否在容器中" class="headerlink" title="判断是否在容器中"></a>判断是否在容器中</h3><p>获取Capbilities信息：容器逃逸</p>
+<p>寻找集群身份认证凭据：本地环境变量、本地密钥文件</p>
+
+            </div>
+
+            
+                <div class="post-copyright-info">
+                    <div class="article-copyright-info-container">
+    <ul>
+        <li><strong>Title:</strong> 内网信息收集</li>
+        <li><strong>Author:</strong> yuBetter</li>
+        <li><strong>Created at:</strong> 2024-02-29 21:35:42</li>
+        
+            <li>
+                <strong>Updated at:</strong> 2024-02-29 21:36:40
+            </li>
+        
+        <li>
+            <strong>Link:</strong> https://yubetter.github.io/2024/02/29/内网信息收集/
+        </li>
+        <li>
+            <strong>License:</strong> This work is licensed under <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">CC BY-NC-SA 4.0</a>.
+        </li>
+    </ul>
+</div>
+
+                </div>
+            
+
+            
+
+            
+
+            
+                <div class="article-nav">
+                    
+                        <div class="article-prev">
+                            <a class="prev"
+                            rel="prev"
+                            href="/2024/02/29/%E4%BA%92%E8%81%94%E7%BD%91%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86/"
+                            >
+                                <span class="left arrow-icon flex-center">
+                                    <i class="fa-solid fa-chevron-left"></i>
+                                </span>
+                                <span class="title flex-center">
+                                    <span class="post-nav-title-item">互联网信息收集</span>
+                                    <span class="post-nav-item">Prev posts</span>
+                                </span>
+                            </a>
+                        </div>
+                    
+                    
+                        <div class="article-next">
+                            <a class="next"
+                            rel="next"
+                            href="/2024/02/29/%E5%9F%9F%E6%B8%97%E9%80%8F/"
+                            >
+                                <span class="title flex-center">
+                                    <span class="post-nav-title-item">域渗透</span>
+                                    <span class="post-nav-item">Next posts</span>
+                                </span>
+                                <span class="right arrow-icon flex-center">
+                                    <i class="fa-solid fa-chevron-right"></i>
+                                </span>
+                            </a>
+                        </div>
+                    
+                </div>
+            
+
+
+            
+                <div class="comment-container">
+                    <div class="comments-container">
+    <div id="comment-anchor"></div>
+    <div class="comment-area-title">
+        <i class="fa-solid fa-comments"></i>&nbsp;Comments
+    </div>
+    
+
+        
+            
+ 
+    <div id="waline"></div>
+    <script type="module"  data-pjax>
+        import { init } from 'https://evan.beee.top/js/waline.mjs';
+
+        function loadWaline() {
+            init({
+                el: '#waline',
+                serverURL: 'https://example.example.com',
+                lang: 'zh-CN',
+                dark: 'body[class~="dark-mode"]',
+                requiredMeta: ['nick','mail'], // cannot customize by theme config, change it yourself
+            });
+        }
+
+        if ('true') {
+            const loadWalineTimeout = setTimeout(() => {
+                loadWaline();
+                clearTimeout(loadWalineTimeout);
+            }, 1000);
+        } else {
+            window.addEventListener('DOMContentLoaded', loadWaline);
+        }
+        
+    </script>
+
+
+
+        
+    
+</div>
+
+                </div>
+            
+        </div>
+
+        
+            <div class="toc-content-container">
+                <div class="post-toc-wrap">
+    <div class="post-toc">
+        <div class="toc-title">On this page</div>
+        <div class="page-title">内网信息收集</div>
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%86%85%E7%BD%91%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86"><span class="nav-text">内网信息收集</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9C%AC%E6%9C%BA%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86"><span class="nav-text">本机信息收集</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#IP-x2F-%E6%9D%83%E9%99%90-x2F-%E7%B3%BB%E7%BB%9F%E7%89%88%E6%9C%AC-x2F-%E7%94%A8%E6%88%B7"><span class="nav-text">IP&#x2F;权限&#x2F;系统版本&#x2F;用户</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9F%9F%E7%8E%AF%E5%A2%83"><span class="nav-text">域环境</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BF%9B%E7%A8%8B"><span class="nav-text">进程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#DNS%E6%98%AF%E5%90%A6%E6%AD%A3%E5%B8%B8-x2F-TCP%E5%87%BA%E5%90%A6%E5%87%BA%E7%BD%91"><span class="nav-text">DNS是否正常&#x2F;TCP出否出网</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9C%AC%E5%9C%B0%E7%AB%AF%E5%8F%A3%E5%BC%80%E6%94%BE%E6%83%85%E5%86%B5"><span class="nav-text">本地端口开放情况</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AF%86%E7%A0%81%E8%BF%9E%E6%8E%A5%E4%BF%A1%E6%81%AF"><span class="nav-text">密码连接信息</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%95%8F%E6%84%9F%E4%BF%A1%E6%81%AF"><span class="nav-text">敏感信息</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9C%AC%E5%9C%B0%E8%BD%AF%E4%BB%B6"><span class="nav-text">本地软件</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BD%91%E7%BB%9C%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86"><span class="nav-text">网络信息收集</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BD%91%E6%AE%B5%E6%94%B6%E9%9B%86"><span class="nav-text">网段收集</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%B5%84%E4%BA%A7%E6%8E%A2%E6%B5%8B"><span class="nav-text">资产探测</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%91%E7%8E%AF%E5%A2%83%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86"><span class="nav-text">云环境信息收集</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%A4%E6%96%AD%E6%98%AF%E5%90%A6%E5%9C%A8%E5%AE%B9%E5%99%A8%E4%B8%AD"><span class="nav-text">判断是否在容器中</span></a></li></ol></li></ol></li></ol>
+
+    </div>
+</div>
+            </div>
+        
+    </div>
+</div>
+
+
+                
+
+            </div>
+            
+            
+
+        </div>
+
+        <div class="main-content-footer">
+            <footer class="footer">
+    <div class="info-container">
+        <div class="copyright-info">
+            &copy;
+            
+              <span>2022</span>
+              -
+            
+            2024&nbsp;&nbsp;<i class="fa-solid fa-heart fa-beat" style="--fa-animation-duration: 0.5s; color: #f54545"></i>&nbsp;&nbsp;<a href="/">yuBetter</a>
+        </div>
+        
+            <script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            <div class="website-count info-item">
+                
+                    <span id="busuanzi_container_site_uv" class="busuanzi_container_site_uv">
+                        VISITOR COUNT&nbsp;<span id="busuanzi_value_site_uv" class="busuanzi_value_site_uv"></span>
+                    </span>
+                
+                
+                    <span id="busuanzi_container_site_pv" class="busuanzi_container_site_pv">
+                        TOTAL PAGE VIEWS&nbsp;<span id="busuanzi_value_site_pv" class="busuanzi_value_site_pv"></span>
+                    </span>
+                
+            </div>
+        
+        <div class="theme-info info-item">
+            <span class="powered-by-container">POWERED BY <?xml version="1.0" encoding="utf-8"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg version="1.1" id="圖層_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="1rem" height="1rem" viewBox="0 0 512 512" enable-background="new 0 0 512 512" xml:space="preserve"><path fill="#0E83CD" d="M256.4,25.8l-200,115.5L56,371.5l199.6,114.7l200-115.5l0.4-230.2L256.4,25.8z M349,354.6l-18.4,10.7l-18.6-11V275H200v79.6l-18.4,10.7l-18.6-11v-197l18.5-10.6l18.5,10.8V237h112v-79.6l18.5-10.6l18.5,10.8V354.6z"/></svg><a target="_blank" href="https://hexo.io">Hexo</a></span>
+                <br>
+            <span class="theme-version-container">THEME&nbsp;<a class="theme-version" target="_blank" href="https://github.com/EvanNotFound/hexo-theme-redefine">Redefine v2.1.1</a>
+        </div>
+        
+        
+        
+            <div id="start_div" style="display:none">
+                2022/8/17 11:45:14
+            </div>
+            <div>
+                Blog up for <span class="odometer" id="runtime_days" ></span> days <span class="odometer" id="runtime_hours"></span> hrs <span class="odometer" id="runtime_minutes"></span> Min <span class="odometer" id="runtime_seconds"></span> Sec
+            </div>
+        
+        
+        
+            <script async data-pjax>
+                try {
+                    function odometer_init() {
+                    const elements = document.querySelectorAll('.odometer');
+                    elements.forEach(el => {
+                        new Odometer({
+                            el,
+                            format: '( ddd).dd',
+                            duration: 200
+                        });
+                    });
+                    }
+                    odometer_init();
+                } catch (error) {}
+            </script>
+        
+        
+        
+    </div>  
+</footer>
+        </div>
+    </div>
+
+    
+        <div class="post-tools">
+            <div class="post-tools-container">
+    <ul class="article-tools-list">
+        <!-- TOC aside toggle -->
+        
+            <li class="right-bottom-tools page-aside-toggle">
+                <i class="fa-regular fa-outdent"></i>
+            </li>
+        
+
+        <!-- go comment -->
+        
+            <li class="go-comment">
+                <i class="fa-regular fa-comments"></i>
+            </li>
+        
+    </ul>
+</div>
+
+        </div>
+    
+
+    <div class="right-side-tools-container">
+        <div class="side-tools-container">
+    <ul class="hidden-tools-list">
+        <li class="right-bottom-tools tool-font-adjust-plus flex-center">
+            <i class="fa-regular fa-magnifying-glass-plus"></i>
+        </li>
+
+        <li class="right-bottom-tools tool-font-adjust-minus flex-center">
+            <i class="fa-regular fa-magnifying-glass-minus"></i>
+        </li>
+
+        <li class="right-bottom-tools tool-expand-width flex-center">
+            <i class="fa-regular fa-expand"></i>
+        </li>
+
+        <li class="right-bottom-tools tool-dark-light-toggle flex-center">
+            <i class="fa-regular fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+
+        
+
+        <li class="right-bottom-tools tool-scroll-to-bottom flex-center">
+            <i class="fa-regular fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="visible-tools-list">
+        <li class="right-bottom-tools toggle-tools-list flex-center">
+            <i class="fa-regular fa-cog fa-spin"></i>
+        </li>
+        
+            <li class="right-bottom-tools tool-scroll-to-top flex-center">
+                <i class="arrow-up fas fa-arrow-up"></i>
+                <span class="percent"></span>
+            </li>
+        
+        
+    </ul>
+</div>
+
+    </div>
+
+    <div class="image-viewer-container">
+    <img src="">
+</div>
+
+
+    
+        <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+          <span class="search-input-field-pre">
+            <i class="fa-solid fa-keyboard"></i>
+          </span>
+            <div class="search-input-container">
+                <input autocomplete="off"
+                       autocorrect="off"
+                       autocapitalize="off"
+                       placeholder="Search..."
+                       spellcheck="false"
+                       type="search"
+                       class="search-input"
+                >
+            </div>
+            <span class="popup-btn-close">
+                <i class="fa-solid fa-times"></i>
+            </span>
+        </div>
+        <div id="search-result">
+            <div id="no-result">
+                <i class="fa-solid fa-spinner fa-spin-pulse fa-5x fa-fw"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+
+
+</main>
+
+
+
+<script src="//evan.beee.top/projects/hexo-theme-redefine/v2.1.1/source/js/utils.js"></script><script src="//evan.beee.top/projects/hexo-theme-redefine/v2.1.1/source/js/main.js"></script><script src="//evan.beee.top/projects/hexo-theme-redefine/v2.1.1/source/js/layouts/navbarShrink.js"></script><script src="//evan.beee.top/projects/hexo-theme-redefine/v2.1.1/source/js/tools/scrollTopBottom.js"></script><script src="//evan.beee.top/projects/hexo-theme-redefine/v2.1.1/source/js/tools/lightDarkSwitch.js"></script>
+
+
+    <script src="//evan.beee.top/projects/hexo-theme-redefine/v2.1.1/source/js/tools/localSearch.js"></script>
+
+
+
+    <script src="//evan.beee.top/projects/hexo-theme-redefine/v2.1.1/source/js/tools/codeBlock.js"></script>
+
+
+
+    <script src="//evan.beee.top/projects/hexo-theme-redefine/v2.1.1/source/js/layouts/lazyload.js"></script>
+
+
+
+    <script src="//evan.beee.top/projects/hexo-theme-redefine/v2.1.1/source/js/tools/runtime.js"></script>
+    <script src="//evan.beee.top/projects/hexo-theme-redefine/v2.1.1/source/js/layouts/odometer.min.js"></script>
+    <link rel="stylesheet" href="//evan.beee.top/projects/hexo-theme-redefine/v2.1.1/source/assets/odometer-theme-minimal.css">
+
+
+
+  <script src="//evan.beee.top/projects/hexo-theme-redefine/v2.1.1/source/js/libs/Typed.min.js"></script>
+  <script src="//evan.beee.top/projects/hexo-theme-redefine/v2.1.1/source/js/plugins/typed.js"></script>
+
+
+
+
+
+
+<div class="post-scripts pjax">
+    
+        <script src="//evan.beee.top/projects/hexo-theme-redefine/v2.1.1/source/js/tools/tocToggle.js"></script><script src="//evan.beee.top/projects/hexo-theme-redefine/v2.1.1/source/js/libs/anime.min.js"></script><script src="//evan.beee.top/projects/hexo-theme-redefine/v2.1.1/source/js/layouts/toc.js"></script><script src="//evan.beee.top/projects/hexo-theme-redefine/v2.1.1/source/js/plugins/tabs.js"></script>
+    
+</div>
+
+
+    <script src="//evan.beee.top/projects/hexo-theme-redefine/v2.1.1/source/js/libs/pjax.min.js"></script>
+<script>
+    window.addEventListener('DOMContentLoaded', () => {
+        window.pjax = new Pjax({
+            selectors: [
+                'head title',
+                '.page-container',
+                '.pjax',
+            ],
+            history: true,
+            debug: false,
+            cacheBust: false,
+            timeout: 0,
+            analytics: false,
+            currentUrlFullReload: false,
+            scrollRestoration: false,
+            // scrollTo: true,
+        });
+
+        document.addEventListener('pjax:send', () => {
+            Global.utils.pjaxProgressBarStart();
+        });
+
+        document.addEventListener('pjax:complete', () => {
+            Global.utils.pjaxProgressBarEnd();
+            window.pjax.executeScripts(document.querySelectorAll('script[data-pjax], .pjax script'));
+            Global.refresh();
+        });
+    });
+</script>
+
+
+
+
+</body>
+</html>
